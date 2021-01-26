@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    @Styles.Render("~/Content/layout/ProductPage.css")
+
+
+    <title></title>
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3 ">
+                <div class="operating-area" id="sidemenu">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                        <i class="fas fa-feather"></i>
+                                        空間類型
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                 data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <input type="radio" id="kitchen" name="location">
+                                    <label for="kitchen">廚房</label><br>
+                                    <input type="radio" id="livingroom" name="location">
+                                    <label for="livingroom">客廳</label><br>
+                                    <input type="radio" id="bedroom" name="location">
+                                    <label for="bedroom">臥室</label><br>
+                                    <input type="radio" id="bathroom" name="location">
+                                    <label for="bathroom">浴廁</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                                            aria-controls="collapseTwo">
+                                        <i class="fas fa-feather"></i>
+                                        空間大小
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                                 data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <input type="radio" id="5meters" name="meters" value="5">
+                                    <label for="5meters">5坪以下</label><br>
+                                    <input type="radio" id="10meters" name="meters" value="10">
+                                    <label for="10meters">6-10坪</label><br>
+                                    <input type="radio" id="15meters" name="meters" value="15">
+                                    <label for="15meters">11-15坪</label><br>
+                                    <input type="radio" id="20meters" name="meters" value="20">
+                                    <label for="20meters">16坪以上</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                                            aria-controls="collapseThree">
+                                        <i class="fas fa-feather"></i>
+                                        服務項目
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
+                                 data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <input type="checkbox" id="clean" name="vehicle1" value="Bike">
+                                    <label for="clean">清潔</label><br>
+                                    <input type="checkbox" id="storage" name="vehicle2" value="Car">
+                                    <label for="storage">收納</label><br>
+                                    <input type="checkbox" id="deworming" name="vehicle3" value="Boat">
+                                    <label for="deworming">除蟲</label><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="operating-area-btn" id="operating-area-btn">
+                        <button id="sidemenu-contorl"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-1">
+                <div class="transform-area">
+                    <div class="viewed-area">
+                        <div class="title">
+                            <h3>你看過的商品</h3>
+                        </div>
+                        <div class="item-group">
+                            <div class="item">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/200/200/?random=1">
+                                </div>
+                                <div class="text">
+                                    <p class="card-text">Some the bulk.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/200/200/?random=5">
+                                </div>
+                                <div class="text">
+                                    <p class="card-text">Some the bulk.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/200/200/?random=8">
+                                </div>
+                                <div class="text">
+                                    <p class="card-text">Some the bulk.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/200/200/?random=9">
+                                </div>
+                                <div class="text">
+                                    <p class="card-text">Some the bulk.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/200/200/?random=10">
+                                </div>
+                                <div class="text">
+                                    <p class="card-text">Some the bulk.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="packagetodefine-area">
+                        <button class="packagetodefine-btn">自行<br>搭配</button>
+                        <button class="packagetodefine-btn d-none">套裝<br>行程</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-8 col-lg-8">
+                <div class="product-area">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="card-header">
+                            <h2>
+                                <i class="fas fa-feather"></i>  商品列表
+                            </h2>
+                            <div class="gridtolist-area">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary" id="grid-btn"><i class="fas fa-th-large"></i></button>
+                                    <button type="button" class="btn btn-secondary" id="list-btn"><i class="fas fa-list"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="item-group grid " id="item-group-grid">
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=1">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=2">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=3">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=4">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=7">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=8">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=4">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=14">
+                                </div>
+                                <div class="text">
+                                    <p>Some quick example .</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-group list d-none" id="item-group-list">
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=4">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=6">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=9">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=20">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=16">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=17">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=31">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=23">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="pic">
+                                    <img src="https://picsum.photos/300/200/?random=43">
+                                </div>
+                                <div class="text">
+                                    <p>
+                                        Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="userdefined-area d-none">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="card-header">
+                            <h2>
+                                <i class="fas fa-feather">  客製化商品</i>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="item-group">
+                                <div class="item">
+                                    <div class="text">
+                                        <h3>空間類型</h3>
+                                        <p> <i class="fas fa-angle-double-right">  廚房</i></p>
+                                    </div>
+                                    <div class="pic">
+                                        <img src="/pic/vacuum.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="text">
+                                        <h3>坪數大小</h3>
+                                        <p><i class="fas fa-angle-double-right">  10-15坪</i></p>
+                                    </div>
+                                    <div class="pic">
+                                        <img src="/pic/vacuum.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-area">
+                            <button>加入購物車</button>
+                            <button>前往結帳</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/Scripts/ProductPage/ProductPage.js")
+
+</body>
+
+</html>
