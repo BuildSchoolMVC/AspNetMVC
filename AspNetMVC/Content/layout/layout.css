@@ -782,11 +782,100 @@ img {
 
 		.section_cart-side-menu .cart .cart-body {
 			overflow-y: scroll;
+			overflow-x: hidden;
 			height: 200px;
 			-webkit-box-flex: 1;
 			-ms-flex-positive: 1;
 			flex-grow: 1
 		}
+
+			.section_cart-side-menu .cart .cart-body .cart-product-item {
+				-webkit-transition: .4s ease-in;
+				transition: .4s ease-in;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-box-direction: normal;
+				-ms-flex-direction: row;
+				flex-direction: row;
+				background: var(--white);
+				position: relative
+			}
+
+				.section_cart-side-menu .cart .cart-body .cart-product-item i {
+					top: 5%;
+					right: 5%;
+					font-size: 18px;
+					cursor: pointer
+				}
+
+				.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group {
+					position: absolute;
+					width: 100px;
+					height: 100%;
+					top: 0;
+					right: -80px;
+					opacity: 0;
+					display: -webkit-box;
+					display: -ms-flexbox;
+					display: flex;
+					-webkit-box-orient: vertical;
+					-webkit-box-direction: normal;
+					-ms-flex-direction: column;
+					flex-direction: column;
+					-webkit-box-pack: center;
+					-ms-flex-pack: center;
+					justify-content: center;
+					-webkit-box-align: end;
+					-ms-flex-align: end;
+					align-items: flex-end;
+					z-index: -1;
+					-webkit-transition: opacity .3s .4s linear;
+					transition: opacity .3s .4s linear
+				}
+
+					.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group button {
+						padding: 10px 20px;
+						border-radius: 0 10px 10px 0;
+						color: var(--white);
+						width: 80px;
+						height: 50%;
+						margin: 5px 0
+					}
+
+						.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group button.confirm {
+							background: #e64d27;
+							font-size: 18px
+						}
+
+							.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group button.confirm:hover {
+								background: #c5401f
+							}
+
+						.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group button.cancel {
+							background: #315df0;
+							font-size: 20px
+						}
+
+							.section_cart-side-menu .cart .cart-body .cart-product-item .btn-group button.cancel:hover {
+								background: #2147c3
+							}
+
+				.section_cart-side-menu .cart .cart-body .cart-product-item.remove {
+					-webkit-transform: translateX(-100px);
+					transform: translateX(-100px)
+				}
+
+					.section_cart-side-menu .cart .cart-body .cart-product-item.remove .btn-group {
+						opacity: 1
+					}
+
+				.section_cart-side-menu .cart .cart-body .cart-product-item.delete {
+					-webkit-transform: translateX(-100%);
+					transform: translateX(-100%);
+					opacity: 0
+				}
 
 			.section_cart-side-menu .cart .cart-body::-webkit-scrollbar {
 				width: 8px

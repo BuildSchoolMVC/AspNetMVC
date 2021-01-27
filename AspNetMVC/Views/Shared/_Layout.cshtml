@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>uCleaner打掃服務-@ViewBag.Title</title>
-    @Styles.Render("~/Content/bootstrap.css")
-    @Styles.Render("~/Content/layout/layout.css")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/layout")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -31,14 +31,16 @@
     <section class="section_nav">
         <div class="container-xxl">
             <nav class="navbar navbar-expand-lg navbar-light position-static">
-                <a class="navbar-brand" href="javascript:;">Logo</a>
+                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                    Logo
+                </a>
                 <button class="hamburger" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link color-gray" href="javascript:;">
+                            <a href="@Url.Action("Index", "ProductPage")" class="nav-link color-gray">
                                 <i class="fas fa-home ml-4 mr-2"></i>找打掃
                             </a>
                         </li>
@@ -54,7 +56,7 @@
                                 id="login-register">
                             註冊/登入
                         </button>
-                        <button class="btn" id="cart"><i class="fas fa-shopping-cart pr-1"></i>(<span>3</span>)</button>
+                        <button class="btn" id="cart"><i class="fas fa-shopping-cart pr-1"></i>(<span class="count"></span>)</button>
                     </div>
                 </div>
                 <div class="side-menu">
@@ -159,7 +161,7 @@
                             </li>
                             <li class="nav-item py-2">
                                 <a class="btn nav-link color-gray" href="javascript:;" id="side-menu-cart">
-                                    <i class="fas fa-shopping-cart ml-4 mr-2"></i>購物車(<span>3</span>)
+                                    <i class="fas fa-shopping-cart ml-4 mr-2"></i>購物車(<span class="count"></span>)
                                 </a>
                             </li>
                         </ul>
@@ -238,17 +240,18 @@
                         <div class="cart-header pb-2 mb-5">
                             <div class="cart-title">
                                 <i class="fas fa-times float-right" id="cart-close"></i>
-                                <h2>你的購物車(<span>3</span>)</h2>
+                                <h2>你的購物車(<span class="count"></span>)</h2>
                             </div>
                         </div>
                         <div class="cart-body mt-5 mb-3">
-                            <div class="cart-product-item card mb-3">
+                            <div class="cart-product-item mb-3" data-price="7346">
                                 <div class="row no-gutters">
-                                    <div class="col-lg-5">
-                                        <img src="~/Images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=1" class="w-100 lazyload">
+                                    <div class="col-5">
+                                        <img src="./images/loading.gif"
+                                             data-src="https://picsum.photos/300/400/?random=1"
+                                             class="w-100 h-100 lazyload">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-7">
                                         <div class="card-body py-4 px-3">
                                             <h3 class="card-title">精選套裝</h3>
                                             <ul class="list-unstyled">
@@ -260,15 +263,20 @@
                                             <p class="card-text"><small class="color-muted">超值優惠服務!我們服務，你可放心</small></p>
                                         </div>
                                     </div>
+                                    <div class="btn-group">
+                                        <button class="btn confirm">確認刪除</button>
+                                        <button class="btn cancel">取消</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="cart-product-item card mb-3">
+                            <div class="cart-product-item mb-3" data-price="2346">
                                 <div class="row no-gutters">
-                                    <div class="col-lg-5">
-                                        <img src="~/Images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=3" class="w-100 lazyload">
+                                    <div class="col-5">
+                                        <img src="./images/loading.gif"
+                                             data-src="https://picsum.photos/300/400/?random=3"
+                                             class="w-100 h-100 lazyload">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-7">
                                         <div class="card-body py-4 px-3">
                                             <h3 class="card-title">精選套裝2</h3>
                                             <ul class="list-unstyled">
@@ -279,15 +287,20 @@
                                             <p class="card-text"><small class="color-muted">超值優惠服務!我們服務，你可放心</small></p>
                                         </div>
                                     </div>
+                                    <div class="btn-group">
+                                        <button class="btn confirm">確認刪除</button>
+                                        <button class="btn cancel">取消</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="cart-product-item card mb-3">
+                            <div class="cart-product-item mb-3" data-price="2134">
                                 <div class="row no-gutters">
-                                    <div class="col-lg-5">
-                                        <img src="~/Images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=2" class="w-100 lazyload">
+                                    <div class="col-5">
+                                        <img src="./images/loading.gif"
+                                             data-src="https://picsum.photos/300/400/?random=2"
+                                             class="w-100 h-100 lazyload">
                                     </div>
-                                    <div class="col-lg-7">
+                                    <div class="col-7">
                                         <div class="card-body py-4 px-3">
                                             <h3 class="card-title">精選套裝3</h3>
                                             <ul class="list-unstyled">
@@ -298,6 +311,10 @@
                                             </ul>
                                             <p class="card-text"><small class="color-muted">超值優惠服務!我們服務，你可放心</small></p>
                                         </div>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn confirm">確認刪除</button>
+                                        <button class="btn cancel">取消</button>
                                     </div>
                                 </div>
                             </div>
@@ -388,11 +405,12 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous">
     </script>
-    @Scripts.Render("~/Scripts/layout/all.js")
+    @Scripts.Render("~/Scripts/layout")
     @RenderSection("scripts", required: false)
 </body>
 </html>

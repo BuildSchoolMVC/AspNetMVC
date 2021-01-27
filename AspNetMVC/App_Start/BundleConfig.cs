@@ -23,8 +23,15 @@ namespace AspNetMVC
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"));
+
+            bundles.Add(new StyleBundle("~/Content/layout").Include(
+                     "~/Content/layout/layout.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/layout").Include(
+                        "~/Scripts/layout/all.js"));
+
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }
