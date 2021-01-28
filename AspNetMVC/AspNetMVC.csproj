@@ -129,26 +129,28 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\home\index.css" />
+    <Content Include="Assets\css\layout\layout.css" />
+    <Content Include="Assets\images\banner.jpg" />
+    <Content Include="Assets\images\line.png" />
+    <Content Include="Assets\images\loading.gif" />
+    <Content Include="Assets\images\p1.jpg" />
+    <Content Include="Assets\images\p2.jpg" />
+    <Content Include="Assets\images\p3.jpg" />
+    <Content Include="Assets\images\p4.jpg" />
+    <Content Include="Assets\images\p5.jpg" />
+    <Content Include="Assets\images\p6.jpg" />
+    <Content Include="Assets\js\home\all.js" />
+    <Content Include="Assets\js\layout\all.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\home\index.css" />
-    <Content Include="Content\layout\layout.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\banner.jpg" />
-    <Content Include="Images\line.png" />
-    <Content Include="Images\loading.gif" />
-    <Content Include="Images\p1.jpg" />
-    <Content Include="Images\p2.jpg" />
-    <Content Include="Images\p3.jpg" />
-    <Content Include="Images\p4.jpg" />
-    <Content Include="Images\p5.jpg" />
-    <Content Include="Images\p6.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -157,7 +159,6 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\home\all.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -185,7 +186,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\layout\all.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />

@@ -85,6 +85,16 @@ const counterEffect = () => {
         });
     });
     counters.forEach(item => observer.observe(item));
+
+    const notation = (value) => {
+        let length = value.toString().length
+        return length <= 3 ? value :
+            length == 4 ? `${value.toString().substring(0, 1)},${value.toString().substring(1, 4)}` :
+            length == 5 ? `${value.toString().substring(0, 2)},${value.toString().substring(2, 5)}` :
+            length == 6 ? `${value.toString().substring(0, 3)},${value.toString().substring(3, 6)}` :
+            length == 7 ? `${value.toString().substring(0, 1)},${value.toString().substring(1, 4)},${value.toString().substring(4, 7)}` :
+            length == 8 ? `${value.toString().substring(0, 2)},${value.toString().substring(2, 5)},${value.toString().substring(5, 8)}` : `${value.toString().substring(0, 3)},${value.toString().substring(3, 6)},${value.toString().substring(6, 9)}`
+    }
 }
 const toggleServiceTab = (target, event) => {
     event.preventDefault();

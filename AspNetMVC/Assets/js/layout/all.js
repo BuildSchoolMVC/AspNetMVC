@@ -80,18 +80,20 @@ const toggleCart = () => {
             document.querySelector(".cart-side-menu").classList.add("open")
         }
     })
-    document.querySelector("#side-menu-cart").addEventListener("click", function () {
-        if (document.querySelector(".cart-side-menu").classList.contains("open")) {
-            document.querySelector(".cart-side-menu").classList.remove("open");
-        } else {
-            document.querySelector(".cart-side-menu").classList.add("open")
-            document.querySelector(".side-menu").classList.remove("show");
-        }
-    })
     document.querySelector("#cart-close").addEventListener("click", function () {
         if (document.querySelector(".cart-side-menu").classList.contains("open")) {
             document.querySelector(".cart-side-menu").classList.remove("open")
         }
+    })
+}
+const openBottomCart = () => {
+    document.querySelectorAll(".nav-bottom-item")[1].addEventListener("click", function () {
+        document.querySelector(".section_cart-side-menu").classList.add("open");
+    })
+}
+const openBottomCustomerService = () => {
+    document.querySelectorAll(".nav-bottom-item")[3].addEventListener("click", function () {
+        document.querySelector(".contact-us-form").classList.toggle("active");
     })
 }
 
@@ -111,13 +113,6 @@ const fakeLogin = () => {
         createMemberCenter();
         fakeLogout();
     })
-
-    document.querySelector(".side-menu-nav .nav-item:nth-of-type(3) a").addEventListener("click", function () {
-        createLogout();
-        createMemberCenter();
-        fakeLogout();
-    })
-
 }
 const fakeLogout = () => {
     document.querySelector("#logout").addEventListener("click", function () {
@@ -133,45 +128,14 @@ const createMemberCenter = () => {
     if (document.querySelector("#login-register")) {
         document.querySelector("#login-register").remove();
     }
-    if (document.querySelector("#side-login-register")) {
-        document.querySelector("#side-login-register").remove();
-    }
 
     let buttonMember = document.createElement("button");
     buttonMember.className = "btn border rounded-pill border-skyblue color-skyblue member-center";
     buttonMember.textContent = "會員中心";
     buttonMember.setAttribute("id", "member-center")
     document.querySelector(".nav_btn-group").prepend(buttonMember);
-
-
-    let a = document.createElement("a");
-    a.className = "nav-link color-gray member-center";
-    a.setAttribute("href", "javascript:;");
-    a.setAttribute("id", "side-member-center");
-
-    let i = document.createElement("i");
-    i.className = "fas fa-user ml-4 mr-2";
-
-    a.append(i, "會員中心");
-
-    document.querySelector(".side-menu-nav .nav-item:nth-of-type(3)").append(a);
 }
 const createLogout = () => {
-    let li = document.createElement("li");
-    li.classList.add("nav-item", "py-2");
-
-    let a = document.createElement("a");
-    a.className = "btn nav-link color-gray";
-    a.setAttribute("href", "javascript:;");
-    a.setAttribute("id", "side-logout");
-
-    let i = document.createElement("i");
-    i.className = "fas fa-sign-out-alt ml-4 mr-2";
-
-    a.append(i, "登出");
-    li.appendChild(a);
-    document.querySelector(".side-menu-nav").appendChild(li);
-
     let button = document.createElement("button");
     button.classList.add("btn");
     button.innerText = "登出";
@@ -180,12 +144,6 @@ const createLogout = () => {
 
 }
 const createLogIn = () => {
-    if (document.querySelector("#side-member-center")) {
-        document.querySelector("#side-member-center").remove();
-    }
-    if (document.querySelector("#side-logout")) {
-        document.querySelector(".side-menu-nav .nav-item:nth-of-type(5)").remove();
-    }
     if (document.querySelector("#member-center")) {
         document.querySelector("#member-center").remove();
     }
@@ -198,25 +156,12 @@ const createLogIn = () => {
     button.textContent = "註冊/登入";
 
     document.querySelector(".nav_btn-group").prepend(button);
-
-    let a = document.createElement("a");
-    a.className = "btn nav-link color-gray"
-    a.setAttribute("href", "javascript:;");
-    a.setAttribute("id", "side-login-register");
-
-    let i = document.createElement("i");
-    i.className = "fas fa-user ml-4 mr-2"
-
-    a.append(i, "註冊/登入");
-    document.querySelector(".side-menu-nav .nav-item:nth-of-type(3)").appendChild(a);
 }
-
 const loadingAnimation = () => {
     setTimeout(() => {
         document.querySelector(".section_loading").classList.add("inactive");
     }, 2000)
 }
-
 const imgLazyLoad = () => {
     let imgs = document.querySelectorAll(".lazyload");
     let observer = new IntersectionObserver(entries => {
@@ -308,6 +253,8 @@ window.addEventListener("load", () => {
     toggleSideMenuAllService();
     toggleCart();
     toggleContact();
+    openBottomCart();
+    openBottomCustomerService();
     fakeLogin();
     imgLazyLoad();
     hoverEffect();

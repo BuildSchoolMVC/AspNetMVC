@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>uCleaner打掃服務-@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/layout")
+    @Styles.Render("~/Assets/css/layout/layout.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -66,13 +66,13 @@
                     <div class="side-menu_body">
                         <ul class="side-menu-nav">
                             <li class="nav-item py-2">
-                                <a class="nav-link color-gray" href="javascript:;">
-                                    <i class="fas fa-home ml-4 mr-2"></i>找打掃
-                                </a>
+                                <a class="nav-link color-gray" href="javascript:;"><i
+                                        class="fas fa-home ml-4 mr-2"></i>找打掃</a>
                             </li>
                             <li class="nav-item py-2">
                                 <a class="btn nav-link color-gray all-service" href="javascript:;">
-                                    <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務<i class="fas fa-chevron-right ml-2"></i>
+                                    <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務<i
+                                        class="fas fa-chevron-right ml-2"></i>
                                 </a>
                                 <div class="side-menu_all-service">
                                     <a class="btn nav-link color-gray all-service" href="javascript:;">
@@ -81,94 +81,115 @@
                                     <ul class="list-unstyled">
                                         <li>
                                             <div class="subItem py-2">
-                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">
-                                                    熱門常用<i class="fas fa-chevron-right ml-3"></i>
-                                                </span>
+                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">熱門常用<i
+                                                        class="fas fa-chevron-right ml-3"></i></span>
                                                 <div class="subSubItem">
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.1s">鐘點清潔</a>
+                                                        style="--delay:.1s">鐘點清潔</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.2s">冷氣機清洗</a>
+                                                        style="--delay:.2s">冷氣機清洗</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.3s">洗衣機清洗</a>
+                                                        style="--delay:.3s">洗衣機清洗</a>
                                                 </div>
                                             </div>
                                         </li>
 
                                         <li>
                                             <div class="subItem py-2">
-                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">
-                                                    清潔收納<i class="fas fa-chevron-right ml-3"></i>
-                                                </span>
+                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">清潔收納<i
+                                                        class="fas fa-chevron-right ml-3"></i></span>
                                                 <div class="subSubItem">
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.1s">鐘點清潔</a>
+                                                        style="--delay:.1s">鐘點清潔</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.2s">收納整理</a>
+                                                        style="--delay:.2s">收納整理</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.3s">裝潢清潔</a>
+                                                        style="--delay:.3s">裝潢清潔</a>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subItem py-2">
-                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">
-                                                    清除塵蟎<i class="fas fa-chevron-right ml-3"></i>
-                                                </span>
+                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">清除塵蟎<i
+                                                        class="fas fa-chevron-right ml-3"></i></span>
                                                 <div class="subSubItem">
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.1s">除塵蟎</a>
+                                                        style="--delay:.1s">除塵蟎</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.2s">清毒除蟲</a>
+                                                        style="--delay:.2s">清毒除蟲</a>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subItem py-2">
-                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">
-                                                    企業服務<i class="fas fa-chevron-right ml-3"></i>
-                                                </span>
+                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">企業服務<i
+                                                        class="fas fa-chevron-right ml-3"></i></span>
                                                 <div class="subSubItem">
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.1s">鐘點清潔</a>
+                                                        style="--delay:.1s">鐘點清潔</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.2s">辦公室定期</a>
+                                                        style="--delay:.2s">辦公室定期</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.3s">冷氣機清洗</a>
+                                                        style="--delay:.3s">冷氣機清洗</a>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subItem py-2">
-                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">
-                                                    其他服務<i class="fas fa-chevron-right ml-3"></i>
-                                                </span>
+                                                <span class="dropdown-item color-gray pl-3" href="javascript:;">其他服務<i
+                                                        class="fas fa-chevron-right ml-3"></i></span>
                                                 <div class="subSubItem">
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.1s">洗衣服務</a>
+                                                        style="--delay:.1s">洗衣服務</a>
                                                     <a class="dropdown-item color-gray pl-5" href="javascript:;"
-                                                       style="--delay:.2s">地板保養</a>
+                                                        style="--delay:.2s">地板保養</a>
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item py-2">
-                                <a class="btn nav-link color-gray" href="javascript:;" id="side-login-register">
-                                    <i class="fas fa-user ml-4 mr-2"></i>註冊/登入
-                                </a>
-                            </li>
-                            <li class="nav-item py-2">
-                                <a class="btn nav-link color-gray" href="javascript:;" id="side-menu-cart">
-                                    <i class="fas fa-shopping-cart ml-4 mr-2"></i>購物車(<span class="count"></span>)
-                                </a>
-                            </li>
                         </ul>
                     </div>
 
                 </div>
             </nav>
+        </div>
+        <div class="nav-bottom">
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fas fa-home"></i>
+                            <span>首頁</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="javascript:;">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>購物車</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="javascript:;">
+                            <i class="fas fa-user"></i>
+                            <span>會員</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="javascript:;">
+                            <i class="fas fa-question"></i>
+                            <span>客服</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <section class="section_collapse-zone">
@@ -224,7 +245,7 @@
                     </div>
                     <div class="col-3">
                         <div class="collapse_section">
-                            <img src="~/Images/loading.gif" data-src="https://picsum.photos/300/150/?random=1"
+                            <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/150/?random=1"
                                  class="d-block rounded mt-4 lazyload" style="width: 300px;height:150px;">
                         </div>
                     </div>
@@ -242,14 +263,15 @@
                                 <i class="fas fa-times float-right" id="cart-close"></i>
                                 <h2>你的購物車(<span class="count"></span>)</h2>
                             </div>
+                            <span class="tip">※向左滑動以便進行刪除</span>
                         </div>
                         <div class="cart-body mt-5 mb-3">
                             <div class="cart-product-item mb-3" data-price="7346">
                                 <div class="row no-gutters">
                                     <div class="col-5">
-                                        <img src="./images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=1"
-                                             class="w-100 h-100 lazyload">
+                                        <img src="~/Assets/images/loading.gif"
+                                            data-src="https://picsum.photos/300/400/?random=1"
+                                            class="w-100 h-100 lazyload">
                                     </div>
                                     <div class="col-7">
                                         <div class="card-body py-4 px-3">
@@ -272,9 +294,9 @@
                             <div class="cart-product-item mb-3" data-price="2346">
                                 <div class="row no-gutters">
                                     <div class="col-5">
-                                        <img src="./images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=3"
-                                             class="w-100 h-100 lazyload">
+                                        <img src="~/Assets/images/loading.gif"
+                                            data-src="https://picsum.photos/300/400/?random=3"
+                                            class="w-100 h-100 lazyload">
                                     </div>
                                     <div class="col-7">
                                         <div class="card-body py-4 px-3">
@@ -296,9 +318,9 @@
                             <div class="cart-product-item mb-3" data-price="2134">
                                 <div class="row no-gutters">
                                     <div class="col-5">
-                                        <img src="./images/loading.gif"
-                                             data-src="https://picsum.photos/300/400/?random=2"
-                                             class="w-100 h-100 lazyload">
+                                        <img src="~/Assets/images/loading.gif"
+                                            data-src="https://picsum.photos/300/400/?random=2"
+                                            class="w-100 h-100 lazyload">
                                     </div>
                                     <div class="col-7">
                                         <div class="card-body py-4 px-3">
@@ -320,7 +342,7 @@
                             </div>
                         </div>
                         <div class="cart-footer mt-4">
-                            <h2 class="mt-2 mb-5">小計 : 6,500 元</h2>
+                            <h2 class="mt-2 mb-5"></h2>
                             <button class="btn">結帳去</button>
                         </div>
                     </div>
@@ -352,7 +374,7 @@
                 </div>
                 <div class="col-12 col-lg-4">
                     <a href="https://line.me/ti/p/8W34BVyjk1" target="_blank" class="line-link">
-                        <img src="~/Images/loading.gif" data-src="/Images/line.png" alt="line" class="lazyload">
+                        <img src="~/Assets/images/loading.gif" data-src="/Assets/images/line.png" alt="line" class="lazyload">
                     </a>
                 </div>
             </div>
@@ -410,7 +432,7 @@
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous">
     </script>
-    @Scripts.Render("~/Scripts/layout")
+    @Scripts.Render("~/Assets/js/layout/all.js")
     @RenderSection("scripts", required: false)
 </body>
 </html>
