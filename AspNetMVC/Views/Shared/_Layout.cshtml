@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Assets/css/layout/layout.css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("indexCss", false)
 </head>
 <body>
     <section class="section_loading">
@@ -31,8 +32,8 @@
     <section class="section_nav">
         <div class="container-xxl">
             <nav class="navbar navbar-expand-lg navbar-light position-static">
-                <a href="@Url.Action("Index", "Home")" class="navbar-brand">
-                    Logo
+                <a class="logo" href="@Url.Action("Index", "Home")"; >
+                    <img src="~/Assets/images/logo.png" alt="Logo" class="w-100 h-100">
                 </a>
                 <button class="hamburger" type="button">
                     <span class="navbar-toggler-icon"></span>
@@ -40,23 +41,21 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="@Url.Action("Index", "ProductPage")" class="nav-link color-gray">
-                                <i class="fas fa-home ml-4 mr-2"></i>找打掃
-                            </a>
+                            <a class="nav-link color-gray" href="javascript:;"><i
+                                    class="fas fa-home ml-4 mr-2"></i>找打掃</a>
                         </li>
                         <li class="nav-item">
                             <button class="btn nav-link color-gray all-service" type="button" data-toggle="collapse"
-                                    data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                data-target="#collapse" aria-expanded="false" aria-controls="collapse">
                                 <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務
                             </button>
                         </li>
                     </ul>
                     <div class="nav_btn-group d-flex align-items-center">
                         <button class="btn border rounded-pill border-skyblue color-skyblue login-register"
-                                id="login-register">
-                            註冊/登入
-                        </button>
-                        <button class="btn" id="cart"><i class="fas fa-shopping-cart pr-1"></i>(<span class="count"></span>)</button>
+                            id="login-register">註冊/登入</button>
+                        <button class="btn" id="cart"><i class="fas fa-shopping-cart pr-1"></i>(<span
+                                class="count"></span>)</button>
                     </div>
                 </div>
                 <div class="side-menu">
@@ -193,60 +192,60 @@
         </div>
     </section>
     <section class="section_collapse-zone">
-        <div class="collapse mt-4 pt-5 pb-3 bg-white" id="collapse">
+        <div class="collapse mt-5 pt-5 pb-3 bg-white" id="collapse">
             <div class="container">
                 <div class="row py-4">
                     <div class="col-3 d-flex">
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">熱門常用</h5>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=1">鐘點清潔</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=1">鐘點清潔</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=2">冷氣機清洗</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=2">冷氣機清洗</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=3">洗衣機清洗</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=3">洗衣機清洗</a>
                         </div>
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">清潔收納</h5>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=4">鐘點清潔</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=4">鐘點清潔</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=5">收納整理</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=5">收納整理</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=6">裝潢清潔</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=6">裝潢清潔</a>
                         </div>
                     </div>
                     <div class="col-3 d-flex">
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">清除塵蟎</h5>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=7">除塵蟎</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=7">除塵蟎</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=8">清毒除蟲</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=8">清毒除蟲</a>
                         </div>
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">企業服務</h5>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=9">鐘點清潔</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=9">鐘點清潔</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=10">辦公室定期</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=10">辦公室定期</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=11">冷氣機清洗</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=11">冷氣機清洗</a>
                         </div>
                     </div>
-                    <div class="col-3 d-flex">
+                    <div class="col-2 d-flex">
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">其他服務</h5>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=12">洗衣服務</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=12">洗衣服務</a>
                             <a class="dropdown-item color-gray" href="javascript:;"
-                               data-imgSrc="https://picsum.photos/300/150/?random=13">地板保養</a>
+                                data-imgSrc="https://picsum.photos/300/150/?random=13">地板保養</a>
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="collapse_section">
                             <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/150/?random=1"
-                                 class="d-block rounded mt-4 lazyload" style="width: 300px;height:150px;">
+                                class="d-block rounded mt-4 lazyload" style="width: 300px;height:150px;">
                         </div>
                     </div>
                 </div>
@@ -366,23 +365,24 @@
                     <ul class="list-unstyled">
                         <li><a href="javascript:;">02-6605-7606</a></li>
                         <li><a href="javascript:;">service@abc.com</a></li>
-                        <li>
-                            平日 09:00 - 18:00 ． 例假日 9:00 - 12:30 ， 13:30 - 18:00
+                        <li>平日 09:00 - 18:00 ． 例假日 9:00 - 12:30 ， 13:30 - 18:00
                         </li>
                         <li>台北市大安區忠孝東路三段96號11號樓之1</li>
                     </ul>
                 </div>
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 d-flex align-items-center">
                     <a href="https://line.me/ti/p/8W34BVyjk1" target="_blank" class="line-link">
-                        <img src="~/Assets/images/loading.gif" data-src="/Assets/images/line.png" alt="line" class="lazyload">
-                    </a>
+                        <img src="~/Assets/images/loading.gif" data-src="/Assets/images/line.png" alt="line" class="lazyload"></a>
+                    <div class="logo pl-4">
+                        <img src="~/Assets/images/logo.png" alt="Logo" class="w-100">
+                    </div>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <p>
-                        &copy; 捷克幫幫忙 @DateTime.Now.Year All Right Reserved
+                        &copy; uCleaner - 打掃服務 2021 All Right Reserved
                     </p>
                 </div>
                 <div class="col-12 col-lg-6">
@@ -410,7 +410,7 @@
                             </div>
                             <div class="input-groupings">
                                 <label for="contact_phone">電話</label>
-                                <input type="tel" name="" id="contact_phone">
+                                <input type="phone" name="" id="contact_phone">
                             </div>
                             <div class="input-groupings">
                                 <label for="contact_content">訊息</label>
@@ -423,6 +423,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
@@ -433,6 +434,6 @@
             crossorigin="anonymous">
     </script>
     @Scripts.Render("~/Assets/js/layout/all.js")
-    @RenderSection("scripts", required: false)
+    @RenderSection("indexJs",false)
 </body>
 </html>

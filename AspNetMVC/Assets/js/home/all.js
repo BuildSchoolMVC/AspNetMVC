@@ -1,7 +1,11 @@
 ﻿const initCarousel = () => {
     $(".owl-carousel").owlCarousel({
         items: 1,
-        loop: true
+        loop: true,
+        animateOut: 'fadeOut',
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true
     });
 }
 

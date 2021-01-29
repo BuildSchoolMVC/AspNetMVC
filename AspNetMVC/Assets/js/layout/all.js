@@ -119,10 +119,6 @@ const fakeLogout = () => {
         createLogIn();
         fakeLogin();
     })
-    document.querySelector("#side-logout").addEventListener("click", function () {
-        createLogIn();
-        fakeLogin();
-    })
 }
 const createMemberCenter = () => {
     if (document.querySelector("#login-register")) {
@@ -179,7 +175,7 @@ const hoverEffect = () => {
     const imgSrc = document.querySelectorAll(".section_collapse-zone a");
     imgSrc.forEach(item => {
         let img = document.createElement("img");
-        img.setAttribute("style", "opacity:0;position:absolute; z-index:-1;top:0;left:0;");
+        img.setAttribute("style", "opacity:0;position:absolute; z-index:-1;top:0;left:0;width:100%");
         img.src = item.dataset.imgsrc;
         document.querySelector("body").append(img);
 
@@ -274,5 +270,12 @@ window.addEventListener("resize", () => {
         document.querySelector(".side-menu").classList.remove("show");
     } else {
         document.querySelector(".cart-side-menu").classList.remove("open");
+    }
+
+    if (window.innerWidth < 1024) {
+        document.querySelector(".section_collapse-zone").classList.remove("open");
+        document.querySelector("#collapse").classList.remove("show");
+        document.querySelector(".all-service").classList.remove("active");
+        document.querySelector("body").classList.remove("open");
     }
 })

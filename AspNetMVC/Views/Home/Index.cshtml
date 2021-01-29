@@ -1,7 +1,9 @@
 ﻿@{
     ViewBag.Title = "首頁";
 }
-@Styles.Render("~/Assets/css/home/index.css")
+@section indexCss{
+    <link rel="stylesheet" href="~/Assets/css/home/index.css">
+}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
       integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
       crossorigin="anonymous" />
@@ -350,7 +352,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p1.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p1.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -363,7 +365,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p2.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p2.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -376,7 +378,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p3.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p3.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -389,7 +391,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p4.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p4.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -402,7 +404,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p5.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p5.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -415,7 +417,7 @@
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Images/p6.jpg" alt="人物"
+                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p6.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -500,5 +502,6 @@
     </div>
 </section>
 
-
-@Scripts.Render("~/Assets/js/home/all.js")
+@section indexJs{
+    <script src="~/Assets/js/home/all.js"></script>
+}
