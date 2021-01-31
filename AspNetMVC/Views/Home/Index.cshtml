@@ -1,18 +1,18 @@
 ﻿@{
     ViewBag.Title = "首頁";
 }
-@section indexCss{
+@section IndexCss{
     <link rel="stylesheet" href="~/Assets/css/home/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" />
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-      crossorigin="anonymous" />
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
-      integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
-      crossorigin="anonymous" />
 <section class="section_carousel owl-carousel">
-    <div class="carousel_item">
+    <div class="carousel_item1">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item2">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item3">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item4">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -56,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item5">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item6">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -79,7 +79,7 @@
         </div>
 
     </div>
-    <div class="carousel_item">
+    <div class="carousel_item7">
         <div class="container ml-0">
             <div class="row">
                 <div class="col-12">
@@ -91,7 +91,7 @@
         </div>
     </div>
 </section>
-<section class="section_all-service my-5">
+<section class="section_all-service py-5">
     <div class="container-xxl">
         <div class="row">
             <div class="service-title">
@@ -103,29 +103,29 @@
         <div class="row">
             <div class="service-tabs">
                 <div class="tabs-item active" data-id="hot">
-                    <h3>熱門服務</h3>
+                    <h3>熱門<span class="mobile">服務</span></h3>
                 </div>
                 <div class="tabs-item" data-id="enterprise">
-                    <h3>企業服務</h3>
+                    <h3>企業<span class="mobile">服務</span></h3>
                 </div>
                 <div class="tabs-item" data-id="other">
-                    <h3>其他服務</h3>
+                    <h3>其他<span class="mobile">服務</span></h3>
                 </div>
                 <div class="tabs-item" data-id="comment">
-                    <h3>顧客評價</h3>
+                    <h3>顧客<span class="mobile">評價</span></h3>
                 </div>
             </div>
             <div class="service-items">
                 <div class="container-lg tab-item_hot active">
-                    <div class="row p-2">
+                    <div class="row">
                         <div class="col-12 col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=1"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=1"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">冷氣機清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -133,12 +133,12 @@
                         </div>
                         <div class="col-12 col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=2"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=2"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">精選套餐2</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -146,12 +146,12 @@
                         </div>
                         <div class="col-12 col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=3"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=3"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">洗衣機清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -163,12 +163,12 @@
                     <div class="row p-2">
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=14"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=14"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">辦公室清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -176,12 +176,12 @@
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=24"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=24"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">包月服務</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -189,12 +189,12 @@
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=34"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=34"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">整層清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -206,12 +206,12 @@
                     <div class="row p-2">
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=13"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=13"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">床墊清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -219,12 +219,12 @@
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=23"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=23"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">水管清潔</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -232,12 +232,12 @@
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=33"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=33"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
                                     <h5 class="card-title">壁癌處理</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
-                                    <a href="javascript:;" class="btn rounded-circle more">
+                                    <a href="javascript:;" class="btns rounded-circle more">
                                         <i class="fas fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -249,43 +249,34 @@
                     <div class="row p-2">
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=15"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=15"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
-                                    <h5 class="card-title d-flex justify-content-between">
-                                        陳先生<span>
-                                            <i class="fas fa-star color-yellow pr-1"></i>5
-                                        </span>
-                                    </h5>
+                                    <h5 class="card-title">陳先生</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
+                                    <span><i class="fas fa-star color-yellow pr-1"></i>5</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=25"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=25"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
-                                    <h5 class="card-title d-flex justify-content-between">
-                                        林小姐<span>
-                                            <i class="fas fa-star color-yellow pr-1"></i>4
-                                        </span>
-                                    </h5>
+                                    <h5 class="card-title">林小姐</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
+                                    <span><i class="fas fa-star color-yellow pr-1"></i>4</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12  col-lg-6 col-xl-4">
                             <div class="card mb-5">
-                                <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=35"
+                                <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=35"
                                      alt="圖片說明" class="lazyload">
                                 <div class="card-body">
-                                    <h5 class="card-title d-flex justify-content-between">
-                                        白先生<span>
-                                            <i class="fas fa-star color-yellow pr-1"></i>5
-                                        </span>
-                                    </h5>
+                                    <h5 class="card-title">白先生</h5>
                                     <p class="card-text">不再網通都有公斤多次進了等等，還沒記錄，網址打擊商標做出實。</p>
+                                    <span><i class="fas fa-star color-yellow pr-1"></i>5</span>
                                 </div>
                             </div>
                         </div>
@@ -344,80 +335,80 @@
         </div>
         <div class="container-xxl p-0">
             <div class="row">
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:.3s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:.3s;">
                         <div class="image-content">
                             <h4>居家鐘點清潔</h4>
                             <p>語音年輕人聯繫該聯繫該</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p1.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p1.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:.6s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:.6s;">
                         <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
+                            <h4>收納整理</h4>
+                            <p>高效晶片上傳寶貝有一論</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p2.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p2.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:.4s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:.4s;">
                         <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
+                            <h4>冷氣清潔</h4>
+                            <p>但是商機房價宣傳影</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p3.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p3.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:.8s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:.8s;">
                         <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
+                            <h4>除塵蟎</h4>
+                            <p>身份你的能力時尚微軟線路</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p4.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p4.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:.5s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:.5s;">
                         <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
+                            <h4>洗衣機清潔</h4>
+                            <p>儘量第一章方法警方在這伺服</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p5.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p5.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-xl-4 p-1">
-                    <div class="card d-flex rounded border faded" style="--delay:1s;">
+                <div class="col-6 col-md-4 col-xl-2 p-1">
+                    <div class="card d-flex border faded" style="--delay:1s;">
                         <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
+                            <h4>洗衣服務</h4>
+                            <p>室內認識語言優勢即可類別</p>
                             <span><i class="fas fa-star color-yellow">5</i></span>
                         </div>
                         <div class="image-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="/Assets/Images/p6.jpg" alt="人物"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p6.jpg" alt="人物"
                                  class="lazyload w-100">
                         </div>
                     </div>
@@ -437,71 +428,75 @@
         </div>
         <div class="container-xxl">
             <div class="row">
-                <div class="col-12 col-md-3">
-                    <div href="javascript:;" class="text-decoration-none card faded mb-3" style="--delay:.1s;">
+                <div class="col-12 col-md-3 p-1">
+                    <a href="https://www.independent.co.uk/life-style/kitchen-organise-sustainable-new-year-resolution-a9273931.html" class="text-decoration-none card faded mb-3" style="--delay:.1s;" target="_blank">
                         <div class="news-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=1"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/n1.jpg"
                                  alt="圖片說明" class="w-100 lazyload">
                         </div>
                         <div class="news-content">
-                            <h4>難道從此</h4>
-                            <p>手指要去意義，負責通訊建議廣...</p>
+                            <span class="tag">生活</span>
+                            <h4>新年將近，五個改善你廚房的方法 </h4>
                         </div>
                         <div class="news-button">
-                            <button class="btn">看全文 ></button>
+                            <button class="btns">看全文 ></button>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-12 col-md-3">
-                    <div href="javascript:;" class="text-decoration-none card faded mb-3" style="--delay:.2s;">
+                <div class="col-12 col-md-3 p-1">
+                    <a href="https://www.independent.co.uk/property/house-and-home/home-cleaning-illness-flu-cold-household-virus-poll-a9200231.html" class="text-decoration-none card faded mb-3" style="--delay:.2s;" target="_blank">
                         <div class="news-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=2"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/n2.jpg"
                                  alt="圖片說明" class="w-100 lazyload">
                         </div>
                         <div class="news-content">
-                            <h4>值得操作系所有</h4>
-                            <p>他是又是監督專題是在哈囉，對手只要放下工藝喜愛兒子不要...</p>
+                            <span class="tag">居家</span>
+                            <h4> 民調顯示，數百國人對不清潔房屋對健康的危害意識相當薄弱</h4>
                         </div>
                         <div class="news-button">
-                            <button class="btn">看全文 ></button>
+                            <button class="btns">看全文 ></button>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-12 col-md-3">
-                    <div href="javascript:;" class="text-decoration-none card faded mb-3" style="--delay:.3s;">
+                <div class="col-12 col-md-3 p-1">
+                    <a href="https://www.independent.co.uk/property/clean-oven-tips-advice-kitchen-how-a9295381.html" class="text-decoration-none card faded mb-3" style="--delay:.3s;" target="_blank">
                         <div class="news-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=3"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/n3.jpg"
                                  alt="圖片說明" class="w-100 lazyload">
                         </div>
                         <div class="news-content">
-                            <h4>只有些全體減肥股市</h4>
-                            <p>上午閲讀者早就推動，意思商標還在舉報主持理論標題落實...</p>
+                            <span class="tag">生活</span>
+                            <h4>上次清潔烤箱是什麼時候了呢?</h4>
                         </div>
                         <div class="news-button">
-                            <button class="btn">看全文 ></button>
+                            <button class="btns">看全文 ></button>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-12 col-md-3">
-                    <div href="javascript:;" class="text-decoration-none card faded mb-3" style="--delay:.4s;">
+                <div class="col-12 col-md-3 p-1">
+                    <a href="https://www.independent.co.uk/extras/indybest/house-garden/kitchen-accessories/best-natural-cleaning-products-brands-home-that-work-cheap-disinfect-effective-uk-a9624281.html" class="text-decoration-none card faded mb-3" style="--delay:.4s;" target="_blank">
                         <div class="news-pic">
-                            <img src="~/Assets/images/loading.gif" data-src="https://picsum.photos/300/300/?random=4"
+                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/n4.jpg"
                                  alt="圖片說明" class="w-100 lazyload">
                         </div>
                         <div class="news-content">
-                            <h4>難道從此</h4>
-                            <p>臨床風險提示訊息公里同意，空。</p>
+                            <span class="tag">清潔用品</span>
+                            <h4>10大有效的清潔用品</h4>
                         </div>
                         <div class="news-button">
-                            <button class="btn">看全文 ></button>
+                            <button class="btns">看全文 ></button>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-@section indexJs{
+@section IndexJs{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous">
+    </script>
     <script src="~/Assets/js/home/all.js"></script>
 }

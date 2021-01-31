@@ -1,4 +1,19 @@
-﻿const openHamburger = () => {
+﻿let cart = JSON.parse(localStorage.getItem("cart")) || []
+let isLogin = JSON.parse(localStorage.getItem("login")) || false;
+toastr.options = {
+    "closeButton": true,
+    "positionClass": "toast-top-center",
+    "showDuration": "3300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
+const openHamburger = () => {
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".side-menu").classList.add("show");
         document.querySelector(".fa-times").classList.add("show");
@@ -108,55 +123,126 @@ const toggleContact = () => {
     })
 }
 const fakeLogin = () => {
-    document.querySelector(".nav_btn-group #login-register").addEventListener("click", function () {
-        createLogout();
-        createMemberCenter();
-        fakeLogout();
+    document.querySelectorAll("[id*='login-register']").forEach(x => {
+        x.addEventListener("click", function () {
+            isLogin = true;
+            createLogout();
+            createMemberCenter();
+            fakeLogout();
+            if (cart.length == 0) {
+                cartStatus("你目前的購物車是空的");
+                countCartAmount(0);
+            } else {
+                countCartAmount(cart.length);
+                showCart();
+            }
+            toggleTip();
+            checkoutBtnControl();
+            countCartPrice();
+            countCartAmount(cart.length);
+            localStorage.setItem("login", isLogin);
+        })
     })
 }
+
 const fakeLogout = () => {
-    document.querySelector("#logout").addEventListener("click", function () {
-        createLogIn();
-        fakeLogin();
+    document.querySelectorAll("[id*='logout']").forEach(x => {
+        x.addEventListener("click", function () {
+            isLogin = false;
+            cartStatus("請先註冊/登入!");
+            createLogIn();
+            fakeLogin();
+            countCartPrice();
+            countCartAmount(0);
+            toggleTip();
+            checkoutBtnControl();
+            console.log(isLogin)
+            localStorage.setItem("login", isLogin);
+        })
     })
 }
 const createMemberCenter = () => {
     if (document.querySelector("#login-register")) {
         document.querySelector("#login-register").remove();
     }
+    if (document.querySelector("#side-login-register")) {
+        document.querySelectorAll(".side-menu-nav .nav-item")[2].remove();
+    }
 
     let buttonMember = document.createElement("button");
-    buttonMember.className = "btn border rounded-pill border-skyblue color-skyblue member-center";
+    buttonMember.className = "btns border rounded-pill border-skyblue color-skyblue member-center";
     buttonMember.textContent = "會員中心";
     buttonMember.setAttribute("id", "member-center")
     document.querySelector(".nav_btn-group").prepend(buttonMember);
 }
 const createLogout = () => {
     let button = document.createElement("button");
-    button.classList.add("btn");
-    button.innerText = "登出";
-    button.setAttribute("id", "logout");
+    button.classList.add("btns");
+    button.textContent = "登出";
+    button.setAttribute("id", "nav-logout");
     document.querySelector(".nav_btn-group").prepend(button);
+
+    let li = document.createElement("li");
+    li.className = "nav-item py-2";
+
+    let a = document.createElement("a");
+    a.className = "nav-link color-gray";
+    a.setAttribute("href", "javascript:;");
+    a.setAttribute("id", "side-logout");
+
+    let i = document.createElement("i");
+    i.className = "fas fa-sign-out-alt ml-4 mr-2";
+    a.append(i, "登出");
+
+    li.appendChild(a);
+    document.querySelector(".side-menu_body .side-menu-nav").appendChild(li)
 
 }
 const createLogIn = () => {
     if (document.querySelector("#member-center")) {
         document.querySelector("#member-center").remove();
     }
-    if (document.querySelector("#logout")) {
-        document.querySelector("#logout").remove();
+    if (document.querySelector("#nav-logout")) {
+        document.querySelector("#nav-logout").remove();
+    }
+    if (document.querySelector("#side-logout")) {
+        document.querySelectorAll(".side-menu-nav .nav-item")[2].remove();
     }
     let button = document.createElement("button");
-    button.className = "btn border rounded-pill border-skyblue color-skyblue login-register";
-    button.setAttribute("id", "login-register")
+    button.className = "btns border rounded-pill border-skyblue color-skyblue login-register";
+    button.setAttribute("id", "login-register");
     button.textContent = "註冊/登入";
 
     document.querySelector(".nav_btn-group").prepend(button);
+
+    if (isLogin == false) {
+        let cartButton = document.createElement("button");
+        cartButton.className = "btns border rounded-pill border-skyblue color-skyblue login-register center";
+        cartButton.setAttribute("id", "cart-login-register");
+        cartButton.textContent = "註冊/登入";
+        document.querySelector(".cart-body").appendChild(cartButton);
+    }
+
+    let li = document.createElement("li");
+    li.className = "nav-item py-2";
+
+    let a = document.createElement("a");
+    a.className = "nav-link color-gray";
+    a.setAttribute("href", "javascript:;");
+    a.setAttribute("id", "side-login-register");
+
+    let i = document.createElement("i");
+    i.className = "fas fa-user ml-4 mr-2";
+    a.append(i, "註冊/登入");
+
+    li.appendChild(a);
+    document.querySelector(".side-menu_body .side-menu-nav").appendChild(li);
+
 }
 const loadingAnimation = () => {
     setTimeout(() => {
         document.querySelector(".section_loading").classList.add("inactive");
-    }, 2000)
+    }, 100)
 }
 const imgLazyLoad = () => {
     let imgs = document.querySelectorAll(".lazyload");
@@ -207,8 +293,17 @@ const swipeDeleteEffect = () => {
                 item.classList.add("delete");
                 setTimeout(() => {
                     item.remove();
-                    countCartAmount();
-                    countCartPrice();
+                    let index = cart.findIndex(x => x.id == item.dataset.id);
+                    if (index != -1) {
+                        cart.splice(index, 1);
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                        countCartAmount(cart.length);
+                        countCartPrice();
+                        checkoutBtnControl();
+                        toggleTip();
+                        if (cart.length == 0) cartStatus("你目前的購物車是空的");
+                        toastr.info("成功刪除!!");
+                    }
                 }, 500);
             })
 
@@ -219,26 +314,130 @@ const swipeDeleteEffect = () => {
         })
     })
 }
-const countCartAmount = () => {
-    let count = document.querySelectorAll(".cart-product-item").length;
-
+const countCartAmount = (count) => {
+    if (document.querySelector(".nav-bottom-item .red-dot")) {
+        document.querySelector(".nav-bottom-item .red-dot").remove();
+    }
+    let span = document.createElement("span");
+    span.className = "count red-dot";
+    document.querySelector(".nav-bottom-item .fa-shopping-cart").prepend(span);
     document.querySelectorAll(".count").
     forEach(x => x.innerText = count);
 
-    if (count == 0) document.querySelector(".cart-body").style.overflowY = "auto";
-    else document.querySelector(".cart-body").style.overflowY = "scroll";
+    if (count == 0) {
+        document.querySelector(".cart-body").style.overflowY = "auto";
+    } else document.querySelector(".cart-body").style.overflowY = "scroll";
 }
 const countCartPrice = () => {
     let products = document.querySelectorAll(".cart-product-item");
-
-    if (products.length > 0) {
-        let total = Array.from(products).map(x => parseInt(x.dataset.price)).reduce((x, y) => x + y);
-        document.querySelector(".cart-footer h2").innerText = `小計 : ${notation(total)} 元`;
-    } else {
+    if (isLogin == false) {
         document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
+    } else {
+        if (products.length > 0) {
+            let total = Array.from(products).map(x => parseInt(x.dataset.price)).reduce((x, y) => x + y);
+            document.querySelector(".cart-footer h2").innerText = `小計 : ${notation(total)} 元`;
+        } else {
+            document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
+        }
     }
 }
+const createCartCard = (price, title, items, id) => {
+    let card = document.createElement("div");
+    card.className = "cart-product-item mb-3";
+    card.setAttribute("data-price", price);
+    card.setAttribute("data-id", id);
 
+    let row = document.createElement("div");
+    row.className = "row no-gutters w-100";
+
+    let col4 = document.createElement("div");
+    col4.classList.add("col-4");
+    let col8 = document.createElement("div");
+    col8.classList.add("col-8");
+
+    let img = document.createElement("img");
+    img.src = `https://picsum.photos/300/400/?random=${id}`;
+    img.classList = "w-100 h-100";
+
+    col4.append(img);
+
+    let cardBody = document.createElement("div");
+    cardBody.className = "card-body py-4 px-3 d-flex flex-column";
+
+    let h3 = document.createElement("h3");
+    h3.classList.add("card-title");
+    h3.textContent = title;
+
+    let ul = document.createElement("ul");
+    ul.classList.add("list-unstyled");
+
+    items.forEach(x => {
+        let li = document.createElement("li");
+        li.textContent = x;
+        ul.append(li);
+    })
+    let p = document.createElement("p");
+    p.className = "card-text pt-3";
+
+    let small = document.createElement("small");
+    small.classList.add("color-muted");
+    small.textContent = "超值優惠服務!我們服務，你可放心";
+
+    p.append(small);
+
+    let a = document.createElement("a");
+    a.setAttribute("href", "javascript:;");
+    a.className = "btns detail";
+    a.textContent = "詳情";
+
+    cardBody.append(h3, ul, p, a);
+    col8.append(cardBody);
+
+    let btnGroup = document.createElement("div");
+    btnGroup.classList.add("btns-group");
+
+    let btnConfirm = document.createElement("button");
+    btnConfirm.className = "btns confirm";
+    btnConfirm.textContent = "確認刪除";
+
+    let btnCancel = document.createElement("button");
+    btnCancel.className = "btns cancel";
+    btnCancel.textContent = "取消";
+    btnGroup.append(btnConfirm, btnCancel);
+    row.append(col4, col8, btnGroup);
+    card.appendChild(row);
+
+    document.querySelector(".section_cart-side-menu .cart-body").appendChild(card);
+}
+const showCart = () => {
+    document.querySelector(".section_cart-side-menu .cart-body").innerHTML = "";
+    cart.forEach(x => {
+        createCartCard(x.price, x.title, x.items, x.id);
+    })
+    swipeDeleteEffect();
+}
+const cartStatus = (words) => {
+    document.querySelector(".section_cart-side-menu .cart-body").innerHTML = "";
+    let word = document.createElement("h4");
+    word.textContent = words;
+    word.classList.add("center");
+    document.querySelector(".section_cart-side-menu .cart-body").appendChild(word);
+}
+const checkoutBtnControl = () => {
+    if (isLogin == false || cart.length == 0) {
+        document.querySelector(".cart-footer .checkout").setAttribute("disabled", true);
+    } else {
+        document.querySelector(".cart-footer .checkout").removeAttribute("disabled");
+
+    }
+}
+const toggleTip = () => {
+    if (isLogin == false || cart.length == 0) {
+        document.querySelector(".tip").classList.add("hide");
+    } else {
+        document.querySelector(".tip").classList.remove("hide");
+    }
+}
 
 
 window.addEventListener("load", () => {
@@ -251,18 +450,40 @@ window.addEventListener("load", () => {
     toggleContact();
     openBottomCart();
     openBottomCustomerService();
-    fakeLogin();
     imgLazyLoad();
     hoverEffect();
-    swipeDeleteEffect();
-    countCartAmount();
-    countCartPrice();
+    toggleTip();
+
+    if (isLogin == false) {
+        cartStatus("請先註冊/登入!");
+        countCartAmount(0);
+        createLogIn();
+        fakeLogin();
+        countCartPrice();
+        checkoutBtnControl();
+        toggleTip();
+    } else if (isLogin == true) {
+        createLogout();
+        createMemberCenter();
+        fakeLogout();
+        if (cart.length == 0) {
+            checkoutBtnControl();
+            countCartAmount(0);
+            countCartPrice();
+            cartStatus("你目前的購物車是空的");
+        } else {
+            showCart();
+            countCartPrice();
+            countCartAmount(cart.length);
+        }
+    }
 
     document.querySelectorAll(".subItem").forEach(x => {
         x.addEventListener("click", function (e) {
             toggleSideMenuSubItem(x, e);
         })
     })
+
 })
 
 window.addEventListener("resize", () => {
@@ -277,5 +498,8 @@ window.addEventListener("resize", () => {
         document.querySelector("#collapse").classList.remove("show");
         document.querySelector(".all-service").classList.remove("active");
         document.querySelector("body").classList.remove("open");
+    }
+    if (window.innerWidth > 1024 && document.querySelector(".contact-us-form").classList.contains("active")) {
+        document.querySelector(".contact-us-form").classList.remove("active");
     }
 })

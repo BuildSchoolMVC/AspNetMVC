@@ -14,9 +14,38 @@
     width: calc(100vw - 30px)
 }
 
-.section_carousel .carousel_item {
+.section_carousel .carousel_item1 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner1.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item2 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner2.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item3 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner3.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item4 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner4.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item5 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner5.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item6 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner6.jpg") no-repeat center center
+}
+
+.section_carousel .carousel_item7 {
+    background: radial-gradient(circle at 100% 0, transparent 1%, var(--dark) 100%), url("../../images/bg_banner7.jpg") no-repeat center center
+}
+
+.section_carousel div[class*='carousel_item'] {
     width: 100%;
-    height: 100%;
+    height: 25vh;
+    padding: 10% 0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -30,29 +59,32 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    background: radial-gradient(circle at 100% 0, transparent 10%, var(--white) 100%), url("../../images/banner.jpg") no-repeat center center;
     background-size: cover;
     padding-left: 20px;
     border-radius: 10px;
     cursor: -webkit-grab;
-    cursor: grab
+    cursor: grab;
+    -webkit-box-shadow: 1px 1px 3px var(--gray);
+    box-shadow: 1px 1px 3px var(--gray)
 }
 
-.section_carousel .carousel_item:active {
+.section_carousel div[class*='carousel_item']:active {
     cursor: -webkit-grabbing;
     cursor: grabbing
 }
 
-.section_carousel .carousel_item h2 {
+.section_carousel div[class*='carousel_item'] h2 {
     font-size: 20px;
-    padding-top: 10px
+    padding-top: 10px;
+    color: var(--light)
 }
 
-.section_carousel .carousel_item p {
-    text-shadow: 1px 1px 10px var(--white)
+.section_carousel div[class*='carousel_item'] p {
+    color: var(--light);
+    font-size: 14px
 }
 
-.section_carousel .carousel_item a {
+.section_carousel div[class*='carousel_item'] a {
     display: none
 }
 
@@ -77,6 +109,10 @@
     background: var(--primary-color)
 }
 
+.section_all-service {
+    background: var(--light)
+}
+
 .section_all-service .row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -85,7 +121,8 @@
 }
 
 .section_all-service .service-title h2 {
-    font-size: 28px
+    font-size: 28px;
+    letter-spacing: 3px
 }
 
 .section_all-service .service-tabs {
@@ -123,7 +160,12 @@
 }
 
 .section_all-service .service-tabs .tabs-item h3 {
-    font-size: 12px
+    font-size: 16px;
+    letter-spacing: 2px
+}
+
+.section_all-service .service-tabs .tabs-item h3 .mobile {
+    display: none
 }
 
 .section_all-service .service-items {
@@ -243,8 +285,7 @@
 }
 
 .section_statistic {
-    background: url("../../images/banner.jpg") 100% 100%;
-    background-size: cover
+    background: url("../../images/bg_banner1.jpg") 100% 100%/cover
 }
 
 .section_statistic .container-fluid {
@@ -267,7 +308,13 @@
 }
 
 .section_image {
-    padding: 100px 0
+    padding: 100px 0;
+    background: var(--dark)
+}
+
+.section_image .image-title h2 {
+    letter-spacing: 5px;
+    color: var(--white)
 }
 
 .section_image .card {
@@ -278,15 +325,32 @@
     padding: 5px;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
+    -ms-flex-direction: column-reverse !important;
+    flex-direction: column-reverse !important;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
+    box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
+    height: 27vh
 }
 
 .section_image .card .image-content {
-    width: 65%
+    width: 65%;
+    padding: 10px 0;
+    text-align: center
 }
 
 .section_image .card .image-content h4 {
-    font-size: 14px
+    font-size: 16px
+}
+
+.section_image .card .image-content p {
+    font-size: 12px
+}
+
+.section_image .card .image-content i {
+    letter-spacing: 5px;
+    font-size: 30px
 }
 
 .section_image .card .image-pic {
@@ -300,8 +364,12 @@
     background: var(--light)
 }
 
+.section_news .news-title h2 {
+    letter-spacing: 5px
+}
+
 .section_news .card {
-    height: 320px;
+    height: 400px;
     border-radius: 10px;
     color: var(--dark);
     overflow: hidden
@@ -318,7 +386,18 @@
 .section_news .card .news-content {
     height: 40%;
     padding: 10px;
-    overflow: hidden
+    overflow: hidden;
+    position: relative;
+    padding: 40px 15px
+}
+
+.section_news .card .news-content .tag {
+    background: var(--dark);
+    color: var(--light);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px
 }
 
 .section_news .card .news-button {
@@ -356,8 +435,20 @@
         font-size: 18px
     }
 
+    .section_all-service .service-tabs .tabs-item h3 .mobile {
+        display: inline
+    }
+
+    .section_image .card {
+        padding: 20px 0;
+        border-radius: 16px;
+        margin: 10px auto;
+        width: 90%
+    }
+
     .section_image .card .image-content {
-        padding: 10px
+        width: auto;
+        padding: 10px 0
     }
 
     .section_image .card .image-content h4 {
@@ -396,26 +487,27 @@
 
 @media screen and (min-width: 1024px) {
     .section_carousel .owl-item {
-        margin: 70px 0 0;
+        margin: 65px 0 0;
         height: 100%;
         width: calc(100vw - 30px)
     }
 
-    .section_carousel .carousel_item {
-        padding-left: 30%;
+    .section_carousel div[class*='carousel_item'] {
+        padding-left: 20%;
         height: 500px;
         border-radius: 0
     }
 
-    .section_carousel .carousel_item h2 {
+    .section_carousel div[class*='carousel_item'] h2 {
         font-size: 50px
     }
 
-    .section_carousel .carousel_item p {
-        font-size: 20px
+    .section_carousel div[class*='carousel_item'] p {
+        font-size: 20px;
+        padding: 10px 0
     }
 
-    .section_carousel .carousel_item a {
+    .section_carousel div[class*='carousel_item'] a {
         display: inline-block;
         background: var(--primary-color);
         color: var(--white);
@@ -425,7 +517,7 @@
         transition: .2s
     }
 
-    .section_carousel .carousel_item a:hover {
+    .section_carousel div[class*='carousel_item'] a:hover {
         text-decoration: none;
         background: var(--primary-color-dark)
     }
@@ -540,6 +632,18 @@
 @media screen and (min-width: 1200px) {
     .section_all-service .service-items {
         height: 600px
+    }
+
+    .section_image .card {
+        width: 90%
+    }
+
+    .section_image .card .image-content {
+        padding: 10px 0
+    }
+
+    .section_carousel div[class*='carousel_item'] {
+        padding-left: 30%
     }
 }
 

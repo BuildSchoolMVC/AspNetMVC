@@ -12,5 +12,10 @@ namespace AspNetMVC.Controllers
         {
             return View();
         }
+
+        public ActionResult AllServiceView()
+        {
+            return View();
+        }
     }
 }
