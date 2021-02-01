@@ -54,6 +54,7 @@
                         </li>
                     </ul>
                     <div class="nav_btn-group d-flex align-items-center">
+                        @Html.Partial("_LoginPartial")
                         <button class="btns" id="cart">
                             <i class="fas fa-shopping-cart pr-1"></i>(<span class="count"></span>)
                         </button>
@@ -366,6 +367,7 @@
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @Scripts.Render("~/Assets/js/layout/all.js")
+    @RenderSection("Scripts", false)
     @RenderSection("IndexJs", false)
 </body>
 </html>
