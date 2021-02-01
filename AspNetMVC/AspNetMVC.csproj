@@ -167,7 +167,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AllServiceCard.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImageCard.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -366,6 +368,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_SideMenuLoginPartial.cshtml" />
+    <Content Include="Views\Shared\_ImageCardPartial.cshtml" />
+    <Content Include="Views\Shared\_AllServiceViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

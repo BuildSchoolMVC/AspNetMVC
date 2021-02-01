@@ -319,6 +319,17 @@ img {
 	margin-top: 60px
 }
 
+.toast-top-center .toast-message {
+	font-size: 24px;
+	letter-spacing: 1px
+}
+
+#toast-container>div {
+	opacity: .9 !important;
+	-webkit-box-shadow: none;
+	box-shadow: none
+}
+
 .section_loading {
 	position: fixed;
 	top: 0;
@@ -794,9 +805,14 @@ img {
 	left: 0;
 	width: 100%;
 	background: var(--light);
-	padding: 5px 30px;
 	-webkit-box-shadow: 0 -1px 4px var(--gray);
-	box-shadow: 0 -1px 4px var(--gray)
+	box-shadow: 0 -1px 4px var(--gray);
+	-webkit-transition: .3s ease-in;
+	transition: .3s ease-in
+}
+
+.section_nav .nav-bottom-item {
+	padding: 5px 10px 5px 5px
 }
 
 .section_nav .nav-bottom-item a {
@@ -843,6 +859,40 @@ img {
 	text-align: center;
 	right: -10px;
 	top: -8px
+}
+
+@-webkit-keyframes collpase {
+	0% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0)
+	}
+
+	50% {
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%)
+	}
+
+	100% {
+		-webkit-transform: translateX(93%) rotate(180deg);
+		transform: translateX(93%) rotate(180deg)
+	}
+}
+
+@keyframes collpase {
+	0% {
+		-webkit-transform: translateX(0);
+		transform: translateX(0)
+	}
+
+	50% {
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%)
+	}
+
+	100% {
+		-webkit-transform: translateX(93%) rotate(180deg);
+		transform: translateX(93%) rotate(180deg)
+	}
 }
 
 .section_collapse-zone {
@@ -1039,7 +1089,7 @@ img {
 }
 
 .section_cart-side-menu .cart .cart-body::-webkit-scrollbar-thumb {
-	background: var(--gray)
+	background: var(--primary-color-dark)
 }
 
 .section_cart-side-menu .cart .cart-body::-webkit-scrollbar-track {
@@ -1185,7 +1235,6 @@ img {
 }
 
 .section_footer .contact-us-form {
-	width: 100vw;
 	-webkit-box-shadow: 1px 1px 10px #00000080;
 	box-shadow: 1px 1px 10px #00000080;
 	border-radius: 10px;
@@ -1253,7 +1302,7 @@ img {
 }
 
 .section_footer .contact-us-form .form-body::-webkit-scrollbar-thumb {
-	background: var(--gray)
+	background: var(--primary-color-dark)
 }
 
 .section_footer .contact-us-form .form-body::-webkit-scrollbar-track {
@@ -1261,10 +1310,11 @@ img {
 }
 
 .section_footer .contact-us-form .form-footer {
-	border-top: 1px solid var(--gray);
+	-webkit-box-shadow: 1px -1px 5px var(--gray);
+	box-shadow: 1px -1px 5px var(--gray);
 	background: var(--white);
 	position: relative;
-	padding: 30px 0 40px;
+	padding: 20px 0 30px;
 	border-radius: 0 0 10px 10px
 }
 
@@ -1272,13 +1322,13 @@ img {
 	position: absolute;
 	bottom: 25%;
 	right: 5%;
-	padding: 5px;
+	padding: 3px;
 	background: var(--primary-color);
 	color: var(--white)
 }
 
 .section_footer .contact-us-form.active {
-	bottom: 50px;
+	bottom: 30px;
 	opacity: 1
 }
 
@@ -1487,22 +1537,9 @@ img {
 		height: 100%
 	}
 
-	.section_footer {
-		background: var(--white)
-	}
-
 	.section_footer li,
 	.section_footer a {
-		color: var(--dark);
 		padding: 5px 0
-	}
-
-	.section_footer p {
-		color: var(--dark)
-	}
-
-	.section_footer hr {
-		background: var(--dark)
 	}
 
 	.section_footer .contact-us button {

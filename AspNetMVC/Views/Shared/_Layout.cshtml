@@ -8,8 +8,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Assets/css/layout/layout.css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("IndexCss", false)
-    @RenderSection("AllServiceViewCss", false)
+    @RenderSection("CSS", false)
 </head>
 <body>
     <section class="section_loading">
@@ -42,7 +41,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link color-gray" href="javascript:;">
+                            <a class="nav-link color-gray" href="@Url.Action("Index","ProductPage")">
                                 <i class="fas fa-home ml-4 mr-2"></i>找打掃
                             </a>
                         </li>
@@ -67,7 +66,7 @@
                     <div class="side-menu_body">
                         <ul class="side-menu-nav">
                             <li class="nav-item py-2">
-                                <a class="nav-link color-gray" href="./singleProduct.html">
+                                <a class="nav-link color-gray" href="@Url.Action("Index","ProductPage")">
                                     <i class="fas fa-home ml-4 mr-2"></i>找打掃
                                 </a>
                             </li>
@@ -290,10 +289,9 @@
             <div class="row">
                 <div class="col-12 col-lg-4">
                     <ul class="list-unstyled">
-                        <li><a href="./singleProduct.html">找打掃</a></li>
+                        <li><a href="@Url.Action("Index","ProductPage")">找打掃</a></li>
                         <li><a href="@Url.Action("AllServiceView","Home")">全部服務</a></li>
-                        <li><a href="javascript:;">常見問題</a></li>
-                        <li><a href="javascript:;">關於我們</a></li>
+                        <li><a href="@Url.Action("AllServiceView","Home")">常見問題 / 關於我們</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -368,7 +366,6 @@
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @Scripts.Render("~/Assets/js/layout/all.js")
-    @RenderSection("Scripts", false)
-    @RenderSection("IndexJs", false)
+    @RenderSection("JS", false)
 </body>
 </html>

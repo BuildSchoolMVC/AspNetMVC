@@ -1,7 +1,8 @@
-﻿@{
+﻿@model IEnumerable<ImageCard>
+@{
     ViewBag.Title = "首頁";
 }
-@section IndexCss{
+@section CSS{
     <link rel="stylesheet" href="~/Assets/css/home/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
           integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
@@ -335,84 +336,9 @@
         </div>
         <div class="container-xxl p-0">
             <div class="row">
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:.3s;">
-                        <div class="image-content">
-                            <h4>居家鐘點清潔</h4>
-                            <p>語音年輕人聯繫該聯繫該</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p1.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:.6s;">
-                        <div class="image-content">
-                            <h4>收納整理</h4>
-                            <p>高效晶片上傳寶貝有一論</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p2.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:.4s;">
-                        <div class="image-content">
-                            <h4>冷氣清潔</h4>
-                            <p>但是商機房價宣傳影</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p3.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:.8s;">
-                        <div class="image-content">
-                            <h4>除塵蟎</h4>
-                            <p>身份你的能力時尚微軟線路</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p4.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:.5s;">
-                        <div class="image-content">
-                            <h4>洗衣機清潔</h4>
-                            <p>儘量第一章方法警方在這伺服</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p5.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-2 p-1">
-                    <div class="card d-flex border faded" style="--delay:1s;">
-                        <div class="image-content">
-                            <h4>洗衣服務</h4>
-                            <p>室內認識語言優勢即可類別</p>
-                            <span><i class="fas fa-star color-yellow">5</i></span>
-                        </div>
-                        <div class="image-pic">
-                            <img src="/Assets/images/loading.gif" data-src="/Assets/images/p6.jpg" alt="人物"
-                                 class="lazyload w-100">
-                        </div>
-                    </div>
-                </div>
+                @foreach(var card in Model){
+                    @Html.Partial("_ImageCardPartial",card)
+                }
             </div>
         </div>
     </div>
@@ -493,7 +419,7 @@
     </div>
 </section>
 
-@section IndexJs{
+@section JS{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
             integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
             crossorigin="anonymous">
