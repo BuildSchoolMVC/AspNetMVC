@@ -5,10 +5,10 @@
 }
 
 <h2>@ViewBag.Title.</h2>
-<div class="row mt-3">
+<div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", style = "margin-top:100px;" }))
             {
                 @Html.AntiForgeryToken()
                 <h4>使用本機帳戶進行登入。</h4>

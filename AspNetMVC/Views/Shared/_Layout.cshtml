@@ -75,6 +75,7 @@
                                 <a class="btns nav-link color-gray all-service" href="javascript:;">
                                     <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務<i class="fas fa-chevron-right ml-2"></i>
                                 </a>
+                                @Html.Partial("_SideMenuLoginPartial")
                                 <div class="side-menu_all-service">
                                     <a class="btns nav-link color-gray all-service" href="javascript:;">
                                         <i class="fas fa-chevron-left mr-2"></i>全部服務
@@ -290,7 +291,7 @@
                 <div class="col-12 col-lg-4">
                     <ul class="list-unstyled">
                         <li><a href="./singleProduct.html">找打掃</a></li>
-                        <li><a href="/allServiceView.html">全部服務</a></li>
+                        <li><a href="@Url.Action("AllServiceView","Home")">全部服務</a></li>
                         <li><a href="javascript:;">常見問題</a></li>
                         <li><a href="javascript:;">關於我們</a></li>
                     </ul>

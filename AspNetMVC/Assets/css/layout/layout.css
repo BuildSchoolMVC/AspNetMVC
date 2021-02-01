@@ -636,12 +636,15 @@ img {
 }
 
 .section_nav .collapse.navbar-collapse .nav_btn-group .login-register {
-	border-color: var(--primary-color) !important
+	border-color: var(--primary-color) !important;
+	border-radius: 20px !important;
+	color: var(--primary-color)
 }
 
 .section_nav .collapse.navbar-collapse .nav_btn-group .login-register:hover {
 	background: var(--primary-color) !important;
-	color: var(--white) !important
+	color: var(--white) !important;
+	text-decoration: none
 }
 
 .section_nav .collapse.navbar-collapse .nav_btn-group .member-center {

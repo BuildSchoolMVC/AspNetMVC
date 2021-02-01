@@ -122,123 +122,6 @@ const toggleContact = () => {
         document.querySelector(".contact-us-form").classList.remove("active");
     })
 }
-const fakeLogin = () => {
-    document.querySelectorAll("[id*='login-register']").forEach(x => {
-        x.addEventListener("click", function () {
-            isLogin = true;
-            createLogout();
-            createMemberCenter();
-            fakeLogout();
-            if (cart.length == 0) {
-                cartStatus("你目前的購物車是空的");
-                countCartAmount(0);
-            } else {
-                countCartAmount(cart.length);
-                showCart();
-            }
-            toggleTip();
-            checkoutBtnControl();
-            countCartPrice();
-            countCartAmount(cart.length);
-            localStorage.setItem("login", isLogin);
-        })
-    })
-}
-
-const fakeLogout = () => {
-    document.querySelectorAll("[id*='logout']").forEach(x => {
-        x.addEventListener("click", function () {
-            isLogin = false;
-            cartStatus("請先註冊/登入!");
-            createLogIn();
-            fakeLogin();
-            countCartPrice();
-            countCartAmount(0);
-            toggleTip();
-            checkoutBtnControl();
-            console.log(isLogin)
-            localStorage.setItem("login", isLogin);
-        })
-    })
-}
-const createMemberCenter = () => {
-    if (document.querySelector("#login-register")) {
-        document.querySelector("#login-register").remove();
-    }
-    if (document.querySelector("#side-login-register")) {
-        document.querySelectorAll(".side-menu-nav .nav-item")[2].remove();
-    }
-
-    let buttonMember = document.createElement("button");
-    buttonMember.className = "btns border rounded-pill border-skyblue color-skyblue member-center";
-    buttonMember.textContent = "會員中心";
-    buttonMember.setAttribute("id", "member-center")
-    document.querySelector(".nav_btn-group").prepend(buttonMember);
-}
-const createLogout = () => {
-    let button = document.createElement("button");
-    button.classList.add("btns");
-    button.textContent = "登出";
-    button.setAttribute("id", "nav-logout");
-    document.querySelector(".nav_btn-group").prepend(button);
-
-    let li = document.createElement("li");
-    li.className = "nav-item py-2";
-
-    let a = document.createElement("a");
-    a.className = "nav-link color-gray";
-    a.setAttribute("href", "javascript:;");
-    a.setAttribute("id", "side-logout");
-
-    let i = document.createElement("i");
-    i.className = "fas fa-sign-out-alt ml-4 mr-2";
-    a.append(i, "登出");
-
-    li.appendChild(a);
-    document.querySelector(".side-menu_body .side-menu-nav").appendChild(li)
-
-}
-const createLogIn = () => {
-    if (document.querySelector("#member-center")) {
-        document.querySelector("#member-center").remove();
-    }
-    if (document.querySelector("#nav-logout")) {
-        document.querySelector("#nav-logout").remove();
-    }
-    if (document.querySelector("#side-logout")) {
-        document.querySelectorAll(".side-menu-nav .nav-item")[2].remove();
-    }
-    let button = document.createElement("button");
-    button.className = "btns border rounded-pill border-skyblue color-skyblue login-register";
-    button.setAttribute("id", "login-register");
-    button.textContent = "註冊/登入";
-
-    document.querySelector(".nav_btn-group").prepend(button);
-
-    if (isLogin == false) {
-        let cartButton = document.createElement("button");
-        cartButton.className = "btns border rounded-pill border-skyblue color-skyblue login-register center";
-        cartButton.setAttribute("id", "cart-login-register");
-        cartButton.textContent = "註冊/登入";
-        document.querySelector(".cart-body").appendChild(cartButton);
-    }
-
-    let li = document.createElement("li");
-    li.className = "nav-item py-2";
-
-    let a = document.createElement("a");
-    a.className = "nav-link color-gray";
-    a.setAttribute("href", "javascript:;");
-    a.setAttribute("id", "side-login-register");
-
-    let i = document.createElement("i");
-    i.className = "fas fa-user ml-4 mr-2";
-    a.append(i, "註冊/登入");
-
-    li.appendChild(a);
-    document.querySelector(".side-menu_body .side-menu-nav").appendChild(li);
-
-}
 const loadingAnimation = () => {
     setTimeout(() => {
         document.querySelector(".section_loading").classList.add("inactive");
@@ -457,15 +340,10 @@ window.addEventListener("load", () => {
     if (isLogin == false) {
         cartStatus("請先註冊/登入!");
         countCartAmount(0);
-        createLogIn();
-        fakeLogin();
         countCartPrice();
         checkoutBtnControl();
         toggleTip();
     } else if (isLogin == true) {
-        createLogout();
-        createMemberCenter();
-        fakeLogout();
         if (cart.length == 0) {
             checkoutBtnControl();
             countCartAmount(0);
