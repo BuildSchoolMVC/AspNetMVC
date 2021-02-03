@@ -1,50 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "商品頁";
 }
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
-          integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-    @Styles.Render("~/Content/layout/ProductPage.css")
 
 
-    <title></title>
-</head>
-
-<body>
-
-
+@Styles.Render("~/Assets/css/ProductPage/ProductPage.css")
+<section class="ProductPage">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-4 col-lg-3 ">
                 <div class="operating-area" id="sidemenu">
                     <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingOero">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                                        data-target="#collapseOero" aria-expanded="true" aria-controls="collapseOero">
-                                    <div class="content">
-                                        <i class="fas fa-feather"></i>
-                                        時數試算
-                                    </div>
-                                </button>
-                            </div>
-                            <div id="collapseOero" class="collapse show" aria-labelledby="headingOero"
-                                 data-parent="#accordionExample">
-                                <div class="card-body">
-                                </div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <div class="content">
@@ -94,7 +60,7 @@
                                 <h2 class="mb-0">
                                     <div class="content">
                                         <i class="fas fa-feather"></i>
-                                        空間大小
+                                        服務項目
                                     </div>
                                 </h2>
                             </div>
@@ -106,6 +72,10 @@
                                     <label for="storage">收納</label><br>
                                     <input type="checkbox" id="deworming" name="vehicle3" value="Boat">
                                     <label for="deworming">除蟲</label><br>
+                                    <div class="btn-area">
+                                        <button>搜尋商品</button>
+                                        <button class="d-none">產生卡片</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -165,13 +135,13 @@
             </div>
             <div class="packagetodefine-area">
                 <button class="packagetodefine-btn" id="todefinebutton">自行<br>搭配</button>
-                <button class="packagetodefine-btn d-none" id="topackagebutton">套裝<br>行程</button>
+                <button class="packagetodefine-btn d-none" id="topackagebutton">套裝<br>服務</button>
             </div>
             <div class="col-12 col-md-8 col-lg-9">
                 <div class="product-area" id="packageproduct">
                     <div class="card-header">
                         <i class="fas fa-feather"> </i>
-                        套裝行程
+                        套裝服務
                         <div class="gridtolist-area">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" class="btn btn-secondary" id="grid-btn">
@@ -183,7 +153,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item-group grid" id="item-group-grid">
+                    <div class="item-group grid d-none" id="item-group-grid">
                         <div class="card">
                             <div class="pic">
                                 <a href="">
@@ -195,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程1</p>
+                                <p>套裝服務1</p>
                             </div>
                         </div>
                         <div class="card">
@@ -209,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程2</p>
+                                <p>套裝服務2</p>
                             </div>
                         </div>
                         <div class="card">
@@ -223,7 +193,7 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程3</p>
+                                <p>套裝服務3</p>
                             </div>
                         </div>
                         <div class="card">
@@ -237,7 +207,7 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程4</p>
+                                <p>套裝服務4</p>
                             </div>
                         </div>
                         <div class="card">
@@ -251,7 +221,7 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程5</p>
+                                <p>套裝服務5</p>
                             </div>
                         </div>
                         <div class="card">
@@ -265,11 +235,11 @@
                                 </div>
                             </div>
                             <div class="text">
-                                <p>套裝行程6</p>
+                                <p>套裝服務6</p>
                             </div>
                         </div>
                     </div>
-                    <div class="item-group list  d-none" id="item-group-list">
+                    <div class="item-group list" id="item-group-list">
                         <div class="card">
                             <div class="btn">
                                 <button>+</button>
@@ -279,7 +249,7 @@
                             </div>
                             <div class="text">
                                 <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝行程1</h2>
+                                <h2>套裝服務1</h2>
                                 <ul>
                                     <li>
                                         客廳
@@ -299,7 +269,7 @@
                             </div>
                             <div class="text">
                                 <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝行程2</h2>
+                                <h2>套裝服務2</h2>
                                 <ul>
                                     <li>
                                         廚房
@@ -319,7 +289,7 @@
                             </div>
                             <div class="text">
                                 <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝行程3</h2>
+                                <h2>套裝服務3</h2>
                                 <ul>
                                     <li>
                                         臥室
@@ -339,7 +309,7 @@
                             </div>
                             <div class="text">
                                 <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝行程4</h2>
+                                <h2>套裝服務4</h2>
                                 <ul>
                                     <li>
                                         客廳+廚房
@@ -361,21 +331,39 @@
                     <div class="card-body">
                         <div class="item-group">
                             <div class="item">
-                                <div class="text">
-                                    <h3>空間類型</h3>
-                                    <p> <i class="fas fa-angle-double-right"> 廚房</i></p>
+                                <div class="btn">
+                                    <button>-</button>
                                 </div>
                                 <div class="pic">
-                                    <img src="/pic/vacuum.png" alt="">
+                                    <img src="https://picsum.photos/300/200/?random=9">
+                                </div>
+                                <div class="text">
+                                    <h2>商品1<span>$500</span></h2>
+                                    <ul>
+                                        <li>
+                                            客廳+廚房
+                                        </li>
+                                        <li>6-10坪</li>
+                                        <li>收納+清潔+除蟲</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="item">
-                                <div class="text">
-                                    <h3>坪數大小</h3>
-                                    <p><i class="fas fa-angle-double-right"> 10-15坪</i></p>
+                                <div class="btn">
+                                    <button>-</button>
                                 </div>
                                 <div class="pic">
-                                    <img src="/pic/vacuum.png" alt="">
+                                    <img src="https://picsum.photos/300/200/?random=9">
+                                </div>
+                                <div class="text">
+                                    <h2>商品1<span>$500</span></h2>
+                                    <ul>
+                                        <li>
+                                            客廳+廚房
+                                        </li>
+                                        <li>6-10坪</li>
+                                        <li>收納+清潔+除蟲</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -385,20 +373,14 @@
                             <h4>小計: <span></span></h4>
                         </div>
                         <div class="button-area">
-                            <button>加入購物車</button>
+                            <button>加入收藏</button>
                             <a href=""><button>前往結帳</button></a>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-
-    @Scripts.Render("~/Scripts/ProductPage/ProductPage.js")
-
-</body>
-
-
-</html>
+@Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
