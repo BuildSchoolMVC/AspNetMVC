@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AspNetMVC.Models;
+using AspNetMVC.Models.CustomerService;
 
 namespace AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private CustomerServiceContext context = new CustomerServiceContext();
         public ActionResult Index()
         {
             List<ImageCard> imageCards = new List<ImageCard>
@@ -40,6 +42,19 @@ namespace AspNetMVC.Controllers
                 new AllServiceCard{Title="洗衣服務",Url="javascript:;",Icon="jacket",Content="外送洗衣，以袋計價，隔日取件"},
             };
             return View(allServiceCards);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind] CustomerService customerService)
+        {
+
+            if (ModelState.IsValid)
+            {
+                context.CustomerServices.Add(customerService);
+                context.SaveChanges();
+            }
+            return View();
         }
     }
 }

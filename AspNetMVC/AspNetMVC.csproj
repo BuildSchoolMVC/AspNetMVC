@@ -168,6 +168,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AllServiceCard.cs" />
+    <Compile Include="Models\CustomerService\CustomerService.cs" />
+    <Compile Include="Models\CustomerService\CustomerServiceContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageCard.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -175,11 +177,17 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AspNetMVCIdentityDbFile.mdf" />
+    <Content Include="App_Data\AspNetMVCIdentityDbFile_log.ldf">
+      <DependentUpon>AspNetMVCIdentityDbFile.mdf</DependentUpon>
+    </Content>
+    <Content Include="Assets\css\account\forgotPassword.css" />
     <Content Include="Assets\css\home\allServiceView.css" />
     <Content Include="Assets\css\home\fonts\icofont.svg" />
     <Content Include="Assets\css\home\icofont.min.css" />
     <Content Include="Assets\css\home\index.css" />
     <Content Include="Assets\css\layout\layout.css" />
+    <Content Include="Assets\css\account\login.css" />
     <Content Include="Assets\images\bg_banner1.jpg" />
     <Content Include="Assets\images\bg_banner2.jpg" />
     <Content Include="Assets\images\bg_banner3.jpg" />
@@ -202,8 +210,10 @@
     <Content Include="Assets\images\p4.jpg" />
     <Content Include="Assets\images\p5.jpg" />
     <Content Include="Assets\images\p6.jpg" />
-    <Content Include="Assets\js\home\all.js" />
-    <Content Include="Assets\js\layout\all.js" />
+    <Content Include="Assets\js\account\forgotPassword.js" />
+    <Content Include="Assets\js\home\index.js" />
+    <Content Include="Assets\js\layout\layout.js" />
+    <Content Include="Assets\js\account\login.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -352,8 +362,7 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\LoginRegister.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -370,10 +379,9 @@
     <Content Include="Views\Shared\_SideMenuLoginPartial.cshtml" />
     <Content Include="Views\Shared\_ImageCardPartial.cshtml" />
     <Content Include="Views\Shared\_AllServiceViewPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

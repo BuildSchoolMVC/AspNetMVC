@@ -318,20 +318,21 @@
 }
 
 .section_image .card {
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-    -ms-flex-direction: row !important;
-    flex-direction: row !important;
     padding: 5px;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: reverse !important;
     -ms-flex-direction: column-reverse !important;
     flex-direction: column-reverse !important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     border-radius: 4px;
     -webkit-box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
     box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
-    height: 27vh
+    height: 40vh
 }
 
 .section_image .card .image-content {

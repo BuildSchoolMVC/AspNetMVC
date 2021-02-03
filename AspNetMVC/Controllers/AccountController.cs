@@ -55,7 +55,7 @@ namespace AspNetMVC.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult LoginRegister(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -66,7 +66,7 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> LoginRegister(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -79,15 +79,14 @@ namespace AspNetMVC.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return Json(new { Url = "Home/Index" });
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return Json(new { Url = "Layout" });
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "登入嘗試失試。");
-                    return View(model);
+                    return Json(new { Url = "Error" });
             }
         }
 
@@ -139,7 +138,7 @@ namespace AspNetMVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return View("LoginRegister");
         }
 
         //
@@ -156,20 +155,23 @@ namespace AspNetMVC.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // 如需如何進行帳戶確認及密碼重設的詳細資訊，請前往 https://go.microsoft.com/fwlink/?LinkID=320771
                     // 傳送包含此連結的電子郵件
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+                    return Json(new { Url = "Home/Index" });
                 }
-                AddErrors(result);
+                //AddErrors(result);
+                return Json(new { Url = "Error1" });
             }
 
             // 如果執行到這裡，發生某項失敗，則重新顯示表單
-            return View(model);
+            //return View(model);
+            return Json(new { Url = "Error2",Email = model.Email,State= ModelState.IsValid });
         }
 
         //

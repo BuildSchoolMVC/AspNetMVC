@@ -379,5 +379,6 @@ window.addEventListener("resize", () => {
     }
     if (window.innerWidth > 1024 && document.querySelector(".contact-us-form").classList.contains("active")) {
         document.querySelector(".contact-us-form").classList.remove("active");
+        document.querySelector(".contact-us button").classList.remove("active");
     }
 })
