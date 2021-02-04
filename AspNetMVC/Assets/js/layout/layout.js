@@ -181,10 +181,9 @@ const swipeDeleteEffect = () => {
                         cart.splice(index, 1);
                         localStorage.setItem("cart", JSON.stringify(cart));
                         countCartAmount(cart.length);
-                        countCartPrice();
                         checkoutBtnControl();
                         toggleTip();
-                        if (cart.length == 0) cartStatus("你目前的購物車是空的");
+                        if (cart.length == 0) cartStatus("你目前的收藏是空的");
                         toastr.info("成功刪除!!");
                     }
                 }, 500);
@@ -203,7 +202,7 @@ const countCartAmount = (count) => {
     }
     let span = document.createElement("span");
     span.className = "count red-dot";
-    document.querySelector(".nav-bottom-item .fa-shopping-cart").prepend(span);
+    document.querySelector(".nav-bottom-item .fa-heart").prepend(span);
     document.querySelectorAll(".count").
     forEach(x => x.innerText = count);
 
@@ -211,19 +210,19 @@ const countCartAmount = (count) => {
         document.querySelector(".cart-body").style.overflowY = "auto";
     } else document.querySelector(".cart-body").style.overflowY = "scroll";
 }
-const countCartPrice = () => {
-    let products = document.querySelectorAll(".cart-product-item");
-    if (isLogin == false) {
-        document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
-    } else {
-        if (products.length > 0) {
-            let total = Array.from(products).map(x => parseInt(x.dataset.price)).reduce((x, y) => x + y);
-            document.querySelector(".cart-footer h2").innerText = `小計 : ${notation(total)} 元`;
-        } else {
-            document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
-        }
-    }
-}
+//const countCartPrice = () => {
+//    let products = document.querySelectorAll(".cart-product-item");
+//    if (isLogin == false) {
+//        document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
+//    } else {
+//        if (products.length > 0) {
+//            let total = Array.from(products).map(x => parseInt(x.dataset.price)).reduce((x, y) => x + y);
+//            document.querySelector(".cart-footer h2").innerText = `小計 : ${notation(total)} 元`;
+//        } else {
+//            document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
+//        }
+//    }
+//}
 const createCartCard = (price, title, items, id) => {
     let card = document.createElement("div");
     card.className = "cart-product-item mb-3";
@@ -301,10 +300,13 @@ const showCart = () => {
 }
 const cartStatus = (words) => {
     document.querySelector(".section_cart-side-menu .cart-body").innerHTML = "";
+    let div = document.createElement("div");
     let word = document.createElement("h4");
     word.textContent = words;
     word.classList.add("center");
-    document.querySelector(".section_cart-side-menu .cart-body").appendChild(word);
+    div.classList.add("wrap");
+    div.append(word);
+    document.querySelector(".section_cart-side-menu .cart-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
     if (isLogin == false || cart.length == 0) {
@@ -321,7 +323,14 @@ const toggleTip = () => {
         document.querySelector(".tip").classList.remove("hide");
     }
 }
-
+const createLoginRegister = () => {
+    let a = document.createElement("a");
+    a.className = "btns login-register";
+    a.setAttribute("href", "/Account/Login");
+    a.setAttribute("id", "registerLink");
+    a.textContent = "註冊 / 登入";
+    document.querySelector(".section_cart-side-menu .cart-body .wrap").appendChild(a);
+}
 
 window.addEventListener("load", () => {
     loadingAnimation();
@@ -339,19 +348,17 @@ window.addEventListener("load", () => {
 
     if (isLogin == false) {
         cartStatus("請先註冊/登入!");
+        createLoginRegister();
         countCartAmount(0);
-        countCartPrice();
         checkoutBtnControl();
         toggleTip();
     } else if (isLogin == true) {
         if (cart.length == 0) {
             checkoutBtnControl();
             countCartAmount(0);
-            countCartPrice();
-            cartStatus("你目前的購物車是空的");
+            cartStatus("你目前的收藏是空的");
         } else {
             showCart();
-            countCartPrice();
             countCartAmount(cart.length);
         }
     }

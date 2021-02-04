@@ -55,7 +55,7 @@ namespace AspNetMVC.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult LoginRegister(string returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -66,7 +66,7 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginRegister(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace AspNetMVC.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View("LoginRegister");
+            return View();
         }
 
         //
@@ -154,7 +154,7 @@ namespace AspNetMVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // 如需如何進行帳戶確認及密碼重設的詳細資訊，請前往 https://go.microsoft.com/fwlink/?LinkID=320771
                     // 傳送包含此連結的電子郵件
@@ -162,16 +162,13 @@ namespace AspNetMVC.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
 
-                    //return RedirectToAction("Index", "Home");
-                    return Json(new { Url = "Home/Index" });
+                    return RedirectToAction("Index", "Home");
                 }
-                //AddErrors(result);
-                return Json(new { Url = "Error1" });
+                AddErrors(result);
             }
 
             // 如果執行到這裡，發生某項失敗，則重新顯示表單
-            //return View(model);
-            return Json(new { Url = "Error2",Email = model.Email,State= ModelState.IsValid });
+            return View(model);
         }
 
         //

@@ -45,6 +45,9 @@
     });
     $(".btn_login").on("click", function (e) {
         e.preventDefault();
+        $(".spinner-border").removeClass("opacity");
+        console.log($(".btn_login"))
+        $(".btn_login").attr("disabled", "disabled");
         $(".login-block .input").each(function () {
             clearWarn($(this));
             if ($(this).val().length === 0) {
@@ -63,7 +66,7 @@
         const token = $('input[name="__RequestVerificationToken"]').val();
 
         $.ajax({
-            url: "/Account/LoginRegister",
+            url: "/Account/Login",
             method: "POST",
             data: {
                 model: data,
@@ -78,7 +81,7 @@
                     toastr.success("登入成功");
                     setTimeout(function () {
                         window.location.replace(`${window.location.origin}/${result.Url}`);
-                    }, 500)
+                    }, 1000)
                 } else if (result.Url === "Error") {
                     toastr.error("登入失敗");
                 }
@@ -88,81 +91,58 @@
             }
         })
     });
-    $(".btn_submit").on("click", function (e) {
-        e.preventDefault();
-        const $email = $(".register-block .register-email");
-        const $password = $(".register-block .register-password");
-        const $passwordCheck = $(".register-block .register-password-check");
-        let isCorrect = true;
-        $(".warn").each(function () {
-            $(this).text("");
-        })
-        $(".register-block .input").each(function () {
-            clearWarn($(this));
-            if ($(this).val().length === 0) {
-                isCorrect = false;
-                $(this).addClass("input-warn");
-                if ($(this).hasClass("register-email")) {
-                    $("p.warn.register-email").text("請填寫信箱");
-                } else if ($(this).hasClass("register-password")) {
-                    $("p.warn.register-password").text("請填寫密碼");
-                } else if ($(this).hasClass("register-password-check")) {
-                    $("p.warn.register-password").text("請填寫密碼");
-                }
-            }
-        });
+    //$(".btn_submit").on("click", function (e) {
+    //    e.preventDefault();
+    //    const $email = $(".register-block .register-email");
+    //    const $password = $(".register-block .register-password");
+    //    const $passwordCheck = $(".register-block .register-password-check");
+    //    let isCorrect = true;
+    //    $(".warn").each(function () {
+    //        $(this).text("");
+    //    })
+    //    $(".register-block .input").each(function () {
+    //        clearWarn($(this));
+    //        if ($(this).val().length === 0) {
+    //            isCorrect = false;
+    //            $(this).addClass("input-warn");
+    //            if ($(this).hasClass("register-email")) {
+    //                $("p.warn.register-email").text("請填寫信箱");
+    //            } else if ($(this).hasClass("register-password")) {
+    //                $("p.warn.register-password").text("請填寫密碼");
+    //            } else if ($(this).hasClass("register-password-check")) {
+    //                $("p.warn.register-password").text("請填寫密碼");
+    //            }
+    //        }
+    //    });
 
-        if ($password.val() !== $passwordCheck.val()) {
-            isCorrect = false;
-            $password.addClass("input-warn");
-            $passwordCheck.addClass("input-warn");
-            $("p.warn.register-password-check").text("密碼不相符");
-        }
-        if (!$email.val().includes("@") || !$email.val().includes(".")) {
-            isCorrect = false;
-            clearWarn($email);
-            $($email).addClass("input-warn");
-            $("p.warn.register-email").text("信箱格式錯誤，請輸入有效信箱");
-        }
+    //    if ($password.val() !== $passwordCheck.val()) {
+    //        isCorrect = false;
+    //        $password.addClass("input-warn");
+    //        $passwordCheck.addClass("input-warn");
+    //        $("p.warn.register-password-check").text("密碼不相符");
+    //    }
+    //    if (!$email.val().includes("@") || !$email.val().includes(".")) {
+    //        isCorrect = false;
+    //        clearWarn($email);
+    //        $($email).addClass("input-warn");
+    //        $("p.warn.register-email").text("信箱格式錯誤，請輸入有效信箱");
+    //    }
 
-        if (($password.val().length < 6 || $password.val().length > 18)) {
-            isCorrect = false;
-            $password.addClass("input-warn");
-            $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
-        } else if (!passwordCheck($password.val())) {
-            isCorrect = false;
-            $password.addClass("input-warn");
-            $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
-        }
+    //    if (($password.val().length < 6 || $password.val().length > 18)) {
+    //        isCorrect = false;
+    //        $password.addClass("input-warn");
+    //        $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
+    //        console.log($password.val().length)
+    //    }
+    //    if (!passwordCheck($password.val())) {
+    //        isCorrect = false;
+    //        $password.addClass("input-warn");
+    //        $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
+    //    }
 
-        if (!isCorrect) {
-            return;
-        } else {
-            const data = {};
-            data.email = $(".register-email").val();
-            data.password = $(".register-password").val();
-            const token = document.querySelectorAll('input[name="__RequestVerificationToken"]')[1].value;
-            console.log(data)
-
-            $.ajax({
-                url: "/Account/Register",
-                method: "post",
-                data: {
-                    model: data,
-                    __requestverificationtoken: token,
-                    returnurl: "Home/Index"
-                },
-                success: function (result) {
-                    //window.location.replace(`${window.location.origin}/${result.url}`);
-                    console.log(result.Url);
-                    console.log(result.Email);
-                    console.log(result.State);
-                },
-                error: function (err) {
-                    console.log(err)
-                    document.querySelector("body").innerHTML = `<pre>${err.responseText}</pre>`
-                }
-            })
-        }
-    });
+    //    if (!isCorrect) {
+    //        return;
+    //    }
+    //    //$("#login").submit();
+    //});
 })();

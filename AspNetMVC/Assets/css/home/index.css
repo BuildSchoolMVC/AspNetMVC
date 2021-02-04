@@ -176,6 +176,18 @@
     position: relative
 }
 
+.section_all-service .service-items .coming-up {
+    position: absolute;
+    transform: translateY(-50%) rotate(-30deg);
+    border: 1px solid #ff0000;
+    color: #f00;
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    left: 50%;
+    top: 50%;
+}
+
 .section_all-service .service-items div[class*="tab-item_"] {
     position: absolute;
     pointer-events: none
@@ -246,7 +258,8 @@
     display: flex;
     padding: 16px 7px;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .section_all-service .service-items .card .card-body h5 {
@@ -332,7 +345,6 @@
     border-radius: 4px;
     -webkit-box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
     box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
-    height: 40vh
 }
 
 .section_image .card .image-content {
@@ -430,6 +442,10 @@
         white-space: normal;
         overflow: auto;
         text-overflow: clip
+    }
+
+    .section_all-service .service-items .card .card-body .coming-up {
+        font-size: 25px;
     }
 
     .section_all-service .service-tabs .tabs-item h3 {
@@ -614,6 +630,15 @@
     .section_all-service .service-items .card .card-body {
         width: auto;
         padding: 10px 15px 40px
+    }
+
+    .section_all-service .service-items .card .card-body .coming-up {
+        transform: translate(-50%, -50%) rotate(-30deg);
+        font-size: 40px;
+        font-weight: 800;
+        padding: 5px 10px;
+        top: -50%;
+        left: 50%;
     }
 
     .section_all-service .service-items .card .card-body .more {
