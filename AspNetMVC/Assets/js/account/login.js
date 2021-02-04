@@ -91,58 +91,58 @@
             }
         })
     });
-    //$(".btn_submit").on("click", function (e) {
-    //    e.preventDefault();
-    //    const $email = $(".register-block .register-email");
-    //    const $password = $(".register-block .register-password");
-    //    const $passwordCheck = $(".register-block .register-password-check");
-    //    let isCorrect = true;
-    //    $(".warn").each(function () {
-    //        $(this).text("");
-    //    })
-    //    $(".register-block .input").each(function () {
-    //        clearWarn($(this));
-    //        if ($(this).val().length === 0) {
-    //            isCorrect = false;
-    //            $(this).addClass("input-warn");
-    //            if ($(this).hasClass("register-email")) {
-    //                $("p.warn.register-email").text("請填寫信箱");
-    //            } else if ($(this).hasClass("register-password")) {
-    //                $("p.warn.register-password").text("請填寫密碼");
-    //            } else if ($(this).hasClass("register-password-check")) {
-    //                $("p.warn.register-password").text("請填寫密碼");
-    //            }
-    //        }
-    //    });
+    $(".btn_submit").on("click", function (e) {
+        e.preventDefault();
+        const $email = $(".register-block .register-email");
+        const $password = $(".register-block .register-password");
+        const $passwordCheck = $(".register-block .register-password-check");
+        let isCorrect = true;
+        $(".warn").each(function () {
+            $(this).text("");
+        })
+        $(".register-block .input").each(function () {
+            clearWarn($(this));
+            document.querySelectorAll("p").forEach(x => { x.textContent = "" });
+            console.log(document.querySelectorAll("p"))
+            if ($(this).val().length === 0) {
+                isCorrect = false;
+                $(this).addClass("input-warn");
+                if ($(this).hasClass("register-email")) {
+                    $("p.warn.register-email").text("請填寫信箱");
+                } else if ($(this).hasClass("register-password")) {
+                    $("p.warn.register-password").text("請填寫密碼");
+                } else if ($(this).hasClass("register-password-check")) {
+                    $("p.warn.register-password").text("請填寫密碼");
+                }
+            }
+        });
 
-    //    if ($password.val() !== $passwordCheck.val()) {
-    //        isCorrect = false;
-    //        $password.addClass("input-warn");
-    //        $passwordCheck.addClass("input-warn");
-    //        $("p.warn.register-password-check").text("密碼不相符");
-    //    }
-    //    if (!$email.val().includes("@") || !$email.val().includes(".")) {
-    //        isCorrect = false;
-    //        clearWarn($email);
-    //        $($email).addClass("input-warn");
-    //        $("p.warn.register-email").text("信箱格式錯誤，請輸入有效信箱");
-    //    }
+        if ($password.val() !== $passwordCheck.val()) {
+            isCorrect = false;
+            $password.addClass("input-warn");
+            $passwordCheck.addClass("input-warn");
+            $("p.warn.register-password-check").text("密碼不相符");
+        }
+        if (!$email.val().includes("@") || !$email.val().includes(".")) {
+            isCorrect = false;
+            clearWarn($email);
+            $($email).addClass("input-warn");
+            $("p.warn.register-email").text("信箱格式錯誤，請輸入有效信箱");
+        }
 
-    //    if (($password.val().length < 6 || $password.val().length > 18)) {
-    //        isCorrect = false;
-    //        $password.addClass("input-warn");
-    //        $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
-    //        console.log($password.val().length)
-    //    }
-    //    if (!passwordCheck($password.val())) {
-    //        isCorrect = false;
-    //        $password.addClass("input-warn");
-    //        $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
-    //    }
+        if (($password.val().length < 6 || $password.val().length > 18)) {
+            isCorrect = false;
+            $password.addClass("input-warn");
+            $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
+        }
+        if (!passwordCheck($password.val())) {
+            isCorrect = false;
+            $password.addClass("input-warn");
+            $("p.warn.register-password").text("請輸入6~18英數字，字母與數字至少各1個");
+        }
 
-    //    if (!isCorrect) {
-    //        return;
-    //    }
-    //    //$("#login").submit();
-    //});
+        if (!isCorrect) {
+            return;
+        }
+    });
 })();
