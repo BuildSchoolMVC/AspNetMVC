@@ -12,10 +12,11 @@ namespace AspNetMVC.Controllers
     public class HomeController : Controller
     {
         private CustomerServiceContext context = new CustomerServiceContext();
+
+        private IndexPageDataRepository datas = new IndexPageDataRepository();
         public ActionResult Index()
         {
-            var imageCards = new ImageCardRepository().CreateImageCardList();
-            return View(imageCards);
+            return View(datas);
         }
 
         public ActionResult AllServiceView()

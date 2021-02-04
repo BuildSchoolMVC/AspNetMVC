@@ -15,16 +15,17 @@
                 <span class="title title-register selected" for="title-check">註冊</span>
             </div>
             <div class="register-block show">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form", role = "form",id="login" }))
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form", role = "form", id = "login" }))
                 {
+
                     @Html.AntiForgeryToken()
                     <div class="form-group">
-                          @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", placeholder = "信箱" })
-                          <p class="warn register-email"></p>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", placeholder = "信箱" })
+                        <p class="warn register-email"></p>
                     </div>
                     <div class="form-group">
-                          @Html.PasswordFor(m => m.Password, new { @class = "input register-password", placeholder = "密碼" })
-                          <p class="warn register-password"></p>
+                        @Html.PasswordFor(m => m.Password, new { @class = "input register-password", placeholder = "密碼" })
+                        <p class="warn register-password"></p>
                     </div>
                     <div class="form-group">
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", placeholder = "確認密碼" })
@@ -40,4 +41,5 @@
 
 @section JS {
     <script src="~/Assets/js/account/login.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
 }

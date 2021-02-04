@@ -521,7 +521,6 @@
 
     .section_carousel div[class*='carousel_item'] p {
         font-size: 20px;
-        padding: 10px 0
     }
 
     .section_carousel div[class*='carousel_item'] a {
@@ -639,6 +638,7 @@
         padding: 5px 10px;
         top: -50%;
         left: 50%;
+        white-space: nowrap;
     }
 
     .section_all-service .service-items .card .card-body .more {

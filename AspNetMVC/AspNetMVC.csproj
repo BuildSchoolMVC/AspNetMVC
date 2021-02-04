@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DetailPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
@@ -169,18 +170,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AllServiceCard.cs" />
+    <Compile Include="Models\IndexPageModel\AllServiceCard.cs" />
+    <Compile Include="Models\IndexPageModel\Banner.cs" />
     <Compile Include="Models\CustomerService\CustomerService.cs" />
     <Compile Include="Models\CustomerService\CustomerServiceContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ImageCard.cs" />
+    <Compile Include="Models\IndexPageModel\ImageCard.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NewsCard.cs" />
+    <Compile Include="Models\IndexPageModel\NewsCard.cs" />
+    <Compile Include="Models\IndexPageModel\ServiceItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AllServiceCardRepository.cs" />
+    <Compile Include="Repository\BannerRepository.cs" />
     <Compile Include="Repository\ImageCardRepository.cs" />
     <Compile Include="Repository\IndexPageDataRepository.cs" />
     <Compile Include="Repository\NewsCardRepository.cs" />
+    <Compile Include="Repository\ServiceItemRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +202,8 @@
     <Content Include="Assets\css\Account\login.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />
     <Content Include="Assets\css\QA\QA.css" />
+    <Content Include="Assets\images\air condtioner.jpg" />
+    <Content Include="Assets\images\bed.jpg" />
     <Content Include="Assets\images\bg_banner1.jpg" />
     <Content Include="Assets\images\bg_banner2.jpg" />
     <Content Include="Assets\images\bg_banner3.jpg" />
@@ -205,7 +212,11 @@
     <Content Include="Assets\images\bg_banner6.jpg" />
     <Content Include="Assets\images\bg_banner7.jpg" />
     <Content Include="Assets\images\bg_clean.jpg" />
+    <Content Include="Assets\images\c1.jpg" />
+    <Content Include="Assets\images\c2.jpg" />
+    <Content Include="Assets\images\c3.jpg" />
     <Content Include="Assets\images\clean.jpg" />
+    <Content Include="Assets\images\kitchen.jpg" />
     <Content Include="Assets\images\line.png" />
     <Content Include="Assets\images\loading.gif" />
     <Content Include="Assets\images\logo.png" />
@@ -213,12 +224,19 @@
     <Content Include="Assets\images\n2.jpg" />
     <Content Include="Assets\images\n3.jpg" />
     <Content Include="Assets\images\n4.jpg" />
+    <Content Include="Assets\images\office1.jpg" />
+    <Content Include="Assets\images\office2.jpg" />
+    <Content Include="Assets\images\office3.jpg" />
     <Content Include="Assets\images\p1.jpg" />
     <Content Include="Assets\images\p2.jpg" />
     <Content Include="Assets\images\p3.jpg" />
     <Content Include="Assets\images\p4.jpg" />
     <Content Include="Assets\images\p5.jpg" />
     <Content Include="Assets\images\p6.jpg" />
+    <Content Include="Assets\images\QAbanner.png" />
+    <Content Include="Assets\images\wall.jpg" />
+    <Content Include="Assets\images\wash machine.jpg" />
+    <Content Include="Assets\images\water pip.jpg" />
     <Content Include="Assets\js\Account\forgotPassword.js" />
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />
@@ -393,6 +411,9 @@
     <Content Include="Views\Shared\PartialView\_NewsCardPartial.cshtml" />
     <Content Include="Views\ProductPage\Index.cshtml" />
     <Content Include="Views\QA\Index.cshtml" />
+    <Content Include="Views\Shared\PartialView\_BannerPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_ServiceItemPartial.cshtml" />
+    <Content Include="Views\DetailPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

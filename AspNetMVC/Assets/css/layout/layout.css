@@ -1167,7 +1167,8 @@ img {
     padding: 50px 0;
     background: var(--dark-blue);
     -webkit-box-shadow: 1px -1px 10px #ececec80;
-    box-shadow: 1px -1px 10px #ececec80
+    box-shadow: 1px -1px 10px #ececec80;
+    overflow:hidden
 }
 
 .section_footer .row:nth-of-type(1) .col-12:nth-of-type(1) ul {

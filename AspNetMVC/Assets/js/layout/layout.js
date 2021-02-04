@@ -146,7 +146,8 @@ const hoverEffect = () => {
         let img = document.createElement("img");
         img.setAttribute("style", "opacity:0;position:absolute; z-index:-1;top:0;left:0;width:100%");
         img.src = item.dataset.imgsrc;
-        document.querySelector("body").append(img);
+ 
+        document.querySelector(".section_footer .logo").append(img);
 
         item.addEventListener("mouseenter", function () {
             setTimeout(() => {
@@ -210,19 +211,7 @@ const countCartAmount = (count) => {
         document.querySelector(".cart-body").style.overflowY = "auto";
     } else document.querySelector(".cart-body").style.overflowY = "scroll";
 }
-//const countCartPrice = () => {
-//    let products = document.querySelectorAll(".cart-product-item");
-//    if (isLogin == false) {
-//        document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
-//    } else {
-//        if (products.length > 0) {
-//            let total = Array.from(products).map(x => parseInt(x.dataset.price)).reduce((x, y) => x + y);
-//            document.querySelector(".cart-footer h2").innerText = `小計 : ${notation(total)} 元`;
-//        } else {
-//            document.querySelector(".cart-footer h2").innerText = `小計 : 0 元`;
-//        }
-//    }
-//}
+
 const createCartCard = (price, title, items, id) => {
     let card = document.createElement("div");
     card.className = "cart-product-item mb-3";
