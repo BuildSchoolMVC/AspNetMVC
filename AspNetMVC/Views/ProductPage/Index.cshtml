@@ -3,14 +3,14 @@
     ViewBag.Title = "商品頁";
 }
 
-@section CSS{    
+@section CSS{
     @Styles.Render("~/Assets/css/ProductPage/ProductPage.css")
 }
 <section class="ProductPage">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-4 col-lg-3 ">
-                <div class="operating-area" id="sidemenu">
+                <div class="operating-area close" id="sidemenu">
                     <div class="accordion" id="accordionExample">
                         <div class="card">
                             <div class="card-header" id="headingOne">
@@ -74,8 +74,8 @@
                                     <input type="checkbox" id="deworming" name="vehicle3" value="Boat">
                                     <label for="deworming">除蟲</label><br>
                                     <div class="btn-area">
-                                        <button>搜尋商品</button>
-                                        <button class="d-none">產生卡片</button>
+                                        <button class="">搜尋商品</button>
+                                        <button class="">產生卡片</button>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item-group grid d-none" id="item-group-grid">
+                    <div class="item-group grid" id="item-group-grid">
                         <div class="card">
                             <div class="pic">
                                 <a href="">
@@ -162,7 +162,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -176,7 +176,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -190,7 +190,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -204,7 +204,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -218,7 +218,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -232,7 +232,7 @@
                                 </a>
                                 <div class="icon-area">
                                     <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
+                                    <a href="" class="search"><i class="fas fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text">
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item-group list" id="item-group-list">
+                    <div class="item-group list d-none" id="item-group-list">
                         <div class="card">
                             <div class="btn">
                                 <button>+</button>
@@ -249,8 +249,7 @@
                                 <img src="https://picsum.photos/300/200/?random=4">
                             </div>
                             <div class="text">
-                                <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝服務1</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務1</h2>
                                 <ul>
                                     <li>
                                         客廳
@@ -269,8 +268,7 @@
                                 <img src="https://picsum.photos/300/200/?random=6">
                             </div>
                             <div class="text">
-                                <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝服務2</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務2</h2>
                                 <ul>
                                     <li>
                                         廚房
@@ -289,8 +287,7 @@
                                 <img src="https://picsum.photos/300/200/?random=3">
                             </div>
                             <div class="text">
-                                <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝服務3</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務3</h2>
                                 <ul>
                                     <li>
                                         臥室
@@ -309,8 +306,7 @@
                                 <img src="https://picsum.photos/300/200/?random=9">
                             </div>
                             <div class="text">
-                                <button class="search"><a href=""><i class="fas fa-search"></i></a></button>
-                                <h2>套裝服務4</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務4</h2>
                                 <ul>
                                     <li>
                                         客廳+廚房
@@ -374,8 +370,8 @@
                             <h4>小計: <span></span></h4>
                         </div>
                         <div class="button-area">
-                            <button>加入收藏</button>
-                            <a href=""><button>前往結帳</button></a>
+                            <a href="" class="btn">加入收藏</a>
+                            <a href="" class="btn">前往結帳</a>
                         </div>
                     </div>
                 </div>
@@ -383,6 +379,7 @@
         </div>
     </div>
 </section>
+
 @section JS{
-    @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")    
+    @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
 }

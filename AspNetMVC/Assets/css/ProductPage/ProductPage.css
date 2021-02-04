@@ -402,11 +402,20 @@
                         background-color: transparent;
                     }
 
-                        .ProductPage .product-area .item-group.grid .card .pic .icon-area button a {
-                            width: 100%;
-                            display: inline-block;
-                            color: white;
-                        }
+                    .ProductPage .product-area .item-group.grid .card .pic .icon-area a {
+                        font-size: 20px;
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-box-pack: center;
+                        -ms-flex-pack: center;
+                        justify-content: center;
+                        -webkit-box-align: center;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        width: 50%;
+                        color: white;
+                    }
 
             .ProductPage .product-area .item-group.grid .card .text {
                 width: 100%;
@@ -518,17 +527,14 @@
                         margin-bottom: 0;
                     }
 
-                    .ProductPage .product-area .item-group.list .card .text button {
+                    .ProductPage .product-area .item-group.list .card .text a {
+                        position: absolute;
                         border: none;
                         background-color: transparent;
-                        position: absolute;
-                        right: 5px;
-                        top: 5px;
+                        right: -190px;
+                        top: 0px;
+                        color: #543c5f;
                     }
-
-                        .ProductPage .product-area .item-group.list .card .text button a {
-                            color: #543c5f;
-                        }
 
 .ProductPage .userdefined-area {
     margin-left: -15px;
@@ -601,7 +607,7 @@
 
                 .ProductPage .userdefined-area .card-body .item-group .item .btn {
                     position: absolute;
-                    top: 35px;
+                    top: 25px;
                     left: -30px;
                 }
 
@@ -638,7 +644,7 @@
                     }
 
                         .ProductPage .userdefined-area .card-body .item-group .item .text h2 span {
-                            margin-left: 20px;
+                            margin-left: 10px;
                             font-size: 12px;
                         }
 
@@ -647,6 +653,7 @@
                     }
 
                     .ProductPage .userdefined-area .card-body .item-group .item .text ul {
+                        padding-left: 20px;
                         margin-bottom: 0px;
                     }
 
@@ -693,7 +700,7 @@
             padding-right: 5vw;
         }
 
-            .ProductPage .userdefined-area .content .button-area button {
+            .ProductPage .userdefined-area .content .button-area button, .ProductPage .userdefined-area .content .button-area a {
                 border-radius: 5px;
                 font-size: 16px;
                 line-height: 16px;
@@ -800,6 +807,10 @@
                     display: flex;
                     width: 65%;
                 }
+
+                    .ProductPage .product-area .item-group.list .card .text a {
+                        right: -240px;
+                    }
 
     .ProductPage .userdefined-area {
         height: 550px;
@@ -1045,13 +1056,15 @@
                         transform: translate(-20px, 90px);
                         -webkit-transition: 0.5s;
                         transition: 0.5s;
+                        color: white;
                     }
 
                     .ProductPage .row .product-area .item-group.grid .card .pic:hover .icon-area .search {
-                        -webkit-transform: translate(-20px, 90px);
-                        transform: translate(-20px, 90px);
+                        -webkit-transform: translate(20px, 7px);
+                        transform: translate(20px, 7px);
                         -webkit-transition: 0.5s;
                         transition: 0.5s;
+                        text-decoration: none;
                     }
 
                     .ProductPage .row .product-area .item-group.grid .card .text {
@@ -1076,39 +1089,48 @@
 
                         .ProductPage .row .product-area .item-group.grid .card .icon-area .search {
                             position: absolute;
-                            -webkit-transform: translateX(130px);
-                            transform: translateX(130px);
+                            -webkit-transform: translate(130px, -200px);
+                            transform: translate(130px, -200px);
                         }
 
                             .ProductPage .row .product-area .item-group.grid .card .icon-area .search a {
                                 color: black;
                             }
 
-                .ProductPage .row .product-area .item-group.list .card {
-                    width: 80%;
+                .ProductPage .row .product-area .item-group.list {
+                    padding-left: 50px;
                 }
 
-                    .ProductPage .row .product-area .item-group.list .card .btn:hover button {
-                        -webkit-transition: 0.2s;
-                        transition: 0.2s;
-                        background-color: white;
-                        color: var(--mainColor);
-                        font-weight: bolder;
-                        border: 1.5px solid var(--mainColor);
+                    .ProductPage .row .product-area .item-group.list .card {
+                        width: 80%;
+                        margin: 10px;
                     }
 
-                    .ProductPage .row .product-area .item-group.list .card .pic {
-                        width: 25%;
-                    }
-
-                    .ProductPage .row .product-area .item-group.list .card .text {
-                        width: 75%;
-                    }
-
-                        .ProductPage .row .product-area .item-group.list .card .text button:hover {
-                            -webkit-transform: scale(1.3);
-                            transform: scale(1.3);
+                        .ProductPage .row .product-area .item-group.list .card .btn:hover button {
+                            -webkit-transition: 0.2s;
+                            transition: 0.2s;
+                            background-color: white;
+                            color: var(--mainColor);
+                            font-weight: bolder;
+                            border: 1.5px solid var(--mainColor);
                         }
+
+                        .ProductPage .row .product-area .item-group.list .card .pic {
+                            width: 25%;
+                        }
+
+                        .ProductPage .row .product-area .item-group.list .card .text {
+                            width: 75%;
+                        }
+
+                            .ProductPage .row .product-area .item-group.list .card .text button:hover {
+                                -webkit-transform: scale(1.3);
+                                transform: scale(1.3);
+                            }
+
+                            .ProductPage .row .product-area .item-group.list .card .text a {
+                                right: -450px;
+                            }
 
         .ProductPage .row .userdefined-area .card-body {
             height: 480px;
