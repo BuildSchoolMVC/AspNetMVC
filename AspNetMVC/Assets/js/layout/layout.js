@@ -1,12 +1,12 @@
-﻿let cart = JSON.parse(localStorage.getItem("cart")) || []
+﻿let favorites = JSON.parse(localStorage.getItem("favorites")) || []
 let isLogin = JSON.parse(localStorage.getItem("login")) || false;
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
-    "showDuration": "3300",
+    "showDuration": "800",
     "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
+    "timeOut": "1000",
+    "extendedTimeOut": "500",
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
@@ -87,23 +87,23 @@ const toggleSideMenuSubItem = (target, event) => {
 
     target.classList.toggle("open");
 }
-const toggleCart = () => {
-    document.querySelector("#cart").addEventListener("click", function () {
-        if (document.querySelector(".cart-side-menu").classList.contains("open")) {
-            document.querySelector(".cart-side-menu").classList.remove("open")
+const toggleFavorites = () => {
+    document.querySelector("#favorites").addEventListener("click", function () {
+        if (document.querySelector(".favorites-side-menu").classList.contains("open")) {
+            document.querySelector(".favorites-side-menu").classList.remove("open")
         } else {
-            document.querySelector(".cart-side-menu").classList.add("open")
+            document.querySelector(".favorites-side-menu").classList.add("open")
         }
     })
-    document.querySelector("#cart-close").addEventListener("click", function () {
-        if (document.querySelector(".cart-side-menu").classList.contains("open")) {
-            document.querySelector(".cart-side-menu").classList.remove("open")
+    document.querySelector("#favorites-close").addEventListener("click", function () {
+        if (document.querySelector(".favorites-side-menu").classList.contains("open")) {
+            document.querySelector(".favorites-side-menu").classList.remove("open")
         }
     })
 }
-const openBottomCart = () => {
+const openBottomFavorites = () => {
     document.querySelectorAll(".nav-bottom-item")[1].addEventListener("click", function () {
-        document.querySelector(".section_cart-side-menu").classList.add("open");
+        document.querySelector(".section_favorites-side-menu").classList.add("open");
     })
 }
 const openBottomCustomerService = () => {
@@ -146,7 +146,7 @@ const hoverEffect = () => {
         let img = document.createElement("img");
         img.setAttribute("style", "opacity:0;position:absolute; z-index:-1;top:0;left:0;width:100%");
         img.src = item.dataset.imgsrc;
- 
+
         document.querySelector(".section_footer .logo").append(img);
 
         item.addEventListener("mouseenter", function () {
@@ -166,9 +166,9 @@ const notation = (value) => {
         length == 8 ? `${value.toString().substring(0, 2)},${value.toString().substring(2, 5)},${value.toString().substring(5, 8)}` : `${value.toString().substring(0, 3)},${value.toString().substring(3, 6)},${value.toString().substring(6, 9)}`
 }
 const swipeDeleteEffect = () => {
-    let cartProducts = document.querySelectorAll(".cart-product-item");
+    let favoritesProducts = document.querySelectorAll(".favorites-product-item");
 
-    cartProducts.forEach(item => {
+    favoritesProducts.forEach(item => {
         let hammer = new Hammer(item);
         hammer.on("swipeleft", function () {
             item.classList.add("remove");
@@ -177,14 +177,14 @@ const swipeDeleteEffect = () => {
                 item.classList.add("delete");
                 setTimeout(() => {
                     item.remove();
-                    let index = cart.findIndex(x => x.id == item.dataset.id);
+                    let index = favorites.findIndex(x => x.id == item.dataset.id);
                     if (index != -1) {
-                        cart.splice(index, 1);
-                        localStorage.setItem("cart", JSON.stringify(cart));
-                        countCartAmount(cart.length);
+                        favorites.splice(index, 1);
+                        localStorage.setItem("favorites", JSON.stringify(favorites));
+                        countFavoritesAmount(favorites.length);
                         checkoutBtnControl();
                         toggleTip();
-                        if (cart.length == 0) cartStatus("你目前的收藏是空的");
+                        if (favorites.length == 0) favoritesStatus("你目前的收藏是空的");
                         toastr.info("成功刪除!!");
                     }
                 }, 500);
@@ -197,7 +197,7 @@ const swipeDeleteEffect = () => {
         })
     })
 }
-const countCartAmount = (count) => {
+const countFavoritesAmount = (count) => {
     if (document.querySelector(".nav-bottom-item .red-dot")) {
         document.querySelector(".nav-bottom-item .red-dot").remove();
     }
@@ -208,13 +208,13 @@ const countCartAmount = (count) => {
     forEach(x => x.innerText = count);
 
     if (count == 0) {
-        document.querySelector(".cart-body").style.overflowY = "auto";
-    } else document.querySelector(".cart-body").style.overflowY = "scroll";
+        document.querySelector(".favorites-body").style.overflowY = "auto";
+    } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
 
-const createCartCard = (price, title, items, id) => {
+const createFavoritesCard = (price, title, items, id) => {
     let card = document.createElement("div");
-    card.className = "cart-product-item mb-3";
+    card.className = "favorites-product-item mb-3";
     card.setAttribute("data-price", price);
     card.setAttribute("data-id", id);
 
@@ -278,35 +278,35 @@ const createCartCard = (price, title, items, id) => {
     row.append(col4, col8, btnGroup);
     card.appendChild(row);
 
-    document.querySelector(".section_cart-side-menu .cart-body").appendChild(card);
+    document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
 }
-const showCart = () => {
-    document.querySelector(".section_cart-side-menu .cart-body").innerHTML = "";
-    cart.forEach(x => {
-        createCartCard(x.price, x.title, x.items, x.id);
+const showFavorites = () => {
+    document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
+    favorites.forEach(x => {
+        createFavoritesCard(x.price, x.title, x.items, x.id);
     })
     swipeDeleteEffect();
 }
-const cartStatus = (words) => {
-    document.querySelector(".section_cart-side-menu .cart-body").innerHTML = "";
+const favoritesStatus = (words) => {
+    document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     let div = document.createElement("div");
     let word = document.createElement("h4");
     word.textContent = words;
     word.classList.add("center");
     div.classList.add("wrap");
     div.append(word);
-    document.querySelector(".section_cart-side-menu .cart-body").appendChild(div);
+    document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
-    if (isLogin == false || cart.length == 0) {
-        document.querySelector(".cart-footer .checkout").setAttribute("disabled", true);
+    if (isLogin == false || favorites.length == 0) {
+        document.querySelector(".favorites-footer .checkout").setAttribute("disabled", true);
     } else {
-        document.querySelector(".cart-footer .checkout").removeAttribute("disabled");
+        document.querySelector(".favorites-footer .checkout").removeAttribute("disabled");
 
     }
 }
 const toggleTip = () => {
-    if (isLogin == false || cart.length == 0) {
+    if (isLogin == false || favorites.length == 0) {
         document.querySelector(".tip").classList.add("hide");
     } else {
         document.querySelector(".tip").classList.remove("hide");
@@ -318,7 +318,33 @@ const createLoginRegister = () => {
     a.setAttribute("href", "/Account/Login");
     a.setAttribute("id", "registerLink");
     a.textContent = "註冊 / 登入";
-    document.querySelector(".section_cart-side-menu .cart-body .wrap").appendChild(a);
+    document.querySelector(".section_favorites-side-menu .favorites-body .wrap").appendChild(a);
+}
+const customerForm = () => {
+    const data = {};
+    data.Name = $("#contact_name").val();
+    data.Email = $("#contact_email").val();
+    data.Phone = $("#contact_phone").val();
+    data.Category = $("#contact_category").val() * 1;
+    data.Content = $("#contact_content").val();
+    const token = $('input[name="__RequestVerificationToken"]').val();
+    console.log(data)
+
+    $.ajax({
+        url: "/Home/CustomerServiceCreate",
+        method: "POST",
+        data: {
+            data: data,
+            __RequestVerificationToken: token,
+            returnUrl: "Home/Index"
+        },
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
 }
 
 window.addEventListener("load", () => {
@@ -327,28 +353,29 @@ window.addEventListener("load", () => {
     closeHamburger();
     toggleAllService();
     toggleSideMenuAllService();
-    toggleCart();
+    toggleFavorites();
     toggleContact();
-    openBottomCart();
+    openBottomFavorites();
     openBottomCustomerService();
     imgLazyLoad();
     hoverEffect();
     toggleTip();
 
     if (isLogin == false) {
-        cartStatus("請先註冊/登入!");
+        favoritesStatus("請先註冊/登入!");
         createLoginRegister();
-        countCartAmount(0);
+        countFavoritesAmount(0);
         checkoutBtnControl();
         toggleTip();
     } else if (isLogin == true) {
-        if (cart.length == 0) {
+        console.log(favorites)
+        if (favorites.length == 0) {
             checkoutBtnControl();
-            countCartAmount(0);
-            cartStatus("你目前的收藏是空的");
+            countFavoritesAmount(0);
+            favoritesStatus("你目前的收藏是空的");
         } else {
-            showCart();
-            countCartAmount(cart.length);
+            showFavorites();
+            countFavoritesAmount(favorites.length);
         }
     }
 
@@ -364,7 +391,7 @@ window.addEventListener("resize", () => {
     if (window.innerWidth > 1024 && document.querySelector(".side-menu").classList.contains("show")) {
         document.querySelector(".side-menu").classList.remove("show");
     } else {
-        document.querySelector(".cart-side-menu").classList.remove("open");
+        document.querySelector(".favorites-side-menu").classList.remove("open");
     }
 
     if (window.innerWidth < 1024) {
@@ -377,4 +404,8 @@ window.addEventListener("resize", () => {
         document.querySelector(".contact-us-form").classList.remove("active");
         document.querySelector(".contact-us button").classList.remove("active");
     }
+})
+document.querySelector(".contact-us input[type='submit']").addEventListener("click", function (e) {
+    e.preventDefault();
+    customerForm();
 })

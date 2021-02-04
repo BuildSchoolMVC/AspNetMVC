@@ -10,7 +10,7 @@ namespace AspNetMVC.Models
         public string Name { get; set; }
         public string Photo { get; set; }
         public string Content { get; set; }
-        public int StarCount { get; set; }
+        public decimal StarCount { get; set; }
         public string AnimationDelay { get; set; }
     }
 }

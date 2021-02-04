@@ -170,6 +170,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102041724035_init.cs" />
+    <Compile Include="Migrations\202102041724035_init.Designer.cs">
+      <DependentUpon>202102041724035_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041733146_v2.cs" />
+    <Compile Include="Migrations\202102041733146_v2.Designer.cs">
+      <DependentUpon>202102041733146_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IndexPageModel\AllServiceCard.cs" />
     <Compile Include="Models\IndexPageModel\Banner.cs" />
@@ -196,7 +205,6 @@
       <DependentUpon>AspNetMVCIdentityDbFile.mdf</DependentUpon>
     </Content>
     <Content Include="Assets\css\Account\forgotPassword.css" />
-    <Content Include="Assets\css\Home\allServiceView.css" />
     <Content Include="Assets\css\Home\fonts\icofont.svg" />
     <Content Include="Assets\css\Home\icofont.min.css" />
     <Content Include="Assets\css\Home\index.css" />
@@ -248,15 +256,12 @@
     <Content Include="Assets\images\wall.jpg" />
     <Content Include="Assets\images\wash machine.jpg" />
     <Content Include="Assets\images\water pip.jpg" />
-    <Content Include="Assets\js\Account\forgotPassword.js" />
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />
     <Content Include="Assets\js\Account\login.js" />
     <Content Include="Assets\js\ProductPage\ProductPage.js" />
     <Content Include="Assets\images\visa.png" />
     <Content Include="Assets\js\Checkout\all.js" />
-    <Content Include="Assets\js\home\all.js" />
-    <Content Include="Assets\js\layout\all.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -433,10 +438,16 @@
     <Content Include="Views\Checkout\districts.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Assets\js\QA\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202102041724035_init.resx">
+      <DependentUpon>202102041724035_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041733146_v2.resx">
+      <DependentUpon>202102041733146_v2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

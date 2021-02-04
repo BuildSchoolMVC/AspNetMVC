@@ -19,24 +19,24 @@
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
                         <div class="col-12 my-2 p-0">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "input", placeholder = "信箱" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", placeholder = "信箱", autocomplete="off" })
                             <p class="warn register-email"></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.Password, new { @class = "input", placeholder = "密碼" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "input register-password", placeholder = "密碼", autocomplete = "off" })
                             <p class="warn register-password"></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input", placeholder = "確認密碼" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", placeholder = "確認密碼", autocomplete = "off" })
                         </div>
                     </div>
                     <div class="form-group my-2">
                         <div class="float-right w-100">
-                            <input type="submit" class="button btn_submit" value="註冊" />
+                            <button type="submit" class="button btn_submit"><span class="spinner-border opacity"></span>註冊</button>
                         </div>
                     </div>
                 }

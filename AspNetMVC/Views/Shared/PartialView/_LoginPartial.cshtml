@@ -10,7 +10,7 @@
                 <li>
                     @Html.ActionLink("會員中心", "Center", "Member", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns login-register" })
                 </li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link color-gray">登出</a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit();isLogin=false;localStorage.setItem('login',isLogin)" class="nav-link color-gray">登出</a></li>
             </ul>
         }
     }

@@ -54,7 +54,7 @@
                     </ul>
                     <div class="nav_btn-group d-flex align-items-center">
                         @Html.Partial("PartialView/_LoginPartial")
-                        <button class="btns" id="cart">
+                        <button class="btns" id="favorites">
                             <i class="fas fa-heart pr-1"></i>(<span class="count"></span>)
                         </button>
                     </div>
@@ -258,21 +258,21 @@
         </div>
 
     </section>
-    <section class="section_cart-side-menu cart-side-menu position-fixed">
+    <section class="section_favorites-side-menu favorites-side-menu position-fixed">
         <div class="container-fluid">
             <div class="row justify-content-end">
                 <div class="col-12 col-lg-5 col-xl-4">
-                    <div class="cart">
-                        <div class="cart-header pb-2 mb-5">
-                            <div class="cart-title">
-                                <i class="fas fa-times float-right" id="cart-close"></i>
+                    <div class="favorites">
+                        <div class="favorites-header pb-2 mb-5">
+                            <div class="favorites-title">
+                                <i class="fas fa-times float-right" id="favorites-close"></i>
                                 <h2>你的收藏(<span class="count"></span>)</h2>
                             </div>
                             <span class="tip">※向左滑動以便進行刪除</span>
                         </div>
-                        <div class="cart-body">
+                        <div class="favorites-body">
                         </div>
-                        <div class="cart-footer mt-4">
+                        <div class="favorites-footer mt-4">
                             <h2 class="mt-2 mb-5"></h2>
                             <button class="btns checkout">結帳去</button>
                         </div>
@@ -289,7 +289,7 @@
                     <ul class="list-unstyled">
                         <li><a href="@Url.Action("Index","ProductPage")">找打掃</a></li>
                         <li><a href="@Url.Action("AllServiceView","Home")">全部服務</a></li>
-                        <li><a href="@Url.Action("AllServiceView","Home")">常見問題 / 關於我們</a></li>
+                        <li><a href="@Url.Action("Index","QA")">常見問題 / 關於我們</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -315,7 +315,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <p>
-                        &copy; uCleaner - 打掃服務 2021 All Right Reserved
+                        &copy; uCleaner - 打掃服務 @DateTime.Now.Year All Right Reserved
                     </p>
                 </div>
                 <div class="col-12 col-lg-6">
@@ -328,6 +328,7 @@
                 <button class="btns rounded-pill"><i class="far fa-question-circle"></i><span>聯絡我們</span></button>
                 <div class="contact-us-form">
                     <form action="">
+                        @Html.AntiForgeryToken()
                         <div class="form-header">
                             <h5>客服支援</h5>
                             <i class="fas fa-minus position-absolute" id="contact-close"></i>
@@ -335,20 +336,20 @@
                         <div class="form-body">
                             <div class="input-groupings">
                                 <label for="contact_name">姓名</label>
-                                <input type="text" name="" id="contact_name">
+                                <input type="text" name="Name" id="contact_name">
                             </div>
                             <div class="input-groupings">
                                 <label for="contact_email">電子郵件</label>
-                                <input type="email" name="" id="contact_email">
+                                <input type="email" name="Email" id="contact_email">
                             </div>
                             <div class="input-groupings">
                                 <label for="contact_phone">電話</label>
-                                <input type="tel" name="" id="contact_phone">
+                                <input type="tel" name="Phone" id="contact_phone">
                             </div>
                             <div>
                                 <div class="input-groupings">
                                     <label for="contact_category">問題分類</label>
-                                    <select name="" id="contact_category">
+                                    <select name="Category" id="contact_category">
                                         <option value="-1"> 請選擇 </option>
                                         <option value="1"> 儲值問題 </option>
                                         <option value="2"> 諮詢問題 </option>
@@ -358,10 +359,10 @@
                             </div>
                             <div class="input-groupings">
                                 <label for="contact_content">訊息</label>
-                                <textarea id="contact_content" cols="30" rows="5"></textarea>
+                                <textarea id="contact_content" cols="30" rows="5" name="Content"></textarea>
                             </div>
                         </div>
-                        <div class=" form-footer">
+                        <div class="form-footer">
                             <input class="btns" type="submit" value="傳送訊息">
                         </div>
                     </form>

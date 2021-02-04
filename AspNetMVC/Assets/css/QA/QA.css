@@ -22,8 +22,8 @@
 }
 
 .qa .introduce .contain {
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.6))), url(/pic/QAbanner.png) center center;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(/pic/QAbanner.png) center center;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.6))), url(../../images/QAbanner.png) center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(../../images/QAbanner.png) center center;
     background-size: cover;
     margin-left: -15px;
     margin-right: -15px;
