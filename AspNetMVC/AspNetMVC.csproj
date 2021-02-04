@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DetailPageController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Models\IndexPageModel\Banner.cs" />
     <Compile Include="Models\CustomerService\CustomerService.cs" />
     <Compile Include="Models\CustomerService\CustomerServiceContext.cs" />
+    <Compile Include="Models\CountyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IndexPageModel\ImageCard.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -201,6 +203,13 @@
     <Content Include="Assets\css\Layout\layout.css" />
     <Content Include="Assets\css\Account\login.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />
+    <Content Include="Assets\css\Checkout\Checkout.min.css" />
+    <Content Include="Assets\css\Checkout\common.css" />
+    <Content Include="Assets\css\home\allServiceView.css" />
+    <Content Include="Assets\css\home\fonts\icofont.svg" />
+    <Content Include="Assets\css\home\icofont.min.css" />
+    <Content Include="Assets\css\home\index.css" />
+    <Content Include="Assets\css\layout\layout.css" />
     <Content Include="Assets\css\QA\QA.css" />
     <Content Include="Assets\images\air condtioner.jpg" />
     <Content Include="Assets\images\bed.jpg" />
@@ -217,9 +226,11 @@
     <Content Include="Assets\images\c3.jpg" />
     <Content Include="Assets\images\clean.jpg" />
     <Content Include="Assets\images\kitchen.jpg" />
+    <Content Include="Assets\images\jcb.png" />
     <Content Include="Assets\images\line.png" />
     <Content Include="Assets\images\loading.gif" />
     <Content Include="Assets\images\logo.png" />
+    <Content Include="Assets\images\master.png" />
     <Content Include="Assets\images\n1.jpg" />
     <Content Include="Assets\images\n2.jpg" />
     <Content Include="Assets\images\n3.jpg" />
@@ -242,6 +253,10 @@
     <Content Include="Assets\js\Layout\layout.js" />
     <Content Include="Assets\js\Account\login.js" />
     <Content Include="Assets\js\ProductPage\ProductPage.js" />
+    <Content Include="Assets\images\visa.png" />
+    <Content Include="Assets\js\Checkout\all.js" />
+    <Content Include="Assets\js\home\all.js" />
+    <Content Include="Assets\js\layout\all.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -414,6 +429,12 @@
     <Content Include="Views\Shared\PartialView\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_ServiceItemPartial.cshtml" />
     <Content Include="Views\DetailPage\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\districts.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Assets\js\QA\" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
