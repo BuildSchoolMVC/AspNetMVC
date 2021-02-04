@@ -3,8 +3,9 @@
     ViewBag.Title = "商品頁";
 }
 
-
-@Styles.Render("~/Assets/css/ProductPage/ProductPage.css")
+@section CSS{    
+    @Styles.Render("~/Assets/css/ProductPage/ProductPage.css")
+}
 <section class="ProductPage">
     <div class="container-fluid">
         <div class="row">
@@ -382,5 +383,6 @@
         </div>
     </div>
 </section>
-
-@Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
+@section JS{
+    @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")    
+}

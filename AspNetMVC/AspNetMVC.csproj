@@ -163,6 +163,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductPageController.cs" />
+    <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +195,8 @@
     <Content Include="Assets\css\Home\index.css" />
     <Content Include="Assets\css\Layout\layout.css" />
     <Content Include="Assets\css\Account\login.css" />
+    <Content Include="Assets\css\ProductPage\ProductPage.css" />
+    <Content Include="Assets\css\QA\QA.css" />
     <Content Include="Assets\images\bg_banner1.jpg" />
     <Content Include="Assets\images\bg_banner2.jpg" />
     <Content Include="Assets\images\bg_banner3.jpg" />
@@ -219,6 +223,7 @@
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />
     <Content Include="Assets\js\Account\login.js" />
+    <Content Include="Assets\js\ProductPage\ProductPage.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -386,6 +391,8 @@
     <Content Include="Views\Shared\PartialView\_AllServiceViewPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\PartialView\_NewsCardPartial.cshtml" />
+    <Content Include="Views\ProductPage\Index.cshtml" />
+    <Content Include="Views\QA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
