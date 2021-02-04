@@ -1,0 +1,15 @@
+﻿@model ImageCard
+
+<div class="col-6 col-md-4 col-xl-2 p-1">
+    <div class="card d-flex border faded" style="--delay:@Model.AnimationDelay">
+        <div class="image-content">
+            <h4>@Model.Name</h4>
+            <p>@Model.Content</p>
+            <span><i class="fas fa-star color-yellow">@Model.StarCount</i></span>
+        </div>
+        <div class="image-pic">
+            <img src="~/Assets/images/loading.gif" data-src="@Model.Photo" alt="人物"
+                 class="lazyload w-100">
+        </div>
+    </div>
+</div>

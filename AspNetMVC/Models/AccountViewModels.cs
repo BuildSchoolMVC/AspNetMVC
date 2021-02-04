@@ -109,4 +109,10 @@ namespace AspNetMVC.Models
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
     }
+
+    public class CombineViewModel
+    {
+        public LoginViewModel LoginData { get; set; }
+        public RegisterViewModel RegisiterData { get; set; }
+    }
 }
