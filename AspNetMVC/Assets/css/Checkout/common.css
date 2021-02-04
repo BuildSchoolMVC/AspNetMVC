@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+:root {
+  --color-primary: #31c89b;
+  --color-second: #40916c;
+  --color-lightGray: #999999;
+  --color-darkGray: #333333;
+  --color-warn: #ff424f;
+  --color-warnBg: #fff6f7;
+  --font-family: 'Noto Sans TC', sans-serif;
+}
