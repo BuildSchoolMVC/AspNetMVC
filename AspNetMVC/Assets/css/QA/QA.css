@@ -7,7 +7,7 @@
 }
 
 .qa .container-xl {
-    max-width: 1280px;
+    max-width: 1200px;
     min-width: 414px;
 }
 
@@ -22,8 +22,9 @@
 }
 
 .qa .introduce .contain {
- 
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(../../images/QAbanner.png) center center;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.6))), url(/pic/QAbanner.png) center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(/pic/QAbanner.png) center center;
+    background-size: cover;
     margin-left: -15px;
     margin-right: -15px;
 }
@@ -466,66 +467,136 @@
 }
 
 @media screen and (min-width: 1024px) {
-    .qa .qa {
+    .qa {
         overflow-x: hidden;
     }
 
-    .qa nav {
-        margin-left: -15px;
-        margin-right: -15px;
-    }
+        .qa nav {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
 
-        .qa nav #nav-tab {
+            .qa nav #nav-tab {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+            }
+
+                .qa nav #nav-tab .nav-link {
+                    width: 33%;
+                }
+
+                    .qa nav #nav-tab .nav-link:hover {
+                        -webkit-box-shadow: none;
+                        box-shadow: none;
+                        border: none;
+                    }
+
+        .qa #v-pills-tab {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .qa .introduce .contain {
+            margin: 0 -100%;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
         }
 
-            .qa nav #nav-tab .nav-link {
-                width: 33%;
+            .qa .introduce .contain .content {
+                width: 30%;
             }
 
-    .qa .introduce .contain {
-        margin: 0 -100%;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-    }
-
-        .qa .introduce .contain .content {
-            width: 30%;
-        }
-
-            .qa .introduce .contain .content p {
-                letter-spacing: 3px;
-                font-size: 30px;
-            }
-
-    .qa .idea .content {
-        -webkit-box-pack: start;
-        -ms-flex-pack: start;
-        justify-content: start;
-        padding: 80px 0 10px 0;
-    }
-
-        .qa .idea .content .title {
-            padding-left: 50px;
-        }
-
-            .qa .idea .content .title h4 {
-                font-size: 50px;
-            }
-
-                .qa .idea .content .title h4::after {
-                    margin-left: 40px;
-                    width: 800px;
+                .qa .introduce .contain .content p {
+                    letter-spacing: 3px;
+                    font-size: 30px;
                 }
 
-        .qa .idea .content .item-group {
-            width: 100%;
+        .qa .idea .content {
+            -webkit-box-pack: start;
+            -ms-flex-pack: start;
+            justify-content: start;
+            padding: 80px 0 10px 0;
+        }
+
+            .qa .idea .content .title {
+                padding-left: 50px;
+            }
+
+                .qa .idea .content .title h4 {
+                    font-size: 30px;
+                }
+
+                    .qa .idea .content .title h4::after {
+                        margin-left: 40px;
+                        width: 750px;
+                    }
+
+            .qa .idea .content .item-group {
+                width: 100%;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+            }
+
+                .qa .idea .content .item-group .item {
+                    width: 30%;
+                }
+
+                    .qa .idea .content .item-group .item .pic {
+                        width: 100%;
+                        margin-bottom: 30px;
+                    }
+
+                        .qa .idea .content .item-group .item .pic .pic-text {
+                            text-align: center;
+                            font-size: 28px;
+                            height: 140px;
+                            width: 140px;
+                            border-radius: 100%;
+                            background-color: #c09ac2;
+                            line-height: 40px;
+                            color: white;
+                            display: -webkit-box;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-box-pack: center;
+                            -ms-flex-pack: center;
+                            justify-content: center;
+                            -webkit-box-align: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                        }
+
+                    .qa .idea .content .item-group .item .text {
+                        width: 100%;
+                        height: 200px;
+                        -webkit-box-align: start;
+                        -ms-flex-align: start;
+                        align-items: flex-start;
+                        display: -webkit-box;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-box-pack: center;
+                        -ms-flex-pack: center;
+                        justify-content: center;
+                        text-align: center;
+                    }
+
+                        .qa .idea .content .item-group .item .text p {
+                            font-size: 22px;
+                        }
+
+        .qa .process .content {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
@@ -536,130 +607,130 @@
             justify-content: center;
         }
 
-            .qa .idea .content .item-group .item {
-                width: 30%;
+            .qa .process .content .item-group {
+                width: 60%;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                -ms-flex-pack: distribute;
+                justify-content: space-around;
+                padding: 30px 10px 30px 10px;
             }
 
-                .qa .idea .content .item-group .item .pic {
-                    width: 100%;
-                    margin-bottom: 30px;
-                }
-
-                    .qa .idea .content .item-group .item .pic .pic-text {
-                        text-align: center;
-                        font-size: 40px;
-                        height: 200px;
-                        width: 200px;
-                        border-radius: 100%;
-                        background-color: #c09ac2;
-                        line-height: 40px;
-                        color: white;
-                        display: -webkit-box;
-                        display: -ms-flexbox;
-                        display: flex;
-                        -webkit-box-pack: center;
-                        -ms-flex-pack: center;
-                        justify-content: center;
-                        -webkit-box-align: center;
-                        -ms-flex-align: center;
-                        align-items: center;
-                    }
-
-                .qa .idea .content .item-group .item .text {
-                    width: 100%;
-                    height: 200px;
-                    -webkit-box-align: start;
-                    -ms-flex-align: start;
-                    align-items: flex-start;
+                .qa .process .content .item-group .item {
+                    background-color: white;
+                    border-radius: 10px;
+                    width: 45%;
                     display: -webkit-box;
                     display: -ms-flexbox;
                     display: flex;
+                    -ms-flex-wrap: wrap;
+                    flex-wrap: wrap;
+                    -webkit-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
                     -webkit-box-pack: center;
                     -ms-flex-pack: center;
                     justify-content: center;
-                    text-align: center;
+                    padding: 15px 0px 15px 30px;
+                    margin: 10px 5px;
+                    -webkit-box-shadow: 2px 2px 3px gray;
+                    box-shadow: 2px 2px 3px gray;
                 }
 
-                    .qa .idea .content .item-group .item .text p {
-                        font-size: 26px;
+                    .qa .process .content .item-group .item .icon-area {
+                        width: 100%;
+                        display: block;
+                        font-size: 36px;
                     }
 
-    .qa .process .content {
-        background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.6))), url(/pic/QAbanner.png) center center;
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url(/pic/QAbanner.png) center center;
-        margin: 0 -100%;
-    }
+                    .qa .process .content .item-group .item .text {
+                        font-weight: bold;
+                        padding-left: 10px;
+                        width: 100%;
+                    }
 
-        .qa .process .content .item-group {
+                        .qa .process .content .item-group .item .text h4 {
+                            font-size: 14px;
+                            margin-bottom: 0px;
+                        }
+
+                        .qa .process .content .item-group .item .text p {
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+
+            .qa .process .content .button-area {
+                width: 60%;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-pack: end;
+                -ms-flex-pack: end;
+                justify-content: flex-end;
+                padding: 10px 30px 20px 0;
+            }
+
+                .qa .process .content .button-area button {
+                    font-size: 16px;
+                    border: 2px solid gray;
+                    background-color: white;
+                    border-radius: 5px;
+                    width: 100px;
+                    height: 40px;
+                }
+
+                    .qa .process .content .button-area button:hover {
+                        background-color: var(--mainColor);
+                        color: white;
+                    }
+
+        .qa .commonproblem,
+        .qa .membership,
+        .qa .promise {
             width: 100%;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
-            -ms-flex-pack: distribute;
-            justify-content: space-around;
-            padding: 30px 10px 30px 10px;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            padding: 30px 0 5px 0;
         }
 
-            .qa .process .content .item-group .item {
-                background-color: white;
-                border-radius: 10px;
-                width: 45%;
-                display: -webkit-box;
-                display: -ms-flexbox;
-                display: flex;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                -webkit-box-pack: center;
-                -ms-flex-pack: center;
-                justify-content: center;
-                padding: 15px 0px 15px 30px;
-                margin: 10px 5px;
-                -webkit-box-shadow: 2px 2px 3px gray;
-                box-shadow: 2px 2px 3px gray;
+            .qa .commonproblem h2,
+            .qa .membership h2,
+            .qa .promise h2 {
+                text-align: center;
+                margin-bottom: 20px;
             }
 
-                .qa .process .content .item-group .item .icon-area {
-                    width: 30%;
-                    display: block;
-                    font-size: 36px;
+            .qa .commonproblem .item-group,
+            .qa .membership .item-group,
+            .qa .promise .item-group {
+                width: 100%;
+            }
+
+                .qa .commonproblem .item-group .item,
+                .qa .membership .item-group .item,
+                .qa .promise .item-group .item {
+                    margin-bottom: 10px;
                 }
 
-                .qa .process .content .item-group .item .text {
-                    font-weight: bold;
-                    padding-left: 10px;
-                    width: 60%;
-                }
-
-                    .qa .process .content .item-group .item .text h4 {
-                        font-size: 14px;
-                        margin-bottom: 0px;
+                    .qa .commonproblem .item-group .item h3,
+                    .qa .membership .item-group .item h3,
+                    .qa .promise .item-group .item h3 {
+                        font-size: 20px;
+                        text-decoration: underline;
                     }
 
-                    .qa .process .content .item-group .item .text p {
+                    .qa .commonproblem .item-group .item p,
+                    .qa .membership .item-group .item p,
+                    .qa .promise .item-group .item p {
                         font-size: 16px;
-                        margin-bottom: 0px;
                     }
-
-        .qa .process .content .button-area {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-pack: end;
-            -ms-flex-pack: end;
-            justify-content: flex-end;
-            padding: 10px 30px 0 0;
-        }
-
-            .qa .process .content .button-area button {
-                border: 2px solid gray;
-                background-color: white;
-                border-radius: 5px;
-                width: 100px;
-                height: 40px;
-            }
 }
