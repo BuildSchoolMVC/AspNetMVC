@@ -13,5 +13,9 @@ namespace AspNetMVC.Controllers
         {
             return View();
         }
+        public ActionResult ProductPageGridCard()
+        {
+            return View();
+        }
     }
 }
