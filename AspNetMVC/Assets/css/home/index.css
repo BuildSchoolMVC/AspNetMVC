@@ -106,7 +106,7 @@
 }
 
 .section_carousel .owl-dots .owl-dot.active {
-    background: var(--primary-color)
+    background: var(--color-primary)
 }
 
 .section_all-service {
@@ -148,14 +148,14 @@
 
 .section_all-service .service-tabs .tabs-item.active {
     border-right: 1px solid transparent;
-    background: var(--primary-color);
+    background: var(--color-primary);
     color: var(--white);
     -webkit-box-shadow: -1px 1px 5px #99999980;
     box-shadow: -1px 1px 5px #99999980
 }
 
 .section_all-service .service-tabs .tabs-item:hover {
-    background: var(--primary-color);
+    background: var(--color-primary);
     color: var(--white)
 }
 
@@ -276,7 +276,7 @@
 }
 
 .section_all-service .service-items .card .card-body .more {
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--color-primary);
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -285,12 +285,12 @@
 }
 
 .section_all-service .service-items .card .card-body .more i {
-    color: var(--primary-color);
+    color: var(--color-primary);
     font-size: 12px
 }
 
 .section_all-service .service-items .card .card-body .more:hover {
-    background: var(--primary-color)
+    background: var(--color-primary)
 }
 
 .section_all-service .service-items .card .card-body .more:hover i {
@@ -345,21 +345,23 @@
     border-radius: 4px;
     -webkit-box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
     box-shadow: inset 1px 1px 10px var(--gray), inset -3px -3px 8px var(--gray);
-   
+
 }
-    .section_image .col-6 {
-        transition: .3s ease-in-out;
-    }
-    .section_image .col-6:hover {
-        transform: translateY(-10px);
-    }
+
+.section_image .col-6 {
+    transition: .3s ease-in-out;
+}
+
+.section_image .col-6:hover {
+    transform: translateY(-10px);
+}
 
 
-    .section_image .card .image-content {
-        width: 65%;
-        padding: 10px 0;
-        text-align: center
-    }
+.section_image .card .image-content {
+    width: 65%;
+    padding: 10px 0;
+    text-align: center
+}
 
 .section_image .card .image-content h4 {
     font-size: 16px
@@ -384,10 +386,12 @@
     padding: 100px 0;
     background: var(--light)
 }
-.section_news .col-12{
-        transition: .3s ease-in-out;
-    
+
+.section_news .col-12 {
+    transition: .3s ease-in-out;
+
 }
+
 .section_news .col-12:hover {
     transform: translateY(-10px);
 }
@@ -514,7 +518,7 @@
 
     .section_image .card .image-pic {
         border-radius: 40% 60%;
-        min-height:100px;
+        min-height: 100px;
     }
 }
 
@@ -541,7 +545,7 @@
 
     .section_carousel div[class*='carousel_item'] a {
         display: inline-block;
-        background: var(--primary-color);
+        background: var(--color-primary);
         color: var(--white);
         padding: 10px 30px;
         border-radius: 5px;
@@ -551,7 +555,7 @@
 
     .section_carousel div[class*='carousel_item'] a:hover {
         text-decoration: none;
-        background: var(--primary-color-dark)
+        background: var(--color-primary-dark)
     }
 
     .section_all-service .row {

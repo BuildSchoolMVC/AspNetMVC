@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Data.Entity;
 using AspNetMVC.Models;
 using AspNetMVC.Models.CustomerService;
 using AspNetMVC.Repository;
-using System.Data;
-using System.Data.Entity;
+using AspNetMVC.ViewModel;
+using AspNetMVC.Service;
 
 namespace AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private IndexPageDataRepository datas = new IndexPageDataRepository();
+        private IndexPageService _datas = new IndexPageService();
 
-        private readonly CustomerServiceContext _context = new CustomerServiceContext();
+        private readonly CustomerServiceService _customerServiceService;
+
+        public HomeController()
+        {
+            _customerServiceService = new CustomerServiceService();
+        }
         public ActionResult Index()
         {
-            return View(datas);
+            return View(_datas);
         }
 
         public ActionResult AllServiceView()
@@ -28,29 +35,14 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CustomerServiceCreate([Bind(Include = "Name,Email,Phone,Category")] CustomerService customerService)
+        public ActionResult CustomerServiceCreate([Bind(Include = "Name,Email,Phone,Category,Content")] CustomerViewModel customerService)
         {
-
             if (ModelState.IsValid)
             {
-                //_context.Entry(customerService).State = EntityState.Added;
-                //customerService.CreatedTime = new DateTime();
-                customerService.IsRead = false;
-
-                _context.CustomerServices.Add(customerService);
-                _context.SaveChanges();
-                return Json(new { response = "success", customerService = customerService });
+                _customerServiceService.AddData(customerService);
+                 return Json(new { response = "success" });
             }
             return Json(new{response="error" });
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

@@ -291,18 +291,28 @@ const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     let div = document.createElement("div");
     let word = document.createElement("h4");
+    let pic;
     word.textContent = words;
     word.classList.add("center");
+    if (words === "你目前的收藏是空的") {
+        pic = document.createElement("img");
+        pic.src = "/Assets/images/empty.png";
+    } else {
+        pic = document.createElement("i");
+        pic.className = "far fa-user color-primary";
+    }
+
     div.classList.add("wrap");
-    div.append(word);
+    div.append(pic, word);
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
     if (isLogin == false || favorites.length == 0) {
-        document.querySelector(".favorites-footer .checkout").setAttribute("disabled", true);
+        document.querySelector(".favorites-footer .checkout").classList.add("disabled");
+        document.querySelector(".favorites-footer .checkout").removeAttribute("href");
     } else {
-        document.querySelector(".favorites-footer .checkout").removeAttribute("disabled");
-
+        document.querySelector(".favorites-footer .checkout").classList.remove("disabled");
+        document.querySelector(".favorites-footer .checkout").setAttribute("href", "/Checkout");
     }
 }
 const toggleTip = () => {
@@ -320,31 +330,55 @@ const createLoginRegister = () => {
     a.textContent = "註冊 / 登入";
     document.querySelector(".section_favorites-side-menu .favorites-body .wrap").appendChild(a);
 }
+const clearWarn = function (x) {
+    x.classList.remove("input-warn");
+};
 const customerForm = () => {
-    const data = {};
-    data.Name = $("#contact_name").val();
-    data.Email = $("#contact_email").val();
-    data.Phone = $("#contact_phone").val();
-    data.Category = $("#contact_category").val() * 1;
-    data.Content = $("#contact_content").val();
-    const token = $('input[name="__RequestVerificationToken"]').val();
-    console.log(data)
-
-    $.ajax({
-        url: "/Home/CustomerServiceCreate",
-        method: "POST",
-        data: {
-            data: data,
-            __RequestVerificationToken: token,
-            returnUrl: "Home/Index"
-        },
-        success: function (result) {
-            console.log(result);
-        },
-        error: function (err) {
-            console.log(err);
+    let validate = null;
+    document.querySelectorAll(".contact-us .question").forEach(x => {
+        clearWarn(x);
+        if (x.value.length === 0) {
+            x.classList.add("input-warn");
+            validate = "fail";
+        } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
+            x.classList.add("input-warn");
+            validate = "fail";
         }
-    })
+    });
+    if (validate == "fail") {
+        return;
+    } else {
+        document.querySelector(".finish-view").classList.remove("hide");
+
+        const data = {};
+        data.Name = $("#contact_name").val();
+        data.Email = $("#contact_email").val();
+        data.Phone = $("#contact_phone").val();
+        data.Category = $("#contact_category").val() * 1;
+        data.Content = $("#contact_content").val();
+
+        $.ajax({
+            url: "/Home/CustomerServiceCreate",
+            method: "POST",
+            data: data,
+            success: function (result) {
+                if (result.response === "success") {
+                    setTimeout(() => {
+                        document.querySelector(".finish-view .finished").classList.remove("hide");
+
+                        $("#contact_name").val("");
+                        $("#contact_email").val("");
+                        $("#contact_phone").val("");
+                        $("#contact_category").val("-1");
+                        $("#contact_content").val("");
+                    }, 1000)
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    }
 }
 
 window.addEventListener("load", () => {
@@ -409,3 +443,18 @@ document.querySelector(".contact-us input[type='submit']").addEventListener("cli
     e.preventDefault();
     customerForm();
 })
+document.querySelector(".finish-view .finish").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector(".finish-view").classList.add("hide");
+})
+document.querySelectorAll(".contact-us .question").forEach(x => {
+    x.addEventListener("change", function () {
+        console.log(x)
+        clearWarn(x);
+        if (x.value.length === 0) {
+            x.classList.add("input-warn");
+        } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
+            x.classList.add("input-warn");
+        }
+    })
+});

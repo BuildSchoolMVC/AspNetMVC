@@ -18,7 +18,7 @@ namespace AspNetMVC.Repository
                 new Banner{Id=3,Slogan=new List<string>{"我們提供多樣的專業服務","讓你迎接舒服的空間" }, Title="多樣化服務"},
                 new Banner{Id=5,Slogan=new List<string>{ "專業除螨，過敏兒遠離你" }, Title="除螨服務"},
                 new Banner{Id=6,Slogan=new List<string>{ "收拾環境，整理心情" }, Title="收納整理"},
-                new Banner{Id=7,Slogan=new List<string>{"呼出好心情" }, Title="冷氣機清洗"},
+                new Banner{Id=7,Slogan=new List<string>{"找我們清洗","呼出好心情" }, Title="冷氣機清洗"},
             };
         }
     }

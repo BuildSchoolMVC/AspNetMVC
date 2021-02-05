@@ -69,8 +69,8 @@
                 if (result.Url === "Home/Index") {
                     isLogin = true;
                     localStorage.setItem("login", isLogin);
-                        toastr.success("登入成功");
-                        window.location.replace(`${window.location.origin}/${result.Url}`);
+                    toastr.success("登入成功");
+                    window.location.replace(`${window.location.origin}/${result.Url}`);
                 } else if (result.Url === "Error") {
                     toastr.error("登入失敗");
 

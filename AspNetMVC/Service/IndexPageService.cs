@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AspNetMVC.Repository;
 using AspNetMVC.Models;
 
-namespace AspNetMVC.Repository
+namespace AspNetMVC.Service
 {
-    public class IndexPageDataRepository
+    public class IndexPageService
     {
         public List<ImageCard> ImageCardData { get; set; }
 
@@ -16,7 +17,7 @@ namespace AspNetMVC.Repository
 
         public List<ServiceItems> ServicesData { get; set; }
 
-        public IndexPageDataRepository()
+        public IndexPageService()
         {
             ImageCardData = new ImageCardRepository().CreateImageCardList();
 
