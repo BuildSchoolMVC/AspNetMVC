@@ -44,5 +44,17 @@ namespace AspNetMVC.Controllers
             }
             return Json(new{response="error" });
         }
+
+        public ActionResult ShowList()
+        {
+            var customerData = _customerServiceService.ShowData();
+            return View(customerData);
+        }
+
+        public ActionResult ShowDetail(int? id)
+        {
+            var customer = _customerServiceService.ShowCustomerInfo(id);
+            return View(customer);
+        }
     }
 }

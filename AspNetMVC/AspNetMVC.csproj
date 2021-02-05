@@ -449,6 +449,8 @@
     <Content Include="Views\DetailPage\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\districts.json" />
+    <Content Include="Views\Home\ShowList.cshtml" />
+    <Content Include="Views\Home\ShowDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
