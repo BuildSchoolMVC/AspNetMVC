@@ -190,6 +190,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\IndexPageModel\NewsCard.cs" />
     <Compile Include="Models\IndexPageModel\ServiceItem.cs" />
+    <Compile Include="Models\ProductPage\GridCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AllServiceCardRepository.cs" />
     <Compile Include="Repository\BannerRepository.cs" />
@@ -229,7 +230,10 @@
     <Content Include="Assets\css\layout\layout.css" />
     <Content Include="Assets\css\QA\QA.css" />
     <Content Include="Assets\images\air condtioner.jpg" />
+    <Content Include="Assets\images\balcony.png" />
+    <Content Include="Assets\images\bathroom.png" />
     <Content Include="Assets\images\bed.jpg" />
+    <Content Include="Assets\images\bedroom.png" />
     <Content Include="Assets\images\bg_banner1.jpg" />
     <Content Include="Assets\images\bg_banner2.jpg" />
     <Content Include="Assets\images\bg_banner3.jpg" />
@@ -241,13 +245,16 @@
     <Content Include="Assets\images\c1.jpg" />
     <Content Include="Assets\images\c2.jpg" />
     <Content Include="Assets\images\c3.jpg" />
+    <Content Include="Assets\images\cart.jpg" />
     <Content Include="Assets\images\clean.jpg" />
     <Content Include="Assets\images\email logo.png" />
     <Content Include="Assets\images\empty.jpg" />
     <Content Include="Assets\images\empty.png" />
     <Content Include="Assets\images\kitchen.jpg" />
     <Content Include="Assets\images\jcb.png" />
+    <Content Include="Assets\images\kitchen.png" />
     <Content Include="Assets\images\line.png" />
+    <Content Include="Assets\images\livingroom.png" />
     <Content Include="Assets\images\loading.gif" />
     <Content Include="Assets\images\logo.png" />
     <Content Include="Assets\images\master.png" />
@@ -449,6 +456,7 @@
     <Content Include="Views\DetailPage\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Checkout\districts.json" />
+    <Content Include="Views\Shared\PartialView\_ProductPageGridCardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
