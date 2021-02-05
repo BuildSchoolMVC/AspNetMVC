@@ -222,7 +222,6 @@
     <Content Include="Assets\css\Account\login.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />
     <Content Include="Assets\css\Checkout\Checkout.min.css" />
-    <Content Include="Assets\css\Checkout\common.css" />
     <Content Include="Assets\css\home\allServiceView.css" />
     <Content Include="Assets\css\home\fonts\icofont.svg" />
     <Content Include="Assets\css\home\icofont.min.css" />
