@@ -274,7 +274,7 @@
                         </div>
                         <div class="favorites-footer mt-4">
                             <h2 class="mt-2 mb-5"></h2>
-                            <button class="btns checkout">結帳去</button>
+                            <a class="btns checkout" href="@Url.Action("Index","Checkout")">結帳去</a>
                         </div>
                     </div>
                 </div>
@@ -334,32 +334,53 @@
                             <i class="fas fa-minus position-absolute" id="contact-close"></i>
                         </div>
                         <div class="form-body">
+                            <p class="warn">* 為必填欄位</p>
                             <div class="input-groupings">
-                                <label for="contact_name">姓名</label>
-                                <input type="text" name="Name" id="contact_name">
+                                <label for="contact_name">姓名<span class="warn pl-2">*</span></label>
+                                <input type="text" name="Name" id="contact_name" class="question">
                             </div>
                             <div class="input-groupings">
-                                <label for="contact_email">電子郵件</label>
-                                <input type="email" name="Email" id="contact_email">
+                                <label for="contact_email">電子郵件<span class="warn pl-2">*</span></label>
+                                <input type="email" name="Email" id="contact_email" class="question">
                             </div>
                             <div class="input-groupings">
-                                <label for="contact_phone">電話</label>
-                                <input type="tel" name="Phone" id="contact_phone">
+                                <label for="contact_phone">電話<span class="warn pl-2">*</span></label>
+                                <input type="tel" name="Phone" id="contact_phone" class="question">
                             </div>
-                            <div>
-                                <div class="input-groupings">
-                                    <label for="contact_category">問題分類</label>
-                                    <select name="Category" id="contact_category">
-                                        <option value="-1"> 請選擇 </option>
-                                        <option value="1"> 儲值問題 </option>
-                                        <option value="2"> 諮詢問題 </option>
-                                        <option value="3"> 客訴問題 </option>
-                                    </select>
+                            <div class="input-groupings">
+                                <label for="contact_category">問題分類<span class="warn pl-2">*</span></label>
+                                <select name="Category" id="contact_category" class="question">
+                                    <option value="-1"> 請選擇 </option>
+                                    <option value="1"> 儲值問題 </option>
+                                    <option value="2"> 諮詢問題 </option>
+                                    <option value="3"> 客訴問題 </option>
+                                </select>
+                            </div>
+                            <div class="input-groupings">
+                                <label for="contact_content">訊息<span class="warn pl-2">*</span></label>
+                                <textarea id="contact_content" cols="30" rows="5" name="Content"  class="question"></textarea>
+                            </div>
+                            <div class="finish-view hide">
+                                <div class="loading">
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
                                 </div>
-                            </div>
-                            <div class="input-groupings">
-                                <label for="contact_content">訊息</label>
-                                <textarea id="contact_content" cols="30" rows="5" name="Content"></textarea>
+                                <div class="finished hide">
+                                    <img src="/Assets/images/email logo.png" alt="信圖示">
+                                    <p>已收到你的來信</p>
+                                    <p>將會派人盡快與你聯絡</p>
+                                    <button class="btns finish">完成</button>
+                                </div>
                             </div>
                         </div>
                         <div class="form-footer">

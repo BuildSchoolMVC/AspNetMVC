@@ -1,7 +1,146 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "細節頁面";
+}
+@section CSS{
+ <link href="~/Assets/css/DetailPage/detailPage.css" rel="stylesheet">    
 }
 
-<h2>Index</h2>
+<section class="section_product">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12 col-md-6  d-flex justify-content-center align-items-center">
+                <div class="product-pic">
+                    <img src="~/Assets/images/clean.jpg" alt="打掃" class="w-100">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="product-content p-3">
+                    <div class="content-header">
+                        <h2>居家清潔</h2>
+                    </div>
+                    <div class="content-body">
+                        <ul>
+                            <li class="content-region">服務範圍 : 台北市 、 新北市</li>
+                            <li>
+                                <div class="content-service">
+                                    服務內容 :
+                                    <ul class="pl-4 list-unstyled">
+                                        <li>房 - 傢俱、櫥櫃外觀擦拭、地面拖地</li>
+                                        <li>廳 - 地面除塵清潔、櫃外擦拭</li>
+                                        <li>廚房 - 抽油煙機清潔</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="content-info">
+                                    注意事項 :
+                                    <ul class="pl-4 list-unstyled">
+                                        <li>實際依照現場狀況為主，若現場判斷時間不足服務人員皆會與您報告可完成進度</li>
+                                        <li>現場如有垃圾服務人員僅協助打包，無法協助帶走垃圾</li>
+                                        <li>黴菌、或水垢深根過長時間，可能無法完全清楚</li>
+                                        <li>若有需處理高處，需要請客人自備梯子</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content-footer">
+                        <p>價格 : <span class="price">2,400</span></p>
+                        <div class="btn-group">
+                            <button class="btns checkout">直接結帳</button>
+                            <button class="btns add-cart">加入購物車</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_product-info">
+    <div class="container-lg">
+        <div class="product-tabs">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">介紹</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">服務規格</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">評價</a>
+                </li>
+            </ul>
+        </div>
+        <div class="product-tab-item">
+            <h2>介紹</h2>
+            <p>
+                不管你是不知道該怎麼掃，還是你懶得掃
+                不用煩惱交給我們就對了！
+                客廳、臥室、廚衛、陽台甚至是衣服的收納
+                交給我們通通一手包辦
+            </p>
+        </div>
+        <div class="product-tab-item">
+            <h2>服務規格</h2>
+            <div class="service d-flex">
+                <div class="service-title w-50">
+                    服務地區
+                </div>
+                <div class="service-region w-50">
+                    台北市、新北市
+                </div>
+            </div>
+        </div>
+        <div class="product-tab-item active">
+            <h2>商品評價</h2>
+            <div class="comment">
+                <h4>居家清潔 - 共 2 則評論</h4>
+                <div class="comment-item">
+                    <div class="row">
+                        <div class="col-2 pr-0 d-flex justify-content-center align-items-center">
+                            <img src="~/Assets/images/p1.jpg" alt="人物" class="user rounded-circle d-block">
+                        </div>
+                        <div class="col-6">
+                            <p>陳先生 - <span>2021/1/28</span></p>
+                            <p>好棒棒!!!</p>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-item">
+                    <div class="row">
+                        <div class="col-2 pr-0 d-flex justify-content-center align-items-center">
+                            <img src="~/Assets/images/p2.jpg" alt="人物" class="user rounded-circle d-block">
+                        </div>
+                        <div class="col-6">
+                            <p>林小姐 - <span>2021/1/26</span></p>
+                            <p>非常好!!!</p>
+                        </div>
+                        <div class="col-4 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                            <i class="fas fa-star color-yellow pr-1"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-none">
+                <p>目前沒有評論</p>
+                <p>只有註冊並且購買過商品的顧客才能撰寫評價</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+@section JS{
+    <script src="~/Assets/js/DetailPage/detailPage.js"></script>    
+}
