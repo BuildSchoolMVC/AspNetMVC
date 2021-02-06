@@ -540,7 +540,7 @@
 .ProductPage .userdefined-area {
     margin-left: -15px;
     margin-right: -15px;
-    height: 500px
+/*    height: 500px*/
 }
 
     .ProductPage .userdefined-area .card-header {
@@ -861,7 +861,7 @@
                     }
 
     .ProductPage .userdefined-area {
-        height: 550px
+/*        height: 550px*/
     }
 
         .ProductPage .userdefined-area .card-header {

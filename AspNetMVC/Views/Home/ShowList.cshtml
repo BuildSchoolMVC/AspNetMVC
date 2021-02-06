@@ -70,8 +70,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Phone)
                 </td>
-                @DisplayReadState(item.IsRead, item.Id)
                 @DisplayCategory(item.Category)
+                @DisplayReadState(item.IsRead, item.Id)
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedTime)
                 </td>
