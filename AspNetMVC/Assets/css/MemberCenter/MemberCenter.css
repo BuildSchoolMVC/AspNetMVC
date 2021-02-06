@@ -24,12 +24,14 @@
     position: fixed;
     padding: 5px 16px 16px 16px;
     z-index: 1;
-    
+    left: 0;
+    transition: all .5s ease-in-out;
 }
 
-.functionpage.Fg-sm {
-    left: -300px;
-}
+    .functionpage.Fg-sm {
+        left: -300px;
+        
+    }
 
 .username {
     text-align: center;
@@ -353,7 +355,7 @@ p {
 
 .prod-form-header td {
     border: 1px solid #cccccc;
-    background-color: #eeeeee;
+    background-color: #e0ace1;
     text-align: center;
     font-size: 16px;
 }
@@ -367,12 +369,17 @@ p {
     width: 34%;
 }
 
-.prod_price,
+.prod_price {
+    width:16%;
+}
 .prod-detail-table_prod_price {
     width: 14%;
 }
 
-.remove,
+.remove {
+    width:18%;
+}
+
 .prod-detail-table_remove {
     width: 20%;
 }
@@ -498,6 +505,22 @@ h5 {
 .success {
     font-size: 12px;
     color: #049c10;
+}
+.prod-detail-table_prod_dt h5 {
+    font-size:16px;
+    
+}
+.prod_dt_title {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    border-bottom-style: double;
+    border-bottom-color: #C09AC2;
+}
+.customer {
+    width:200px;
+    background-color:#C09AC2;
+    border-radius:10px;
 }
 @media screen and (min-width: 768px) {
     .functionpage {
