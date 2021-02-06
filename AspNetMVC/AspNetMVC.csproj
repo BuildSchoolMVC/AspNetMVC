@@ -165,6 +165,7 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberCenterController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Global.asax.cs">
@@ -220,6 +221,7 @@
     <Content Include="Assets\css\Home\index.css" />
     <Content Include="Assets\css\Layout\layout.css" />
     <Content Include="Assets\css\Account\login.css" />
+    <Content Include="Assets\css\MemberCenter\MemberCenter.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />
     <Content Include="Assets\css\Checkout\Checkout.min.css" />
     <Content Include="Assets\css\home\allServiceView.css" />
@@ -246,6 +248,9 @@
     <Content Include="Assets\images\c3.jpg" />
     <Content Include="Assets\images\cart.jpg" />
     <Content Include="Assets\images\clean.jpg" />
+    <Content Include="Assets\images\hour-clean.png" />
+    <Content Include="Assets\images\icon-4week.svg" />
+    <Content Include="Assets\images\inviteicon.png" />
     <Content Include="Assets\images\email logo.png" />
     <Content Include="Assets\images\empty.jpg" />
     <Content Include="Assets\images\empty.png" />
@@ -278,6 +283,7 @@
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />
     <Content Include="Assets\js\Account\login.js" />
+    <Content Include="Assets\js\MemberCenter\MemberCenter.js" />
     <Content Include="Assets\js\ProductPage\ProductPage.js" />
     <Content Include="Assets\images\visa.png" />
     <Content Include="Assets\js\Checkout\all.js" />
