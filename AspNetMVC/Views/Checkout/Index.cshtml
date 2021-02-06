@@ -30,38 +30,85 @@
 				</div>
 			</div>
 		</div>
-		<div class="col col-12 col-lg-5">
+		<div class="col col-12 col-md-5">
 			<div class="block block_items">
-				<img src="https://picsum.photos/200/200/?random=1">
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas deserunt, esse molestias porro explicabo quis cum iure nihil! Maxime, suscipit quaerat libero nulla cumque nesciunt. Excepturi quia animi obcaecati facere!</p>
-				<div class="item">
-					<div class="place">
-						<span class="key">空間類型:</span><span class="value">客廳</span>
+				<div class="customer-info-box">
+					<div class="df customer-info" id="service-date">
+						<div class="key">
+							<i class="icon fas fa-calendar-alt"></i>
+						</div>
+						<div class="value">選擇預約日期</div>
 					</div>
-					<div class="name">
-						<span class="key">服務類型:</span><span class="value">鐘點清潔</span>
+					<div class="df customer-info" id="address">
+						<div class="key">
+							<i class="icon fas fa-thumbtack"></i>
+						</div>
+						<div class="value">
+							選擇打掃地址選擇打掃地址選擇打掃地址選擇打掃地址
+						</div>
 					</div>
-					<div class="hours">
-						<span class="key">時數:</span><span class="value">3</span>
-					</div>
-					<button class="btn_set-time">選擇日期</button>
 				</div>
 				<div class="item">
 					<div class="place">
-						<span class="key">空間類型:</span><span class="value"></span>
+						<span class="key">
+							<i class="icon fas fa-house-user"></i>
+						</span>
+						<span class="value">客廳</span>
 					</div>
-					<div class="name">
-						<span class="key">服務類型:</span><span class="value">鐘點清潔</span>
+					<div class="service-type">
+						<span class="key">
+							<i class="icon fas fa-user-friends"></i>
+						</span>
+						<span class="value">鐘點清潔</span>
 					</div>
 					<div class="hours">
-						<span class="key">時數:</span><span class="value">3</span>
+						<div class="key">
+							<i class="icon fas fa-clock"></i>
+						</div>
+						<div class="value">
+							<div class="num">3</div>
+							<div class="unit">hr</div>
+							<div>x</div>
+							<div class="num">500</div>
+							<div class="unit">元/hr</div>
+							<div class="subtotal">1500</div>
+						</div>
 					</div>
-					<button class="btn_set-time">選擇日期</button>
+				</div>
+				<div class="item">
+					<div class="place">
+						<span class="key">
+							<i class="icon fas fa-house-user"></i>
+						</span>
+						<span class="value">廚房</span>
+					</div>
+					<div class="service-type">
+						<span class="key">
+							<i class="icon fas fa-user-friends"></i>
+						</span>
+						<span class="value">鐘點清潔</span>
+					</div>
+					<div class="hours">
+						<div class="key">
+							<i class="icon fas fa-clock"></i>
+						</div>
+						<div class="value">
+							<div class="num">2</div>
+							<div class="unit">hr</div>
+							<div>x</div>
+							<div class="num">500</div>
+							<div class="unit">元/hr</div>
+							<div class="subtotal">1000</div>
+						</div>
+					</div>
+				</div>
+				<div class="total">
+					<span class="key">總計</span>
+					<span class="value">2500</span>
 				</div>
 			</div>
 		</div>
-
-		<div class="col col-12 col-lg-7">
+		<div class="col col-12 col-md-7">
 			<main class="block block_main">
 				<div id="pick-time" class="step pick-time on">
 					<h5 class="title">選擇預約日期</h5>
@@ -90,64 +137,8 @@
 						<div class="day-name">五</div>
 						<div class="day-name">六</div>
 					</div>
-					<div class="row_date" id="row_date">
-					</div>
-					<div class="row_time" id="row_time">
-						<div class="time">
-							<div class="text">08:00</div>
-						</div>
-						<div class="time">
-							<div class="text">08:30</div>
-						</div>
-						<div class="time">
-							<div class="text">09:00</div>
-						</div>
-						<div class="time">
-							<div class="text">09:30</div>
-						</div>
-						<div class="time">
-							<div class="text">10:00</div>
-						</div>
-						<div class="time">
-							<div class="text">10:30</div>
-						</div>
-						<div class="time">
-							<div class="text">11:00</div>
-						</div>
-						<div class="time">
-							<div class="text">11:30</div>
-						</div>
-						<div class="time">
-							<div class="text">13:00</div>
-						</div>
-						<div class="time">
-							<div class="text">13:30</div>
-						</div>
-						<div class="time">
-							<div class="text">14:00</div>
-						</div>
-						<div class="time">
-							<div class="text">14:30</div>
-						</div>
-						<div class="time">
-							<div class="text">15:00</div>
-						</div>
-						<div class="time">
-							<div class="text">15:30</div>
-						</div>
-						<div class="time">
-							<div class="text">16:00</div>
-						</div>
-						<div class="time">
-							<div class="text">16:30</div>
-						</div>
-						<div class="time">
-							<div class="text">17:00</div>
-						</div>
-						<div class="time">
-							<div class="text">17:30</div>
-						</div>
-					</div>
+					<div class="row_date" id="row_date"></div>
+					<div class="row_time" id="row_time"></div>
 				</div>
 				<div id="fill-info" class="step fill-info">
 					<form class="form">
@@ -317,8 +308,7 @@
 						</div>
 						<label class="rule" for="read">
 							<input id="read" class="agree-check" type="checkbox">
-							<span class="text">
-								我已閱讀
+							<span class="text">我已閱讀
 								<a data-toggle="modal" data-target="#no-service-range">未清潔範圍</a> 、
 								<a data-toggle="modal" data-target="#change-policy">取消或更改服務政策</a> 、
 								<a href="#">服務條款</a> 及
@@ -328,9 +318,17 @@
 					</form>
 				</div>
 				<div id="done" class="step done">
-
+					<div class="box">
+						<svg id="tick" viewBox="0 0 32 32">
+							<path d="M27,9 l-15,15 -7,-7"></path>
+						</svg>
+						<div class="text">
+							<div class="title">預約成功</div>
+							<p class="content">服務人員將在預約時間前1小時內與您聯繫
+							</p>
+						</div>
+					</div>
 				</div>
-
 				<div class="step-buttons">
 					<button class="button" id="last-step">上一步</button>
 					<button class="button" id="next-step">下一步</button>
@@ -340,7 +338,6 @@
 	</div>
 
 </div>
-
 
 <div class="modal fade" id="no-service-range" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -392,9 +389,7 @@
 						已於開始服務時間後取消服務則酌收整體服務費用50%。
 					</li>
 					<p>For non-Chinese speaking users, we suggest you to be accompanied with someone who can speak Chinese on your booking date. We can’t assure that the service provider could speak English or other non-Chinese language. And you would still be charged for cancel fees as the same as mentioned above if you canceled it for language problem.</p>
-					<p>
-						定期價格也會因應過年期間或假日鐘點清潔費用之調漲，請隨時注意，若您預約該期間的服務，我們將會與您額外收取差額，如有不便敬請見諒。
-					</p>
+					<p>定期價格也會因應過年期間或假日鐘點清潔費用之調漲，請隨時注意，若您預約該期間的服務，我們將會與您額外收取差額，如有不便敬請見諒。</p>
 				</ol>
 			</div>
 		</div>
