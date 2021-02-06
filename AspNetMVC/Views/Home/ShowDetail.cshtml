@@ -1,0 +1,49 @@
+﻿@model CustomerService
+@{
+    ViewBag.Title = "客服細節";
+    Layout = null;
+}
+<style>
+    body{
+        background: #bbb;
+    }
+}
+</style > 
+@Styles.Render("~/Content/css")
+<section class="container-lg" style="margin:150px auto 300px;"> 
+    <h1 class="mt-5 mb-3">客服問題細節</h1> 
+    <table class="table"> 
+        <tr class="thead-dark"> 
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.Id)
+            </th> 
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.Name)
+            </th> 
+            <th width="10%">
+                @Html.DisplayNameFor(model => model.Phone)
+            </th> 
+            <th width="50%">
+                @Html.DisplayNameFor(model => model.Content)
+            </th> 
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(x => x.Id)
+            </td> 
+            <td>
+                @Html.DisplayFor(x => x.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(x => x.Phone)
+            </td> 
+            <td>
+                @Html.DisplayFor(x => x.Content)
+            </td> 
+        </tr>
+    </table> 
+        <hr>
+        @Html.ActionLink("回到上一頁", "ShowList", "Home",new { @class="btn btn-primary"})
+</section>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")

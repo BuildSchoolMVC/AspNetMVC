@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using AspNetMVC.Models.CustomerService;
@@ -34,5 +35,13 @@ namespace AspNetMVC.Repository
             });
             _context.SaveChanges();
         }
+        public CustomerService ReadContent(int? id)
+        {
+            var customer = _context.CustomerServices.Find(id);
+            customer.IsRead = true;
+            _context.Entry(customer).State = EntityState.Modified;
+            _context.SaveChanges();
+            return customer;
+        } 
     }
 }

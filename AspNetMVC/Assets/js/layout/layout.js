@@ -257,7 +257,7 @@ const createFavoritesCard = (price, title, items, id) => {
     p.append(small);
 
     let a = document.createElement("a");
-    a.setAttribute("href", "javascript:;");
+    a.setAttribute("href", "/DetailPage");
     a.className = "btns detail";
     a.textContent = "詳情";
 

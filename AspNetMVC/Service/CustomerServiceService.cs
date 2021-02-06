@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AspNetMVC.Repository;
 using AspNetMVC.ViewModel;
+using AspNetMVC.Models.CustomerService;
 
 namespace AspNetMVC.Service
 {
@@ -16,21 +17,19 @@ namespace AspNetMVC.Service
             _repository = new CustomerServiceRepository();
         }
 
-        public List<CustomerViewModel> ShowData()
+        public List<CustomerService> ShowData()
         {
-            return _repository.GetAll().Select(x => new CustomerViewModel()
-            {
-                Name = x.Name,
-                Email = x.Email,
-                Category = x.Category,
-                Content = x.Content,
-                Phone = x.Phone
-            }).ToList();
+            return _repository.GetAll().ToList();
         }
 
         public void AddData(CustomerViewModel c)
         {
             _repository.CreateData(c);
+        }
+
+        public CustomerService ShowCustomerInfo(int? id)
+        {
+            return _repository.ReadContent(id);
         }
     }
 }

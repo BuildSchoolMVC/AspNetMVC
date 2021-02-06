@@ -21,15 +21,15 @@
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="kitchen" name="location">
+                                    <input type="radio" id="kitchen" name="roomtype" value="0" checked>
                                     <label for="kitchen">廚房</label><br>
-                                    <input type="radio" id="livingroom" name="location">
+                                    <input type="radio" id="livingroom" name="roomtype" value="1">
                                     <label for="livingroom">客廳</label><br>
-                                    <input type="radio" id="bedroom" name="location">
+                                    <input type="radio" id="bedroom" name="roomtype" value="2">
                                     <label for="bedroom">臥室</label><br>
-                                    <input type="radio" id="bathroom" name="location">
+                                    <input type="radio" id="bathroom" name="roomtype" value="3">
                                     <label for="bathroom">浴廁</label><br>
-                                    <input type="radio" id="balcony" name="location">
+                                    <input type="radio" id="balcony" name="roomtype" value="4">
                                     <label for="balcony">陽台</label>
                                 </div>
                             </div>
@@ -45,13 +45,13 @@
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="5meters" name="meters" value="5">
+                                    <input type="radio" id="5meters" name="squarefeet" value="0" checked>
                                     <label for="5meters">5坪以下</label><br>
-                                    <input type="radio" id="10meters" name="meters" value="10">
+                                    <input type="radio" id="10meters" name="squarefeet" value="1">
                                     <label for="10meters">6-10坪</label><br>
-                                    <input type="radio" id="15meters" name="meters" value="15">
+                                    <input type="radio" id="15meters" name="squarefeet" value="2">
                                     <label for="15meters">11-15坪</label><br>
-                                    <input type="radio" id="20meters" name="meters" value="20">
+                                    <input type="radio" id="20meters" name="squarefeet" value="3">
                                     <label for="20meters">16坪以上</label><br>
                                 </div>
                             </div>
@@ -67,15 +67,19 @@
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="checkbox" id="clean" name="vehicle1" value="Bike">
+                                    <input type="checkbox" id="clean" name="serviceitem" value="清潔" checked>
                                     <label for="clean">清潔</label><br>
-                                    <input type="checkbox" id="storage" name="vehicle2" value="Car">
+                                    <input type="checkbox" id="storage" name="serviceitem" value="收納" checked>
                                     <label for="storage">收納</label><br>
-                                    <input type="checkbox" id="deworming" name="vehicle3" value="Boat">
+                                    <input type="checkbox" id="deworming" name="serviceitem" value="除蟲">
                                     <label for="deworming">除蟲</label><br>
                                     <div class="btn-area">
-                                        <button class="">搜尋商品</button>
-                                        <button class="">產生卡片</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                            費用參考
+                                        </button>
+                                        <button class="" id="searchproduct-btn">搜尋商品</button>
+                                        <button class="d-none" id="createcard-btn">新增商品</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +102,7 @@
                             <div class="item">
                                 <div class="pic">
                                     <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=1">
+                                        <img src="https://picsum.photos/200/200/?random=8">
                                     </a>
                                 </div>
                             </div>
@@ -109,37 +113,17 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=8">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=9">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=19">
-                                    </a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="packagetodefine-area">
-                <button class="packagetodefine-btn" id="todefinebutton">自行<br>搭配</button>
+                <button class="packagetodefine-btn " id="todefinebutton">自行<br>搭配</button>
                 <button class="packagetodefine-btn d-none" id="topackagebutton">套裝<br>服務</button>
             </div>
             <div class="col-12 col-md-8 col-lg-9">
-                <div class="product-area" id="packageproduct">
+                <div class="product-area " id="packageproduct">
                     <div class="card-header">
                         <i class="fas fa-feather"> </i>
                         套裝服務
@@ -246,10 +230,11 @@
                                 <button>+</button>
                             </div>
                             <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=4">
+                                <img src="/pic/livingroom.png">
                             </div>
                             <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務1</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>
+                                <h2>套裝服務1</h2>
                                 <ul>
                                     <li>
                                         客廳
@@ -268,7 +253,8 @@
                                 <img src="https://picsum.photos/300/200/?random=6">
                             </div>
                             <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務2</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>
+                                <h2>套裝服務2</h2>
                                 <ul>
                                     <li>
                                         廚房
@@ -287,7 +273,8 @@
                                 <img src="https://picsum.photos/300/200/?random=3">
                             </div>
                             <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務3</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>
+                                <h2>套裝服務3</h2>
                                 <ul>
                                     <li>
                                         臥室
@@ -306,7 +293,8 @@
                                 <img src="https://picsum.photos/300/200/?random=9">
                             </div>
                             <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>                                    <h2>套裝服務4</h2>
+                                <a href="" class="search"><i class="fas fa-search"></i></a>
+                                <h2>套裝服務4</h2>
                                 <ul>
                                     <li>
                                         客廳+廚房
@@ -324,50 +312,23 @@
                         <h2>
                             <i class="fas fa-feather"></i> 客製化商品
                         </h2>
+                        <div class="button"></div>
                     </div>
                     <div class="card-body">
-                        <div class="item-group">
-                            <div class="item">
-                                <div class="btn">
-                                    <button>-</button>
-                                </div>
-                                <div class="pic">
-                                    <img src="https://picsum.photos/300/200/?random=9">
-                                </div>
-                                <div class="text">
-                                    <h2>商品1<span>$500</span></h2>
-                                    <ul>
-                                        <li>
-                                            客廳+廚房
-                                        </li>
-                                        <li>6-10坪</li>
-                                        <li>收納+清潔+除蟲</li>
-                                    </ul>
-                                </div>
+                        <div class="item-group d-none" id="userdefinedbox">
+                        </div>
+                        <div class="pointout-area" id="pointout-area">
+                            <div class="pic">
+                                <img src="~/Assets/images/cart.jpg" alt="">
                             </div>
-                            <div class="item">
-                                <div class="btn">
-                                    <button>-</button>
-                                </div>
-                                <div class="pic">
-                                    <img src="https://picsum.photos/300/200/?random=9">
-                                </div>
-                                <div class="text">
-                                    <h2>商品1<span>$500</span></h2>
-                                    <ul>
-                                        <li>
-                                            客廳+廚房
-                                        </li>
-                                        <li>6-10坪</li>
-                                        <li>收納+清潔+除蟲</li>
-                                    </ul>
-                                </div>
+                            <div class="text">
+                                <p>目前還沒有商品喔!<br>快利用左邊的選單，<br>搭配出適合自己的商品吧!</p>
                             </div>
                         </div>
                     </div>
                     <div class="content">
                         <div class="text">
-                            <h4>小計: <span></span></h4>
+                            <h4>小計:<span id="countprice"></span></h4>
                         </div>
                         <div class="button-area">
                             <a href="" class="btn">加入收藏</a>
@@ -379,6 +340,91 @@
         </div>
     </div>
 </section>
+<template id="userDefinedCard">
+    <div class="item">
+        <div class="btn">
+            <button id="temple-deletebtn"><i class="fas fa-minus"></i></button>
+        </div>
+        <div class="pic">
+            <img src="/pic/balcony.png" id="temple-img">
+        </div>
+        <div class="text">
+            <h2 id="temple-title"></h2>
+            <ul>
+                <li id="temple-squarefeet"></li>
+                <li id="temple-serviceitem"></li>
+                <li id="temple-hour"></li>
+            </ul>
+        </div>
+    </div>
+</template>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="exampleModalLabel">時數計算</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">客廳</th>
+                            <th scope="col">廚房</th>
+                            <th scope="col">臥室</th>
+                            <th scope="col">浴室</th>
+                            <th scope="col">陽台</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">5坪以下</th>
+                            <td>1hr</td>
+                            <td>1hr</td>
+                            <td>1hr</td>
+                            <td>0.5hr</td>
+                            <td>0.5hr</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6-10坪</th>
+                            <td>1.5hr</td>
+                            <td>1.5hr</td>
+                            <td>1.5hr</td>
+                            <td>1hr</td>
+                            <td>1hr</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">11-15坪</th>
+                            <td>2hr</td>
+                            <td>2hr</td>
+                            <td>2hr</td>
+                            <td>1.5hr</td>
+                            <td>1.5hr</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">16坪以上</th>
+                            <td>2.5hr</td>
+                            <td>2.5hr</td>
+                            <td>2.5hr</td>
+                            <td>2hr</td>
+                            <td>2hr</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <span>NT$500/hr</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section JS{
     @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
