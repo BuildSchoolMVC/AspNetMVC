@@ -9,7 +9,6 @@ namespace AspNetMVC.Models
     {
         public int Id { get; set; }
         public List<string> Slogan { get; set; }
-
         public string Title { get; set; }
     }
 }

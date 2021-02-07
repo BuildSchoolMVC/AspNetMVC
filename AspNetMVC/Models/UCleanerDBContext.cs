@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using AspNetMVC.Models.Entity;
 
-namespace AspNetMVC.Models.CustomerService
+namespace AspNetMVC.Models
 {
-    public partial class CustomerServiceContext :DbContext
+    public partial class UCleanerDBContext :DbContext
     {
-        public CustomerServiceContext() : base("name=CustomerServiceConn")
+        public UCleanerDBContext() : base("name=UCleanerDbContext")
         {
         }
 
         public virtual DbSet<CustomerService> CustomerServices { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

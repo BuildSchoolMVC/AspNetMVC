@@ -30,55 +30,60 @@
 
 <section class="container-lg" style="margin:150px auto 300px;">
     <h1 class="mt-5 mb-3">客服問題集</h1>
-    <table class="table">
-        <tr class="thead-dark">
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsRead)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedTime)
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                @DisplayCategory(item.Category)
-                @DisplayReadState(item.IsRead, item.Id)
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedTime)
-                </td>
+    @if (Model.Count() == 0)
+    {
+        <p>目前無任何資料</p>
+    }
+    else
+    {
+        <table class="table">
+            <tr class="thead-dark">
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerServiceId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsRead)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateTime)
+                </th>
             </tr>
+            @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerServiceId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            @DisplayCategory(item.Category)
+            @DisplayReadState(item.IsRead, item.CustomerServiceId)
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+        </tr>
         }
-
     </table>
+    }
 </section>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
@@ -99,7 +104,7 @@
         <td>客訴問題</td>
     }
 }
-@helper DisplayReadState(bool isRead, int id)
+@helper DisplayReadState(bool isRead, Guid id)
 {
     if (isRead)
     {

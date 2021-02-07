@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.Entity;
 using AspNetMVC.Models;
-using AspNetMVC.Models.CustomerService;
 using AspNetMVC.Repository;
 using AspNetMVC.ViewModel;
 using AspNetMVC.Service;
@@ -15,7 +14,7 @@ namespace AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private IndexPageService _datas = new IndexPageService();
+        private readonly IndexPageService _datas = new IndexPageService();
 
         private readonly CustomerServiceService _customerServiceService;
 
@@ -39,7 +38,7 @@ namespace AspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _customerServiceService.AddData(customerService);
+                _customerServiceService.CreateData(customerService);
                  return Json(new { response = "success" });
             }
             return Json(new{response="error" });
@@ -51,9 +50,9 @@ namespace AspNetMVC.Controllers
             return View(customerData);
         }
 
-        public ActionResult ShowDetail(int? id)
+        public ActionResult ShowDetail(Guid? id)
         {
-            var customer = _customerServiceService.ShowCustomerInfo(id);
+            var customer = _customerServiceService.ReadContent(id,"");
             return View(customer);
         }
     }
