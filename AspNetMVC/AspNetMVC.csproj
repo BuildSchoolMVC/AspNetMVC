@@ -218,9 +218,6 @@
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
     <Content Include="Assets\css\Home\fonts\icofont.svg" />
-    <Content Include="Assets\css\Home\icofont.min.css" />
-    <Content Include="Assets\css\Home\index.css" />
-    <Content Include="Assets\css\Layout\layout.css" />
     <Content Include="Assets\css\Account\login.css" />
     <Content Include="Assets\css\MemberCenter\MemberCenter.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />

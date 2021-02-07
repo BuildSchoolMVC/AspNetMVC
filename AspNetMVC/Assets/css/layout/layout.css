@@ -7,7 +7,7 @@
     --color-primary-light: #cde1f1;
     --white: #fff;
     --gray: #aaa;
-    --dark-blue: #24244e;
+    --dark-blue: #1c4a70;
     --yellow: #ffd000;
     --black: #000;
     --light: #f8f9fa;
@@ -1434,37 +1434,37 @@ img {
 
 @-webkit-keyframes fading {
     0% {
-        background-color: #e2b9e4
+        background-color: var(--color-primary)
     }
 
     15% {
-        background-color: #735d7d
+        background-color: var(--color-darkGray)
     }
 
     30% {
-        background-color: #e2b9e4
+        background-color: var(--color-primary)
     }
 
     100% {
-        background-color: #fdd0ff
+        background-color: var(--color-primary-light)
     }
 }
 
 @keyframes fading {
     0% {
-        background-color: #e2b9e4
+        background-color: var(--color-primary)
     }
 
     15% {
-        background-color: #735d7d
+        background-color: var(--color-darkGray)
     }
 
     30% {
-        background-color: #e2b9e4
+        background-color: var(--color-primary)
     }
 
     100% {
-        background-color: #fdd0ff
+        background-color: var(--color-primary-light)
     }
 }
 
