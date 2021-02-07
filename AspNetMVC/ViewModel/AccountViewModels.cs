@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AspNetMVC.Models
+namespace AspNetMVC.ViewModel
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -108,11 +108,5 @@ namespace AspNetMVC.Models
         [EmailAddress]
         [Display(Name = "電子郵件")]
         public string Email { get; set; }
-    }
-
-    public class CombineViewModel
-    {
-        public LoginViewModel LoginData { get; set; }
-        public RegisterViewModel RegisiterData { get; set; }
     }
 }

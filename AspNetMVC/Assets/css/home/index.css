@@ -602,8 +602,8 @@
 
     .section_all-service .service-tabs .tabs-item:hover {
         width: 102%;
-        -webkit-transform: translateX(-10px);
-        transform: translateX(-10px);
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
         border: 1px solid #99999980
     }
 

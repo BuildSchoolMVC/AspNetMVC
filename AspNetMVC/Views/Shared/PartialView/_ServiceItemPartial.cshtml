@@ -12,11 +12,11 @@
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
                         <p class="card-text">@item.Text</p>
-                        @if (Model.Category == "企業服務")
+                        @if (Model.Category == "enterprise")
                         {
                             <span class="coming-up">敬請期待</span>
                         }
-                        else if (Model.Category == "顧客評價")
+                        else if (Model.Category == "comment")
                         {
                             <span><i class="fas fa-star color-yellow pr-1"></i>5</span>
                         }

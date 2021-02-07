@@ -14,12 +14,13 @@ namespace AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IndexPageService _datas = new IndexPageService();
+        private readonly IndexPageService _datas;
 
         private readonly CustomerServiceService _customerServiceService;
 
         public HomeController()
         {
+            _datas = new IndexPageService();
             _customerServiceService = new CustomerServiceService();
         }
         public ActionResult Index()
@@ -33,7 +34,12 @@ namespace AspNetMVC.Controllers
             return View(allServiceCards);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// 負責收集前端送來的資料
+        /// </summary>
+        /// <param name="customerService"></param>
+        /// <returns></returns>
+        [HttpPost] 
         public ActionResult CustomerServiceCreate([Bind(Include = "Name,Email,Phone,Category,Content")] CustomerViewModel customerService)
         {
             if (ModelState.IsValid)

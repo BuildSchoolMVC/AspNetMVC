@@ -30,7 +30,7 @@ a:hover {
 }
 
 section[class$='Form'] {
-	background: var(--color-warnBg);
+	background: var(--color-primary-light);
 }
 
 .login-modal {

@@ -13,7 +13,7 @@ namespace AspNetMVC.Models
         {
         }
 
-        public virtual DbSet<CustomerService> CustomerServices { get; set; }
+        public virtual DbSet<CustomerService> CustomerServices { get; set; } //在此註冊資料表
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
