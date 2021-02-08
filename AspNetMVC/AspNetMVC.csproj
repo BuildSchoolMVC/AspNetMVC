@@ -191,7 +191,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\IndexPageModel\NewsCard.cs" />
     <Compile Include="Models\IndexPageModel\ServiceItem.cs" />
-    <Compile Include="Models\ProductPage\GridCard.cs" />
+    <Compile Include="Models\ProductPage\PackageProduct.cs" />
+    <Compile Include="Models\ProductPage\RoomType.cs" />
+    <Compile Include="Models\ProductPage\ServiceItems.cs" />
+    <Compile Include="Models\ProductPage\SingleProduct.cs" />
+    <Compile Include="Models\ProductPage\SquareFeet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AllServiceCardRepository.cs" />
     <Compile Include="Repository\BannerRepository.cs" />
@@ -205,14 +209,6 @@
     <Compile Include="ViewModel\CustomerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AspNetMVCIdentityDbFile.mdf" />
-    <Content Include="App_Data\AspNetMVCIdentityDbFile_log.ldf">
-      <DependentUpon>AspNetMVCIdentityDbFile.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\CustomerServiceDbFile.mdf" />
-    <Content Include="App_Data\CustomerServiceDbFile_log.ldf">
-      <DependentUpon>CustomerServiceDbFile.mdf</DependentUpon>
-    </Content>
     <Content Include="Assets\css\Account\forgotPassword.css" />
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
@@ -467,6 +463,7 @@
     <Content Include="Views\MemberCenter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Assets\js\QA\" />
   </ItemGroup>
   <ItemGroup>
