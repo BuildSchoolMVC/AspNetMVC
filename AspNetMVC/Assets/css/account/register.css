@@ -1,0 +1,289 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+button {
+    background-color: transparent
+}
+
+button:focus {
+    outline: none
+}
+
+img {
+    vertical-align: top;
+    max-width: 100%
+}
+
+a,
+a:hover {
+    text-decoration: none
+}
+
+section[class$='Form'] {
+    background: var(--color-primary-light);
+}
+
+p {
+    margin: 0;
+}
+
+.register-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 60px 0;
+    max-width: 1200px;
+    margin: auto
+}
+
+.register-modal .container-main {
+    padding: 30px;
+    width: 100%
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border: .2em solid currentColor;
+    margin-right: 10px;
+    border-right-color: transparent;
+    transition: .4s ease-in;
+}
+
+@media screen and (min-width: 500px) {
+    .register-modal .container-main {
+        max-width: 500px
+    }
+}
+
+.register-modal .change-box {
+    display: flex;
+    margin-bottom: 5px
+}
+
+.register-modal .change-box .title {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 5px 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-primary);
+    background-color: #ffffff;
+    border: 1px solid var(--color-primary);
+    transition: color .2s, background-color .3s;
+    --brs: 6px
+}
+
+.register-modal .change-box .title-login {
+    border-radius: var(--brs) 0 0 var(--brs)
+}
+
+.register-modal .change-box .title-register {
+    border-radius: 0 var(--brs) var(--brs) 0
+}
+
+.register-modal .change-box .selected {
+    color: #ffffff;
+    background-color: var(--color-primary)
+}
+
+.register-modal .register-block,
+.register-modal .register-block {
+    display: none;
+    position: relative
+}
+
+.register-modal .register-block.show,
+.register-modal .register-block.show {
+    display: block
+}
+
+.register-modal .form {
+    display: flex;
+    overflow: hidden;
+}
+
+.register-modal .form .step1,
+.register-modal .form .step2 {
+    width: 100%;
+    flex-shrink: 0;
+    transition: .4s ease-in;
+}
+
+.register-modal .form .step2 {
+    opacity: 0;
+}
+
+.register-modal .form .step1.next,
+.register-modal .form .step2.next {
+    transform: translateX(-100%);
+}
+
+.register-modal .form .step1.next {
+    opacity: 0;
+}
+
+.register-modal .form .step2.next {
+    opacity: 1;
+}
+.register-modal .form .step2 .btn_submit{
+    padding-right: 10px;
+}
+
+.register-modal .form .btn-groups {
+    display: flex;
+}
+
+.register-modal .form .btn-groups .btn_pre {
+    margin-right: 5px;
+}
+
+.register-modal .form .form-group {
+    margin-bottom: 10px
+}
+
+.register-modal .form .label {
+    color: var(--color-primary-dark);
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.register-modal .form .label i {
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: .4s ease-in;
+    font-size: 16px;
+}
+
+.register-modal .form .label i+span {
+    opacity: 0;
+    transition: opacity .4s ease-in;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.register-modal .form .label i:hover {
+    color: var(--color-primary-dark);
+}
+
+.register-modal .form .label i:hover+span {
+    opacity: 1;
+    pointer-events: none;
+}
+
+.register-modal .form .label i+span.small {
+    font-size: 14px;
+}
+
+.register-modal .form .label.small {
+    font-size: 16px;
+}
+
+.register-modal .form .input,
+.register-modal .form .button {
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 16px;
+    font-family: Arial;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+}
+
+.register-modal .form .button[disabled] {
+    opacity: .6;
+}
+
+.register-modal .form .input {
+    width: 100%;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.15)
+}
+
+.register-modal .form .input::placeholder {
+    color: #999999
+}
+
+.register-modal .form .input:focus {
+    border-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
+}
+
+.register-modal .form .input.input-warn {
+    border-color: var(--color-warn);
+    background-color: var(--color-warnBg);
+    color: var(--color-warn);
+}
+
+.register-modal .form .input.input-warn::placeholder {
+    color: #ff7777
+}
+
+.register-modal .form .warn {
+    font-size: 14px;
+    max-height: 20px;
+    color: var(--color-warn);
+    border: none;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+
+.register-modal .form .prompt {
+    margin-top: 2px;
+    margin-left: 5px;
+    font-size: 14px;
+    color: #555555
+}
+
+.register-modal .form .button {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    background-color: var(--color-primary);
+    border: none;
+    color: #ffffff
+}
+
+.register-modal .form .button:hover {
+    filter: brightness(1.1)
+}
+
+.register-modal .form .button[disabled='disabled']:hover {
+    filter: brightness(1)
+}
+
+.register-modal .other {
+    margin-top: 20px;
+    display: flex
+}
+
+.register-modal .other .box {
+    margin-right: auto;
+    display: flex
+}
+
+.register-modal .other .box a {
+    display: block
+}
+
+@media screen and (min-width:768px) {
+    .register-modal {
+        padding: 100px 0;
+    }
+}
