@@ -21,7 +21,7 @@ namespace AspNetMVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("AspNetIdentityConnection", throwIfV1Schema: false)
+            : base("UCleanerDbContext", throwIfV1Schema: false)
         {
         }
 

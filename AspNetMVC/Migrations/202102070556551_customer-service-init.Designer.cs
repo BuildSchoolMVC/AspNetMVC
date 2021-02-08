@@ -7,13 +7,13 @@ namespace AspNetMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class customerserviceinit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(customerserviceinit));
         
         string IMigrationMetadata.Id
         {
-            get { return "202102041724035_init"; }
+            get { return "202102070556551_customer-service-init"; }
         }
         
         string IMigrationMetadata.Source
