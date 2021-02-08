@@ -468,6 +468,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
+    <Folder Include="Models\Member\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
