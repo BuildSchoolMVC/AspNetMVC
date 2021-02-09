@@ -12,7 +12,7 @@ namespace AspNetMVC.Service
     public class CustomerServiceService
     {
         private readonly UCleanerDBContext _context;
-        private readonly BaseRepository<CustomerService> _repository;
+        private readonly BaseRepository<CustomerService> _customerServiceRepository;
 
         /// <summary>
         /// 實體化處理連線的物件及資料庫(包含CRUD等方法)
@@ -20,7 +20,7 @@ namespace AspNetMVC.Service
         public CustomerServiceService()
         {
             _context = new UCleanerDBContext();
-            _repository = new BaseRepository<CustomerService>(_context);
+            _customerServiceRepository = new BaseRepository<CustomerService>(_context);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace AspNetMVC.Service
         /// <param name="c">從前端表單所有收集的資料</param>
         public void CreateData(CustomerViewModel c)
         {
-            _repository.Create(new CustomerService
+            _customerServiceRepository.Create(new CustomerService
             {
                 CustomerServiceId = Guid.NewGuid(),
                 Name = c.Name,
@@ -38,9 +38,9 @@ namespace AspNetMVC.Service
                 Category = c.Category,
                 Content = c.Content,
                 IsRead = false,
-                CreateUser = c.Name, //建立後不可能有改變
-                CreateTime = DateTime.UtcNow.AddHours(8),//轉換我們時區之時間
-                EditUser = c.Name,//第一次建立即為編輯者，後續可改變
+                CreateUser = c.Name, //建立後不可改變
+                CreateTime = DateTime.UtcNow.AddHours(8),//轉換為我們時區之時間
+                EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
                 EditTime = DateTime.UtcNow.AddHours(8),
             });
         }
@@ -48,7 +48,7 @@ namespace AspNetMVC.Service
         /// 顯示該資料表所有資料
         /// </summary>
         /// <returns></returns>
-        public List<CustomerService> ShowData() => _repository.GetAll().ToList();
+        public List<CustomerService> ShowData() => _customerServiceRepository.GetAll().ToList();
 
         /// <summary>
         ///  查看單筆資料
@@ -58,11 +58,11 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public CustomerService ReadContent(Guid? id,string user)
         {
-            var customer = _repository.GetAll().FirstOrDefault(x => x.CustomerServiceId == id);
+            var customer = _customerServiceRepository.GetAll().FirstOrDefault(x => x.CustomerServiceId == id);
             customer.IsRead = true;
             customer.EditTime = DateTime.UtcNow.AddHours(8);
             customer.EditUser = user;
-            _repository.Update(customer);
+            _customerServiceRepository.Update(customer);
             return customer;
         }
     }

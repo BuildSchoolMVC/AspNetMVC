@@ -39,7 +39,7 @@ section[class$='Form'] {
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	padding: 100px 0;
+	padding: 150px 0;
 	max-width: 1200px;
 	margin: auto
 }
@@ -158,11 +158,12 @@ section[class$='Form'] {
 
 .login-modal .form .warn {
 	font-size: 14px;
-	min-height: 26px;
+	min-height: 20px;
 	color: var(--color-warn);
 	border: none;
 	padding: 5px 0;
 	letter-spacing: 1px;
+	margin: 0;
 }
 
 .login-modal .form .prompt {

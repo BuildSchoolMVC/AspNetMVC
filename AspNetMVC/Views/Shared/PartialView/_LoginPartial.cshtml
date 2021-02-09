@@ -1,23 +1,26 @@
 ﻿@using Microsoft.AspNet.Identity
 
-    @if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.ActionLink("會員中心", "Index", "MemberCenter", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns login-register" })
-                </li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit();isLogin=false;localStorage.setItem('login',isLogin)" class="nav-link color-gray">登出</a></li>
-            </ul>
-        }
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("會員中心", "Index", "MemberCenter", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns login-register" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit();isLogin=false;localStorage.setItem('login',isLogin)" class="nav-link color-gray">登出</a></li>
+        </ul>
     }
-    else
-    {
-        @Html.ActionLink("註冊 / 登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns login-register" })
-    }
+}
+else
+{
+    <div class="btns-group">
+        @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btns btn-login" })
+        @Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns btn-register" })
+    </div>
+}
 
 
 

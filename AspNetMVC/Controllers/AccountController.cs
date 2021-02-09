@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AspNetMVC.Models;
 using AspNetMVC.ViewModel;
+using AspNetMVC.Service;
 
 namespace AspNetMVC.Controllers
 {
@@ -18,9 +19,10 @@ namespace AspNetMVC.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly AccountService _accountService;
         public AccountController()
         {
+            _accountService = new AccountService();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -134,7 +136,6 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -142,35 +143,56 @@ namespace AspNetMVC.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone")]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // 如需如何進行帳戶確認及密碼重設的詳細資訊，請前往 https://go.microsoft.com/fwlink/?LinkID=320771
-                    // 傳送包含此連結的電子郵件
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "確認您的帳戶", "請按一下此連結確認您的帳戶 <a href=\"" + callbackUrl + "\">這裏</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+                _accountService.CreateAccount(model);
+                return Json(new { response = "success" });
             }
 
             // 如果執行到這裡，發生某項失敗，則重新顯示表單
             return View(model);
         }
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult RegisterIsExist(string name)
+        {
+            if (ModelState.IsValid)
+            {
+                if(_accountService.AccountIsExist(name)){
+                    return Json(new { response = "exist" });
+                }
+                else
+                {
+                    return Json(new { response = "nonexist" });
+                }
+            }
+            return Json(new { response = "error" });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult RegisterEmailIsExist(string email)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_accountService.EmailIsExist(email))
+                {
+                    return Json(new { response = "exist" });
+                }
+                else
+                {
+                    return Json(new { response = "nonexist" });
+                }
+            }
+            return Json(new { response = "error" });
+        }
+        
 
         //
         // GET: /Account/ConfirmEmail
