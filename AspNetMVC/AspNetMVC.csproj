@@ -171,51 +171,49 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102041724035_init.cs" />
-    <Compile Include="Migrations\202102041724035_init.Designer.cs">
-      <DependentUpon>202102041724035_init.cs</DependentUpon>
+    <Compile Include="Migrations\202102070334064_init.cs" />
+    <Compile Include="Migrations\202102070334064_init.Designer.cs">
+      <DependentUpon>202102070334064_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102041733146_v2.cs" />
-    <Compile Include="Migrations\202102041733146_v2.Designer.cs">
-      <DependentUpon>202102041733146_v2.cs</DependentUpon>
+    <Compile Include="Migrations\202102070556551_customer-service-init.cs" />
+    <Compile Include="Migrations\202102070556551_customer-service-init.Designer.cs">
+      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IndexPageModel\AllServiceCard.cs" />
-    <Compile Include="Models\IndexPageModel\Banner.cs" />
-    <Compile Include="Models\CustomerService\CustomerService.cs" />
-    <Compile Include="Models\CustomerService\CustomerServiceContext.cs" />
+    <Compile Include="ViewModel\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\BaseEnity.cs" />
+    <Compile Include="Models\Entity\CustomerService.cs" />
+    <Compile Include="Models\UCleanerDBContext.cs" />
     <Compile Include="Models\CountyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IndexPageModel\ImageCard.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\IndexPageModel\NewsCard.cs" />
-    <Compile Include="Models\IndexPageModel\ServiceItem.cs" />
-    <Compile Include="Models\ProductPage\PackageProduct.cs" />
-    <Compile Include="Models\ProductPage\RoomType.cs" />
-    <Compile Include="Models\ProductPage\ServiceItems.cs" />
-    <Compile Include="Models\ProductPage\SingleProduct.cs" />
-    <Compile Include="Models\ProductPage\SquareFeet.cs" />
+    <Compile Include="ViewModel\ManageViewModels.cs" />
+    <Compile Include="Models\ProductPage\GridCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AllServiceCardRepository.cs" />
-    <Compile Include="Repository\BannerRepository.cs" />
-    <Compile Include="Repository\CustomerServiceRepository.cs" />
-    <Compile Include="Repository\ImageCardRepository.cs" />
-    <Compile Include="Repository\NewsCardRepository.cs" />
-    <Compile Include="Repository\ServiceItemRepository.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\FakeData\AllServiceCardRepository.cs" />
+    <Compile Include="Repository\FakeData\BannerRepository.cs" />
+    <Compile Include="Repository\FakeData\ImageCardRepository.cs" />
+    <Compile Include="Repository\FakeData\NewsCardRepository.cs" />
+    <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
     <Compile Include="Service\CustomerServiceService.cs" />
     <Compile Include="Service\IndexPageService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\IndexPageViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AspNetMVCIdentityDbFile.mdf" />
+    <Content Include="App_Data\AspNetMVCIdentityDbFile_log.ldf">
+      <DependentUpon>AspNetMVCIdentityDbFile.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\CustomerServiceDbFile.mdf" />
+    <Content Include="App_Data\CustomerServiceDbFile_log.ldf">
+      <DependentUpon>CustomerServiceDbFile.mdf</DependentUpon>
+    </Content>
     <Content Include="Assets\css\Account\forgotPassword.css" />
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
     <Content Include="Assets\css\Home\fonts\icofont.svg" />
-    <Content Include="Assets\css\Home\icofont.min.css" />
-    <Content Include="Assets\css\Home\index.css" />
-    <Content Include="Assets\css\Layout\layout.css" />
     <Content Include="Assets\css\Account\login.css" />
     <Content Include="Assets\css\MemberCenter\MemberCenter.css" />
     <Content Include="Assets\css\ProductPage\ProductPage.css" />
@@ -463,7 +461,6 @@
     <Content Include="Views\MemberCenter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Assets\js\QA\" />
   </ItemGroup>
   <ItemGroup>
@@ -476,11 +473,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102041724035_init.resx">
-      <DependentUpon>202102041724035_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102070334064_init.resx">
+      <DependentUpon>202102070334064_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102041733146_v2.resx">
-      <DependentUpon>202102041733146_v2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102070556551_customer-service-init.resx">
+      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

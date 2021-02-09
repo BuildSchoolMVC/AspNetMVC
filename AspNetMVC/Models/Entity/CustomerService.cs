@@ -4,24 +4,32 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace AspNetMVC.Models.CustomerService
+namespace AspNetMVC.Models.Entity
 {
-    public class CustomerService
+    public class CustomerService : BaseEnity
     {
         [Key]
-        public int Id { get; set; }
+        [Display(Name = "客服資料ID")]
+        public Guid CustomerServiceId { get;set;}
+
         [Display(Name = "名稱")]
+        [StringLength(30)]
         public string Name { get; set; }
+
         [Display(Name = "信箱")]
+        [StringLength(50)]
         public string Email { get; set; }
+
         [Display(Name = "電話")]
+        [StringLength(20)]
         public string Phone { get; set; }
+
         [Display(Name = "分類")]
         public int Category { get; set; }
         [Display(Name = "內容")]
+        [StringLength(100)]
         public string Content { get; set; }
-        [Display(Name = "創建時間")]
-        public DateTime? CreatedTime { get; set; }
+
         [Display(Name = "閱讀狀態")]
         public bool IsRead { get; set; }
     }

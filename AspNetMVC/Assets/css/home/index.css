@@ -150,13 +150,15 @@
     border-right: 1px solid transparent;
     background: var(--color-primary);
     color: var(--white);
-    -webkit-box-shadow: -1px 1px 5px #99999980;
-    box-shadow: -1px 1px 5px #99999980
+    -webkit-box-shadow: -1px 1px 5px #999,inset -3px -3px 10px #00000080;
+    box-shadow: -1px 1px 5px #999,inset -3px -3px 10px #00000080;
 }
 
 .section_all-service .service-tabs .tabs-item:hover {
     background: var(--color-primary);
-    color: var(--white)
+    color: var(--white);
+    -webkit-box-shadow: -1px 1px 5px #999,inset -3px -3px 10px #00000080;
+    box-shadow: -1px 1px 5px #999,inset -3px -3px 10px #00000080;
 }
 
 .section_all-service .service-tabs .tabs-item h3 {
@@ -599,9 +601,9 @@
     }
 
     .section_all-service .service-tabs .tabs-item:hover {
-        width: 105%;
-        -webkit-transform: translateX(-10px);
-        transform: translateX(-10px);
+        width: 102%;
+        -webkit-transform: translateX(-5px);
+        transform: translateX(-5px);
         border: 1px solid #99999980
     }
 
