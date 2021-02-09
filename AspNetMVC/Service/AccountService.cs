@@ -32,9 +32,9 @@ namespace AspNetMVC.Service
                 Password = ToMD5(account.Password),
                 Email = account.Email,
                 EmailVerification = false,
-                Gender = account.Gender,
+                Gender = account.Gender, // 1 男 2 女 3 其他
                 Phone = account.Phone,
-                Authority = 3,
+                Authority = 3, //預設 3 : 一般會員
                 CreateTime = DateTime.UtcNow.AddHours(8),
                 CreateUser = account.Name,
                 EditTime = DateTime.UtcNow.AddHours(8),
@@ -42,32 +42,40 @@ namespace AspNetMVC.Service
                 Remark = ""
             });
         }
+
+        /// <summary>
+        /// 檢查此帳號是否存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool AccountIsExist(string name)
         {
             var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.AccountName == name);
-            
-            if(user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
+            return user != null;
+        }
+        /// <summary>
+        /// 檢查此信箱是否存在
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool EmailIsExist(string email)
         {
             var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.Email == email);
 
-            if (user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return user != null;
+        }
+
+        /// <summary>
+        /// 判斷帳密是否完全符合
+        /// </summary>
+        /// <param name="accountName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool LoginIsValid(string accountName, string password)
+        {
+            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.AccountName == accountName && x.Password == ToMD5(password));
+            return user != null;
         }
 
         public string ToMD5(string strings)

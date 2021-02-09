@@ -63,15 +63,10 @@
                 returnUrl: "Home/Index"
             },
             success: function (result) {
-                if (result.Url == undefined) {
-                    return;
-                }
-                if (result.Url === "Home/Index") {
-                    isLogin = true;
-                    localStorage.setItem("login", isLogin);
+                if (result.response === "success") {
                     toastr.success("登入成功");
-                    window.location.replace(`${window.location.origin}/${result.Url}`);
-                } else if (result.Url === "Error") {
+                    window.location.replace(`${window.location.origin}/Home/Index`);
+                } else if (result.response === "fail") {
                     toastr.error("登入失敗");
 
                     setTimeout(function () {
