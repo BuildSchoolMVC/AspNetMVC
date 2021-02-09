@@ -180,6 +180,12 @@
       <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\PackageProduct.cs" />
+    <Compile Include="Models\Entity\RoomType.cs" />
+    <Compile Include="Models\Entity\ServiceItems.cs" />
+    <Compile Include="Models\Entity\SingleProduct.cs" />
+    <Compile Include="Models\Entity\SquareFeet.cs" />
+    <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
@@ -187,7 +193,6 @@
     <Compile Include="Models\CountyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
-    <Compile Include="Models\ProductPage\GridCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\FakeData\AllServiceCardRepository.cs" />
@@ -200,16 +205,11 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModels.cs" />
+    <Compile Include="ViewModel\PackageProductListViewModel .cs" />
+    <Compile Include="ViewModel\PackageProductGridViewModel.cs" />
+    <Compile Include="ViewModel\UserDefinedProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\AspNetMVCIdentityDbFile.mdf" />
-    <Content Include="App_Data\AspNetMVCIdentityDbFile_log.ldf">
-      <DependentUpon>AspNetMVCIdentityDbFile.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\CustomerServiceDbFile.mdf" />
-    <Content Include="App_Data\CustomerServiceDbFile_log.ldf">
-      <DependentUpon>CustomerServiceDbFile.mdf</DependentUpon>
-    </Content>
     <Content Include="Assets\css\Account\forgotPassword.css" />
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
@@ -461,6 +461,7 @@
     <Content Include="Views\MemberCenter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Assets\js\QA\" />
   </ItemGroup>
   <ItemGroup>
