@@ -19,7 +19,7 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "input login-email", placeholder = "信箱" })
+                        @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", placeholder = "帳號名稱" })
                         <p class="warn login-email"></p>
                     </div>
                     <div class="form-group">
@@ -29,8 +29,11 @@
                     <button class="button btn_login" type="button"><span class="spinner-border opacity"></span>登入</button>
                     <div class="other">
                         <div class="box">
+                            <span>
+                                @Html.CheckBoxFor(m=>m.RememberMe,new { @class="login-remember"})
+                                @Html.LabelFor(m=>m.RememberMe)
+                            </span>
                             <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
-                            
                             忘記密碼?</a>
                         </div>
                     </div>

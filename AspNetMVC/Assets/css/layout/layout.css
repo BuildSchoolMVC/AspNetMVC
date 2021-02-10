@@ -677,6 +677,18 @@ img {
     color: var(--white) !important;
     text-decoration: none
 }
+.section_nav .collapse.navbar-collapse .nav_btn-group .btn-member-center {
+    border-radius: 20px !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+    background: var(--white) !important;
+}
+.section_nav .collapse.navbar-collapse .nav_btn-group .btn-member-center:hover {
+    color: var(--white) !important;
+    background: var(--color-primary) !important;
+    
+    text-decoration: none
+}
 
 .section_nav .collapse.navbar-collapse .nav_btn-group .btn-register {
     position: absolute;

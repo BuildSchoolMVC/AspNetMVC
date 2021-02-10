@@ -12,7 +12,7 @@ namespace AspNetMVC.Service
     public class CustomerServiceService
     {
         private readonly UCleanerDBContext _context;
-        private readonly BaseRepository<CustomerService> _customerServiceRepository;
+        private readonly BaseRepository _repository;
 
         /// <summary>
         /// 實體化處理連線的物件及資料庫(包含CRUD等方法)
@@ -20,7 +20,7 @@ namespace AspNetMVC.Service
         public CustomerServiceService()
         {
             _context = new UCleanerDBContext();
-            _customerServiceRepository = new BaseRepository<CustomerService>(_context);
+            _repository = new BaseRepository(_context);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace AspNetMVC.Service
         /// <param name="c">從前端表單所有收集的資料</param>
         public void CreateData(CustomerViewModel c)
         {
-            _customerServiceRepository.Create(new CustomerService
+            _repository.Create(new CustomerService
             {
                 CustomerServiceId = Guid.NewGuid(),
                 Name = c.Name,
@@ -43,12 +43,13 @@ namespace AspNetMVC.Service
                 EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
                 EditTime = DateTime.UtcNow.AddHours(8),
             });
+            _context.SaveChanges();
         }
         /// <summary>
         /// 顯示該資料表所有資料
         /// </summary>
         /// <returns></returns>
-        public List<CustomerService> ShowData() => _customerServiceRepository.GetAll().ToList();
+        public List<CustomerService> ShowData() => _repository.GetAll<CustomerService>().ToList();
 
         /// <summary>
         ///  查看單筆資料
@@ -58,11 +59,12 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public CustomerService ReadContent(Guid? id,string user)
         {
-            var customer = _customerServiceRepository.GetAll().FirstOrDefault(x => x.CustomerServiceId == id);
+            var customer = _repository.GetAll<CustomerService>().FirstOrDefault(x => x.CustomerServiceId == id);
             customer.IsRead = true;
             customer.EditTime = DateTime.UtcNow.AddHours(8);
             customer.EditUser = user;
-            _customerServiceRepository.Update(customer);
+            _repository.Update(customer);
+            _context.SaveChanges();
             return customer;
         }
     }

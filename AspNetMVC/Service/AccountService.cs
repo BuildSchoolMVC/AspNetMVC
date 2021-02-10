@@ -15,16 +15,16 @@ namespace AspNetMVC.Service
     public class AccountService
     {
         private readonly UCleanerDBContext _context;
-        private readonly BaseRepository<Account> _accountRepository;
+        private readonly BaseRepository _repository;
 
         public AccountService(){
             _context = new UCleanerDBContext();
-            _accountRepository = new BaseRepository<Account>(_context);
+            _repository = new BaseRepository(_context);
         }
 
         public void CreateAccount(RegisterViewModel account)
         {
-            _accountRepository.Create(new Account
+            _repository.Create(new Account
             {
                 AccountId = Guid.NewGuid(),
                 AccountName = account.Name,
@@ -32,44 +32,58 @@ namespace AspNetMVC.Service
                 Password = ToMD5(account.Password),
                 Email = account.Email,
                 EmailVerification = false,
-                Gender = account.Gender,
+                Gender = account.Gender, // 1 男 2 女 3 其他
                 Phone = account.Phone,
-                Authority = 3,
+                Authority = 3, //預設 3 : 一般會員
                 CreateTime = DateTime.UtcNow.AddHours(8),
                 CreateUser = account.Name,
                 EditTime = DateTime.UtcNow.AddHours(8),
                 EditUser = account.Name,
                 Remark = ""
             });
+            _context.SaveChanges();
         }
+
+        /// <summary>
+        /// 檢查此帳號是否存在
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool AccountIsExist(string name)
         {
-            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.AccountName == name);
-            
-            if(user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == name);
 
+            return user != null;
+        }
+        /// <summary>
+        /// 檢查此信箱是否存在
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool EmailIsExist(string email)
         {
-            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.Email == email);
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email);
 
-            if (user != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return user != null;
         }
 
+        /// <summary>
+        /// 判斷帳密是否完全符合
+        /// </summary>
+        /// <param name="accountName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool IsLoginValid(string accountName, string password)
+        {
+            var p = ToMD5(password);
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == p);
+            return user != null;
+        }
+        /// <summary>
+        /// 用MD5加密
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
         public string ToMD5(string strings)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

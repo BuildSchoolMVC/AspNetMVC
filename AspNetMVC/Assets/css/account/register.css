@@ -161,37 +161,39 @@ p {
     color: var(--color-primary-dark);
     font-size: 20px;
     padding-right: 10px;
+    white-space: nowrap;
 }
 
-.register-modal .form .label i {
+.register-modal .form .label.small {
+    font-size: 16px;
+}
+
+.register-modal .form i {
     cursor: pointer;
     color: var(--color-primary);
     transition: .4s ease-in;
     font-size: 16px;
 }
 
-.register-modal .form .label i+span {
+.register-modal .form i + span {
     opacity: 0;
     transition: opacity .4s ease-in;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
+    color: var(--color-primary-dark)
 }
 
-.register-modal .form .label i:hover {
+.register-modal .form i:hover {
     color: var(--color-primary-dark);
 }
 
-.register-modal .form .label i:hover+span {
+.register-modal .form i:hover+span {
     opacity: 1;
     pointer-events: none;
 }
 
-.register-modal .form .label i+span.small {
+.register-modal .form i+span.small {
     font-size: 14px;
-}
-
-.register-modal .form .label.small {
-    font-size: 16px;
 }
 
 .register-modal .form .input,
