@@ -197,8 +197,9 @@ section[class$='Form'] {
 }
 
 .login-modal .other .box {
-	margin-right: auto;
-	display: flex
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 }
 
 .login-modal .other .box a {

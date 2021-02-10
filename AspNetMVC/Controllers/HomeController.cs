@@ -61,5 +61,14 @@ namespace AspNetMVC.Controllers
             var customer = _customerServiceService.ReadContent(id,"");
             return View(customer);
         }
+
+        public RedirectToRouteResult Logout()
+        {
+            HttpCookie cookie_user = new HttpCookie("user");
+            cookie_user.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cookie_user);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

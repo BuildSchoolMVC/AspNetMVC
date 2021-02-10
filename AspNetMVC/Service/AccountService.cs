@@ -15,16 +15,16 @@ namespace AspNetMVC.Service
     public class AccountService
     {
         private readonly UCleanerDBContext _context;
-        private readonly BaseRepository<Account> _accountRepository;
+        private readonly BaseRepository _repository;
 
         public AccountService(){
             _context = new UCleanerDBContext();
-            _accountRepository = new BaseRepository<Account>(_context);
+            _repository = new BaseRepository(_context);
         }
 
         public void CreateAccount(RegisterViewModel account)
         {
-            _accountRepository.Create(new Account
+            _repository.Create(new Account
             {
                 AccountId = Guid.NewGuid(),
                 AccountName = account.Name,
@@ -41,6 +41,7 @@ namespace AspNetMVC.Service
                 EditUser = account.Name,
                 Remark = ""
             });
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool AccountIsExist(string name)
         {
-            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.AccountName == name);
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == name);
 
             return user != null;
         }
@@ -61,7 +62,7 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool EmailIsExist(string email)
         {
-            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.Email == email);
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email);
 
             return user != null;
         }
@@ -72,12 +73,17 @@ namespace AspNetMVC.Service
         /// <param name="accountName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool LoginIsValid(string accountName, string password)
+        public bool IsLoginValid(string accountName, string password)
         {
-            var user = _accountRepository.GetAll().ToList().FirstOrDefault(x => x.AccountName == accountName && x.Password == ToMD5(password));
+            var p = ToMD5(password);
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == p);
             return user != null;
         }
-
+        /// <summary>
+        /// 用MD5加密
+        /// </summary>
+        /// <param name="strings"></param>
+        /// <returns></returns>
         public string ToMD5(string strings)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

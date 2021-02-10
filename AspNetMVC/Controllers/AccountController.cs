@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using AspNetMVC.Models;
 using AspNetMVC.ViewModel;
 using AspNetMVC.Service;
+using System.Text;
+using System.Web.Security;
 
 namespace AspNetMVC.Controllers
 {
@@ -68,7 +70,7 @@ namespace AspNetMVC.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe")]LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -76,8 +78,20 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                if (_accountService.LoginIsValid(model.AccountName, model.Password))
+                if (_accountService.IsLoginValid(model.AccountName, model.Password))
                 {
+                    HttpCookie cookie_user = new HttpCookie("user");
+
+                    if (model.RememberMe == true)
+                    {
+                        var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
+                        var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie")); 
+                        cookie_user.Values["user_id"] = encryptedValue;
+                        cookie_user.Expires = DateTime.Now.AddDays(7);
+                    }
+
+                    Response.Cookies.Add(cookie_user);
+
                     return Json(new { response = "success" });
                 }
                 else
@@ -87,7 +101,6 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -100,7 +113,6 @@ namespace AspNetMVC.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
