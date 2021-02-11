@@ -36,8 +36,10 @@ section[class$='Form'] {
 p {
     margin: 0;
 }
-
-.register-modal {
+.toast-top-center .toast-message {
+    font-size: 20px;
+}
+    .register-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -159,7 +161,7 @@ p {
 
 .register-modal .form .label {
     color: var(--color-primary-dark);
-    font-size: 20px;
+    font-size: 18px;
     padding-right: 10px;
     white-space: nowrap;
 }
@@ -198,7 +200,7 @@ p {
 
 .register-modal .form .input,
 .register-modal .form .button {
-    padding: 10px;
+    padding: 6px;
     border-radius: 2px;
     font-size: 16px;
     font-family: Arial;
@@ -241,7 +243,7 @@ p {
     max-height: 20px;
     color: var(--color-warn);
     border: none;
-    padding: 10px;
+    padding: 5px;
     letter-spacing: 1px;
 }
 

@@ -70,7 +70,7 @@ namespace AspNetMVC.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe")]LoginViewModel model)
+        public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")]LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -78,67 +78,34 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                if (_accountService.IsLoginValid(model.AccountName, model.Password))
+                var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
+                if (isVerify)
                 {
-                    HttpCookie cookie_user = new HttpCookie("user");
-
-                    if (model.RememberMe == true)
+                    if (_accountService.IsLoginValid(model.AccountName, model.Password))
                     {
-                        var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
-                        var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie")); 
-                        cookie_user.Values["user_id"] = encryptedValue;
-                        cookie_user.Expires = DateTime.Now.AddDays(7);
+                        HttpCookie cookie_user = new HttpCookie("user");
+
+                        if (model.RememberMe == true)
+                        {
+                            var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
+                            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
+                            cookie_user.Values["user_id"] = encryptedValue;
+                            cookie_user.Expires = DateTime.Now.AddDays(7);
+                        }
+
+                        Response.Cookies.Add(cookie_user);
+
+                        return Json(new { response = "success" });
                     }
-
-                    Response.Cookies.Add(cookie_user);
-
-                    return Json(new { response = "success" });
+                    else
+                    {
+                        return Json(new { response = "fail" });
+                    }
                 }
                 else
                 {
-                    return Json(new { response = "fail" });
+                    return Json(new { response = "valdationFail" });
                 }
-            }
-        }
-
-        // GET: /Account/VerifyCode
-        [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        {
-            // 需要使用者已透過使用者名稱/密碼或外部登入進行登入
-            if (!await SignInManager.HasBeenVerifiedAsync())
-            {
-                return View("Error");
-            }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        }
-
-        // POST: /Account/VerifyCode
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // 下列程式碼保護兩個因素碼不受暴力密碼破解攻擊。 
-            // 如果使用者輸入不正確的代碼來表示一段指定的時間，則使用者帳戶 
-            // 會有一段指定的時間遭到鎖定。 
-            // 您可以在 IdentityConfig 中設定帳戶鎖定設定
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "代碼無效。");
-                    return View(model);
             }
         }
 
@@ -152,12 +119,20 @@ namespace AspNetMVC.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone")]RegisterViewModel model)
+        public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _accountService.CreateAccount(model);
-                return Json(new { response = "success" });
+                var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
+                if (isVerify)
+                {
+                    _accountService.CreateAccount(model);
+                    return Json(new { response = "success" });
+                }
+                else
+                {
+                    return Json(new { response = "valdationFail" });
+                }
             }
 
             // 如果執行到這裡，發生某項失敗，則重新顯示表單

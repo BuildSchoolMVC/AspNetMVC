@@ -158,7 +158,7 @@ section[class$='Form'] {
 
 .login-modal .form .warn {
 	font-size: 14px;
-	min-height: 20px;
+	max-height: 20px;
 	color: var(--color-warn);
 	border: none;
 	padding: 5px 0;
