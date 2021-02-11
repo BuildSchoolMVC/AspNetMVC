@@ -395,13 +395,13 @@ window.addEventListener("load", () => {
     hoverEffect();
     toggleTip();
 
-    if (isLogin == false) {
+    if (!document.cookie.includes("user")) {
         favoritesStatus("請先註冊/登入!");
         createLoginRegister();
         countFavoritesAmount(0);
         checkoutBtnControl();
         toggleTip();
-    } else if (isLogin == true) {
+    } else {
         console.log(favorites)
         if (favorites.length == 0) {
             checkoutBtnControl();

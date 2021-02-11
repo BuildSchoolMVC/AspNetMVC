@@ -4,6 +4,7 @@
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/login.css">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 }
 
 
@@ -11,7 +12,7 @@
     <div class="login-modal">
         <div class="container-main">
             <div class="change-box">
-                <span  class="title title-login selected" for="title-check">登入</span>
+                <span class="title title-login selected" for="title-check">登入</span>
                 <a href="@Url.Action("Register","Account")" class="title title-register" for="title-check">註冊</a>
             </div>
             <div class="login-block show">
@@ -26,15 +27,21 @@
                         @Html.PasswordFor(m => m.Password, new { @class = "input login-password", placeholder = "密碼" })
                         <p class="warn login-password"></p>
                     </div>
+                    <div class="form-group">
+                        <div class="col-12 my-2 p-0">
+                            <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
+                        </div>
+                    </div>
                     <button class="button btn_login" type="button"><span class="spinner-border opacity"></span>登入</button>
                     <div class="other">
                         <div class="box">
                             <span>
-                                @Html.CheckBoxFor(m=>m.RememberMe,new { @class="login-remember"})
-                                @Html.LabelFor(m=>m.RememberMe)
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
+                                @Html.LabelFor(m => m.RememberMe)
                             </span>
                             <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
-                            忘記密碼?</a>
+                                忘記密碼?
+                            </a>
                         </div>
                     </div>
                 }
@@ -46,4 +53,5 @@
 
 @section JS {
     <script src="~/Assets/js/account/login.js"></script>
+
 }

@@ -59,6 +59,8 @@ namespace AspNetMVC.ViewModel
 
         [Display(Name = "記住我?")]
         public bool RememberMe { get; set; }
+
+        public string ValidationMessage { get; set; }
     }
 
     public class RegisterViewModel
@@ -87,6 +89,7 @@ namespace AspNetMVC.ViewModel
 
         [Display(Name = "電話")]
         public string Phone { get; set; }
+        public string ValidationMessage { get; set; }
     }
 
     public class ResetPasswordViewModel

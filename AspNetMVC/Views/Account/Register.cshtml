@@ -4,6 +4,7 @@
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/register.css">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 }
 <section class="section_registerForm">
     <div class="register-modal">
@@ -13,7 +14,7 @@
                 <span class="title title-register selected" for="title-check">註冊</span>
             </div>
             <div class="register-block show">
-                @using (Html.BeginForm("","",FormMethod.Post, new { @class = "form", role = "form" }))
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
                     <div class="step1">
                         <div class="form-group">
@@ -23,6 +24,15 @@
                                 </div>
                                 @Html.TextBoxFor(m => m.Name, new { @class = "input register-name", autocomplete = "off" })
                                 <p class="warn register-name"> </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="row align-items-center flex-nowrap px-3">
+                                    <label class="label" for="Name">信箱</label><i class="fas fa-exclamation-circle"></i><span class="pl-2">必填</span>
+                                </div>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", autocomplete = "off" })
+                                <p class="warn register-email"></p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -50,15 +60,6 @@
                     <div class="step2">
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
-                                <div class="row align-items-center flex-nowrap px-3">
-                                    <label class="label" for="Name">信箱</label><i class="fas fa-exclamation-circle"></i><span class="pl-2">必填</span>
-                                </div>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", autocomplete = "off" })
-                                <p class="warn register-email"></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-12 my-2 p-0">
                                 @Html.LabelFor(m => m.Address, new { @class = "label" })
                                 @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
                                 <p class="warn register-address"></p>
@@ -74,7 +75,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 <div class="row align-items-center px-3">
-                                    <label class="label" for="Name">性別</label><i class="fas fa-exclamation-circle"></i><span class="pl-2">必填</span><br />
+                                    <label class="label" for="Name">性別</label><i class="fas fa-exclamation-circle"></i><span class="pl-2">必填</span>
                                 </div>
                                 @Html.RadioButtonFor(m => m.Gender, 1, new { @class = "register-gender", id = "male", @checked = "checked" })
                                 @Html.Label("男性", new { @class = "label small", @for = "male" })
@@ -82,7 +83,11 @@
                                 @Html.Label("女性", new { @class = "label small", @for = "female" })
                                 @Html.RadioButtonFor(m => m.Gender, 3, new { @class = "register-gender", id = "other" })
                                 @Html.Label("其他", new { @class = "label small", @for = "other" })
-                                <p class="warn register-gender"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
                             </div>
                         </div>
                         <div class="form-group my-2">

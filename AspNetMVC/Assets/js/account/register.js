@@ -27,6 +27,10 @@ const nextStep = () => {
         else if (nameInput.value.length < 6 && nameInput.value.length >= 1) showWarnInfo(nameInput, "帳號格式不對")
         else clearWarnInfo(nameInput)
 
+        if (emailInput.value.length == 0) showWarnInfo(emailInput, "不能為空")
+        else if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) showWarnInfo(emailInput, "信箱格式不對")
+        else clearWarnInfo(emailInput)
+
         if (Array.from(document.querySelectorAll(".step1 .input-warn")).length > 0) return;
         else document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("next"));
 
@@ -79,14 +83,12 @@ const emailCheck = () => {
 }
 const submitRegister = () => {
     submitBtn.addEventListener("click", function () {
-        if (emailInput.value.length == 0) showWarnInfo(emailInput, "不能為空")
-        else if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) showWarnInfo(emailInput, "信箱格式不對")
-        else clearWarnInfo(emailInput)
-
         if (Array.from(document.querySelectorAll(".step2 .input-warn")).length > 0) return;
         else {
             document.querySelector(".btn_submit .spinner-border").classList.remove("opacity");
             document.querySelector(".btn_submit").setAttribute("disabled", "disabled");
+            document.querySelector(".btn_pre").setAttribute("disabled", "disabled");
+
             $.ajax({
                 url: "/Account/Register",
                 method: "POST",
@@ -96,7 +98,8 @@ const submitRegister = () => {
                     email: emailInput.value,
                     phone: phoneInput.value,
                     address: addressInput.value,
-                    gender: +document.querySelector('.register-gender:checked').value
+                    gender: +document.querySelector(".register-gender:checked").value,
+                    validationMessage: grecaptcha.getResponse() //取得驗證token
                 },
                 success: function (result) {
                     if (result.response == "success") {
@@ -106,6 +109,13 @@ const submitRegister = () => {
                             toastr.success("註冊成功");
                             window.location.replace(`${window.location.origin}/Account/Login`);
                         }, 1000)
+                    } else if (result.response == "valdationFail") {
+                        toastr.warning("請勾選以便進行驗證");
+                        setTimeout(function () {
+                            document.querySelector(".btn_submit .spinner-border").classList.add("opacity");
+                            document.querySelector(".btn_submit").removeAttribute("disabled");
+                            document.querySelector(".btn_pre").removeAttribute("disabled");
+                        },500)
                     }
                 },
                 error: function (err) {
@@ -114,14 +124,6 @@ const submitRegister = () => {
             })
         }
     })
-    //前端驗證
-    //指定欄位不能為空
-    //帳號是否存在
-    //密碼是否不同
-    //密碼加密
-    //密碼是否符合大小寫 + 6個以上 格式
-    //號碼是否符合格式 
-    //信箱是否符合格式
 }
 const judgeCharacter = (str, judge) => {
     let result;
@@ -158,7 +160,7 @@ const clearWarnInfo = (ele) => {
 window.addEventListener("load", function () {
     nextStep();
     preStep();
-    submitRegister();
     accountNameCheck();
     emailCheck();
+    submitRegister();
 })

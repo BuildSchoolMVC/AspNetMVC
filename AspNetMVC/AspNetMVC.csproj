@@ -226,6 +226,7 @@
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Models\Entity\Account.cs" />
+    <Compile Include="Models\GoogleReCaptcha.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
