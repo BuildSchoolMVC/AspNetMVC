@@ -219,14 +219,14 @@
       <DependentUpon>202102080618227_v21.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\Account.cs" />
+    <Compile Include="Service\AccountService.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItems.cs" />
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
-    <Compile Include="Models\Entity\Account.cs" />
-    <Compile Include="Service\AccountService.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
@@ -234,7 +234,6 @@
     <Compile Include="Models\CountyModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModel\ManageViewModels.cs" />
-    <Compile Include="Models\ProductPage\GridCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\FakeData\AllServiceCardRepository.cs" />
