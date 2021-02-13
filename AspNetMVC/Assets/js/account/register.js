@@ -50,10 +50,12 @@ const accountNameCheck = () => {
                 name: this.value
             },
             success: function (result) {
-                if (document.querySelector(".register-name").classList.contains("input-warn")) clearWarnInfo(nameInput)
+                if (document.querySelector(".input.register-name").value.length > 0) {
+                    if (document.querySelector(".register-name").classList.contains("input-warn")) clearWarnInfo(nameInput)
 
-                if (result.response == "exist") showWarnInfo(nameInput, "此帳號已存在")
-                else clearWarnInfo(nameInput)
+                    if (result.response == "exist") showWarnInfo(nameInput, "此帳號已存在")
+                    else clearWarnInfo(nameInput)
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -70,10 +72,12 @@ const emailCheck = () => {
                 email: this.value
             },
             success: function (result) {
-                if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
+                if (document.querySelector(".input.register-email").value.length > 0) {
+                    if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
 
-                if (result.response == "exist") showWarnInfo(emailInput, "此信箱已被註冊過")
-                else clearWarnInfo(emailInput)
+                    if (result.response == "exist") showWarnInfo(emailInput, "此信箱已被註冊過")
+                    else clearWarnInfo(emailInput)
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -150,14 +154,34 @@ const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
     }
-    ele.parentNode.querySelector("p").textContent = info
+    if (ele.parentNode.querySelector(".fa-exclamation-circle")) {
+        ele.parentNode.querySelector(".fa-exclamation-circle").classList.add("i-warn");
+    }
+    ele.parentNode.querySelector(".label").classList.add("label-warn");
+    ele.parentNode.querySelector("p").textContent = info;
 }
 const clearWarnInfo = (ele) => {
     ele.classList.remove("input-warn");
+    ele.parentNode.querySelector(".label").classList.remove("label-warn");
+
+    if (ele.parentNode.querySelector(".fa-exclamation-circle")) {
+        ele.parentNode.querySelector(".fa-exclamation-circle").classList.remove("i-warn");
+    }
     ele.parentNode.querySelector("p").textContent = ""
 }
 
 window.addEventListener("load", function () {
+    document.querySelectorAll(".input").forEach(x => {
+        x.addEventListener("change", function () {
+            if (x.value.length == 0) {
+                showWarnInfo(x, "不能為空");
+                x.parentNode.querySelector(".label-group").classList.remove("active");
+            } else {
+                clearWarnInfo(x);
+                x.parentNode.querySelector(".label-group").classList.add("active");
+            }
+        })
+    })
     nextStep();
     preStep();
     accountNameCheck();

@@ -98,15 +98,8 @@ section[class$='Form'] {
 	background-color: var(--color-primary)
 }
 
-.login-modal .login-block,
-.login-modal .register-block {
-	display: none;
+.login-modal .login-block {
 	position: relative
-}
-
-.login-modal .login-block.show,
-.login-modal .register-block.show {
-	display: block
 }
 
 .login-modal .form {
@@ -135,12 +128,10 @@ section[class$='Form'] {
 .login-modal .form .input {
 	width: 100%;
 	font-weight: 400;
-	border: 1px solid rgba(0, 0, 0, 0.15)
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background: var(--color-primary-light);
 }
 
-.login-modal .form .input::placeholder {
-	color: #999999
-}
 
 .login-modal .form .input:focus {
 	border-color: rgba(0, 0, 0, 0.5);
@@ -149,11 +140,6 @@ section[class$='Form'] {
 
 .login-modal .form .input.input-warn {
 	border-color: var(--color-warn);
-	background-color: var(--color-warnBg)
-}
-
-.login-modal .form .input.input-warn::placeholder {
-	color: #ff7777
 }
 
 .login-modal .form .warn {
@@ -166,11 +152,69 @@ section[class$='Form'] {
 	margin: 0;
 }
 
-.login-modal .form .prompt {
-	margin-top: 2px;
-	margin-left: 5px;
+.login-modal .form .form-group {
+	position: relative;
+}
+
+.login-modal .form .form-group .label-group {
+	position: absolute;
+	top: 10px;
+	left: 25px;
+	pointer-events: none;
+	background: transparent;
+	transition: .25s ease-in-out;
+}
+
+.login-modal .form .form-group .label-group i {
+	display: none;
+}
+
+.login-modal .form .form-group .label {
+	color: var(--color-primary-dark);
+	font-size: 18px;
+	padding: 0 10px;
+	white-space: nowrap;
+	margin: 0;
+	transition: .2s ease;
+}
+
+.login-modal .form .form-group .label.label-warn {
+	color: var(--color-warn);
+	font-weight: 700
+}
+
+.login-modal .form .input:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
+}
+
+.login-modal .form .input:focus+.label-group,
+.login-modal .form .label-group.active {
+	top: -15px;
+	width: 70px;
+	overflow: hidden;
+	height: 25px;
+	background: var(--color-primary-light);
+}
+
+.login-modal .form .form-group .input:focus+.label-group i,
+.login-modal .form .label-group.active i {
+	display: block;
+	pointer-events: auto;
+}
+
+.login-modal .form .label-group i.i-warn {
+	color: var(--red) !important;
+}
+
+.login-modal .form .form-group .input:focus+.label-group .label,
+.login-modal .form .label-group.active .label {
 	font-size: 14px;
-	color: #555555
+}
+
+.login-modal .form .input.input-warn {
+	border-color: var(--color-warn);
+	color: var(--color-warn);
 }
 
 .login-modal .form .button {

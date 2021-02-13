@@ -9,6 +9,7 @@ using AspNetMVC.Models;
 using AspNetMVC.Repository;
 using AspNetMVC.ViewModel;
 using AspNetMVC.Service;
+using System.Configuration;
 
 namespace AspNetMVC.Controllers
 {
@@ -45,6 +46,34 @@ namespace AspNetMVC.Controllers
             if (ModelState.IsValid)
             {
                 _customerServiceService.CreateData(customerService);
+
+                string category = customerService.Category == 1 ? "儲值問題" : customerService.Category == 2 ? "諮詢問題" : "客訴問題";
+
+                Dictionary<string, string> kvp = new Dictionary<string, string>
+                {
+                    { "name", customerService.Name },
+                    { "phone", customerService.Phone},
+                    { "datetime", DateTime.Now.ToString()},
+                    { "category", category},
+                    { "content", customerService.Content}
+                };
+
+                Email objEmail = new Email
+                {
+                    Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"],
+                    Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"],
+                    Server_SmtpClient = ConfigurationManager.AppSettings["GmailServer_SmtpClient"],
+                    Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"],
+                    RecipientAddress = customerService.Email,
+                    SenderName = "系統管理者",
+                    SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com",
+                    Subject = $"[{category}] - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
+                };
+
+                objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(), kvp);
+
+                objEmail.SendEmailFromGmail();
+
                  return Json(new { response = "success" });
             }
             return Json(new{response="error" });
@@ -64,11 +93,27 @@ namespace AspNetMVC.Controllers
 
         public RedirectToRouteResult Logout()
         {
-            HttpCookie cookie_user = new HttpCookie("user");
-            cookie_user.Expires = DateTime.Now.AddDays(-1);
+            HttpCookie cookie_user = new HttpCookie("user")
+            {
+                Expires = DateTime.Now.AddDays(-1)
+            };
             Response.Cookies.Add(cookie_user);
 
+            //HttpCookie cookie_decode = new HttpCookie("decode_user");
+
+            //if (Request.Cookies["user"] != null)
+            //{
+            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_id"]);
+            //    cookie_decode.Value = convertedResult;
+            //    Response.Cookies.Add(cookie_decode);
+            //}
+
+
             return RedirectToAction("Index", "Home");
+        }
+        public static string DecodeCookie(string cookieValue)
+        {
+            return System.Text.Encoding.UTF8.GetString(System.Web.Security.MachineKey.Unprotect(Convert.FromBase64String(cookieValue), "protectedCookie"));
         }
     }
 }

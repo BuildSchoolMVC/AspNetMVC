@@ -27,7 +27,7 @@ namespace AspNetMVC.Models.Entity
         [Display(Name = "分類")]
         public int Category { get; set; }
         [Display(Name = "內容")]
-        [StringLength(100)]
+        [StringLength(500)]
         public string Content { get; set; }
 
         [Display(Name = "閱讀狀態")]

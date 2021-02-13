@@ -84,12 +84,12 @@ namespace AspNetMVC.Controllers
                     if (_accountService.IsLoginValid(model.AccountName, model.Password))
                     {
                         HttpCookie cookie_user = new HttpCookie("user");
+                        var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
+                        var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
+                        cookie_user.Values["user_id"] = encryptedValue;
 
                         if (model.RememberMe == true)
                         {
-                            var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
-                            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-                            cookie_user.Values["user_id"] = encryptedValue;
                             cookie_user.Expires = DateTime.Now.AddDays(7);
                         }
 
