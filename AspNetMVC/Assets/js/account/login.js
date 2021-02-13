@@ -8,25 +8,31 @@
             if ($(item).val().length > 0) {
                 if ($(item).hasClass("input-warn")) {
                     clearWarn($(item));
-                    $(item).siblings().text("");
                 }
+                $(item).parent().find(".warn").text("");
+                $(item).parent().find(".label").removeClass("label-warn");
+                $(item).parent().find(".label-group").addClass("active");
             } else {
                 $(item).addClass("input-warn");
                 if ($(item).hasClass("input-warn")) {
-                    $(item).siblings().text("不能為空");
+                    $(item).parent().find(".warn").text("不能為空");
+                    $(item).parent().find(".label-group").removeClass("active");
+                    $(item).parent().find(".label").addClass("label-warn");
                 }
             }
         })
     });
+
     $(".btn_login").on("click", function (e) {
         e.preventDefault();
         setTimeout(function () {
-            $(".spinner-border").addClass("opacity");
-            $(".btn_login").removeAttr("disabled");
+            $(".spinner-border").removeClass("opacity");
+            $(".btn_login").attr("disabled","disabled");
         }, 200)
         $(".login-block .input").each(function (index, item) {
             if ($(item).val().length === 0) {
                 $(item).addClass("input-warn");
+                $(item).parent().find(".label").addClass("label-warn");
                 $("p.warn").text("不能為空");
             }
         })
@@ -54,6 +60,7 @@
                         setTimeout(function () {
                             $(".spinner-border").addClass("opacity");
                             $(".btn_login").removeAttr("disabled");
+                            window.location.replace(`${window.location.origin}/Account/Login`);
                         }, 1000)
                     } else if (result.response == "valdationFail") {
                         toastr.warning("請勾選驗證");

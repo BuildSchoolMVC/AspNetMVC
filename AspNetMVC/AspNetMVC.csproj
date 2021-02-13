@@ -218,7 +218,12 @@
     <Compile Include="Migrations\202102080618227_v21.Designer.cs">
       <DependentUpon>202102080618227_v21.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102130835373_v3.cs" />
+    <Compile Include="Migrations\202102130835373_v3.Designer.cs">
+      <DependentUpon>202102130835373_v3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\GoogleReCaptcha.cs" />
     <Compile Include="Service\AccountService.cs" />
@@ -325,6 +330,7 @@
     <Content Include="Assets\js\ProductPage\ProductPage.js" />
     <Content Include="Assets\images\visa.png" />
     <Content Include="Assets\js\Checkout\all.js" />
+    <Content Include="Assets\template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -529,6 +535,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102080618227_v21.resx">
       <DependentUpon>202102080618227_v21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102130835373_v3.resx">
+      <DependentUpon>202102130835373_v3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

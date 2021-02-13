@@ -1,19 +1,13 @@
 ﻿@using System.Text;
-@{ 
-    HttpCookie cookies = Request.Cookies["user"];
-}
-@if (cookies != null)
+
+@if (Request.Cookies["user"] != null)
 {
-
-        @Html.AntiForgeryToken()
-
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @Html.ActionLink("會員中心", "Index", "MemberCenter", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btns btn-member-center" })
             </li>
             <li><a href="/Home/Logout" class="nav-link color-gray">登出</a></li>
         </ul>
-
 }
 else
 {
