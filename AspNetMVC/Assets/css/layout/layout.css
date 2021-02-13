@@ -1298,7 +1298,7 @@ img {
 }
 
 .section_footer .contact-us button {
-    width: 50px;
+    width: 80px;
     height: 50px;
     padding: 10px;
     background: var(--color-primary);
@@ -1308,7 +1308,6 @@ img {
     bottom: 0;
     -webkit-transition: all .3s .1s ease-in, color .2s;
     transition: all .3s .1s ease-in, color .2s;
-    display: none
 }
 
 .section_footer .contact-us button:hover {
@@ -1831,10 +1830,6 @@ img {
     .section_footer li,
     .section_footer a {
         padding: 5px 0
-    }
-
-    .section_footer .contact-us button {
-        display: block
     }
 }
 

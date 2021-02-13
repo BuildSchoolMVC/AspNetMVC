@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@using System.Text;
+﻿@using System.Text;
 
 @if (Request.Cookies["user"] != null)
 {
@@ -9,7 +8,7 @@
         </a>
     </li>
     <li class="nav-item py-2">
-        <a class="nav-link color-gray" href="/Home/Logout">
+        <a class="nav-link color-gray" href="/Account/Logout">
             <i class="fas fa-sign-out-alt ml-4 mr-2"></i>登出
         </a>
     </li>

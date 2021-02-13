@@ -9,6 +9,7 @@ using AspNetMVC.ViewModel;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using System.Text;
+using AspNetMVC.Services;
 
 namespace AspNetMVC.Service
 {
@@ -24,24 +25,35 @@ namespace AspNetMVC.Service
 
         public void CreateAccount(RegisterViewModel account)
         {
-            _repository.Create(new Account
+            var result = new OperationResult();
+
+            try
             {
-                AccountId = Guid.NewGuid(),
-                AccountName = account.Name,
-                Address = account.Address,
-                Password = ToMD5(account.Password),
-                Email = account.Email,
-                EmailVerification = false,
-                Gender = account.Gender, // 1 男 2 女 3 其他
-                Phone = account.Phone,
-                Authority = 3, //預設 3 : 一般會員
-                CreateTime = DateTime.UtcNow.AddHours(8),
-                CreateUser = account.Name,
-                EditTime = DateTime.UtcNow.AddHours(8),
-                EditUser = account.Name,
-                Remark = ""
-            });
-            _context.SaveChanges();
+                _repository.Create(new Account
+                {
+                    AccountId = Guid.NewGuid(),
+                    AccountName = account.Name,
+                    Address = account.Address,
+                    Password = ToMD5(account.Password),
+                    Email = account.Email,
+                    EmailVerification = false,
+                    Gender = account.Gender, // 1 男 2 女 3 其他
+                    Phone = account.Phone,
+                    Authority = 3, //預設 3 : 一般會員
+                    CreateTime = DateTime.UtcNow.AddHours(8),
+                    CreateUser = account.Name,
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                    EditUser = account.Name,
+                    Remark = ""
+                });
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch(Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
         }
 
         /// <summary>
@@ -79,6 +91,38 @@ namespace AspNetMVC.Service
             var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == p);
             return user != null;
         }
+
+        /// <summary>
+        /// 回傳此帳號是否通過信箱啟動
+        /// </summary>
+        /// <param name="accountName"></param>
+        /// <returns></returns>
+        public bool IsActivatedEmail(string accountName) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+
+        public bool EmailActivation(Guid id)
+        {
+            var result = new OperationResult();
+            try
+            {
+                var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
+                user.EmailVerification = true;
+                _repository.Update<Account>(user);
+                _context.SaveChanges();
+
+                result.IsSuccessful = true;
+            }
+            catch(Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result.IsSuccessful;
+        }
+        public string GetAccountId(string accountName)
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
+        }
+
         /// <summary>
         /// 用MD5加密
         /// </summary>

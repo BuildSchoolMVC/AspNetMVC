@@ -9,13 +9,13 @@ namespace AspNetMVC.Service
 {
     public class IndexPageService
     {
-        public List<ImageCard> ImageCardData { get; set; }
+        public List<ImageCardViewModel> ImageCardData { get; set; }
 
-        public List<NewsCard> NewsCardData { get; set; }
+        public List<NewsCardViewModel> NewsCardData { get; set; }
 
-        public List<Banner> BannerData { get; set; }
+        public List<BannerViewModel> BannerData { get; set; }
 
-        public List<ServiceItems> ServicesData { get; set; }
+        public List<ServiceItemsViewModel> ServicesData { get; set; }
 
         public IndexPageService()
         {

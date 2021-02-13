@@ -446,6 +446,7 @@ document.querySelector(".contact-us input[type='submit']").addEventListener("cli
 document.querySelector(".finish-view .finish").addEventListener("click", function (e) {
     e.preventDefault();
     document.querySelector(".finish-view").classList.add("hide");
+    document.querySelector(".finish-view .finished").classList.add("hide");
 })
 document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {

@@ -62,7 +62,16 @@
                             $(".btn_login").removeAttr("disabled");
                             window.location.replace(`${window.location.origin}/Account/Login`);
                         }, 1000)
-                    } else if (result.response == "valdationFail") {
+                    } else if (result.response === "emailActivationFail") {
+                        toastr.info("此帳號還未通過信箱驗證，請檢查信箱!!!");
+
+                        setTimeout(function () {
+                            $(".spinner-border").addClass("opacity");
+                            $(".btn_login").removeAttr("disabled");
+                            window.location.replace(`${window.location.origin}/Account/Login`);
+                        }, 3000)
+                    }
+                    else if (result.response == "valdationFail") {
                         toastr.warning("請勾選驗證");
 
                         setTimeout(function () {

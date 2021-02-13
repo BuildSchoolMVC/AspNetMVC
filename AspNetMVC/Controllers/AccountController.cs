@@ -13,6 +13,8 @@ using AspNetMVC.ViewModel;
 using AspNetMVC.Service;
 using System.Text;
 using System.Web.Security;
+using System.Configuration;
+using System.Collections.Generic;
 
 namespace AspNetMVC.Controllers
 {
@@ -60,9 +62,8 @@ namespace AspNetMVC.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -79,27 +80,32 @@ namespace AspNetMVC.Controllers
             else
             {
                 var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
+
                 if (isVerify)
                 {
-                    if (_accountService.IsLoginValid(model.AccountName, model.Password))
-                    {
-                        HttpCookie cookie_user = new HttpCookie("user");
-                        var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
-                        var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-                        cookie_user.Values["user_id"] = encryptedValue;
-
-                        if (model.RememberMe == true)
+                    if (_accountService.IsActivatedEmail(model.AccountName)) { 
+                    
+                        if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
-                            cookie_user.Expires = DateTime.Now.AddDays(7);
+                            HttpCookie cookie_user = new HttpCookie("user");
+                            var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
+                            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
+                            cookie_user.Values["user_id"] = encryptedValue;
+
+                            if (model.RememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
+
+                            Response.Cookies.Add(cookie_user);
+
+                            return Json(new { response = "success" });
                         }
-
-                        Response.Cookies.Add(cookie_user);
-
-                        return Json(new { response = "success" });
+                        else
+                        {
+                            return Json(new { response = "fail" });
+                        }
                     }
                     else
                     {
-                        return Json(new { response = "fail" });
+                        return Json(new { response = "emailActivationFail" });
                     }
                 }
                 else
@@ -127,6 +133,32 @@ namespace AspNetMVC.Controllers
                 if (isVerify)
                 {
                     _accountService.CreateAccount(model);
+
+                    Dictionary<string, string> kvp = new Dictionary<string, string>
+                {
+                        { "accountname",model.Name},
+                        { "name",model.Name},
+                        { "password",model.Password},
+                        { "datetime",DateTime.Now.ToString().Split(' ')[0]},
+                        { "accountid",_accountService.GetAccountId(model.Name)},
+                };
+
+                    Email objEmail = new Email
+                    {
+                        Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"],
+                        Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"],
+                        Server_SmtpClient = ConfigurationManager.AppSettings["GmailServer_SmtpClient"],
+                        Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"],
+                        RecipientAddress = model.Email,
+                        SenderName = "系統管理者",
+                        SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com",
+                        Subject = "會員帳號啟動 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
+                    };
+
+                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp); // 取得回覆HTML模板，並且指定字串插入模板裡，最後指派給此信的內容
+
+                    objEmail.SendEmailFromGmail();
+
                     return Json(new { response = "success" });
                 }
                 else
@@ -174,6 +206,40 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" });
         }
         
+        public ActionResult RegisterEmailActivation(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+              _accountService.EmailActivation(id);
+
+                    return Json(new { response = "success" });
+            }
+            else
+            {
+                return Json(new { response = "fail" });
+            }
+        }
+
+        public RedirectToRouteResult Logout()
+        {
+            HttpCookie cookie_user = new HttpCookie("user")
+            {
+                Expires = DateTime.Now.AddDays(-1)
+            };
+            Response.Cookies.Add(cookie_user);
+
+            //HttpCookie cookie_decode = new HttpCookie("decode_user");
+
+            //if (Request.Cookies["user"] != null)
+            //{
+            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_id"]);
+            //    cookie_decode.Value = convertedResult;
+            //    Response.Cookies.Add(cookie_decode);
+            //}
+
+
+            return RedirectToAction("Index", "Home");
+        }
 
         //
         // GET: /Account/ConfirmEmail
@@ -196,7 +262,6 @@ namespace AspNetMVC.Controllers
             return View();
         }
 
-        //
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -224,7 +289,6 @@ namespace AspNetMVC.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -240,7 +304,6 @@ namespace AspNetMVC.Controllers
             return code == null ? View("Error") : View();
         }
 
-        //
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -266,7 +329,6 @@ namespace AspNetMVC.Controllers
             return View();
         }
 
-        //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
@@ -274,7 +336,6 @@ namespace AspNetMVC.Controllers
             return View();
         }
 
-        //
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -285,7 +346,6 @@ namespace AspNetMVC.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
@@ -300,7 +360,6 @@ namespace AspNetMVC.Controllers
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        //
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -387,6 +446,8 @@ namespace AspNetMVC.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+
+
 
         //
         // POST: /Account/LogOff

@@ -108,10 +108,10 @@ const submitRegister = () => {
                 success: function (result) {
                     if (result.response == "success") {
                         setTimeout(function () {
-                            document.querySelector(".btn_submit .spinner-border").classList.add("opacity");
-                            document.querySelector(".btn_submit").removeAttribute("disabled");
-                            toastr.success("註冊成功");
-                            window.location.replace(`${window.location.origin}/Account/Login`);
+                            toastr.success("註冊成功，請前往信箱進行驗證");
+                            setTimeout(() => {
+                                window.location.replace(`${window.location.origin}/Account/Login`);
+                            }, 1500)
                         }, 1000)
                     } else if (result.response == "valdationFail") {
                         toastr.warning("請勾選以便進行驗證");

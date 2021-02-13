@@ -6,6 +6,7 @@ using AspNetMVC.Repository;
 using AspNetMVC.ViewModel;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
+using AspNetMVC.Services;
 
 namespace AspNetMVC.Service
 {
@@ -29,21 +30,32 @@ namespace AspNetMVC.Service
         /// <param name="c">從前端表單所有收集的資料</param>
         public void CreateData(CustomerViewModel c)
         {
-            _repository.Create(new CustomerService
+            var result = new OperationResult();
+
+            try
             {
-                CustomerServiceId = Guid.NewGuid(),
-                Name = c.Name,
-                Phone = c.Phone,
-                Email = c.Email,
-                Category = c.Category,
-                Content = c.Content,
-                IsRead = false,
-                CreateUser = c.Name, //建立後不可改變
-                CreateTime = DateTime.UtcNow.AddHours(8),//轉換為我們時區之時間
-                EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
-                EditTime = DateTime.UtcNow.AddHours(8),
-            });
-            _context.SaveChanges();
+                _repository.Create(new CustomerService
+                {
+                    CustomerServiceId = Guid.NewGuid(),
+                    Name = c.Name,
+                    Phone = c.Phone,
+                    Email = c.Email,
+                    Category = c.Category,
+                    Content = c.Content,
+                    IsRead = false,
+                    CreateUser = c.Name, //建立後不可改變
+                    CreateTime = DateTime.UtcNow.AddHours(8),//轉換為我們時區之時間
+                    EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                });
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
         }
         /// <summary>
         /// 顯示該資料表所有資料

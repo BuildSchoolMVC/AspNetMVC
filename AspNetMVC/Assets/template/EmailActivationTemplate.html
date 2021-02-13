@@ -22,7 +22,7 @@
             -ms-text-size-adjust: 100%;
             -moz-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
-            box-sizing:border-box;
+            box-sizing: border-box;
             font-family: 'Microsoft JhengHei';
         }
 
@@ -75,7 +75,7 @@
     </style>
 </head>
 <body>
-    <table align="center"   border="0" cellspacing="0" cellpadding="0" style="max-width:800px;background:#fff;margin-top:150px; border-radius:5px;box-shadow:1px 1px 5px #bbb;background:#eee;padding:10px;">
+    <table align="center" border="0" cellspacing="0" cellpadding="0" style="max-width:800px;background:#fff;margin-top:150px; border-radius:5px;box-shadow:1px 1px 5px #bbb;background:rgba(248, 246, 246, 0.93);padding:10px;">
         <tr>
             <td align="center" width="100%">
                 <!--[if !mso]><!---->
@@ -87,59 +87,72 @@
         <td>
           <![endif]-->
                     <!-- Block: Start Header -->
-                    <table class="block-inner" align="center" width="100%" cellspacing="0" cellpadding="0" style="border-bottom: 10px solid #62b2f3;">
+                    <table align="center" width="100%" cellspacing="0" cellpadding="0" style="border-bottom: 10px solid #62b2f3;">
                         <tr>
-                            <td class="cBlock--spacingLR" align="left" valign="top" style="padding:32px 20px 16px 32px">
+                            <td class="cBlock--spacingLR" align="center" valign="top" style="padding:32px 20px 16px 32px">
                                 <img class="img_block" border="0" width="150" src="https://i.imgur.com/cSuisOG.png" style="max-width:150px;padding-right:10px;" />
                             </td>
-                            <td class="cBlock--spacingLR" align="left" valign="middle" width="100%" style="padding:32px 0 16px;font-weight:900;">
+                            <td class="cBlock--spacingLR" align="right" valign="middle" width="100%" style="padding:32px 16px 16px 0;font-weight:900;">
                                 uClenaer - 打掃服務
                             </td>
-                            <td class="cBlock--spacingLR" align="right" valign="top" width="100%" style="padding:32px 32px 16px;"> #datetime#</td>
                         </tr>
                     </table>
                     <!-- Block: End Header -->
+                    <!-- Block: Start Title-->
+                    <table align="center" width="100%" cellspacing="0" cellpadding="0" style="background:#62b2f3;">
+                        <tr>
+                            <td style="padding-left: 30px;">
+                                <h1 style="color:#fff;">會員帳號啟動通知信</h1>
+                            </td>
+                            <td>
+                                <a href="https://localhost:44308/" style="display:inline-block;padding:15px 10px;text-decoration:none;color:#000;background:#eee;border-radius:3px;">回到官網</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Block: End Title-->
                     <!-- Block: Start Body -->
-                    <table width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px;margin-top:30px;" bgcolor="#f7f7f7">
+                    <table width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px;margin-top:30px;padding:0 20px 20px;">
                         <tr>
-                            <td align="center" valign="top" style="padding:10px;border-bottom:1px solid #fff;" width="80">
-                                姓名
+                            <td align="left" valign="top" style="padding:10px;font-size:30px;" width="120">
+                                你好， #name#
                             </td>
-                            <td align="left" valign="top" style="padding:10px;border-left:1px solid #fff;border-bottom:1px solid #fff;" width="380">
-                                #name#
+                            <td rowspan="2">
+                                <img src="https://i.imgur.com/z3HzjGk.png" />
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top" style="padding:10px;border-bottom:1px solid #fff;background:#fff;" width="80">
-                                電話
+                            <td align="left" valign="top" style="padding:10px;" width="100%">
+                                歡迎加入【uCleaner - 打掃服務】會員!
+                                馬上啟動帳號，開始使用我們服務吧!
                             </td>
-                            <td align="left" valign="top" style="padding:10px;border-left:1px solid #fff;border-bottom:1px solid #fff;background:#fff;" width="380">
-                                #phone#
+                            
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top" style="padding:10px;">
+                                <p style="margin: 5px 0;">會員帳號 : #accountname#</p>
+                                <p style="margin: 5px 0;">會員密碼 : #password#</p>
+                                <p style="margin: 5px 0;">加入日期 : #datetime#</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr style="margin: auto;background:#62b2f3;" width="100%">
+                            <td align="center" valign="top" width="600">
+                                <a href="https://localhost:44308/Account/RegisterEmailActivation/#accountid#" style="text-decoration:none;color:#fff;display:inline-block;width:100%;padding:10px;">立即啟動帳號</a>
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top" style="padding:10px;border-bottom:1px solid #fff;" width="80">
-                                問題分類
-                            </td>
-                            <td align="left" valign="top" style="padding:10px;border-left:1px solid #fff;border-bottom:1px solid #fff;" width="380">
-                                #category#
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top" style="padding:10px;background:#fff;" width="80">
-                                訊息內容
-                            </td>
-                            <td align="left" valign="top" style="padding:10px;border-left:1px solid #fff;background:#fff;" width="380">
-                                #content# 
+                            <td align="center" style="padding-top:20px;">
+                                請注意，此信為系統自動發送，無需回覆此信件。
                             </td>
                         </tr>
                     </table>
                     <!-- Block: End Body -->
                     <!--[if mso | IE]>
-                        </td>
-                      </tr>
-                    </table>
-                    <![endif]-->
+                            </td>
+                          </tr>
+                        </table>
+                        <![endif]-->
                     <!--[if !mso]><!---->
                 </div>
                 <!-- <![endif]-->

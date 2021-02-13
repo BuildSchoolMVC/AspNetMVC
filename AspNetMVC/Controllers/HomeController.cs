@@ -70,7 +70,7 @@ namespace AspNetMVC.Controllers
                     Subject = $"[{category}] - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
                 };
 
-                objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(), kvp);
+                objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.SystemReply), kvp); // 取得回覆HTML模板，並且指定字串插入模板裡，最後指派給此信的內容
 
                 objEmail.SendEmailFromGmail();
 
@@ -91,26 +91,11 @@ namespace AspNetMVC.Controllers
             return View(customer);
         }
 
-        public RedirectToRouteResult Logout()
-        {
-            HttpCookie cookie_user = new HttpCookie("user")
-            {
-                Expires = DateTime.Now.AddDays(-1)
-            };
-            Response.Cookies.Add(cookie_user);
-
-            //HttpCookie cookie_decode = new HttpCookie("decode_user");
-
-            //if (Request.Cookies["user"] != null)
-            //{
-            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_id"]);
-            //    cookie_decode.Value = convertedResult;
-            //    Response.Cookies.Add(cookie_decode);
-            //}
-
-
-            return RedirectToAction("Index", "Home");
-        }
+        /// <summary>
+        /// 解析cookie裡的值
+        /// </summary>
+        /// <param name="cookieValue"></param>
+        /// <returns></returns>
         public static string DecodeCookie(string cookieValue)
         {
             return System.Text.Encoding.UTF8.GetString(System.Web.Security.MachineKey.Unprotect(Convert.FromBase64String(cookieValue), "protectedCookie"));
