@@ -4,8 +4,8 @@
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/register.css">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
 }
+
 <section class="section_registerForm">
     <div class="register-modal">
         <div class="container-main">
@@ -65,10 +65,10 @@
                                 @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group">
                                     @Html.LabelFor(m => m.Address, new { @class = "label" })
-                                 </div>
-                                <p class="warn register-address"></p>
                                 </div>
+                                <p class="warn register-address"></p>
                             </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Phone, new { @class = "input register-phone", autocomplete = "off" })
@@ -76,8 +76,8 @@
                                     @Html.LabelFor(m => m.Phone, new { @class = "label" })
                                 </div>
                                 <p class="warn register-phone"></p>
-                                </div>
                             </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 <div class="row align-items-center">
@@ -111,4 +111,5 @@
 
 @section JS {
     <script src="~/Assets/js/account/register.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 }

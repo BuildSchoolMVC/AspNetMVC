@@ -33,7 +33,7 @@ namespace AspNetMVC.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")]LoginViewModel model)
+        public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")] LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -45,8 +45,8 @@ namespace AspNetMVC.Controllers
 
                 if (isVerify)
                 {
-                    if (_accountService.IsActivatedEmail(model.AccountName)) { 
-                    
+                    if (_accountService.IsActivatedEmail(model.AccountName)) {
+
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
                             HttpCookie cookie_user = new HttpCookie("user");
@@ -87,7 +87,7 @@ namespace AspNetMVC.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")]RegisterViewModel model)
+        public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")] RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -97,27 +97,21 @@ namespace AspNetMVC.Controllers
                     _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
-                {
+                    {
                         { "accountname",model.Name},
                         { "name",model.Name},
                         { "password",model.Password},
                         { "datetime",DateTime.Now.ToString().Split(' ')[0]},
                         { "accountid",_accountService.GetAccountId(model.Name)},
-                };
+                    };
 
                     Email objEmail = new Email
                     {
-                        Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"],
-                        Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"],
-                        Server_SmtpClient = ConfigurationManager.AppSettings["GmailServer_SmtpClient"],
-                        Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"],
                         RecipientAddress = model.Email,
-                        SenderName = "系統管理者",
-                        SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com",
                         Subject = "會員帳號啟動 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
                     };
 
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp); // 取得回覆HTML模板，並且指定字串插入模板裡，最後指派給此信的內容
+                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp);
 
                     objEmail.SendEmailFromGmail();
 
@@ -139,7 +133,8 @@ namespace AspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(_accountService.AccountIsExist(name)){
+                if (_accountService.AccountIsExist(name))
+                {
                     return Json(new { response = "exist" });
                 }
                 else
@@ -173,7 +168,7 @@ namespace AspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                 ViewBag.Result = _accountService.EmailActivation(id);
+                ViewBag.Result = _accountService.EmailActivation(id);
 
                 return View();
             }
@@ -201,6 +196,62 @@ namespace AspNetMVC.Controllers
             //}
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid) {
+                if (_accountService.IsAccountMatch(model.AccountName, model.Email))
+                {
+
+                    Email objEmail = new Email
+                    {
+                        RecipientAddress = model.Email,
+                        Subject = "密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
+                    };
+                    Dictionary<string, string> kvp = new Dictionary<string, string>
+                    {
+                        { "id", _accountService.GetAccountId(model.AccountName) },
+                        { "accountname", model.AccountName},
+                        { "datetimestring",DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")},
+                        { "datetime",DateTime.Now.ToString()}
+                    };
+
+                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.ForgotPassword), kvp);
+
+                    objEmail.SendEmailFromGmail();
+
+                    return Json(new { response = "success" });
+                }
+                else
+                {
+                    return Json(new { response = "error" });
+                }
+            }
+            return View();
+        }
+
+        public ActionResult ResetPassword() 
+        {
+            string id = Request["id"];
+            string applicationTime = Request["t"];
+            string systemTime = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
+
+            var applicationTimeExpiredHour = int.Parse(applicationTime.Split('_')[3]) + 2 >= 24? int.Parse(applicationTime.Split('_')[3]) - 22 : int.Parse(applicationTime.Split('_')[3]) + 2;
+
+            var systemTimeHour = int.Parse(systemTime.Split('_')[3]);
+
+            ViewBag.IsExpired = applicationTimeExpiredHour >= systemTimeHour;
+            ViewBag.Id = id;
+
+            return View();
         }
     }
 }

@@ -96,6 +96,7 @@ namespace AspNetMVC.Controllers
         /// </summary>
         /// <param name="cookieValue"></param>
         /// <returns></returns>
+        [NonAction]
         public static string DecodeCookie(string cookieValue)
         {
             return System.Text.Encoding.UTF8.GetString(System.Web.Security.MachineKey.Unprotect(Convert.FromBase64String(cookieValue), "protectedCookie"));

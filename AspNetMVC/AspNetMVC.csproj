@@ -235,6 +235,7 @@
     <Content Include="Assets\css\Account\forgotPassword.css" />
     <Content Include="Assets\css\Account\register.css" />
     <Content Include="Assets\css\Account\registerEmailActivation.css" />
+    <Content Include="Assets\css\Account\resetPassword.css" />
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
     <Content Include="Assets\css\Home\fonts\icofont.svg" />
@@ -297,6 +298,7 @@
     <Content Include="Assets\images\wall.jpg" />
     <Content Include="Assets\images\wash machine.jpg" />
     <Content Include="Assets\images\water pip.jpg" />
+    <Content Include="Assets\js\Account\forgotPassword.js" />
     <Content Include="Assets\js\Account\register.js" />
     <Content Include="Assets\js\DetailPage\detailPage.js" />
     <Content Include="Assets\js\Home\index.js" />
@@ -307,6 +309,7 @@
     <Content Include="Assets\images\visa.png" />
     <Content Include="Assets\js\Checkout\all.js" />
     <Content Include="Assets\template\EmailActivationTemplate.html" />
+    <Content Include="Assets\template\ForgotPasswordTemplate.html" />
     <Content Include="Assets\template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -478,6 +481,7 @@
     <Content Include="Views\Shared\PartialView\_ProductPageGridCardPartial.cshtml" />
     <Content Include="Views\MemberCenter\Index.cshtml" />
     <Content Include="Views\Account\RegisterEmailActivation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />

@@ -154,6 +154,14 @@ namespace AspNetMVC.Service
         }
 
         /// <summary>
+        /// 用於忘記密碼，以帳號、信箱查找
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool IsAccountMatch(string account, string email) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == account && x.Email == email) != null;
+
+        /// <summary>
         /// 用MD5加密
         /// </summary>
         /// <param name="strings"></param>

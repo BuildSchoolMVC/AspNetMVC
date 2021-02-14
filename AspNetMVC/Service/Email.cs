@@ -1,6 +1,7 @@
 ﻿using AspNetMVC.Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,7 +27,18 @@ namespace AspNetMVC.Models
         public enum Template
         {
             EmailActivation,
-            SystemReply
+            SystemReply,
+            ForgotPassword
+        }
+
+        public Email()
+        {
+            Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"];
+            Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"];
+            Server_SmtpClient = ConfigurationManager.AppSettings["GmailServer_SmtpClient"];
+            Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"];
+            SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com";
+            SenderName = "系統管理者";
         }
 
         public void SendEmailFromGmail()

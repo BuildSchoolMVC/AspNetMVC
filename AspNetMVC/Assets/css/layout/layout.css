@@ -1331,6 +1331,9 @@ img {
     -webkit-transition: all .3s .1s ease-in, color .2s;
     transition: all .3s .1s ease-in, color .2s;
 }
+.section_footer .contact-us button.rounded-pill {
+    display: none;
+}
 
 .section_footer .contact-us button:hover {
     color: var(--white)
@@ -1852,6 +1855,9 @@ img {
     .section_footer li,
     .section_footer a {
         padding: 5px 0
+    }
+    .section_footer .contact-us button.rounded-pill {
+        display: block;
     }
 }
 
