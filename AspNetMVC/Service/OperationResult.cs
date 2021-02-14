@@ -11,6 +11,7 @@ namespace AspNetMVC.Services
     {
         public bool IsSuccessful { get; set; }
         public Exception Exception { get; set; }
+        public string MessageInfo { get; set; }
     }
     public static class OperationResultHelper
     {

@@ -18,6 +18,18 @@ namespace AspNetMVC.Service
         private readonly UCleanerDBContext _context;
         private readonly BaseRepository _repository;
 
+        public enum AccountStatus
+        {
+            Exist, //已存在
+            NonExist, //不存在
+            Verified, //通過驗證
+            UnVerified, //未驗證
+            HasBeenVerified, //通過驗證
+            Registered,
+            UnRegistered,
+            Error
+        }
+
         public AccountService(){
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
@@ -99,24 +111,42 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool IsActivatedEmail(string accountName) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
 
-        public bool EmailActivation(Guid id)
+        public string EmailActivation(Guid id)
         {
             var result = new OperationResult();
             try
             {
                 var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
-                user.EmailVerification = true;
-                _repository.Update<Account>(user);
-                _context.SaveChanges();
 
-                result.IsSuccessful = true;
+                if(user != null)
+                {
+                    if(user.EmailVerification == false)
+                    {
+                        user.EmailVerification = true;
+                        _repository.Update<Account>(user);
+                        _context.SaveChanges();
+
+                        result.MessageInfo = AccountStatus.Verified.ToString();
+                        result.IsSuccessful = true;
+                    }
+                    else
+                    {
+                        result.IsSuccessful = true;
+                        result.MessageInfo = AccountStatus.HasBeenVerified.ToString();
+                    }
+                }
+                else
+                {
+                    result.IsSuccessful = false;
+                    result.MessageInfo = AccountStatus.NonExist.ToString();
+                }
             }
             catch(Exception ex)
             {
                 result.IsSuccessful = false;
                 result.Exception = ex;
             }
-            return result.IsSuccessful;
+            return result.MessageInfo;
         }
         public string GetAccountId(string accountName)
         {

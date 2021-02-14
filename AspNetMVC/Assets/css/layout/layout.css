@@ -22,7 +22,10 @@
 * {
     font-family: 'Noto Sans TC', sans-serif;
     padding: 0;
-    margin: 0
+    margin: 0;
+    list-style: none;
+    outline: none;
+    box-sizing: border-box
 }
 
 ::-moz-selection {
@@ -33,6 +36,25 @@
 ::selection {
     background: var(--color-primary);
     color: var(--light)
+}
+
+button {
+    background-color: transparent
+}
+
+button:focus {
+    outline: none
+}
+
+
+img {
+    vertical-align: top;
+    max-width: 100%
+}
+
+a,
+a:hover {
+    text-decoration: none
 }
 
 html {

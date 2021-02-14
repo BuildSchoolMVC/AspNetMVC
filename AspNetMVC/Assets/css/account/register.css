@@ -1,37 +1,11 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    outline: none;
-    box-sizing: border-box
-}
-
-html,
-body {
-    height: 100%
-}
-
-button {
-    background-color: transparent
-}
-
-button:focus {
-    outline: none
-}
-
-
-a,
-a:hover {
-    text-decoration: none
-}
-
-section[class$='Form'] {
+﻿section[class$='Form'] {
     background: var(--color-primary-light);
 }
 
 p {
     margin: 0;
 }
+
 .toast-top-center .toast-message {
     font-size: 20px;
 }
