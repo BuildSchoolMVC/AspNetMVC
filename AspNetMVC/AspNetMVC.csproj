@@ -180,6 +180,7 @@
       <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Member\MemberMd.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
@@ -462,7 +463,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
-    <Folder Include="Models\Member\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
