@@ -12,7 +12,6 @@ namespace AspNetMVC.Models
     {
         public UCleanerDBContext() : base("name=UCleanerDbContext")
         {
-            
         }
 
         public virtual DbSet<CustomerService> CustomerServices { get; set; } //在此註冊資料表

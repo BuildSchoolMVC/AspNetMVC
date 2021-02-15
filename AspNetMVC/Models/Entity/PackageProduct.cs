@@ -11,7 +11,7 @@ namespace AspNetMVC.Models.Entity
     {
         [Key]
         [Display(Name = "套裝服務ID")]
-        public string PackageProductId { get; set; }
+        public int PackageProductId { get; set; }
         public string Name { get; set; }
         public int RoomType { get; set; }
         public int RoomType2 { get; set; }

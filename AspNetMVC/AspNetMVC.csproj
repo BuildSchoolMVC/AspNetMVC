@@ -172,17 +172,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102130835373_v3.cs" />
-    <Compile Include="Migrations\202102130835373_v3.Designer.cs">
-      <DependentUpon>202102130835373_v3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102131316182_v31.cs" />
-    <Compile Include="Migrations\202102131316182_v31.Designer.cs">
-      <DependentUpon>202102131316182_v31.cs</DependentUpon>
+    <Compile Include="Migrations\202102150753232_init.cs" />
+    <Compile Include="Migrations\202102150753232_init.Designer.cs">
+      <DependentUpon>202102150753232_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Account.cs" />
-    <Compile Include="Service\AccountService.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItem.cs" />
@@ -190,7 +185,6 @@
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Service\Email.cs" />
-    <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Service\GoogleReCaptcha.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Service\OperationResult.cs" />
@@ -471,7 +465,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
-    <Folder Include="Models\Member\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -483,11 +476,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102130835373_v3.resx">
-      <DependentUpon>202102130835373_v3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102131316182_v31.resx">
-      <DependentUpon>202102131316182_v31.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102150753232_init.resx">
+      <DependentUpon>202102150753232_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
