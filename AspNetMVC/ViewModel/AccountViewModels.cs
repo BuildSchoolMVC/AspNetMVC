@@ -62,7 +62,6 @@ namespace AspNetMVC.ViewModel
 
     public class ResetPasswordViewModel 
     {
-
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "新密碼")]

@@ -258,9 +258,18 @@ namespace AspNetMVC.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ResetPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model) 
+        public ActionResult ResetPassword(Guid id,string newPassword) 
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _accountService.UpdatePassword(id, newPassword);
+
+                return Json(new { response = "success" });
+            }
+            else
+            {
+                return Json(new { response = "error" }); ;
+            }
         }
     }
 }

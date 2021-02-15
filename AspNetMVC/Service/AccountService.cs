@@ -161,6 +161,32 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool IsAccountMatch(string account, string email) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == account && x.Email == email) != null;
 
+        public void UpdatePassword(Guid id,string newPassword) 
+        {
+            var result = new OperationResult();
+
+            try
+            {
+                var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
+                if (user != null)
+                {
+                    user.Password = ToMD5(newPassword);
+                    _repository.Update<Account>(user);
+                    _context.SaveChanges();
+                    result.IsSuccessful = true;
+                }
+                else
+                {
+                    result.IsSuccessful = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+        }
+
         /// <summary>
         /// 用MD5加密
         /// </summary>
