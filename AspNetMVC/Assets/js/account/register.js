@@ -89,7 +89,7 @@ const submitRegister = () => {
     submitBtn.addEventListener("click", function () {
         if (Array.from(document.querySelectorAll(".step2 .input-warn")).length > 0) return;
         else {
-            document.querySelector(".btn_submit .spinner-border").classList.remove("opacity");
+            document.querySelector(".btn_submit .spinner-border-wrap").classList.remove("opacity");
             document.querySelector(".btn_submit").setAttribute("disabled", "disabled");
             document.querySelector(".btn_pre").setAttribute("disabled", "disabled");
 
@@ -116,7 +116,7 @@ const submitRegister = () => {
                     } else if (result.response == "valdationFail") {
                         toastr.warning("請勾選以便進行驗證");
                         setTimeout(function () {
-                            document.querySelector(".btn_submit .spinner-border").classList.add("opacity");
+                            document.querySelector(".btn_submit .spinner-border-wrap").classList.add("opacity");
                             document.querySelector(".btn_submit").removeAttribute("disabled");
                             document.querySelector(".btn_pre").removeAttribute("disabled");
                         },500)

@@ -37,7 +37,7 @@ namespace AspNetMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Json(new { response = "fail" });
             }
             else
             {
@@ -205,7 +205,7 @@ namespace AspNetMVC.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
+        public JsonResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid) {
                 if (_accountService.IsAccountMatch(model.AccountName, model.Email))
@@ -228,14 +228,14 @@ namespace AspNetMVC.Controllers
 
                     objEmail.SendEmailFromGmail();
 
-                    return Json(new { response = "success" });
+                    return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { response = "error" });
+                    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            return View();
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ResetPassword() 
