@@ -197,7 +197,7 @@
       <DependentUpon>202102131316182_v31.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Member\MemberMd.cs" />
+    <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItems.cs" />
@@ -224,6 +224,7 @@
     <Compile Include="Service\CustomerServiceService.cs" />
     <Compile Include="Service\IndexPageService.cs" />
     <Compile Include="ViewModel\IndexPageViewModels.cs" />
+    <Compile Include="ViewModel\MemberCenterViewModels.cs" />
     <Compile Include="ViewModel\PackageProductListViewModel .cs" />
     <Compile Include="ViewModel\PackageProductGridViewModel.cs" />
     <Compile Include="ViewModel\UserDefinedProductViewModel.cs" />
@@ -487,7 +488,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
-    <Folder Include="Models\Member\" />
     <Folder Include="Models\ProductPage\" />
   </ItemGroup>
   <ItemGroup>
