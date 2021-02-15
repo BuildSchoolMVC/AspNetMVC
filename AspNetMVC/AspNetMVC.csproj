@@ -172,22 +172,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102070334064_init.cs" />
-    <Compile Include="Migrations\202102070334064_init.Designer.cs">
-      <DependentUpon>202102070334064_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102070556551_customer-service-init.cs" />
-    <Compile Include="Migrations\202102070556551_customer-service-init.Designer.cs">
-      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102080615335_v2.cs" />
-    <Compile Include="Migrations\202102080615335_v2.Designer.cs">
-      <DependentUpon>202102080615335_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102080618227_v21.cs" />
-    <Compile Include="Migrations\202102080618227_v21.Designer.cs">
-      <DependentUpon>202102080618227_v21.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202102130835373_v3.cs" />
     <Compile Include="Migrations\202102130835373_v3.Designer.cs">
       <DependentUpon>202102130835373_v3.cs</DependentUpon>
@@ -499,18 +483,6 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102070334064_init.resx">
-      <DependentUpon>202102070334064_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102070556551_customer-service-init.resx">
-      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102080615335_v2.resx">
-      <DependentUpon>202102080615335_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102080618227_v21.resx">
-      <DependentUpon>202102080618227_v21.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102130835373_v3.resx">
       <DependentUpon>202102130835373_v3.cs</DependentUpon>
     </EmbeddedResource>
