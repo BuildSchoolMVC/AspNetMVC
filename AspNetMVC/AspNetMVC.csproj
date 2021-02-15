@@ -176,6 +176,10 @@
     <Compile Include="Migrations\202102150947263_init.Designer.cs">
       <DependentUpon>202102150947263_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102151121063_v2.cs" />
+    <Compile Include="Migrations\202102151121063_v2.Designer.cs">
+      <DependentUpon>202102151121063_v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="Service\GoogleReCaptcha.cs" />
     <Compile Include="Service\AccountService.cs" />
     <Compile Include="Service\OperationResult.cs" />
+    <Compile Include="Service\ProductPageService.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
@@ -478,6 +483,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102150947263_init.resx">
       <DependentUpon>202102150947263_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102151121063_v2.resx">
+      <DependentUpon>202102151121063_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
