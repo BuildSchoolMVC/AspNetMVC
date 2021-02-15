@@ -26,7 +26,7 @@
     $(".btn_login").on("click", function (e) {
         e.preventDefault();
         setTimeout(function () {
-            $(".spinner-border").removeClass("opacity");
+            $(".spinner-border-wrap").removeClass("opacity");
             $(".btn_login").attr("disabled","disabled");
         }, 200)
         $(".login-block .input").each(function (index, item) {
@@ -58,7 +58,7 @@
                         toastr.error("登入失敗");
 
                         setTimeout(function () {
-                            $(".spinner-border").addClass("opacity");
+                            $(".spinner-border-wrap").addClass("opacity");
                             $(".btn_login").removeAttr("disabled");
                             window.location.replace(`${window.location.origin}/Account/Login`);
                         }, 1000)
@@ -66,7 +66,7 @@
                         toastr.info("此帳號還未通過信箱驗證，請檢查信箱!!!");
 
                         setTimeout(function () {
-                            $(".spinner-border").addClass("opacity");
+                            $(".spinner-border-wrap").addClass("opacity");
                             $(".btn_login").removeAttr("disabled");
                             window.location.replace(`${window.location.origin}/Account/Login`);
                         }, 3000)
@@ -75,7 +75,7 @@
                         toastr.warning("請勾選驗證");
 
                         setTimeout(function () {
-                            $(".spinner-border").addClass("opacity");
+                            $(".spinner-border-wrap").addClass("opacity");
                             $(".btn_login").removeAttr("disabled");
                         }, 1000)
                     }

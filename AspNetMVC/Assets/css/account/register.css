@@ -1,5 +1,5 @@
 ﻿section[class$='Form'] {
-    background: var(--color-primary-light);
+    background: var(--color-primary-solight);
 }
 
 p {
@@ -9,7 +9,7 @@ p {
 .toast-top-center .toast-message {
     font-size: 20px;
 }
-    .register-modal {
+.register-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,10 @@ p {
 
 .register-modal .container-main {
     padding: 30px;
-    width: 100%
+    width: 100%;
+    box-shadow: 1px 1px 5px #00000080;
+    background: var(--color-primary-light);
+    border-radius: 10px;
 }
 
 .spinner-border {
