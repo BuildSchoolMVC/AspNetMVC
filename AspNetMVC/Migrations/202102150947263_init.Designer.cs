@@ -13,7 +13,7 @@ namespace AspNetMVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202102150853363_init"; }
+            get { return "202102150947263_init"; }
         }
         
         string IMigrationMetadata.Source
