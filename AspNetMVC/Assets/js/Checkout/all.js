@@ -9,32 +9,157 @@ const disableBtn = (btn) => {
   btn.attr('disabled', '');
   btn.addClass('disable');
 };
-$.ajax({
-  type: 'POST',
-  url: '/Checkout/getDistricts',
-  dataType: 'json',
-  success: (data) => {
-    const $countyList = $('#county-list');
-    const $districtList = $('#district-list');
-    data.forEach((item) => {
-      let option = document.createElement('option');
-      option.text = item.Name;
-      $countyList[0].add(option);
-    });
-    $countyList.on('change', function() {
-      let districtList = $districtList[0];
-      let prompt = districtList.firstElementChild;
-      $districtList.empty();
-      $districtList.append(prompt);
-      data[this.selectedIndex - 1].Districts.forEach((item) => {
-        let option = document.createElement('option');
-        option.text = item;
-        districtList.add(option);
-      });
-    });
+const $countyList = $('#county-list');
+const $districtList = $('#district-list');
+const county = [{
+    "name": "臺北市",
+    "districts": [{
+        "name": "中正區"
+      },
+      {
+        "name": "大同區"
+      },
+      {
+        "name": "中山區"
+      },
+      {
+        "name": "松山區"
+      },
+      {
+        "name": "大安區"
+      },
+      {
+        "name": "萬華區"
+      },
+      {
+        "name": "信義區"
+      },
+      {
+        "name": "士林區"
+      },
+      {
+        "name": "北投區"
+      },
+      {
+        "name": "內湖區"
+      },
+      {
+        "name": "南港區"
+      },
+      {
+        "name": "文山區"
+      }
+    ]
+  },
+  {
+    "name": "新北市",
+    "districts": [{
+        "name": "萬里區"
+      },
+      {
+        "name": "金山區"
+      },
+      {
+        "name": "板橋區"
+      },
+      {
+        "name": "汐止區"
+      },
+      {
+        "name": "深坑區"
+      },
+      {
+        "name": "石碇區"
+      },
+      {
+        "name": "瑞芳區"
+      },
+      {
+        "name": "平溪區"
+      },
+      {
+        "name": "雙溪區"
+      },
+      {
+        "name": "貢寮區"
+      },
+      {
+        "name": "新店區"
+      },
+      {
+        "name": "坪林區"
+      },
+      {
+        "name": "烏來區"
+      },
+      {
+        "name": "永和區"
+      },
+      {
+        "name": "中和區"
+      },
+      {
+        "name": "土城區"
+      },
+      {
+        "name": "三峽區"
+      },
+      {
+        "name": "樹林區"
+      },
+      {
+        "name": "鶯歌區"
+      },
+      {
+        "name": "三重區"
+      },
+      {
+        "name": "新莊區"
+      },
+      {
+        "name": "泰山區"
+      },
+      {
+        "name": "林口區"
+      },
+      {
+        "name": "蘆洲區"
+      },
+      {
+        "name": "五股區"
+      },
+      {
+        "name": "八里區"
+      },
+      {
+        "name": "淡水區"
+      },
+      {
+        "name": "三芝區"
+      },
+      {
+        "name": "石門區"
+      }
+    ]
   }
+];
+county.forEach((item) => {
+  let option = document.createElement('option');
+  option.text = item.name;
+  $countyList[0].add(option);
 });
-// model區
+$countyList.on('change', function() {
+  let districtList = $districtList[0];
+  let prompt = districtList.firstElementChild;
+  $districtList.empty();
+  $districtList.append(prompt);
+  county[this.selectedIndex - 1].districts.forEach((item) => {
+    let option = document.createElement('option');
+    option.text = item.name;
+    districtList.add(option);
+  });
+});
+// 資訊區
 const dateService = {
   obj: new Date(),
   date: null,
@@ -69,6 +194,25 @@ const dateService = {
     }
   },
 };
+const addressService = {
+  county: () => $('#county-list').val(),
+  district: () => $('#district-list').val(),
+  address: () => $('#input_address').val(),
+};
+const printAddress = function() {
+  for (const key in addressService) {
+    if (addressService[key]() == null) return;
+  }
+  const strCounty = addressService.county();
+  const strDistrict = addressService.district();
+  const strAddress = addressService.address();
+  $('#address .value').text(`${strCounty} ${strDistrict} ${strAddress}`);
+  $('#address').addClass('set');
+};
+$('#input_address').on('change', printAddress);
+$countyList.on('change', printAddress);
+$districtList.on('change', printAddress);
+// model區
 const hasInput = (ele) => ele.value.length != 0;
 const hasSelect = (ele) => ele.selectedIndex != 0;
 const steps = [{
@@ -77,41 +221,51 @@ const steps = [{
   inputs: [{
     ele: document.querySelector('#fill-info #input_name'),
     check: hasInput,
+    warn: '請輸入您的姓名',
   }, {
     ele: document.querySelector('#fill-info #input_phone'),
-    check: (ele) => ele.value.length == 10,
+    check: (ele) => (/^09\d{2}\-?\d{3}\-?\d{3}$/).test(ele.value),
+    warn: '請輸入正確的手機號碼，例如: 0912345678',
   }, {
     ele: document.querySelector('#fill-info #input_email'),
     check: hasInput,
+    warn: '請輸入正確的email',
   }, {
     ele: document.querySelector('#fill-info #county-list'),
     check: hasSelect,
+    warn: '必填欄位',
   }, {
     ele: document.querySelector('#fill-info #district-list'),
     check: hasSelect,
+    warn: '必填欄位',
   }, {
     ele: document.querySelector('#fill-info #input_address'),
     check: hasInput,
+    warn: '請輸入正確的地址',
   }],
-  selects: document.querySelectorAll('#fill-info .select'),
 }, {
   creditInputs: [{
     ele: document.querySelector('#pay #input_credit'),
     check: (ele) => ele.value.length == 19,
+    warn: '請輸入有效的信用卡號碼',
   }, {
     ele: document.querySelector('#pay #input_security'),
     check: (ele) => ele.value.length == 3,
+    warn: '請輸入信用卡背面的安全碼',
   }, {
     ele: document.querySelector('#pay #input_expireM'),
     check: hasSelect,
+    warn: '必填欄位',
   }, {
     ele: document.querySelector('#pay #input_expireY'),
     check: hasSelect,
+    warn: '必填欄位',
   }],
   atmInputs: [],
   agrees: [{
     ele: document.querySelector('#pay #read'),
     check: (ele) => ele.checked,
+    warn: '請閱讀並確認勾選以上內容',
   }],
 }, {
 
@@ -255,27 +409,42 @@ const isComplete = function() {
   let ok = true;
   switch (state) {
     case 0:
-      return $row_date.focusDate && $row_time.focusTime;
-    case 1:
-      steps[1]['inputs'].forEach((item) => {
-        if (!item.check(item.ele)) {
-          ok = false;
-        }
-      });
-      return ok;
-    case 2:
-      const payMethod = $('#pay input[name=pay-method]:checked').attr('data-inputs');
-      steps[2][payMethod].forEach((item) => {
-        if (!item.check(item.ele)) {
-          ok = false;
-        }
-      });
-      steps[2]['agrees'].forEach((item) => {
-        if (!item.check(item.ele)) {
-          ok = false;
-        }
-      });
-      return ok;
+      if ($row_date.focusDate && $row_time.focusTime) {
+        return true;
+      } else {
+        toastr.remove();
+        toastr.error('請選擇日期');
+        return false;
+      }
+      case 1:
+        steps[1]['inputs'].forEach((item) => {
+          if (!item.check(item.ele)) {
+            ok = false;
+            $(item.ele).next('.warn').text(item.warn);
+          } else {
+            $(item.ele).next('.warn').text('');
+          }
+        });
+        return ok;
+      case 2:
+        const payMethod = $('#pay input[name=pay-method]:checked').attr('data-inputs');
+        steps[2][payMethod].forEach((item) => {
+          if (!item.check(item.ele)) {
+            ok = false;
+            $(item.ele).next('.warn').text(item.warn);
+          } else {
+            $(item.ele).next('.warn').text('');
+          }
+        });
+        steps[2]['agrees'].forEach((item) => {
+          if (!item.check(item.ele)) {
+            ok = false;
+            $(item.ele).siblings('.warn').text(item.warn);
+          } else {
+            $(item.ele).siblings('.warn').text('');
+          }
+        });
+        return ok;
   }
   return false;
 };
@@ -336,6 +505,7 @@ $inputCredit.on('input', (e) => {
 });
 // invoice
 const invoiceData = {
+  // 傳回後端用
   invoiceI: 0,
   foundationI: 0
 };
@@ -375,15 +545,24 @@ $('.my-dropdown .head-list').on('blur', (e) => {
     $checkbox.click();
   }
 });
-// rule 同意後才可按下一步
-// const $read = $('.rule #read');
-// $read.on('change', function() {
-//   if (this.checked) {
-//     enableBtn($nextStep);
-//   } else {
-//     disableBtn($nextStep);
-//   }
-// });
+// toastr
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "200",
+  "hideDuration": "1000",
+  "timeOut": "2500",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
 // 初始化
 let year = obj_now.getFullYear().toString().substring(2);
 const endYear = parseInt(year) + 25;
