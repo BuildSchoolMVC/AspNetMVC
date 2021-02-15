@@ -300,6 +300,7 @@
     <Content Include="Assets\images\water pip.jpg" />
     <Content Include="Assets\js\Account\forgotPassword.js" />
     <Content Include="Assets\js\Account\register.js" />
+    <Content Include="Assets\js\Account\resetPassword.js" />
     <Content Include="Assets\js\DetailPage\detailPage.js" />
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />

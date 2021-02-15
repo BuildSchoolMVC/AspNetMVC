@@ -248,7 +248,9 @@ namespace AspNetMVC.Controllers
 
             var systemTimeHour = int.Parse(systemTime.Split('_')[3]);
 
-            ViewBag.IsExpired = applicationTimeExpiredHour >= systemTimeHour;
+            ViewBag.STH = systemTimeHour;
+            ViewBag.ATEH = applicationTimeExpiredHour;
+            ViewBag.IsExpired = systemTimeHour >= applicationTimeExpiredHour;
             ViewBag.Id = id;
 
             return View();
