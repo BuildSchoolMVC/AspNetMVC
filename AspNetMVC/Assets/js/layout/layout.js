@@ -395,13 +395,13 @@ window.addEventListener("load", () => {
     hoverEffect();
     toggleTip();
 
-    if (isLogin == false) {
+    if (!document.cookie.includes("user")) {
         favoritesStatus("請先註冊/登入!");
         createLoginRegister();
         countFavoritesAmount(0);
         checkoutBtnControl();
         toggleTip();
-    } else if (isLogin == true) {
+    } else {
         console.log(favorites)
         if (favorites.length == 0) {
             checkoutBtnControl();
@@ -446,6 +446,7 @@ document.querySelector(".contact-us input[type='submit']").addEventListener("cli
 document.querySelector(".finish-view .finish").addEventListener("click", function (e) {
     e.preventDefault();
     document.querySelector(".finish-view").classList.add("hide");
+    document.querySelector(".finish-view .finished").classList.add("hide");
 })
 document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {

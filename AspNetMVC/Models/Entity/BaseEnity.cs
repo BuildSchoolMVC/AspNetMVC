@@ -15,7 +15,7 @@ namespace AspNetMVC.Models.Entity
         public string CreateUser { get; set; }
 
         [Display(Name = "編輯時間")]
-        public DateTime? EditTime { get; set; }
+        public DateTime EditTime { get; set; }
 
         [Display(Name = "編輯者")]
         public string EditUser { get; set; }

@@ -2,7 +2,6 @@
 	ViewBag.Title = "結帳頁";
 }
 @section CSS {
-	<link rel="stylesheet" href="~/Assets/css/Checkout/common.css">
 	<link rel="stylesheet" href="~/Assets/css/Checkout/Checkout.min.css">
 }
 
@@ -150,14 +149,17 @@
 								<div class="formGroup">
 									<p class="key">姓名</p>
 									<input id="input_name" class="value required" type="text" name="name" placeholder="王小明">
+									<span class="warn"></span>
 								</div>
 								<div class="formGroup">
 									<p class="key">手機</p>
 									<input id="input_phone" class="value required only-num" type="text" name="phone" placeholder="0912345678" maxlength="10">
+									<span class="warn"></span>
 								</div>
 								<div class="formGroup">
 									<p class="key">Email</p>
-									<input id="input_email" class="value required" type="text" name="email" placeholder="service@ucleaner.com">
+									<input id="input_email" class="value required" type="email" name="email" placeholder="service@ucleaner.com">
+									<span class="warn"></span>
 								</div>
 							</div>
 						</div>
@@ -170,10 +172,17 @@
 									<select class="select" name="county" id="county-list">
 										<option selected disabled>選擇城市</option>
 									</select>
+									<span class="warn"></span>
+								</div>
+								<div class="formGroup">
 									<select class="select" name="district" id="district-list">
 										<option selected disabled>選擇地區</option>
 									</select>
+									<span class="warn"></span>
+								</div>
+								<div class="formGroup">
 									<input id="input_address" class="value required" type="text" name="address" placeholder="請填上正確的地址">
+									<span class="warn"></span>
 								</div>
 							</div>
 						</div>
@@ -214,33 +223,41 @@
 											<div class="dfc">
 												<p class="key">信用卡號碼</p>
 												<input id="input_credit" class="value required only-num" type="text" name="credit-num" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+												<span class="warn"></span>
 											</div>
 											<div class="dfc">
 												<p class="key">安全碼</p>
 												<input id="input_security" class="value required only-num" type="text" name="security-code" placeholder="123" maxlength="3">
+												<span class="warn"></span>
 											</div>
 										</div>
 										<div class="formGroup">
 											<p class="key">到期日</p>
-											<div class="df">
-												<select id="input_expireM" class="select" name="email">
-													<option class="first" disabled selected>月份</option>
-													<option>01</option>
-													<option>02</option>
-													<option>03</option>
-													<option>04</option>
-													<option>05</option>
-													<option>06</option>
-													<option>07</option>
-													<option>08</option>
-													<option>09</option>
-													<option>10</option>
-													<option>11</option>
-													<option>12</option>
-												</select>
-												<select id="input_expireY" class="select" name="email">
-													<option class="first" disabled selected>年</option>
-												</select>
+											<div class="expire-box">
+												<div class="dfc">
+													<select id="input_expireM" class="select">
+														<option class="first" disabled selected>月份</option>
+														<option>01</option>
+														<option>02</option>
+														<option>03</option>
+														<option>04</option>
+														<option>05</option>
+														<option>06</option>
+														<option>07</option>
+														<option>08</option>
+														<option>09</option>
+														<option>10</option>
+														<option>11</option>
+														<option>12</option>
+													</select>
+													<span class="warn"></span>
+												</div>
+												<div class="dfc">
+													<select id="input_expireY" class="select">
+														<option class="first" disabled selected>年</option>
+													</select>
+													<span class="warn"></span>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -311,9 +328,10 @@
 							<span class="text">我已閱讀
 								<a data-toggle="modal" data-target="#no-service-range">未清潔範圍</a> 、
 								<a data-toggle="modal" data-target="#change-policy">取消或更改服務政策</a> 、
-								<a href="#">服務條款</a> 及
-								<a href="#">隱私權政策</a>
+								<a href="#">服務條款</a>
+								@* <a href="#">隱私權政策</a> *@
 							</span>
+							<div class="warn"></div>
 						</label>
 					</form>
 				</div>

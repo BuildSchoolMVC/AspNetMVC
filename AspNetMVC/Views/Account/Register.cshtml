@@ -3,40 +3,104 @@
     ViewBag.Title = "註冊/登入";
 }
 @section CSS{
-    <link rel="stylesheet" href="~/Assets/css/account/login.css">
+    <link rel="stylesheet" href="~/Assets/css/account/register.css">
 }
+
 <section class="section_registerForm">
-    <div class="login-modal">
+    <div class="register-modal">
         <div class="container-main">
             <div class="change-box">
                 <a href="@Url.Action("Login","Account")" class="title title-login" for="title-check">登入</a>
                 <span class="title title-register selected" for="title-check">註冊</span>
             </div>
-            <div class="register-block show">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+            <div class="register-block">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", placeholder = "信箱", autocomplete="off" })
-                            <p class="warn register-email"></p>
+                    <div class="step1">
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "input register-name", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    <label class="label" for="Name">名稱</label><i class="fas fa-exclamation-circle" title="必填，需包含至少1位英文字母且長度起碼6個字元"></i>
+                                </div>
+                                <p class="warn register-name"> </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    <label class="label" for="Name">信箱</label><i class="fas fa-exclamation-circle" title="必填"></i>
+                                </div>
+                                <p class="warn register-email"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.PasswordFor(m => m.Password, new { @class = "input register-password", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    <label class="label" for="Name">密碼</label><i class="fas fa-exclamation-circle" title="必填，英文大小寫各1個、至少6位不包含特殊符號之字元"></i>
+                                </div>
+                                <p class="warn register-password"> </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "label" })
+                                </div>
+                                <p class="warn register-confirm-password"> </p>
+                            </div>
+                        </div>
+                        <div class="form-group my-2">
+                            <div class="float-right w-100">
+                                <button type="button" class="button btn_next"><span class="spinner-border opacity"></span>下一步</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.Password, new { @class = "input register-password", placeholder = "密碼", autocomplete = "off" })
-                            <p class="warn">需含大小寫英文各 1 個，並且起碼6個字元</p>
+                    <div class="step2">
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    @Html.LabelFor(m => m.Address, new { @class = "label" })
+                                </div>
+                                <p class="warn register-address"></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", placeholder = "確認密碼", autocomplete = "off" })
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "input register-phone", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group">
+                                    @Html.LabelFor(m => m.Phone, new { @class = "label" })
+                                </div>
+                                <p class="warn register-phone"></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group my-2">
-                        <div class="float-right w-100">
-                            <button type="submit" class="button btn_submit"><span class="spinner-border opacity"></span>註冊</button>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="row align-items-center">
+                                    <label class="label pl-3" for="Name">性別</label><i class="fas fa-exclamation-circle" title="必填"></i>
+                                </div>
+                                @Html.RadioButtonFor(m => m.Gender, 1, new { @class = "register-gender", id = "male", @checked = "checked" })
+                                @Html.Label("男性", new { @class = "label small", @for = "male" })
+                                @Html.RadioButtonFor(m => m.Gender, 2, new { @class = "register-gender", id = "female" })
+                                @Html.Label("女性", new { @class = "label small", @for = "female" })
+                                @Html.RadioButtonFor(m => m.Gender, 3, new { @class = "register-gender", id = "other" })
+                                @Html.Label("其他", new { @class = "label small", @for = "other" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
+                            </div>
+                        </div>
+                        <div class="form-group my-2">
+                            <div class="float-right w-100 btn-groups">
+                                <button type="button" class="button btn_pre">上一步</button>
+                                <button type="button" class="button btn_submit"><span class="spinner-border opacity"></span>註冊</button>
+                            </div>
                         </div>
                     </div>
                 }
@@ -46,6 +110,6 @@
 </section>
 
 @section JS {
-    <script src="~/Assets/js/account/login.js"></script>
-    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Assets/js/account/register.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 }

@@ -6,13 +6,14 @@ using AspNetMVC.Repository;
 using AspNetMVC.ViewModel;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
+using AspNetMVC.Services;
 
 namespace AspNetMVC.Service
 {
     public class CustomerServiceService
     {
         private readonly UCleanerDBContext _context;
-        private readonly BaseRepository<CustomerService> _repository;
+        private readonly BaseRepository _repository;
 
         /// <summary>
         /// 實體化處理連線的物件及資料庫(包含CRUD等方法)
@@ -20,7 +21,7 @@ namespace AspNetMVC.Service
         public CustomerServiceService()
         {
             _context = new UCleanerDBContext();
-            _repository = new BaseRepository<CustomerService>(_context);
+            _repository = new BaseRepository(_context);
         }
 
         /// <summary>
@@ -29,26 +30,38 @@ namespace AspNetMVC.Service
         /// <param name="c">從前端表單所有收集的資料</param>
         public void CreateData(CustomerViewModel c)
         {
-            _repository.Create(new CustomerService
+            var result = new OperationResult();
+
+            try
             {
-                CustomerServiceId = Guid.NewGuid(),
-                Name = c.Name,
-                Phone = c.Phone,
-                Email = c.Email,
-                Category = c.Category,
-                Content = c.Content,
-                IsRead = false,
-                CreateUser = c.Name, //建立後不可能有改變
-                CreateTime = DateTime.UtcNow.AddHours(8),//轉換我們時區之時間
-                EditUser = c.Name,//第一次建立即為編輯者，後續可改變
-                EditTime = DateTime.UtcNow.AddHours(8),
-            });
+                _repository.Create(new CustomerService
+                {
+                    CustomerServiceId = Guid.NewGuid(),
+                    Name = c.Name,
+                    Phone = c.Phone,
+                    Email = c.Email,
+                    Category = c.Category,
+                    Content = c.Content,
+                    IsRead = false,
+                    CreateUser = c.Name, //建立後不可改變
+                    CreateTime = DateTime.UtcNow.AddHours(8),//轉換為我們時區之時間
+                    EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                });
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
         }
         /// <summary>
         /// 顯示該資料表所有資料
         /// </summary>
         /// <returns></returns>
-        public List<CustomerService> ShowData() => _repository.GetAll().ToList();
+        public List<CustomerService> ShowData() => _repository.GetAll<CustomerService>().ToList();
 
         /// <summary>
         ///  查看單筆資料
@@ -58,11 +71,12 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public CustomerService ReadContent(Guid? id,string user)
         {
-            var customer = _repository.GetAll().FirstOrDefault(x => x.CustomerServiceId == id);
+            var customer = _repository.GetAll<CustomerService>().FirstOrDefault(x => x.CustomerServiceId == id);
             customer.IsRead = true;
             customer.EditTime = DateTime.UtcNow.AddHours(8);
             customer.EditUser = user;
             _repository.Update(customer);
+            _context.SaveChanges();
             return customer;
         }
     }
