@@ -56,37 +56,10 @@
     <Reference Include="Imgur.API, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Imgur.API.5.0.0\lib\netstandard2.0\Imgur.API.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.1.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -188,19 +161,40 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DetailPageController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MemberCenterController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102070334064_init.cs" />
+    <Compile Include="Migrations\202102070334064_init.Designer.cs">
+      <DependentUpon>202102070334064_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102070556551_customer-service-init.cs" />
+    <Compile Include="Migrations\202102070556551_customer-service-init.Designer.cs">
+      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102080615335_v2.cs" />
+    <Compile Include="Migrations\202102080615335_v2.Designer.cs">
+      <DependentUpon>202102080615335_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102080618227_v21.cs" />
+    <Compile Include="Migrations\202102080618227_v21.Designer.cs">
+      <DependentUpon>202102080618227_v21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102130835373_v3.cs" />
+    <Compile Include="Migrations\202102130835373_v3.Designer.cs">
+      <DependentUpon>202102130835373_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102131316182_v31.cs" />
+    <Compile Include="Migrations\202102131316182_v31.Designer.cs">
+      <DependentUpon>202102131316182_v31.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -211,14 +205,16 @@
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
-    <Compile Include="Service\ProductPageService.cs" />
+    <Compile Include="Service\Email.cs" />
+    <Compile Include="Models\Entity\Account.cs" />
+    <Compile Include="Service\GoogleReCaptcha.cs" />
+    <Compile Include="Service\AccountService.cs" />
+    <Compile Include="Service\OperationResult.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
     <Compile Include="Models\UCleanerDBContext.cs" />
     <Compile Include="Models\CountyModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="ViewModel\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\FakeData\AllServiceCardRepository.cs" />
@@ -228,8 +224,6 @@
     <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
     <Compile Include="Service\CustomerServiceService.cs" />
     <Compile Include="Service\IndexPageService.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\IndexPageViewModels.cs" />
     <Compile Include="ViewModel\AllProductViewModels.cs" />
   </ItemGroup>
@@ -240,6 +234,8 @@
     </Content>
     <Content Include="Assets\css\Account\forgotPassword.css" />
     <Content Include="Assets\css\Account\register.css" />
+    <Content Include="Assets\css\Account\registerEmailActivation.css" />
+    <Content Include="Assets\css\Account\resetPassword.css" />
     <Content Include="Assets\css\DetailPage\detailPage.css" />
     <Content Include="Assets\css\Home\fonts\icofont.eot" />
     <Content Include="Assets\css\Home\fonts\icofont.svg" />
@@ -302,7 +298,9 @@
     <Content Include="Assets\images\wall.jpg" />
     <Content Include="Assets\images\wash machine.jpg" />
     <Content Include="Assets\images\water pip.jpg" />
+    <Content Include="Assets\js\Account\forgotPassword.js" />
     <Content Include="Assets\js\Account\register.js" />
+    <Content Include="Assets\js\Account\resetPassword.js" />
     <Content Include="Assets\js\DetailPage\detailPage.js" />
     <Content Include="Assets\js\Home\index.js" />
     <Content Include="Assets\js\Layout\layout.js" />
@@ -311,6 +309,9 @@
     <Content Include="Assets\js\ProductPage\ProductPage.js" />
     <Content Include="Assets\images\visa.png" />
     <Content Include="Assets\js\Checkout\all.js" />
+    <Content Include="Assets\template\EmailActivationTemplate.html" />
+    <Content Include="Assets\template\ForgotPasswordTemplate.html" />
+    <Content Include="Assets\template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -454,17 +455,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\AllServiceView.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -489,6 +481,8 @@
     <Content Include="Views\Home\ShowDetail.cshtml" />
     <Content Include="Views\Shared\PartialView\_ProductPageGridCardPartial.cshtml" />
     <Content Include="Views\MemberCenter\Index.cshtml" />
+    <Content Include="Views\Account\RegisterEmailActivation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -503,6 +497,26 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202102070334064_init.resx">
+      <DependentUpon>202102070334064_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102070556551_customer-service-init.resx">
+      <DependentUpon>202102070556551_customer-service-init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102080615335_v2.resx">
+      <DependentUpon>202102080615335_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102080618227_v21.resx">
+      <DependentUpon>202102080618227_v21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102130835373_v3.resx">
+      <DependentUpon>202102130835373_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102131316182_v31.resx">
+      <DependentUpon>202102131316182_v31.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

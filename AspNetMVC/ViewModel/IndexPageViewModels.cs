@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace AspNetMVC.ViewModel
 {
-    public class AllServiceCard
+    public class AllServiceCardViewModel
     {
         public string Title { get; set; }
         public string Url { get; set; }
         public string Icon { get; set; }
         public string Content { get; set; }
     }
-    public class Banner
+    public class BannerViewModel
     {
         public int Id { get; set; }
         public List<string> Slogan { get; set; }
         public string Title { get; set; }
     }
-    public class ImageCard
+    public class ImageCardViewModel
     {
         public string Name { get; set; }
         public string Photo { get; set; }
@@ -26,7 +23,7 @@ namespace AspNetMVC.ViewModel
         public decimal StarCount { get; set; }
         public string AnimationDelay { get; set; }
     }
-    public class NewsCard
+    public class NewsCardViewModel
     {
         public string Alt { get; set; }
         public string Url { get; set; }
@@ -36,7 +33,7 @@ namespace AspNetMVC.ViewModel
         public string Tag { get; set; }
     }
 
-    public class ServiceItem
+    public class ServiceItemViewModel
     {
         public string ImgUrl { get; set; }
         public string Title { get; set; }
@@ -44,11 +41,19 @@ namespace AspNetMVC.ViewModel
         public string Url { get; set; }
     }
 
-    public class ServiceItems
+    public class ServiceItemsViewModel
     {
         public string Category { get; set; }
         public string IsActive { get; set; }
-        public List<ServiceItem> Services { get; set; }
+        public List<ServiceItemViewModel> Services { get; set; }
+    }
 
+    public class CustomerViewModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public int Category { get; set; }
+        public string Content { get; set; }
     }
 }

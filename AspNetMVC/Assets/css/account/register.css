@@ -1,35 +1,4 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    outline: none;
-    box-sizing: border-box
-}
-
-html,
-body {
-    height: 100%
-}
-
-button {
-    background-color: transparent
-}
-
-button:focus {
-    outline: none
-}
-
-img {
-    vertical-align: top;
-    max-width: 100%
-}
-
-a,
-a:hover {
-    text-decoration: none
-}
-
-section[class$='Form'] {
+﻿section[class$='Form'] {
     background: var(--color-primary-light);
 }
 
@@ -37,7 +6,10 @@ p {
     margin: 0;
 }
 
-.register-modal {
+.toast-top-center .toast-message {
+    font-size: 20px;
+}
+    .register-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -102,16 +74,10 @@ p {
     background-color: var(--color-primary)
 }
 
-.register-modal .register-block,
 .register-modal .register-block {
-    display: none;
     position: relative
 }
 
-.register-modal .register-block.show,
-.register-modal .register-block.show {
-    display: block
-}
 
 .register-modal .form {
     display: flex;
@@ -156,42 +122,44 @@ p {
 .register-modal .form .form-group {
     margin-bottom: 10px
 }
+.register-modal .form .form-group .label-group {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    pointer-events: none;
+    background: transparent;
+    transition: .25s ease-in-out;
+}
+.register-modal .form .form-group .label-group i {
+   display:none;
+}
 
 .register-modal .form .label {
     color: var(--color-primary-dark);
-    font-size: 20px;
-    padding-right: 10px;
+    font-size: 18px;
+    padding: 0 10px;
+    white-space: nowrap;
+    margin : 0;
+    transition: .2s ease;
+}
+.register-modal .form .label.label-warn {
+    color: var(--color-warn);
+    font-weight: 700
 }
 
-.register-modal .form .label i {
+.register-modal .form .label.small {
+    font-size: 16px;
+}
+
+.register-modal .form i {
     cursor: pointer;
     color: var(--color-primary);
     transition: .4s ease-in;
     font-size: 16px;
 }
 
-.register-modal .form .label i+span {
-    opacity: 0;
-    transition: opacity .4s ease-in;
-    font-weight: 400;
-    font-size: 16px;
-}
-
-.register-modal .form .label i:hover {
-    color: var(--color-primary-dark);
-}
-
-.register-modal .form .label i:hover+span {
-    opacity: 1;
-    pointer-events: none;
-}
-
-.register-modal .form .label i+span.small {
+.register-modal .form i+span.small {
     font-size: 14px;
-}
-
-.register-modal .form .label.small {
-    font-size: 16px;
 }
 
 .register-modal .form .input,
@@ -212,28 +180,36 @@ p {
 .register-modal .form .input {
     width: 100%;
     font-weight: 400;
-    border: 1px solid rgba(0, 0, 0, 0.15)
-}
-
-.register-modal .form .input::placeholder {
-    color: #999999
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: var(--color-primary-light);
+    margin: 20px 0 0;
 }
 
 .register-modal .form .input:focus {
-    border-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--color-primary);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
 }
-
+.register-modal .form .input:focus + .label-group, .register-modal .form .label-group.active {
+    top: 5px;
+    width: 70px;
+    overflow: hidden;
+    height: 25px;
+    background: var(--color-primary-light);
+}
+.register-modal .form .form-group .input:focus + .label-group i, .register-modal .form .label-group.active i {
+    display: block;
+    pointer-events: auto;
+}
+.register-modal .form .label-group i.i-warn {
+    color: var(--red)!important;
+}
+.register-modal .form .form-group .input:focus + .label-group .label, .register-modal .form .label-group.active .label {
+    font-size: 14px;
+}
 .register-modal .form .input.input-warn {
     border-color: var(--color-warn);
-    background-color: var(--color-warnBg);
     color: var(--color-warn);
 }
-
-.register-modal .form .input.input-warn::placeholder {
-    color: #ff7777
-}
-
 .register-modal .form .warn {
     font-size: 14px;
     max-height: 20px;
@@ -241,13 +217,6 @@ p {
     border: none;
     padding: 10px;
     letter-spacing: 1px;
-}
-
-.register-modal .form .prompt {
-    margin-top: 2px;
-    margin-left: 5px;
-    font-size: 14px;
-    color: #555555
 }
 
 .register-modal .form .button {

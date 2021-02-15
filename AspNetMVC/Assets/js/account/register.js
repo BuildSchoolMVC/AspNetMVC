@@ -27,6 +27,10 @@ const nextStep = () => {
         else if (nameInput.value.length < 6 && nameInput.value.length >= 1) showWarnInfo(nameInput, "帳號格式不對")
         else clearWarnInfo(nameInput)
 
+        if (emailInput.value.length == 0) showWarnInfo(emailInput, "不能為空")
+        else if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) showWarnInfo(emailInput, "信箱格式不對")
+        else clearWarnInfo(emailInput)
+
         if (Array.from(document.querySelectorAll(".step1 .input-warn")).length > 0) return;
         else document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("next"));
 
@@ -46,10 +50,12 @@ const accountNameCheck = () => {
                 name: this.value
             },
             success: function (result) {
-                if (document.querySelector(".register-name").classList.contains("input-warn")) clearWarnInfo(nameInput)
+                if (document.querySelector(".input.register-name").value.length > 0) {
+                    if (document.querySelector(".register-name").classList.contains("input-warn")) clearWarnInfo(nameInput)
 
-                if (result.response == "exist") showWarnInfo(nameInput, "此帳號已存在")
-                else clearWarnInfo(nameInput)
+                    if (result.response == "exist") showWarnInfo(nameInput, "此帳號已存在")
+                    else clearWarnInfo(nameInput)
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -66,10 +72,12 @@ const emailCheck = () => {
                 email: this.value
             },
             success: function (result) {
-                if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
+                if (document.querySelector(".input.register-email").value.length > 0) {
+                    if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
 
-                if (result.response == "exist") showWarnInfo(emailInput, "此信箱已被註冊過")
-                else clearWarnInfo(emailInput)
+                    if (result.response == "exist") showWarnInfo(emailInput, "此信箱已被註冊過")
+                    else clearWarnInfo(emailInput)
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -79,14 +87,12 @@ const emailCheck = () => {
 }
 const submitRegister = () => {
     submitBtn.addEventListener("click", function () {
-        if (emailInput.value.length == 0) showWarnInfo(emailInput, "不能為空")
-        else if (!emailInput.value.includes("@") || !emailInput.value.includes(".")) showWarnInfo(emailInput, "信箱格式不對")
-        else clearWarnInfo(emailInput)
-
         if (Array.from(document.querySelectorAll(".step2 .input-warn")).length > 0) return;
         else {
             document.querySelector(".btn_submit .spinner-border").classList.remove("opacity");
             document.querySelector(".btn_submit").setAttribute("disabled", "disabled");
+            document.querySelector(".btn_pre").setAttribute("disabled", "disabled");
+
             $.ajax({
                 url: "/Account/Register",
                 method: "POST",
@@ -96,16 +102,24 @@ const submitRegister = () => {
                     email: emailInput.value,
                     phone: phoneInput.value,
                     address: addressInput.value,
-                    gender: +document.querySelector('.register-gender:checked').value
+                    gender: +document.querySelector(".register-gender:checked").value,
+                    validationMessage: grecaptcha.getResponse() //取得驗證token
                 },
                 success: function (result) {
                     if (result.response == "success") {
                         setTimeout(function () {
+                            toastr.success("註冊成功，請前往信箱進行驗證");
+                            setTimeout(() => {
+                                window.location.replace(`${window.location.origin}/Account/Login`);
+                            }, 1500)
+                        }, 1000)
+                    } else if (result.response == "valdationFail") {
+                        toastr.warning("請勾選以便進行驗證");
+                        setTimeout(function () {
                             document.querySelector(".btn_submit .spinner-border").classList.add("opacity");
                             document.querySelector(".btn_submit").removeAttribute("disabled");
-                            toastr.success("註冊成功");
-                            window.location.replace(`${window.location.origin}/Account/Login`);
-                        }, 1000)
+                            document.querySelector(".btn_pre").removeAttribute("disabled");
+                        },500)
                     }
                 },
                 error: function (err) {
@@ -114,14 +128,6 @@ const submitRegister = () => {
             })
         }
     })
-    //前端驗證
-    //指定欄位不能為空
-    //帳號是否存在
-    //密碼是否不同
-    //密碼加密
-    //密碼是否符合大小寫 + 6個以上 格式
-    //號碼是否符合格式 
-    //信箱是否符合格式
 }
 const judgeCharacter = (str, judge) => {
     let result;
@@ -148,17 +154,37 @@ const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
     }
-    ele.parentNode.querySelector("p").textContent = info
+    if (ele.parentNode.querySelector(".fa-exclamation-circle")) {
+        ele.parentNode.querySelector(".fa-exclamation-circle").classList.add("i-warn");
+    }
+    ele.parentNode.querySelector(".label").classList.add("label-warn");
+    ele.parentNode.querySelector("p").textContent = info;
 }
 const clearWarnInfo = (ele) => {
     ele.classList.remove("input-warn");
+    ele.parentNode.querySelector(".label").classList.remove("label-warn");
+
+    if (ele.parentNode.querySelector(".fa-exclamation-circle")) {
+        ele.parentNode.querySelector(".fa-exclamation-circle").classList.remove("i-warn");
+    }
     ele.parentNode.querySelector("p").textContent = ""
 }
 
 window.addEventListener("load", function () {
+    document.querySelectorAll(".input").forEach(x => {
+        x.addEventListener("change", function () {
+            if (x.value.length == 0) {
+                showWarnInfo(x, "不能為空");
+                x.parentNode.querySelector(".label-group").classList.remove("active");
+            } else {
+                clearWarnInfo(x);
+                x.parentNode.querySelector(".label-group").classList.add("active");
+            }
+        })
+    })
     nextStep();
     preStep();
-    submitRegister();
     accountNameCheck();
     emailCheck();
+    submitRegister();
 })

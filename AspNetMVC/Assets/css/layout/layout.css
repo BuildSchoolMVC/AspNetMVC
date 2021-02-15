@@ -5,6 +5,9 @@
     --color-primary: #62b2f3;
     --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
+    --color-primary-soLight: hsl(207, 100%, 95%);
+    --color-primary-hover: hsl(207, 100%, 90%);
+    --color-primary-selected: hsl(207, 100%, 80%);
     --white: #fff;
     --gray: #aaa;
     --dark-blue: #1c4a70;
@@ -22,7 +25,10 @@
 * {
     font-family: 'Noto Sans TC', sans-serif;
     padding: 0;
-    margin: 0
+    margin: 0;
+    list-style: none;
+    outline: none;
+    box-sizing: border-box
 }
 
 ::-moz-selection {
@@ -33,6 +39,25 @@
 ::selection {
     background: var(--color-primary);
     color: var(--light)
+}
+
+button {
+    background-color: transparent
+}
+
+button:focus {
+    outline: none
+}
+
+
+img {
+    vertical-align: top;
+    max-width: 100%
+}
+
+a,
+a:hover {
+    text-decoration: none
 }
 
 html {
@@ -677,6 +702,18 @@ img {
     color: var(--white) !important;
     text-decoration: none
 }
+.section_nav .collapse.navbar-collapse .nav_btn-group .btn-member-center {
+    border-radius: 20px !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+    background: var(--white) !important;
+}
+.section_nav .collapse.navbar-collapse .nav_btn-group .btn-member-center:hover {
+    color: var(--white) !important;
+    background: var(--color-primary) !important;
+    
+    text-decoration: none
+}
 
 .section_nav .collapse.navbar-collapse .nav_btn-group .btn-register {
     position: absolute;
@@ -1286,7 +1323,7 @@ img {
 }
 
 .section_footer .contact-us button {
-    width: 50px;
+    width: 80px;
     height: 50px;
     padding: 10px;
     background: var(--color-primary);
@@ -1296,7 +1333,9 @@ img {
     bottom: 0;
     -webkit-transition: all .3s .1s ease-in, color .2s;
     transition: all .3s .1s ease-in, color .2s;
-    display: none
+}
+.section_footer .contact-us button.rounded-pill {
+    display: none;
 }
 
 .section_footer .contact-us button:hover {
@@ -1820,9 +1859,8 @@ img {
     .section_footer a {
         padding: 5px 0
     }
-
-    .section_footer .contact-us button {
-        display: block
+    .section_footer .contact-us button.rounded-pill {
+        display: block;
     }
 }
 
