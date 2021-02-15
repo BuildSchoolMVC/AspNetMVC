@@ -255,5 +255,12 @@ namespace AspNetMVC.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model) 
+        {
+            return View();
+        }
     }
 }
