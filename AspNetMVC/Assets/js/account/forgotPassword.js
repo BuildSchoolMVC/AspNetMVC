@@ -23,9 +23,10 @@ const getForgotPasswordMail = () => {
                     'Content-Type': 'application/json'
                 })
              })
-                .then(result => {
-                    console.log(result);
-                    console.log(result.json())
+                .then(res => {
+                    let result = res.json()
+                    console.log(result)
+                    console.log(result.PromiseResult)
                     if (result.response == "error") {
                         toastr.error("帳號與信箱不相符");
                     } else if (result.response == "success") {

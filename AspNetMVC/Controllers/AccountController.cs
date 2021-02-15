@@ -37,7 +37,7 @@ namespace AspNetMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Json(new { response = "fail" });
             }
             else
             {
