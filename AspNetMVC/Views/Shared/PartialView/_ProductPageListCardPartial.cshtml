@@ -1,0 +1,19 @@
+﻿@model ProductPageListViewModel
+<div class="card">
+    <div class="btn">
+        <button>+</button>
+    </div>
+    <div class="pic">
+        <img src="https://i.imgur.com/@Model.PhotoUrl">
+    </div>
+    <div class="text">
+        <a href="" class="search"><i class="fas fa-search"></i></a>
+        <h2>@Model.Name<span>$@Model.Price</span></h2>
+        <ul>
+            <li>@Model.RoomType-@Model.Squarefeet</li>
+            <li>@Model.RoomType2-@Model.Squarefeet2</li>
+            <li>@Model.RoomType3-@Model.Squarefeet3</li>
+            <li>@Model.ServiceItem</li>
+        </ul>
+    </div>
+</div>

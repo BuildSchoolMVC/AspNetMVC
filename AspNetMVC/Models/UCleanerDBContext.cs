@@ -15,12 +15,12 @@ namespace AspNetMVC.Models
         }
 
         public virtual DbSet<CustomerService> CustomerServices { get; set; } //在此註冊資料表
-        public virtual DbSet<PackageProduct> PackageProduct { get; set; }
-        public virtual DbSet<RoomType> RoomType { get; set; }
-        public virtual DbSet<ServiceItems> ServiceItems { get; set; }
-        public virtual DbSet<SingleProduct> SingleProduct { get; set; }
-        public virtual DbSet<SquareFeet> SquareFeet { get; set; }
-        public virtual DbSet<UserDefinedProduct> UserDefinedProduct { get; set; }
+        public virtual DbSet<PackageProduct> PackageProducts { get; set; }
+        public virtual DbSet<RoomType> RoomTypes { get; set; }
+        public virtual DbSet<ServiceItem> ServiceItems { get; set; }
+        public virtual DbSet<SingleProduct> SingleProducts { get; set; }
+        public virtual DbSet<SquareFeet> SquareFeets { get; set; }
+        public virtual DbSet<UserDefinedProduct> UserDefinedProducts{ get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

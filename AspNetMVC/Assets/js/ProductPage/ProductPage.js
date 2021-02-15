@@ -20,6 +20,7 @@ var userdefinedarray = [];
 var roomtypearray = ["廚房", "客廳", "臥室", "浴廁", "陽台"]
 var roompicarray = ["kitchen", "livingroom", "bedroom", "bathroom", "balcony"]
 var squarefeetarray = ["5坪以下", "6-10坪", "11-15坪", "16坪以上"]
+var serviceitemsarray = ["清潔", "收納", "除蟲"]
 var hourprice = 500;
 var basehour = 1;
 var unit = 0.5;
@@ -225,9 +226,9 @@ function countPrice() {
 }
 
 //創造物件
-function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue) {
+function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue, itemserviceitem) {
     var item = {
-        roomtype: parseInt(itemroomtypevalue), squarefeet: parseInt(itemsquarefeetvalue), GUID: GUIDvalue
+        roomtype: parseInt(itemroomtypevalue), squarefeet: parseInt(itemsquarefeetvalue), serviceitem: itemserviceitem, GUID: GUIDvalue
     }
     userdefinedarray.push(item)
 }
@@ -253,19 +254,27 @@ function createCard() {
     let roomtypevalue = roomtypearray[roomtypeorginal];
     let squarefeetorginal = document.querySelector('input[name="squarefeet"]:checked').value;
     let squarefeetvalue = squarefeetarray[squarefeetorginal];
-    let serviceitemvalue = $('input[name="serviceitem"]:checkbox:checked').map(function () {
-        return $(this).val();
-    }).get().join(',');
+    let items = document.getElementsByName("serviceitem")
+    let serviceitemorginal = new Array();
+    let serviceschinese = new Array();
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].checked) {
+            serviceitemorginal.push(items[i].value)
+        }
+    }
+    let serviceitemvalue = serviceitemorginal.forEach(x => {
+        serviceschinese.push(serviceitemsarray[x])
+    });
     let card = document.getElementById("userDefinedCard")
     cloneContent = card.content.cloneNode(true);
     cloneContent.getElementById("temple-title").innerHTML = `${roomtypevalue}清潔<span class="itemprice">$:${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value)) * hourprice}</span>`;
     cloneContent.getElementById("temple-squarefeet").innerHTML = `坪數大小 : ${squarefeetvalue}`;
-    cloneContent.getElementById("temple-img").src = `../../Assets/images/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
-    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceitemvalue}`;
+    cloneContent.getElementById("temple-img").src = `/pic/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
+    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese}`;
     cloneContent.getElementById("temple-hour").innerHTML = `花費時間 : ${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value))}小時`
     createGUID()
     let tempguid = GUID
-    createObject(roomtypeorginal, squarefeetorginal, tempguid)
+    createObject(roomtypeorginal, squarefeetorginal, tempguid, serviceitemorginal)
     cloneContent.getElementById("temple-deletebtn").onclick = function () {
         $(this).parent().parent().remove()
         countPrice()

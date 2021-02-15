@@ -255,5 +255,21 @@ namespace AspNetMVC.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetPassword(Guid id,string newPassword) 
+        {
+            if (ModelState.IsValid)
+            {
+                _accountService.UpdatePassword(id, newPassword);
+
+                return Json(new { response = "success" });
+            }
+            else
+            {
+                return Json(new { response = "error" }); ;
+            }
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace AspNetMVC.Models.Entity
     {
         [Key]
         public int RoomTypeId { get; set; }
-        [Display(Name = "空間類型")]
         public string Name { get; set; }
+        public int Value { get; set; }
         
     }
 }

@@ -7,11 +7,12 @@ using AspNetMVC.Models.Entity;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class ServiceItems :BaseEnity
+    public class ServiceItem :BaseEnity
     {
         [Key]
         public int ServiceitemId { get; set; }
-        [Display(Name = "服務項目")]
         public string Name { get; set; }
+        public int Value { get; set; }
+
     }
 }

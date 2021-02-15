@@ -12,7 +12,7 @@ const getForgotPasswordMail = () => {
         let url = "/Account/ForgotPassword"
 
         if (accountName.value.length != 0 && email.value.length != 0) {
-            document.querySelector(".spinner-border").classList.remove("opacity");
+            document.querySelector(".spinner-border-wrap").classList.remove("opacity");
 
             fetch(url,{
                 method: "POST",
@@ -25,7 +25,8 @@ const getForgotPasswordMail = () => {
                 if (result.response == "error") {
                     toastr.error("帳號與信箱不相符");
                 } else if (result.response == "success") {
-                    toastr.success("已寄送密碼重置信至你的信箱，請查收!")
+                    toastr.success("已寄送密碼重置信至你的信箱，請查收!");
+                    document.querySelector(".spinner-border-wrap").classList.add("opacity");
                 }
                })
                 .catch(err => console.log(err))

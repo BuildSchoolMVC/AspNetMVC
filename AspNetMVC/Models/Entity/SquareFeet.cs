@@ -11,7 +11,8 @@ namespace AspNetMVC.Models.Entity
     {
         [Key]
         public int SquareFeetId { get; set; }
-        [Display(Name = "空間大小")]
-        public string SquareFeetValue { get; set; }
+        public string Name { get; set; }
+        public int Value { get; set; }
+
     }
 }

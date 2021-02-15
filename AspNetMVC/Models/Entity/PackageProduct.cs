@@ -12,20 +12,17 @@ namespace AspNetMVC.Models.Entity
         [Key]
         [Display(Name = "套裝服務ID")]
         public int PackageProductId { get; set; }
-        [Display(Name = "套裝服務名稱")]
         public string Name { get; set; }
-        [Display(Name = "套裝服務空間類型")]
-        public string RoomType { get; set; }
-        [Display(Name = "套裝服務所有項目")]
+        public int RoomType { get; set; }
+        public int RoomType2 { get; set; }
+        public int RoomType3 { get; set; }
         public string ServiceItem { get; set; }
-        [Display(Name = "套裝服務總坪數大小")]
-        public string Squarefeet { get; set; }
-        [Display(Name = "套裝服務總時數")]
+        public int Squarefeet { get; set; }
+        public int Squarefeet2 { get; set; }
+        public int Squarefeet3 { get; set; }
         public float Hour { get; set; }
-        [Display(Name = "套裝服務描述")]
         public string Description { get; set; }
-        [Display(Name = "套裝服務價錢")]
-        public decimal PackagePrice { get; set; }
-        public string Url { get; set; }
+        public decimal Price { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }
