@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<ProductPageViewModel>
 @{
     ViewBag.Title = "商品頁";
 }
@@ -139,168 +139,16 @@
                         </div>
                     </div>
                     <div class="item-group grid" id="item-group-grid">
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=17">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務1</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=19">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務2</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=21">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務3</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=31">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務4</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=11">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務5</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=1">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務6</p>
-                            </div>
-                        </div>
+                        @foreach (var card in Model)
+                        {
+                            @Html.Partial("PartialView/_ProductPageGridCardPartial", card)
+                        }
                     </div>
                     <div class="item-group list d-none" id="item-group-list">
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=1">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=3">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=12">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=7">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
+                        @foreach (var card in Model)
+                        {
+                            @Html.Partial("PartialView/_ProductPageListCardPartial", card)
+                        }
                     </div>
                 </div>
                 <div class="userdefined-area d-none" id="definedproduct">

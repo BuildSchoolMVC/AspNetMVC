@@ -10,11 +10,12 @@
 }
 
 .ProductPage .row {
-    font-family: 'Noto Sans TC', sans-serif !important
+    font-family: 'Noto Sans TC', sans-serif !important;
+   
 }
 
 .ProductPage body {
-    position: relative
+    position: relative;
 }
 
 .ProductPage ::-webkit-scrollbar {
