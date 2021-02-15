@@ -294,6 +294,7 @@
     <Content Include="Assets\js\Checkout\all.js" />
     <Content Include="Assets\template\EmailActivationTemplate.html" />
     <Content Include="Assets\template\ForgotPasswordTemplate.html" />
+    <Content Include="Assets\template\SuccessResetPasswordTemplate.html" />
     <Content Include="Assets\template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

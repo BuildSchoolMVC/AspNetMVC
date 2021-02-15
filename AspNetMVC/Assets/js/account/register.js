@@ -172,6 +172,7 @@ const clearWarnInfo = (ele) => {
 
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {
+        if (x.value.length == 0) x.parentNode.querySelector(".label-group").classList.remove("active");
         x.addEventListener("change", function () {
             if (x.value.length == 0) {
                 showWarnInfo(x, "不能為空");

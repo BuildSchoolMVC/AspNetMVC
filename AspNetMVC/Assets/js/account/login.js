@@ -4,6 +4,9 @@
     };
 
     $(".login-block .input").each(function (index, item) {
+        if ($(item).val().length == 0){
+            $(item).parent().find(".label-group").removeClass("active");
+        }
         $(item).change(function () {
             if ($(item).val().length > 0) {
                 if ($(item).hasClass("input-warn")) {

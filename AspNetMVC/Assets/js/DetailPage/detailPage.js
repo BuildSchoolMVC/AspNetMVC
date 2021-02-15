@@ -25,7 +25,7 @@ const addFavorites = () => {
         if (document.querySelector(".wrap")) {
             document.querySelector(".wrap").remove();
         }
-        if (isLogin == false) {
+        if (getCookieName("user")==undefined) {
             toastr.warning("請先註冊或登入!!!");
             return;
         }

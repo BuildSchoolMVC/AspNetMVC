@@ -46,7 +46,6 @@ namespace AspNetMVC.Controllers
                 if (isVerify)
                 {
                     if (_accountService.IsActivatedEmail(model.AccountName)) {
-
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
                             HttpCookie cookie_user = new HttpCookie("user");
@@ -258,17 +257,38 @@ namespace AspNetMVC.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ResetPassword(Guid id,string newPassword) 
+        public ActionResult ResetPassword([Bind(Include = "AccountId,NewPassword")]NewPasswordViewModel model) 
         {
             if (ModelState.IsValid)
             {
-                _accountService.UpdatePassword(id, newPassword);
+                var result = _accountService.UpdatePassword(model.AccountId, model.NewPassword);
 
-                return Json(new { response = "success" });
+                if (result.IsSuccessful) 
+                {
+                    Email objEmail = new Email
+                    {
+                        RecipientAddress = _accountService.GetUser(model.AccountId).Email,
+                        Subject = "你的【uCleaner - 打掃服務】會員密碼已重置"
+                    };
+                    Dictionary<string, string> kvp = new Dictionary<string, string>
+                    {
+                        { "accountname", _accountService.GetUser(model.AccountId).AccountName},
+                    };
+
+                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.SuccessResetPassword), kvp);
+
+                    objEmail.SendEmailFromGmail();
+
+                    return Json(new { response = "success" });
+                }
+                else
+                {
+                   return Json(new { response = result.MessageInfo });
+                }
             }
             else
             {
-                return Json(new { response = "error" }); ;
+                return Json(new { response = "error" });
             }
         }
     }

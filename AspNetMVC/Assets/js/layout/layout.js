@@ -380,6 +380,41 @@ const customerForm = () => {
         })
     }
 }
+const judgeCharacter = (str, judge) => {
+    let result;
+    switch (judge) {
+        case "capital":
+            result = str.match(/^.*[A-Z]+.*$/);
+            break;
+        case "lowercase":
+            result = str.match(/^.*[a-z]+.*$/);
+            break;
+        case "english":
+            result = str.match(/^.*[a-zA-Z]+.*$/);
+            break;
+        case "number":
+            result = str.match(/^.*[0-9]+.*$/);
+            break;
+        case "other":
+            result = str.match(/^.*[^0-9A-Za-z]+.*$/);
+            break;
+    }
+    return result == null ? false : true;
+}
+
+function getCookieName(name) {
+    let cookieObj = {};
+    let cookieArr = document.cookie.split(";");
+
+    for (let i = 0, j = cookieArr.length; i < j; i++) {
+        let cookie = cookieArr[i].trim().split("=");
+        cookieObj[cookie[0]] = cookie[1];
+    }
+
+    return cookieObj[`${name}`]
+}
+
+
 
 window.addEventListener("load", () => {
     loadingAnimation();
@@ -402,7 +437,6 @@ window.addEventListener("load", () => {
         checkoutBtnControl();
         toggleTip();
     } else {
-        console.log(favorites)
         if (favorites.length == 0) {
             checkoutBtnControl();
             countFavoritesAmount(0);
@@ -418,8 +452,10 @@ window.addEventListener("load", () => {
             toggleSideMenuSubItem(x, e);
         })
     })
-
 })
+
+
+
 
 window.addEventListener("resize", () => {
     if (window.innerWidth > 1024 && document.querySelector(".side-menu").classList.contains("show")) {

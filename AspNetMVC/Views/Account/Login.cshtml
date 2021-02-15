@@ -21,7 +21,7 @@
                     <div class="form-group">
                         <div class="col-12 my-2 p-0">
                             @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group">
+                            <div class="row align-items-center flex-nowrap label-group active">
                                 <label class="label" for="Name">帳號名稱</label>
                             </div>
                             <p class="warn login-email"></p>
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <div class="col-12 my-2 p-0">
                             @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group">
+                            <div class="row align-items-center flex-nowrap label-group active">
                                 <label class="label" for="Name">密碼</label>
                             </div>
                             <p class="warn login-password"></p>
