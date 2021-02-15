@@ -5,6 +5,9 @@
     --color-primary: #62b2f3;
     --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
+    --color-primary-soLight: hsl(207, 100%, 95%);
+    --color-primary-hover: hsl(207, 100%, 90%);
+    --color-primary-selected: hsl(207, 100%, 80%);
     --white: #fff;
     --gray: #aaa;
     --dark-blue: #1c4a70;
