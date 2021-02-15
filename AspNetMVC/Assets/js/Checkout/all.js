@@ -9,13 +9,13 @@ const disableBtn = (btn) => {
   btn.attr('disabled', '');
   btn.addClass('disable');
 };
+const $countyList = $('#county-list');
+const $districtList = $('#district-list');
 $.ajax({
   type: 'POST',
   url: '/Checkout/getDistricts',
   dataType: 'json',
   success: (data) => {
-    const $countyList = $('#county-list');
-    const $districtList = $('#district-list');
     data.forEach((item) => {
       let option = document.createElement('option');
       option.text = item.Name;
