@@ -269,7 +269,7 @@ function createCard() {
     cloneContent = card.content.cloneNode(true);
     cloneContent.getElementById("temple-title").innerHTML = `${roomtypevalue}清潔<span class="itemprice">$:${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value)) * hourprice}</span>`;
     cloneContent.getElementById("temple-squarefeet").innerHTML = `坪數大小 : ${squarefeetvalue}`;
-    cloneContent.getElementById("temple-img").src = `/pic/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
+    cloneContent.getElementById("temple-img").src = `../../Assets/images/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
     cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese}`;
     cloneContent.getElementById("temple-hour").innerHTML = `花費時間 : ${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value))}小時`
     createGUID()
