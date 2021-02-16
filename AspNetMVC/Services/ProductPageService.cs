@@ -40,5 +40,25 @@ namespace AspNetMVC.Services
             return result;
         }
 
+        public void CreateUserDefinedPackage()
+        {
+            var result = new OperationResult();
+            try
+            {
+                _repository.Create(new UserDefinedProduct
+                {
+
+                }
+                    );
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+        }
+
     }
 }

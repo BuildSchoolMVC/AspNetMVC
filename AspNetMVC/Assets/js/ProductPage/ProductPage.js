@@ -223,7 +223,7 @@ function countPrice() {
         let totalprice = pricearray.map(x => parseInt(x.replace("$:", ""))).reduce(function (accumulator, currentValue) {
             return accumulator + currentValue
         })
-        countprice.innerText = `NT:$ ${totalprice}元`;
+        countprice.innerText = `${totalprice}元`;
     }
 }
 
@@ -380,24 +380,27 @@ function fliterCardByServiceItem() {
     let cardarray = document.getElementsByName("card");
     cardarray.forEach(x => {
         let items = document.getElementsByName("serviceitem")
-        let serviceitemorginal = new Array();
-        let serviceschinese = new Array();
+        let serviceitems = new Array();
         for (var i = 0; i < items.length; i++) {
             if (items[i].checked) {
-                serviceitemorginal.push(items[i].value)
+                serviceitems.push(items[i].value)
             }
         }
-        let serviceitemvalue = serviceitemorginal.forEach(x => {
-            serviceschinese.push(serviceitemsarray[x])
+        let serviceschineseArray = new Array();
+        serviceitems.forEach(item => {
+            serviceschineseArray.push(serviceitemsarray[item])
         });
         let temp = x.getAttribute("data-Serviceitem")
-        if (temp.Contains()) {
+        serviceschineseArray.forEach(y => {
+            if (!temp.includes(y)) {
+                x.classList.add("d-none");
+            }
 
-            x.classList.add("d-none");
-        }
+        })
     })
-  
-cleanSelected()
+
+
+    cleanSelected()
 }
 
 
