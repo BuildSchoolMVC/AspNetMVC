@@ -23,6 +23,7 @@ namespace AspNetMVC.Service
         {
             var result= _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
             {
+                PackageProductId=x.PackageProductId,
                 Title = x.Name,
                 Price = x.Price,
                 Hour = x.Hour,

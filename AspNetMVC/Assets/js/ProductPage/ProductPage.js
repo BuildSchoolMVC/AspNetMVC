@@ -28,6 +28,8 @@ var hour = 0;
 var totalprice = 0;
 var pointoutarea = document.getElementById("pointout-area")
 var GUID;
+var searchbyroombtn = document.getElementById("searchbyroom-btn");
+var searchbysquarebtn = document.getElementById("searchbysquare-btn");
 
 
 ////載入區
@@ -298,3 +300,106 @@ function checkCartIsEmpty() {
         userdefinedbox.classList.add("d-none")
     }
 }
+
+
+//過濾卡片
+function fliterCardByRoomType() {
+    showAllCard()
+    let cardarray = document.getElementsByName("card");
+    cardarray.forEach(x => {
+        let roomtypevalue = document.querySelector('input[name="roomtype"]:checked').value
+        let temproom1 = x.getAttribute("data-roomtypevalue")
+        let temproom2 = x.getAttribute("data-roomtypevalue2")
+        let temproom3 = x.getAttribute("data-roomtypevalue3")
+        if (x.hasAttribute("data-roomtypevalue3")) {
+            if (roomtypevalue != temproom1 && roomtypevalue != temproom2 && roomtypevalue != temproom3) {
+                x.classList.add("d-none");
+            }
+            else {
+                if (roomtypevalue != temproom1 && roomtypevalue != temproom2) {
+                    x.classList.add("d-none");
+                }
+            }
+
+        }
+    })
+    cleanSelected()
+}
+
+function showAllCard() {
+    let cardarray = document.getElementsByName("card");
+    cardarray.forEach(x => {
+        if ($(x).hasClass("d-none")) {
+            x.classList.remove("d-none")
+        }
+
+    })
+
+}
+
+function cleanSelected() {
+    let roomtyperadiobtn = document.querySelectorAll('input[name="roomtype"]');
+    for (var i = 0; i < roomtyperadiobtn.length; i++) {
+        roomtyperadiobtn[i].checked = false;
+    }
+    let squarefeetradiobtn = document.querySelectorAll('input[name="squarefeet"]');
+    for (var i = 0; i < squarefeetradiobtn.length; i++) {
+        squarefeetradiobtn[i].checked = false;
+    }
+    let serviceitemcheckbox = document.querySelectorAll('input[name="serviceitem"]');
+    for (var i = 0; i < serviceitemcheckbox.length; i++) {
+        serviceitemcheckbox[i].checked = false;
+    }
+}
+
+function fliterCardBySquareFeet() {
+    showAllCard()
+    let cardarray = document.getElementsByName("card");
+    cardarray.forEach(x => {
+        let squarefeetvalue = document.querySelector('input[name="squarefeet"]:checked').value
+        let tempsquare1 = x.getAttribute("data-SquareValue")
+        let tempsquare2 = x.getAttribute("data-SquareValue2")
+        let tempsquare3 = x.getAttribute("data-SquareValue3")
+        if (x.hasAttribute("data-SquareValue3")) {
+            if (squarefeetvalue != tempsquare1 && squarefeetvalue != tempsquare2 && squarefeetvalue != tempsquare3) {
+                x.classList.add("d-none");
+            }
+            else {
+                if (squarefeetvalue != tempsquare1 && squarefeetvalue != tempsquare2) {
+                    x.classList.add("d-none");
+                }
+            }
+
+        }
+    })
+    cleanSelected()
+}
+
+function fliterCardByServiceItem() {
+    showAllCard()
+    let cardarray = document.getElementsByName("card");
+    cardarray.forEach(x => {
+        let items = document.getElementsByName("serviceitem")
+        let serviceitemorginal = new Array();
+        let serviceschinese = new Array();
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].checked) {
+                serviceitemorginal.push(items[i].value)
+            }
+        }
+        let serviceitemvalue = serviceitemorginal.forEach(x => {
+            serviceschinese.push(serviceitemsarray[x])
+        });
+        let temp = x.getAttribute("data-Serviceitem")
+        if (temp.Contains()) {
+
+            x.classList.add("d-none");
+        }
+    })
+  
+cleanSelected()
+}
+
+
+
+

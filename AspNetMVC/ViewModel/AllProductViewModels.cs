@@ -10,7 +10,7 @@ namespace AspNetMVC.ViewModel
 
     public class ProductPageViewModel
     {
-
+        public int PackageProductId { get; set; }
         public string Title { get; set; }
         public int RoomType { get; set; }
         public int RoomType2 { get; set; }

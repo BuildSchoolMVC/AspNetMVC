@@ -21,7 +21,7 @@
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="kitchen" name="roomtype" value="0" checked>
+                                    <input type="radio" id="kitchen" name="roomtype" value="0">
                                     <label for="kitchen">廚房</label><br>
                                     <input type="radio" id="livingroom" name="roomtype" value="1">
                                     <label for="livingroom">客廳</label><br>
@@ -36,16 +36,16 @@
                         </div>
                         <div class="card">
                             <div class="card-header" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <div class="content">
-                                        <i class="fas fa-feather"></i>
-                                        空間大小
-                                    </div>
-                                </h2>
+
+                                <div class="content">
+                                    <i class="fas fa-feather"></i>
+                                    空間大小
+                                </div>
+
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="5meters" name="squarefeet" value="0" checked>
+                                    <input type="radio" id="5meters" name="squarefeet" value="0">
                                     <label for="5meters">5坪以下</label><br>
                                     <input type="radio" id="10meters" name="squarefeet" value="1">
                                     <label for="10meters">6-10坪</label><br>
@@ -58,18 +58,18 @@
                         </div>
                         <div class="card">
                             <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <div class="content">
-                                        <i class="fas fa-feather"></i>
-                                        服務項目
-                                    </div>
-                                </h2>
+
+                                <div class="content">
+                                    <i class="fas fa-feather"></i>
+                                    服務項目
+                                </div>
+
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="checkbox" id="clean" name="serviceitem" value="0" checked>
+                                    <input type="checkbox" id="clean" name="serviceitem" value="0">
                                     <label for="clean">清潔</label><br>
-                                    <input type="checkbox" id="storage" name="serviceitem" value="1" checked>
+                                    <input type="checkbox" id="storage" name="serviceitem" value="1">
                                     <label for="storage">收納</label><br>
                                     <input type="checkbox" id="deworming" name="serviceitem" value="2">
                                     <label for="deworming">除蟲</label><br>
@@ -78,7 +78,16 @@
                                                 data-target="#exampleModal" id="fee-btn">
                                             費用參考
                                         </button>
-                                        <button class="" id="searchproduct-btn">搜尋商品</button>
+                                        <div class="btn-group dropup" id="searchproduct-btn">
+                                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                搜尋條件
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#" id="searchbyroom-btn" onclick="fliterCardByRoomType()">空間類型</a>
+                                                <a class="dropdown-item" href="#" id="searchbysquare-btn" onclick="fliterCardBySquareFeet()">空間大小</a>
+                                                <a class="dropdown-item" href="#" id="searchbyserviceitem-btn" onclick="">服務項目</a>
+                                            </div>
+                                        </div>
                                         <button class="d-none" id="createcard-btn">新增商品</button>
                                     </div>
                                 </div>

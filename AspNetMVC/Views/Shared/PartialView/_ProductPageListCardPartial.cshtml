@@ -1,5 +1,8 @@
 ﻿@model ProductPageViewModel
-<div class="card">
+
+@{string[] RoomtypeArray = { "廚房", "客廳", "臥室", "浴廁", "陽台" };}
+@{string[] SquarefeetArray = { "5坪以下", "6-10坪", "11-15坪", "16坪以上"};}
+<div class="card" Name="card" data-RoomtypeValue="@Model.RoomType"data-RoomtypeValue2="@Model.RoomType2"data-RoomtypeValue3="@Model.RoomType3" data-SquareValue="@Model.Squarefeet" data-SquareValue2="@Model.Squarefeet2" data-SquareValue3="@Model.Squarefeet3"data-Serviceitem="@Model.ServiceItem">
     <div class="btn">
         <button>+</button>
     </div>
@@ -7,16 +10,16 @@
         <img src="https://i.imgur.com/@Model.PhotoUrl">
     </div>
     <div class="text">
-        <a href="" class="search"><i class="fas fa-search"></i></a>
-        <h2>@Model.Title<span>$@Model.Price</span></h2>
+        <a href="DetailPage/index/@Model.PackageProductId" class="search"><i class="fas fa-search"></i></a>
+        <h2>@Model.Title<span>$:@Model.Price</span></h2>
         <ul>
-            <li>@Model.RoomType-@Model.Squarefeet</li>
-            <li>@Model.RoomType2-@Model.Squarefeet2</li>
+            <li>@RoomtypeArray[@Model.RoomType]：@SquarefeetArray[@Model.Squarefeet]</li>
+            <li>@RoomtypeArray[@Model.RoomType2]：@SquarefeetArray[@Model.Squarefeet2]</li>
             @if(Model.RoomType3!=null)
             { 
-            <li>@Model.RoomType3-@Model.Squarefeet3</li>
+        <li>@RoomtypeArray[Convert.ToInt32(@Model.RoomType3)]：@SquarefeetArray[Convert.ToInt32(@Model.Squarefeet3)]</li>
             }
-            <li>@Model.ServiceItem</li>
+            <li>服務內容：@Model.ServiceItem</li>
         </ul>
     </div>
 </div>
