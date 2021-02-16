@@ -30,7 +30,7 @@ const addFavorites = () => {
             return;
         }
         let price = +document.querySelector(".section_product .content-footer .price").textContent.replace(",", "");
-        let title = document.querySelector(".section_product .content-header h2").textContent;
+        let title = document.querySelector(".section_product .content-header h1").textContent;
         let url = document.querySelector(".product-pic img").src;
         let content = document.querySelector(".service-content").textContent;
         let info = document.querySelector(".place").textContent;

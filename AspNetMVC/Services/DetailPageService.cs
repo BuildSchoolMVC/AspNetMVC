@@ -60,25 +60,49 @@ namespace AspNetMVC.Services
 
             try
             {
-                _repository.Create<Comment>(new Comment
+                if(AccountId != null)
                 {
-                    CommentId = Guid.NewGuid(),
-                    AccountId = AccountId,
-                    PackageProductId = productId,
-                    CreateTime = DateTime.UtcNow.AddHours(8),
-                    CreateUser = "jacko1114",
-                    EditTime = DateTime.UtcNow.AddHours(8),
-                    EditUser = "jacko1114",
-                    Star = star,
-                    Content = comment
-                });
-                _context.SaveChanges();
-                result.IsSuccessful = true;
+                    _repository.Create<Comment>(new Comment
+                    {
+                        CommentId = Guid.NewGuid(),
+                        AccountId = AccountId,
+                        PackageProductId = productId,
+                        CreateTime = DateTime.UtcNow.AddHours(8),
+                        CreateUser = "jacko1114",
+                        EditTime = DateTime.UtcNow.AddHours(8),
+                        EditUser = "jacko1114",
+                        Star = star,
+                        Content = comment
+                    });
+                    _context.SaveChanges();
+                    result.IsSuccessful = true;
+                }
+                else
+                {
+                    result.IsSuccessful = false;
+                }
+               
             }
             catch (Exception ex) {
                 result.IsSuccessful = false;
                 result.Exception = ex;
             }
+        }
+
+        public List<CommentViewModel> GetComment(int productId) 
+        {
+            var result = from comment in _context.Comments
+                         where comment.PackageProductId == productId
+                         join account in _context.Accounts on comment.AccountId equals account.AccountId
+                         select new CommentViewModel
+                         {
+                             AccountName = account.AccountName,
+                             Content = comment.Content,
+                             CreateTime = comment.CreateTime,
+                             Star = comment.Star
+                         };
+
+            return result.ToList();        
         }
 
         private string RoomTypeSwitch(int? value) {

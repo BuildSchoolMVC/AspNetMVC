@@ -21,4 +21,17 @@ namespace AspNetMVC.ViewModels
         public string Price { get; set; }
         public string PhotoUrl { get; set; }
     }
+
+    public class CommentViewModel 
+    {
+        public string AccountName { get; set; }
+        public int Star { get; set; }
+        public string Content { get; set; }
+        public DateTime CreateTime { get; set; }
+    }
+
+    public class DetailPageViewModels { 
+    
+        //public DetailPageViewModel detail
+    }
 }
