@@ -361,20 +361,7 @@
                                 <textarea id="contact_content" cols="30" rows="5" name="Content" class="question"></textarea>
                             </div>
                             <div class="finish-view hide">
-                                <div class="loading">
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                </div>
+                                @Html.Partial("PartialView/_LoadingPartial")
                                 <div class="finished hide">
                                     <img src="/Assets/images/email logo.png" alt="信圖示">
                                     <p>已收到你的來信</p>

@@ -3,8 +3,6 @@ let cookieIsSent = parseInt(getCookieName("isSent"));
 let cookieEmail = getCookieName("email");
 let cookieAccountName = getCookieName("accountname");
 
-
-
 const getForgotPasswordMail = () => {
     forgotBtn.addEventListener("click", function () {
 

@@ -55,7 +55,6 @@
                 success: function (result) {
                     if (result.response === "success") {
                         toastr.success("登入成功");
-                        localStorage.setItem(isLogin, true)
                         window.location.replace(`${window.location.origin}/Home/Index`);
                     } else if (result.response === "fail") {
                         toastr.error("登入失敗");
