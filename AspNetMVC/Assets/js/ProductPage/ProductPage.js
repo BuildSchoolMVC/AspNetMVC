@@ -238,7 +238,7 @@ function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue, itemser
 //創造GUID 
 function createGUID() {
 
-    GUID = Math.floor((1 + Math.random()) * 1000000).toString().substring(1);
+    GUID = Math.floor((1 + Math.random()) * 1000000000).toString().substring(1);
     return GUID
 }
 
@@ -402,6 +402,8 @@ function fliterCardByServiceItem() {
 
     cleanSelected()
 }
+
+
 
 
 
