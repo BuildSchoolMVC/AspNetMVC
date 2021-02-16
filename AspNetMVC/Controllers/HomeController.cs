@@ -7,8 +7,8 @@ using System.Data;
 using System.Data.Entity;
 using AspNetMVC.Models;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
-using AspNetMVC.Service;
+using AspNetMVC.ViewModels;
+using AspNetMVC.Services;
 using System.Configuration;
 
 namespace AspNetMVC.Controllers

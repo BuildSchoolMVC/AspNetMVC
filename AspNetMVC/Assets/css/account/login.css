@@ -21,7 +21,7 @@
 	padding: 30px;
 	width: 100%;
 	box-shadow: 1px 1px 5px #00000080;
-	background: var(--color-primary-light);
+	background: #e8f0fe;
 	border-radius: 10px;
 }
 
@@ -101,12 +101,12 @@
 	opacity: .6;
 }
 
-	.login-modal .form .input {
-		width: 100%;
-		font-weight: 400;
-		border: 1px solid rgba(0, 0, 0, 0.15);
-		background: var(--color-primary-solight);
-	}
+.login-modal .form .input {
+	width: 100%;
+	font-weight: 400;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background: var(--color-primary-solight);
+}
 
 
 .login-modal .form .input:focus {
@@ -137,7 +137,7 @@
 	top: 10px;
 	left: 25px;
 	pointer-events: none;
-	background: var(--color-primary-light);
+	background: #e8f0fe;
 	transition: .25s ease-in-out;
 }
 
@@ -170,7 +170,7 @@
 	width: 70px;
 	overflow: hidden;
 	height: 25px;
-	background: var(--color-primary-light);
+	background: #e8f0fe;
 }
 
 .login-modal .form .form-group .input:focus+.label-group i,

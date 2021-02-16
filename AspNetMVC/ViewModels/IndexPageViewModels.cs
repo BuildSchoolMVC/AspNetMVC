@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AspNetMVC.ViewModel
+namespace AspNetMVC.ViewModels
 {
     public class AllServiceCardViewModel
     {

@@ -180,20 +180,31 @@
     <Compile Include="Migrations\202102151121063_v2.Designer.cs">
       <DependentUpon>202102151121063_v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102160853450_v3.cs" />
+    <Compile Include="Migrations\202102160853450_v3.Designer.cs">
+      <DependentUpon>202102160853450_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102160856081_v4.cs" />
+    <Compile Include="Migrations\202102160856081_v4.Designer.cs">
+      <DependentUpon>202102160856081_v4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Account.cs" />
+    <Compile Include="Models\Entity\Comment.cs" />
+    <Compile Include="Models\Entity\Image.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItem.cs" />
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
-    <Compile Include="Service\Email.cs" />
-    <Compile Include="Service\GoogleReCaptcha.cs" />
-    <Compile Include="Service\AccountService.cs" />
-    <Compile Include="Service\OperationResult.cs" />
-    <Compile Include="Service\ProductPageService.cs" />
-    <Compile Include="ViewModel\AccountViewModels.cs" />
+    <Compile Include="Services\DetailPageService.cs" />
+    <Compile Include="Services\Email.cs" />
+    <Compile Include="Services\GoogleReCaptcha.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\OperationResult.cs" />
+    <Compile Include="Services\ProductPageService.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEnity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
     <Compile Include="Models\UCleanerDBContext.cs" />
@@ -205,10 +216,11 @@
     <Compile Include="Repository\FakeData\ImageCardRepository.cs" />
     <Compile Include="Repository\FakeData\NewsCardRepository.cs" />
     <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
-    <Compile Include="Service\CustomerServiceService.cs" />
-    <Compile Include="Service\IndexPageService.cs" />
-    <Compile Include="ViewModel\IndexPageViewModels.cs" />
-    <Compile Include="ViewModel\AllProductViewModels.cs" />
+    <Compile Include="Services\CustomerServiceService.cs" />
+    <Compile Include="Services\IndexPageService.cs" />
+    <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\IndexPageViewModels.cs" />
+    <Compile Include="ViewModels\AllProductViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UCleanerDbContextFile.mdf" />
@@ -294,6 +306,7 @@
     <Content Include="Assets\js\Checkout\all.js" />
     <Content Include="Assets\template\EmailActivationTemplate.html" />
     <Content Include="Assets\template\ForgotPasswordTemplate.html" />
+    <Content Include="Assets\template\SuccessResetPasswordTemplate.html" />
     <Content Include="Assets\template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -467,6 +480,7 @@
     <Content Include="Views\Account\RegisterEmailActivation.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
@@ -486,6 +500,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102151121063_v2.resx">
       <DependentUpon>202102151121063_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102160853450_v3.resx">
+      <DependentUpon>202102160853450_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
+      <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

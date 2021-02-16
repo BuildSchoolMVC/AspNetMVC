@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Script.Serialization;
 
-namespace AspNetMVC.Models
+namespace AspNetMVC.Services
 {
     public class GoogleReCaptcha
     {

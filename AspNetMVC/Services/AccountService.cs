@@ -5,13 +5,12 @@ using System.Web;
 using System.Security;
 using System.Security.Cryptography;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using System.Text;
-using AspNetMVC.Services;
 
-namespace AspNetMVC.Service
+namespace AspNetMVC.Services
 {
     public class AccountService
     {
@@ -79,6 +78,7 @@ namespace AspNetMVC.Service
 
             return user != null;
         }
+
         /// <summary>
         /// 檢查此信箱是否存在
         /// </summary>
@@ -109,8 +109,23 @@ namespace AspNetMVC.Service
         /// </summary>
         /// <param name="accountName"></param>
         /// <returns></returns>
-        public bool IsActivatedEmail(string accountName) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+        public bool IsActivatedEmail(string accountName) {
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName);
 
+            if (user == null) {
+                return false;
+            }
+            else
+            {
+                return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+            }
+        }
+        
+        /// <summary>
+        /// 透過Email啟動帳號
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string EmailActivation(Guid id)
         {
             var result = new OperationResult();
@@ -123,6 +138,8 @@ namespace AspNetMVC.Service
                     if(user.EmailVerification == false)
                     {
                         user.EmailVerification = true;
+                        user.EditTime = DateTime.UtcNow.AddHours(8);
+                        user.EditUser = user.AccountName;
                         _repository.Update<Account>(user);
                         _context.SaveChanges();
 
@@ -148,11 +165,7 @@ namespace AspNetMVC.Service
             }
             return result.MessageInfo;
         }
-        public string GetAccountId(string accountName)
-        {
-            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
-        }
-
+       
         /// <summary>
         /// 用於忘記密碼，以帳號、信箱查找
         /// </summary>
@@ -161,7 +174,13 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool IsAccountMatch(string account, string email) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == account && x.Email == email) != null;
 
-        public void UpdatePassword(Guid id,string newPassword) 
+        /// <summary>
+        /// 重置密碼
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public OperationResult UpdatePassword(Guid id,string newPassword) 
         {
             var result = new OperationResult();
 
@@ -171,6 +190,8 @@ namespace AspNetMVC.Service
                 if (user != null)
                 {
                     user.Password = ToMD5(newPassword);
+                    user.EditTime = DateTime.UtcNow.AddHours(8);
+                    user.EditUser = user.AccountName;
                     _repository.Update<Account>(user);
                     _context.SaveChanges();
                     result.IsSuccessful = true;
@@ -178,13 +199,27 @@ namespace AspNetMVC.Service
                 else
                 {
                     result.IsSuccessful = false;
+                    result.MessageInfo = "查無此人";
                 }
             }
             catch (Exception ex)
             {
                 result.IsSuccessful = false;
                 result.Exception = ex;
+                result.MessageInfo = "發生錯誤";
             }
+
+            return result;
+        }
+
+        public string GetAccountId(string accountName)
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
+        }
+
+        public Account GetUser(Guid id) 
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
         }
 
         /// <summary>

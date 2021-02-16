@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace AspNetMVC.Models
+namespace AspNetMVC.Services
 {
     public class Email
     {
@@ -28,7 +28,8 @@ namespace AspNetMVC.Models
         {
             EmailActivation,
             SystemReply,
-            ForgotPassword
+            ForgotPassword,
+            SuccessResetPassword
         }
 
         public Email()
@@ -49,7 +50,7 @@ namespace AspNetMVC.Models
                 MailMessage mailMessage = new MailMessage(); // 建立出信件
                 NetworkCredential netWorkCredential = new NetworkCredential(Server_UserName, Server_Password);
 
-                mailMessage.From = new MailAddress(SenderAddress); //建立出寄件者地址
+                mailMessage.From = new MailAddress(SenderAddress,"uCleaner - 打掃服務"); //建立出寄件者地址
                 mailMessage.To.Add(RecipientAddress); //收件者地址
                 mailMessage.Subject = Subject; //信件主旨
                 mailMessage.Body = Body; //信件內容

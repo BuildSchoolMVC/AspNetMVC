@@ -24,7 +24,7 @@ p {
     padding: 30px;
     width: 100%;
     box-shadow: 1px 1px 5px #00000080;
-    background: var(--color-primary-light);
+    background: #e8f0fe;
     border-radius: 10px;
 }
 
@@ -130,7 +130,7 @@ p {
     top: 30px;
     left: 25px;
     pointer-events: none;
-    background: transparent;
+    background: #e8f0fe;
     transition: .25s ease-in-out;
 }
 .register-modal .form .form-group .label-group i {
@@ -184,7 +184,7 @@ p {
     width: 100%;
     font-weight: 400;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    background: var(--color-primary-light);
+    background: #e8f0fe;
     margin: 20px 0 0;
 }
 
@@ -192,27 +192,33 @@ p {
     border-color: var(--color-primary);
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
 }
+
 .register-modal .form .input:focus + .label-group, .register-modal .form .label-group.active {
     top: 5px;
     width: 70px;
     overflow: hidden;
     height: 25px;
-    background: var(--color-primary-light);
+    background: #e8f0fe;
 }
+
 .register-modal .form .form-group .input:focus + .label-group i, .register-modal .form .label-group.active i {
     display: block;
     pointer-events: auto;
 }
+
 .register-modal .form .label-group i.i-warn {
     color: var(--red)!important;
 }
+
 .register-modal .form .form-group .input:focus + .label-group .label, .register-modal .form .label-group.active .label {
     font-size: 14px;
 }
+
 .register-modal .form .input.input-warn {
     border-color: var(--color-warn);
     color: var(--color-warn);
 }
+
 .register-modal .form .warn {
     font-size: 14px;
     max-height: 20px;
@@ -229,7 +235,8 @@ p {
     letter-spacing: 1px;
     background-color: var(--color-primary);
     border: none;
-    color: #ffffff
+    color: #ffffff;
+    position:relative
 }
 
 .register-modal .form .button:hover {
@@ -253,6 +260,19 @@ p {
 .register-modal .other .box a {
     display: block
 }
+.register-modal .spinner-border-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 @media screen and (min-width:768px) {
     .register-modal {
