@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Security;
-using System.Security.Cryptography;
 using AspNetMVC.Repository;
 using AspNetMVC.ViewModels;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
-using System.Text;
 
 namespace AspNetMVC.Services
 {
@@ -45,7 +42,7 @@ namespace AspNetMVC.Services
                     AccountId = Guid.NewGuid(),
                     AccountName = account.Name,
                     Address = account.Address,
-                    Password = ToMD5(account.Password),
+                    Password = Helpers.ToMD5(account.Password),
                     Email = account.Email,
                     EmailVerification = false,
                     Gender = account.Gender, // 1 男 2 女 3 其他
@@ -99,7 +96,7 @@ namespace AspNetMVC.Services
         /// <returns></returns>
         public bool IsLoginValid(string accountName, string password)
         {
-            var p = ToMD5(password);
+            var p = Helpers.ToMD5(password);
             var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == p);
             return user != null;
         }
@@ -189,7 +186,7 @@ namespace AspNetMVC.Services
                 var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
                 if (user != null)
                 {
-                    user.Password = ToMD5(newPassword);
+                    user.Password = Helpers.ToMD5(newPassword);
                     user.EditTime = DateTime.UtcNow.AddHours(8);
                     user.EditUser = user.AccountName;
                     _repository.Update<Account>(user);
@@ -220,19 +217,6 @@ namespace AspNetMVC.Services
         public Account GetUser(Guid id) 
         {
             return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
-        }
-
-        /// <summary>
-        /// 用MD5加密
-        /// </summary>
-        /// <param name="strings"></param>
-        /// <returns></returns>
-        public string ToMD5(string strings)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] bytes = Encoding.Default.GetBytes(strings);//將要加密的字串轉換為位元組陣列
-            byte[] encryptdata = md5.ComputeHash(bytes);//將字串加密後也轉換為字元陣列
-            return Convert.ToBase64String(encryptdata);//將加密後的位元組陣列轉換為加密字串
         }
     }
     

@@ -95,13 +95,20 @@
     border-bottom: 3px solid var(--dark-blue);
     border-radius: 3px 3px 0 0
 }
+.user{
+    color: var(--dark);
+}
 
 .section_product-info .product-tab-item {
     padding: 50px 15px 100px;
     top: 30px;
     left: 0;
     opacity: 0;
-    display: none
+    display: none;
+}
+.section_product-info .product-tab-item h2,
+.section_product-info .product-tab-item > p{
+    text-align:center;
 }
 
 .section_product-info .product-tab-item:before {
@@ -138,22 +145,91 @@
     opacity: 1;
     display: block
 }
+.section_product-info .product-tab-item h4 {
+    text-align: center;
+}
 
 .section_product-info .comment {
-    margin-top: 40px
+    background: var(--light);
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px #00000080;
+    text-align: left;
+    margin: 40px auto 0;
+}
+.section_product-info .comment .comment-user {
+    color: var(--gray);
+    font-size: 12px;
+}
+
+
+.section_product-info .no-comment {
+    padding: 50px 0;
+}
+.section_product-info .no-comment p{
+    text-align:center;
 }
 
 .section_product-info .comment-item {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    border-bottom: 1px solid #eee
+    border-bottom: 1px solid #eee;
 }
 
 .section_product-info .comment-item img {
     width: 60px;
     min-width: 60px;
     height: 60px
+}
+.section_product-info .comment-area {
+    background: #f5f6f7;
+    border-radius: 5px;
+    text-align: left;
+    margin: 40px auto 0;
+    padding: 0 0 10px 0;
+    border: 1px solid var(--gray);
+}
+.section_product-info .comment-area textarea {
+    width: 100%;
+    resize: none;
+    height: 100px;
+    border-color: transparent;
+    outline: none;
+    border-bottom: 1px solid var(--gray);
+    padding: 10px 0 0 10px;
+    border-radius: 5px;
+}
+
+.section_product-info .comment-area i {
+    cursor: pointer;
+}
+
+.section_product-info .comment-area #commentBtn {
+    display: block;
+    margin: 10px 10px 0 auto;
+    padding: 5px 10px;
+    background: var(--dark-blue);
+    color: var(--light);
+    border: none;
+    border-radius: 5px;
+}
+.section_product-info .comment-area #commentBtn[disabled='disabled']{
+    opacity:.4;
+}
+
+    @media screen and (min-width: 768px) {
+        .section_product-info .comment .comment-user {
+        font-size: 16px;
+    }
+    .comment-user br {
+        display: none;
+    }
+    .section_product-info .comment{
+        width: 80%;
+    }
+    .section_product-info .comment-area {
+        width : 60%;
+    }
 }
 
 @media screen and (min-width: 1024px) {

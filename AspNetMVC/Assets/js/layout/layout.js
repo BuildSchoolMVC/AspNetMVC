@@ -176,7 +176,7 @@ const swipeDeleteEffect = () => {
                 item.classList.add("delete");
                 setTimeout(() => {
                     item.remove();
-                    let index = favorites.findIndex(x => x.id == item.dataset.id);
+                    let index = favorites.findIndex(x => x.uid == item.dataset.id);
                     if (index != -1) {
                         favorites.splice(index, 1);
                         localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -211,11 +211,11 @@ const countFavoritesAmount = (count) => {
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
 
-const createFavoritesCard = (price, title, url, content, info, id) => {
+const createFavoritesCard = (price, title, url, content, info, packageproducid, uid) => {
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3";
     card.setAttribute("data-price", price);
-    card.setAttribute("data-id", id);
+    card.setAttribute("data-id", uid);
 
     let row = document.createElement("div");
     row.className = "row no-gutters w-100";
@@ -258,7 +258,7 @@ const createFavoritesCard = (price, title, url, content, info, id) => {
     p3.append(small);
 
     let a = document.createElement("a");
-    a.setAttribute("href", `/DetailPage/Index/${id}`);
+    a.setAttribute("href", `/DetailPage/Index/${packageproducid}`);
     a.className = "btns detail";
     a.textContent = "詳情";
 
@@ -284,7 +284,7 @@ const createFavoritesCard = (price, title, url, content, info, id) => {
 const showFavorites = () => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     favorites.forEach(x => {
-        createFavoritesCard(x.price, x.title, x.url, x.content, x.info, x.id);
+        createFavoritesCard(x.price, x.title, x.url, x.content, x.info, x.packageproducid,x.uid);
     })
     swipeDeleteEffect();
 }
@@ -349,7 +349,7 @@ const customerForm = () => {
     if (validate == "fail") {
         return;
     } else {
-        document.querySelector(".finish-view").classList.remove("hide");
+        document.querySelector(".finish-view .box").classList.remove("hide");
 
         const data = {};
         data.Name = $("#contact_name").val();
@@ -365,6 +365,7 @@ const customerForm = () => {
             success: function (result) {
                 if (result.response === "success") {
                     setTimeout(() => {
+                        document.querySelector(".finish-view .box").classList.add("hide");
                         document.querySelector(".finish-view .finished").classList.remove("hide");
 
                         $("#contact_name").val("");
@@ -453,6 +454,7 @@ window.addEventListener("load", () => {
             toggleSideMenuSubItem(x, e);
         })
     })
+    document.querySelector(".finish-view .box").classList.add("hide");
 })
 
 
@@ -480,9 +482,8 @@ document.querySelector(".contact-us input[type='submit']").addEventListener("cli
     e.preventDefault();
     customerForm();
 })
-document.querySelector(".finish-view .finish").addEventListener("click", function (e) {
+document.querySelector(".finish-view .finishBtn").addEventListener("click", function (e) {
     e.preventDefault();
-    document.querySelector(".finish-view").classList.add("hide");
     document.querySelector(".finish-view .finished").classList.add("hide");
 })
 document.querySelectorAll(".contact-us .question").forEach(x => {

@@ -1,6 +1,7 @@
 ﻿@model DetailPageViewModel
 @{
     ViewBag.Title = Model.Name;
+    var comments = (List<CommentViewModel>)ViewBag.Comments;
 }
 @section CSS{
  <link href="~/Assets/css/DetailPage/detailPage.css" rel="stylesheet">    
@@ -30,7 +31,7 @@
                                 <td class="service-content">@Model.ServiceItem</td>
                             </tr>
                             <tr>
-                                <td class="table-header">服務場域及坪數</td>
+                                <td class="table-header">服務場域及<br>坪數</td>
                                 @if (Model.RoomName3 != "-")
                                 {
                                     <td class="place">
@@ -112,13 +113,70 @@
         </div>
         <div class="product-tab-item active">
             <h2>商品評價</h2>
-            <div class="comment">
-                <h4>@Model.Name - 共 2 則評論</h4>
-            <div class="d-none">
-                <p>目前沒有評論</p>
-                <p>只有註冊並且購買過商品的顧客才能撰寫評價</p>
-            </div>
-        </div>
+            <h4 class="pt-2">@Model.Name - 共 <span class="commentCount">@comments.Count()</span> 則評論</h4>
+            @if (comments.Count() > 0 && Request.Cookies["user"] != null)
+            {
+                <div class="comment">
+                    @foreach (var item in comments)
+                    {
+                        @Html.Partial("PartialView/_PackageProductCommentPartial", item)
+                    }
+                </div>
+                <div class="comment-area">
+                    <textarea placeholder="新增評論...."></textarea>
+                    <div class="grouping d-flex justify-content-around">
+                        <div class="star-grouping pl-3 pt-2">
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <span class="starcount">0</span>
+                        </div>
+                        <button type="button" id="commentBtn" disabled="disabled">送出</button>
+                    </div>
+                </div>
+            }
+            else if (comments.Count() > 0 && Request.Cookies["user"] == null)
+            {
+                <div class="comment">
+                    @foreach (var item in comments)
+                    {
+                        @Html.Partial("PartialView/_PackageProductCommentPartial", item)
+                    }
+                </div>
+                <div class="no-comment">
+                    <p>只有註冊過會員的用戶才能撰寫評價</p>
+                </div>
+            }
+            else if (comments.Count() == 0 && Request.Cookies["user"] != null)
+            {
+                <div class="no-comment">
+                    <p>目前沒有評論</p>
+                </div>
+                <div class="comment-area">
+                    <textarea placeholder="新增評論...."></textarea>
+                    <div class="grouping d-flex justify-content-around">
+                        <div class="star-grouping pl-3 pt-2">
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <span class="starcount">0</span>
+                        </div>
+                        <button type="button" id="commentBtn" disabled="disabled">送出</button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="no-comment">
+                    <p>目前沒有評論</p>
+                    <p>只有註冊過會員的用戶才能撰寫評價</p>
+                </div>
+            }
+         </div>
     </div>
 </section>
 

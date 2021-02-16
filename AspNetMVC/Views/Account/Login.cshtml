@@ -48,11 +48,11 @@
                         登入
                     </button>
                     <div class="other">
-                        <div class="box">
-                            <span>
+                        <div class="form-group">
+                            <div>
                                 @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
                                 @Html.LabelFor(m => m.RememberMe)
-                            </span>
+                            </div>
                             <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
                                 忘記密碼?
                             </a>
