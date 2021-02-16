@@ -23,6 +23,7 @@ namespace AspNetMVC.Services
         {
             var result= _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
             {
+                PackageProductId=x.PackageProductId,
                 Title = x.Name,
                 Price = x.Price,
                 Hour = x.Hour,
@@ -37,6 +38,26 @@ namespace AspNetMVC.Services
 
             }).ToList();
             return result;
+        }
+
+        public void CreateUserDefinedPackage()
+        {
+            var result = new OperationResult();
+            try
+            {
+                _repository.Create(new UserDefinedProduct
+                {
+                    
+                }
+                    );
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
         }
 
     }

@@ -10,7 +10,7 @@ namespace AspNetMVC.ViewModels
 
     public class ProductPageViewModel
     {
-
+        public int PackageProductId { get; set; }
         public string Title { get; set; }
         public int RoomType { get; set; }
         public int RoomType2 { get; set; }
@@ -39,14 +39,13 @@ namespace AspNetMVC.ViewModels
 
     public class UserDefinedAllViewModel
     {
-
+        public Guid UserDefinedId { get; set; }
         public string Name { get; set; }
         public string RoomType { get; set; }
         public string ServiceItem { get; set; }
         public string Squarefeet { get; set; }
         public float Hour { get; set; }
         public decimal Price { get; set; }
-        public string PhotoUrl { get; set; }
 
 
     }
