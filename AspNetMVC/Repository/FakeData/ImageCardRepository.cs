@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Repository
 {

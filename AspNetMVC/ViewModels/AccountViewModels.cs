@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AspNetMVC.ViewModel
+namespace AspNetMVC.ViewModels
 {
     public class LoginViewModel
     {

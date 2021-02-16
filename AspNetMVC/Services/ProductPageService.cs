@@ -1,13 +1,13 @@
 ﻿using AspNetMVC.Models;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AspNetMVC.Models.Entity;
 
-namespace AspNetMVC.Service
+namespace AspNetMVC.Services
 {
     public class ProductPageService
     {

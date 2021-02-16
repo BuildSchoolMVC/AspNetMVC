@@ -1,5 +1,4 @@
 ﻿let favorites = JSON.parse(localStorage.getItem("favorites")) || []
-let isLogin = JSON.parse(localStorage.getItem("login")) || false;
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
@@ -212,7 +211,7 @@ const countFavoritesAmount = (count) => {
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
 
-const createFavoritesCard = (price, title, items, id) => {
+const createFavoritesCard = (price, title, url, content, info, id) => {
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3";
     card.setAttribute("data-price", price);
@@ -227,7 +226,7 @@ const createFavoritesCard = (price, title, items, id) => {
     col8.classList.add("col-8");
 
     let img = document.createElement("img");
-    img.src = `https://picsum.photos/300/400/?random=${id}`;
+    img.src = url;
     img.classList = "w-100 h-100";
 
     col4.append(img);
@@ -239,29 +238,31 @@ const createFavoritesCard = (price, title, items, id) => {
     h3.classList.add("card-title");
     h3.textContent = title;
 
-    let ul = document.createElement("ul");
-    ul.classList.add("list-unstyled");
+    let p1 = document.createElement("p");
+    p1.className = "card-text my-1";
 
-    items.forEach(x => {
-        let li = document.createElement("li");
-        li.textContent = x;
-        ul.append(li);
-    })
-    let p = document.createElement("p");
-    p.className = "card-text pt-3";
+    let p2 = document.createElement("p");
+    p2.className = "card-text my-1";
+
+    let p3 = document.createElement("p");
+    p3.className = "card-text mt-1";
+
+    p1.textContent = info;
+
+    p2.textContent = content;
 
     let small = document.createElement("small");
     small.classList.add("color-muted");
     small.textContent = "超值優惠服務!我們服務，你可放心";
 
-    p.append(small);
+    p3.append(small);
 
     let a = document.createElement("a");
-    a.setAttribute("href", "/DetailPage");
+    a.setAttribute("href", `/DetailPage/Index/${id}`);
     a.className = "btns detail";
     a.textContent = "詳情";
 
-    cardBody.append(h3, ul, p, a);
+    cardBody.append(h3, p1, p2, p3, a);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -283,7 +284,7 @@ const createFavoritesCard = (price, title, items, id) => {
 const showFavorites = () => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     favorites.forEach(x => {
-        createFavoritesCard(x.price, x.title, x.items, x.id);
+        createFavoritesCard(x.price, x.title, x.url, x.content, x.info, x.id);
     })
     swipeDeleteEffect();
 }
@@ -307,7 +308,7 @@ const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
-    if (isLogin == false || favorites.length == 0) {
+    if (getCookieName("user") != "user_id" || favorites.length == 0) {
         document.querySelector(".favorites-footer .checkout").classList.add("disabled");
         document.querySelector(".favorites-footer .checkout").removeAttribute("href");
     } else {
@@ -316,7 +317,7 @@ const checkoutBtnControl = () => {
     }
 }
 const toggleTip = () => {
-    if (isLogin == false || favorites.length == 0) {
+    if (getCookieName("user") || favorites.length == 0) {
         document.querySelector(".tip").classList.add("hide");
     } else {
         document.querySelector(".tip").classList.remove("hide");

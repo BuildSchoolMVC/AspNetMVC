@@ -5,13 +5,12 @@ using System.Web;
 using System.Security;
 using System.Security.Cryptography;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using System.Text;
-using AspNetMVC.Services;
 
-namespace AspNetMVC.Service
+namespace AspNetMVC.Services
 {
     public class AccountService
     {
@@ -139,6 +138,8 @@ namespace AspNetMVC.Service
                     if(user.EmailVerification == false)
                     {
                         user.EmailVerification = true;
+                        user.EditTime = DateTime.UtcNow.AddHours(8);
+                        user.EditUser = user.AccountName;
                         _repository.Update<Account>(user);
                         _context.SaveChanges();
 
@@ -189,6 +190,8 @@ namespace AspNetMVC.Service
                 if (user != null)
                 {
                     user.Password = ToMD5(newPassword);
+                    user.EditTime = DateTime.UtcNow.AddHours(8);
+                    user.EditUser = user.AccountName;
                     _repository.Update<Account>(user);
                     _context.SaveChanges();
                     result.IsSuccessful = true;

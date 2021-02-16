@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace AspNetMVC.Models
+namespace AspNetMVC.Services
 {
     public class Email
     {

@@ -11,6 +11,23 @@
     border-radius: 3px
 }
 
+.section_product .product-content table {
+    border : 1px solid var(--dark);
+    margin-top : 30px;
+    border-radius : 5px;
+}
+.section_product .product-content td {
+    border: 1px solid var(--gray);
+    padding: 5px 10px;
+}
+.section_product .product-content .table-header {
+    background: var(--color-darkGray);
+    color: var(--light);
+    width: 120px;
+}
+.section_product .product-content .note li {
+    list-style-type: disc;
+}
 .section_product .product-content .content-footer {
     margin: 10px 0;
     display: -webkit-box;
@@ -147,5 +164,8 @@
     .section_product-info .product-tabs {
         width: 50%;
         margin: auto
+    }
+    .section_product .product-content table {
+        margin-top: 50px;
     }
 }

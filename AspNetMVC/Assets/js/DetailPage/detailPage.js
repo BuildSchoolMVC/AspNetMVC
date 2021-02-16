@@ -31,21 +31,26 @@ const addFavorites = () => {
         }
         let price = +document.querySelector(".section_product .content-footer .price").textContent.replace(",", "");
         let title = document.querySelector(".section_product .content-header h2").textContent;
-        let id = document.querySelectorAll(".favorites-product-item").length == 0 ? 0 : Math.max(...Array.from(document.querySelectorAll(".favorites-product-item")).map(x => +x.dataset.id));
-        createFavoritesCard(price, title, ["傢俱、櫥櫃外觀擦拭", "地面拖地", "地面除塵清潔", "櫃外擦拭"], id + 1);
+        let url = document.querySelector(".product-pic img").src;
+        let content = document.querySelector(".service-content").textContent;
+        let info = document.querySelector(".place").textContent;
+        let id = document.querySelector(".title").dataset.id;
+        createFavoritesCard(price, title, url, content, info, id);
 
         favorites.push({
             price,
             title,
-            items: ["傢俱、櫥櫃外觀擦拭", "地面拖地", "地面除塵清潔", "櫃外擦拭"],
-            id: id + 1
+            url,
+            content,
+            info,
+            id
         });
         localStorage.setItem("favorites", JSON.stringify(favorites));
         countFavoritesAmount(favorites.length);
         swipeDeleteEffect();
         checkoutBtnControl();
         toggleTip();
-        toastr.success("成功加入至購物車!");
+        toastr.success("成功加入至收藏!");
     })
 }
 
