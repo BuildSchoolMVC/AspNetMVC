@@ -1459,7 +1459,7 @@ img {
     opacity: 1
 }
 
-.box {
+ .box{
     position: absolute;
     top: 0;
     left: 0;
@@ -1475,7 +1475,7 @@ img {
     pointer-events: none;
 }
 
-.box .loading {
+ .loading {
     position: relative;
     width: 200px;
     height: 200px;
@@ -1485,12 +1485,12 @@ img {
     transition: opacity .3s ease-in;
 }
 
-.box .loading.hide {
+ .loading.hide {
     opacity: 0;
     pointer-events: none;
 }
 
-.box .loading .line {
+ .loading .line {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1538,84 +1538,84 @@ img {
     }
 }
 
-.box .loading .line:nth-child(1) {
+ .loading .line:nth-child(1) {
     -webkit-transform: rotate(calc(360 / 12 * 0deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 0deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear 0s infinite;
     animation: fading 1.2s linear 0s infinite
 }
 
-.box .loading .line:nth-child(2) {
+ .loading .line:nth-child(2) {
     -webkit-transform: rotate(calc(360 / 12 * 1deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 1deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .1s infinite;
     animation: fading 1.2s linear .1s infinite
 }
 
-.box .loading .line:nth-child(3) {
+ .loading .line:nth-child(3) {
     -webkit-transform: rotate(calc(360 / 12 * 2deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 2deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .2s infinite;
     animation: fading 1.2s linear .2s infinite
 }
 
-.box .loading .line:nth-child(4) {
+ .loading .line:nth-child(4) {
     -webkit-transform: rotate(calc(360 / 12 * 3deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 3deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .3s infinite;
     animation: fading 1.2s linear .3s infinite
 }
 
-.box .loading .line:nth-child(5) {
+ .loading .line:nth-child(5) {
     -webkit-transform: rotate(calc(360 / 12 * 4deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 4deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .4s infinite;
     animation: fading 1.2s linear .4s infinite
 }
 
-.box .loading .line:nth-child(6) {
+ .loading .line:nth-child(6) {
     -webkit-transform: rotate(calc(360 / 12 * 5deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 5deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .5s infinite;
     animation: fading 1.2s linear .5s infinite
 }
 
-.box .loading .line:nth-child(7) {
+ .loading .line:nth-child(7) {
     -webkit-transform: rotate(calc(360 / 12 * 6deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 6deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .6s infinite;
     animation: fading 1.2s linear .6s infinite
 }
 
-.box .loading .line:nth-child(8) {
+ .loading .line:nth-child(8) {
     -webkit-transform: rotate(calc(360 / 12 * 7deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 7deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .7s infinite;
     animation: fading 1.2s linear .7s infinite
 }
 
-.box .loading .line:nth-child(9) {
+ .loading .line:nth-child(9) {
     -webkit-transform: rotate(calc(360 / 12 * 8deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 8deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .8s infinite;
     animation: fading 1.2s linear .8s infinite
 }
 
-.box .loading .line:nth-child(10) {
+ .loading .line:nth-child(10) {
     -webkit-transform: rotate(calc(360 / 12 * 9deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 9deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear .9s infinite;
     animation: fading 1.2s linear .9s infinite
 }
 
-.box .loading .line:nth-child(11) {
+ .loading .line:nth-child(11) {
     -webkit-transform: rotate(calc(360 / 12 * 10deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 10deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear 1s infinite;
     animation: fading 1.2s linear 1s infinite
 }
 
-.box .loading .line:nth-child(12) {
+ .loading .line:nth-child(12) {
     -webkit-transform: rotate(calc(360 / 12 * 11deg)) translateY(70px);
     transform: rotate(calc(360 / 12 * 11deg)) translateY(70px);
     -webkit-animation: fading 1.2s linear 1.1s infinite;

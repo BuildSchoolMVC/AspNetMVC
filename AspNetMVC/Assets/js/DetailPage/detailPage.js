@@ -101,6 +101,8 @@ const commentForm = () => {
             toastr.warning("請填選星數!");
             return;
         }
+        $(".spinner-border-wrap").removeClass("opacity");
+
         let value = comment.value;
         let url = "/DetailPage/AddComment";
         let data = {
@@ -122,6 +124,7 @@ const commentForm = () => {
                 if (result.response) {
                     getLatestComment();
                     resetCommentInput();
+                    $(".spinner-border-wrap").addClass("opacity");
                 }
             })
             .catch(err => console.log(err))
@@ -155,7 +158,7 @@ const refreshComment = () => {
 
     let date = new Date(+commentData.CreateTime.replace("/Date(", "").replace(")/", ""));
 
-    let dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours() > 12 ? "下午" : "上午"} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+    let dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours() > 12 ? "下午" : "上午"} ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2,"0")}`
 
     commentItem.className = "comment-item";
     row.className = "row";
