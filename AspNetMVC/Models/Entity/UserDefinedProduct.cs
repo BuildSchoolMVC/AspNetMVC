@@ -16,7 +16,7 @@ namespace AspNetMVC.Models.Entity
         public string ServiceItem { get; set; }
         public string Squarefeet { get; set; }
         public float Hour { get; set; }
-        public decimal Price { get; set; }
-        public string PhotoUrl { get; set; }
+        public decimal Price { get; set; }//待刪
+        public string PhotoUrl { get; set; }//待刪
     }
 }

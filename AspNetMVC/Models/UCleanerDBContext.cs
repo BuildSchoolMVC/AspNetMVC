@@ -22,6 +22,7 @@ namespace AspNetMVC.Models
         public virtual DbSet<SquareFeet> SquareFeets { get; set; }
         public virtual DbSet<UserDefinedProduct> UserDefinedProducts{ get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

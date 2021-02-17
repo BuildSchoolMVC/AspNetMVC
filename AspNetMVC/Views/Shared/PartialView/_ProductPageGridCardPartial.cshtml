@@ -1,15 +1,15 @@
-﻿@model PackageProductGridViewModel
-<div class="card">
-    <div class="pic">
+﻿@model ProductPageViewModel
+<div class="card"name="card" data-RoomtypeValue="@Model.RoomType"data-RoomtypeValue2="@Model.RoomType2"data-RoomtypeValue3="@Model.RoomType3" data-SquareValue="@Model.Squarefeet" data-SquareValue2="@Model.Squarefeet2" data-SquareValue3="@Model.Squarefeet3"data-Serviceitem="@Model.ServiceItem">
+    <div class="pic" >
         <a href="">
             <img src="https://i.imgur.com/@Model.PhotoUrl">
         </a>
         <div class="icon-area">
             <button class="plus"><i class="fas fa-plus"></i></button>
-            <a href="" class="search"><i class="fas fa-search"></i></a>
+            <a href="/DetailPage/index/@Model.PackageProductId" class="search"><i class="fas fa-search"></i></a>
         </div>
     </div>
     <div class="text">
-        <p>@Model.Name</p>
+        <p>@Model.Title</p>
     </div>
 </div>

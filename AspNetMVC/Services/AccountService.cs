@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Security;
-using System.Security.Cryptography;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
-using System.Text;
-using AspNetMVC.Services;
 
-namespace AspNetMVC.Service
+namespace AspNetMVC.Services
 {
     public class AccountService
     {
@@ -46,7 +42,7 @@ namespace AspNetMVC.Service
                     AccountId = Guid.NewGuid(),
                     AccountName = account.Name,
                     Address = account.Address,
-                    Password = ToMD5(account.Password),
+                    Password = Helpers.ToMD5(account.Password),
                     Email = account.Email,
                     EmailVerification = false,
                     Gender = account.Gender, // 1 男 2 女 3 其他
@@ -79,6 +75,7 @@ namespace AspNetMVC.Service
 
             return user != null;
         }
+
         /// <summary>
         /// 檢查此信箱是否存在
         /// </summary>
@@ -99,7 +96,7 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool IsLoginValid(string accountName, string password)
         {
-            var p = ToMD5(password);
+            var p = Helpers.ToMD5(password);
             var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == p);
             return user != null;
         }
@@ -109,8 +106,23 @@ namespace AspNetMVC.Service
         /// </summary>
         /// <param name="accountName"></param>
         /// <returns></returns>
-        public bool IsActivatedEmail(string accountName) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+        public bool IsActivatedEmail(string accountName) {
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName);
 
+            if (user == null) {
+                return false;
+            }
+            else
+            {
+                return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+            }
+        }
+        
+        /// <summary>
+        /// 透過Email啟動帳號
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public string EmailActivation(Guid id)
         {
             var result = new OperationResult();
@@ -123,6 +135,8 @@ namespace AspNetMVC.Service
                     if(user.EmailVerification == false)
                     {
                         user.EmailVerification = true;
+                        user.EditTime = DateTime.UtcNow.AddHours(8);
+                        user.EditUser = user.AccountName;
                         _repository.Update<Account>(user);
                         _context.SaveChanges();
 
@@ -148,11 +162,7 @@ namespace AspNetMVC.Service
             }
             return result.MessageInfo;
         }
-        public string GetAccountId(string accountName)
-        {
-            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
-        }
-
+       
         /// <summary>
         /// 用於忘記密碼，以帳號、信箱查找
         /// </summary>
@@ -161,7 +171,13 @@ namespace AspNetMVC.Service
         /// <returns></returns>
         public bool IsAccountMatch(string account, string email) => _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == account && x.Email == email) != null;
 
-        public void UpdatePassword(Guid id,string newPassword) 
+        /// <summary>
+        /// 重置密碼
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public OperationResult UpdatePassword(Guid id,string newPassword) 
         {
             var result = new OperationResult();
 
@@ -170,7 +186,9 @@ namespace AspNetMVC.Service
                 var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
                 if (user != null)
                 {
-                    user.Password = ToMD5(newPassword);
+                    user.Password = Helpers.ToMD5(newPassword);
+                    user.EditTime = DateTime.UtcNow.AddHours(8);
+                    user.EditUser = user.AccountName;
                     _repository.Update<Account>(user);
                     _context.SaveChanges();
                     result.IsSuccessful = true;
@@ -178,26 +196,27 @@ namespace AspNetMVC.Service
                 else
                 {
                     result.IsSuccessful = false;
+                    result.MessageInfo = "查無此人";
                 }
             }
             catch (Exception ex)
             {
                 result.IsSuccessful = false;
                 result.Exception = ex;
+                result.MessageInfo = "發生錯誤";
             }
+
+            return result;
         }
 
-        /// <summary>
-        /// 用MD5加密
-        /// </summary>
-        /// <param name="strings"></param>
-        /// <returns></returns>
-        public string ToMD5(string strings)
+        public string GetAccountId(string accountName)
         {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] bytes = Encoding.Default.GetBytes(strings);//將要加密的字串轉換為位元組陣列
-            byte[] encryptdata = md5.ComputeHash(bytes);//將字串加密後也轉換為字元陣列
-            return Convert.ToBase64String(encryptdata);//將加密後的位元組陣列轉換為加密字串
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
+        }
+
+        public Account GetUser(Guid id) 
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
         }
     }
     

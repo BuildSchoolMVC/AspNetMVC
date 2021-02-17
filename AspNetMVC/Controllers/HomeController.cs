@@ -7,8 +7,8 @@ using System.Data;
 using System.Data.Entity;
 using AspNetMVC.Models;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
-using AspNetMVC.Service;
+using AspNetMVC.ViewModels;
+using AspNetMVC.Services;
 using System.Configuration;
 
 namespace AspNetMVC.Controllers
@@ -89,17 +89,6 @@ namespace AspNetMVC.Controllers
         {
             var customer = _customerServiceService.ReadContent(id,"");
             return View(customer);
-        }
-
-        /// <summary>
-        /// 解析cookie裡的值
-        /// </summary>
-        /// <param name="cookieValue"></param>
-        /// <returns></returns>
-        [NonAction]
-        public static string DecodeCookie(string cookieValue)
-        {
-            return System.Text.Encoding.UTF8.GetString(System.Web.Security.MachineKey.Unprotect(Convert.FromBase64String(cookieValue), "protectedCookie"));
         }
     }
 }

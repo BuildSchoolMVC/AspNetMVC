@@ -89,7 +89,7 @@ const submitRegister = () => {
     submitBtn.addEventListener("click", function () {
         if (Array.from(document.querySelectorAll(".step2 .input-warn")).length > 0) return;
         else {
-            document.querySelector(".btn_submit .spinner-border").classList.remove("opacity");
+            document.querySelector(".btn_submit .spinner-border-wrap").classList.remove("opacity");
             document.querySelector(".btn_submit").setAttribute("disabled", "disabled");
             document.querySelector(".btn_pre").setAttribute("disabled", "disabled");
 
@@ -116,7 +116,7 @@ const submitRegister = () => {
                     } else if (result.response == "valdationFail") {
                         toastr.warning("請勾選以便進行驗證");
                         setTimeout(function () {
-                            document.querySelector(".btn_submit .spinner-border").classList.add("opacity");
+                            document.querySelector(".btn_submit .spinner-border-wrap").classList.add("opacity");
                             document.querySelector(".btn_submit").removeAttribute("disabled");
                             document.querySelector(".btn_pre").removeAttribute("disabled");
                         },500)
@@ -129,27 +129,7 @@ const submitRegister = () => {
         }
     })
 }
-const judgeCharacter = (str, judge) => {
-    let result;
-    switch (judge) {
-        case "capital":
-            result = str.match(/^.*[A-Z]+.*$/);
-            break;
-        case "lowercase":
-            result = str.match(/^.*[a-z]+.*$/);
-            break;
-        case "english":
-            result = str.match(/^.*[a-zA-Z]+.*$/);
-            break;
-        case "number":
-            result = str.match(/^.*[0-9]+.*$/);
-            break;
-        case "other":
-            result = str.match(/^.*[^0-9A-Za-z]+.*$/);
-            break;
-    }
-    return result == null ? false : true;
-}
+
 const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
@@ -172,6 +152,7 @@ const clearWarnInfo = (ele) => {
 
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {
+        if (x.value.length == 0) x.parentNode.querySelector(".label-group").classList.remove("active");
         x.addEventListener("change", function () {
             if (x.value.length == 0) {
                 showWarnInfo(x, "不能為空");

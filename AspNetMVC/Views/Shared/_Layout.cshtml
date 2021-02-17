@@ -360,26 +360,13 @@
                                 <label for="contact_content">訊息<span class="warn pl-2">*</span></label>
                                 <textarea id="contact_content" cols="30" rows="5" name="Content" class="question"></textarea>
                             </div>
-                            <div class="finish-view hide">
-                                <div class="loading">
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                    <div class="line"></div>
-                                </div>
+                            <div class="finish-view">
+                                @Html.Partial("PartialView/_LoadingPartial")
                                 <div class="finished hide">
                                     <img src="/Assets/images/email logo.png" alt="信圖示">
                                     <p>已收到你的來信</p>
                                     <p>將會派人盡快與你聯絡</p>
-                                    <button class="btns finish">完成</button>
+                                    <button class="btns finishBtn">完成</button>
                                 </div>
                             </div>
                         </div>

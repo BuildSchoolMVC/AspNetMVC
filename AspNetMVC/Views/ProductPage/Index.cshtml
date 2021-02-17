@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<ProductPageViewModel>
 @{
     ViewBag.Title = "商品頁";
 }
@@ -21,7 +21,7 @@
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="kitchen" name="roomtype" value="0" checked>
+                                    <input type="radio" id="kitchen" name="roomtype" value="0">
                                     <label for="kitchen">廚房</label><br>
                                     <input type="radio" id="livingroom" name="roomtype" value="1">
                                     <label for="livingroom">客廳</label><br>
@@ -36,16 +36,16 @@
                         </div>
                         <div class="card">
                             <div class="card-header" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <div class="content">
-                                        <i class="fas fa-feather"></i>
-                                        空間大小
-                                    </div>
-                                </h2>
+
+                                <div class="content">
+                                    <i class="fas fa-feather"></i>
+                                    空間大小
+                                </div>
+
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="radio" id="5meters" name="squarefeet" value="0" checked>
+                                    <input type="radio" id="5meters" name="squarefeet" value="0">
                                     <label for="5meters">5坪以下</label><br>
                                     <input type="radio" id="10meters" name="squarefeet" value="1">
                                     <label for="10meters">6-10坪</label><br>
@@ -58,18 +58,18 @@
                         </div>
                         <div class="card">
                             <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <div class="content">
-                                        <i class="fas fa-feather"></i>
-                                        服務項目
-                                    </div>
-                                </h2>
+
+                                <div class="content">
+                                    <i class="fas fa-feather"></i>
+                                    服務項目
+                                </div>
+
                             </div>
                             <div class="collapse show">
                                 <div class="card-body">
-                                    <input type="checkbox" id="clean" name="serviceitem" value="0" checked>
+                                    <input type="checkbox" id="clean" name="serviceitem" value="0">
                                     <label for="clean">清潔</label><br>
-                                    <input type="checkbox" id="storage" name="serviceitem" value="1" checked>
+                                    <input type="checkbox" id="storage" name="serviceitem" value="1">
                                     <label for="storage">收納</label><br>
                                     <input type="checkbox" id="deworming" name="serviceitem" value="2">
                                     <label for="deworming">除蟲</label><br>
@@ -78,7 +78,16 @@
                                                 data-target="#exampleModal" id="fee-btn">
                                             費用參考
                                         </button>
-                                        <button class="" id="searchproduct-btn">搜尋商品</button>
+                                        <div class="btn-group dropup" id="searchproduct-btn">
+                                            <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                搜尋條件
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#" id="searchbyroom-btn" onclick="fliterCardByRoomType()">空間類型</a>
+                                                <a class="dropdown-item" href="#" id="searchbysquare-btn" onclick="fliterCardBySquareFeet()">空間大小</a>
+                                                <a class="dropdown-item" href="#" id="searchbyserviceitem-btn" onclick="fliterCardByServiceItem()">服務項目</a>
+                                            </div>
+                                        </div>
                                         <button class="d-none" id="createcard-btn">新增商品</button>
                                     </div>
                                 </div>
@@ -139,168 +148,16 @@
                         </div>
                     </div>
                     <div class="item-group grid" id="item-group-grid">
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=17">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務1</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=19">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務2</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=21">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務3</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=31">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務4</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=11">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務5</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="pic">
-                                <a href="">
-                                    <img src="https://picsum.photos/300/200/?random=1">
-                                </a>
-                                <div class="icon-area">
-                                    <button class="plus"><i class="fas fa-plus"></i></button>
-                                    <a href="" class="search"><i class="fas fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text">
-                                <p>套裝服務6</p>
-                            </div>
-                        </div>
+                        @foreach (var card in Model)
+                        {
+                            @Html.Partial("PartialView/_ProductPageGridCardPartial", card)
+                        }
                     </div>
                     <div class="item-group list d-none" id="item-group-list">
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=1">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=3">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=12">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="btn">
-                                <button>+</button>
-                            </div>
-                            <div class="pic">
-                                <img src="https://picsum.photos/300/200/?random=7">
-                            </div>
-                            <div class="text">
-                                <a href="" class="search"><i class="fas fa-search"></i></a>
-                                <h2>套裝服務1<span>$500</span></h2>
-                                <ul>
-                                    <li>
-                                        客廳
-                                    </li>
-                                    <li>6-10坪</li>
-                                    <li>收納+清潔</li>
-                                </ul>
-                            </div>
-                        </div>
+                        @foreach (var card in Model)
+                        {
+                            @Html.Partial("PartialView/_ProductPageListCardPartial", card)
+                        }
                     </div>
                 </div>
                 <div class="userdefined-area d-none" id="definedproduct">
@@ -328,6 +185,7 @@
                         </div>
                         <div class="button-area">
                             <a href="" class="btn">加入收藏</a>
+                            
                             <a href="" class="btn">前往結帳</a>
                         </div>
                     </div>

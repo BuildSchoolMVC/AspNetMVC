@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AspNetMVC.ViewModel
+namespace AspNetMVC.ViewModels
 {
     public class LoginViewModel
     {
@@ -70,5 +71,11 @@ namespace AspNetMVC.ViewModel
         [DataType(DataType.Password)]
         [Display(Name = "確認密碼")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class NewPasswordViewModel 
+    { 
+        public Guid AccountId { get; set; }
+        public string NewPassword { get; set; }
     }
 }

@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Name, new { @class = "input register-name", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">名稱</label><i class="fas fa-exclamation-circle" title="必填，需包含至少1位英文字母且長度起碼6個字元"></i>
                                 </div>
                                 <p class="warn register-name"> </p>
@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">信箱</label><i class="fas fa-exclamation-circle" title="必填"></i>
                                 </div>
                                 <p class="warn register-email"></p>
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.PasswordFor(m => m.Password, new { @class = "input register-password", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">密碼</label><i class="fas fa-exclamation-circle" title="必填，英文大小寫各1個、至少6位不包含特殊符號之字元"></i>
                                 </div>
                                 <p class="warn register-password"> </p>
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.ConfirmPassword, new { @class = "label" })
                                 </div>
                                 <p class="warn register-confirm-password"> </p>
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.Address, new { @class = "label" })
                                 </div>
                                 <p class="warn register-address"></p>
@@ -72,7 +72,7 @@
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Phone, new { @class = "input register-phone", autocomplete = "off" })
-                                <div class="row align-items-center flex-nowrap label-group">
+                                <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.Phone, new { @class = "label" })
                                 </div>
                                 <p class="warn register-phone"></p>
@@ -99,7 +99,12 @@
                         <div class="form-group my-2">
                             <div class="float-right w-100 btn-groups">
                                 <button type="button" class="button btn_pre">上一步</button>
-                                <button type="button" class="button btn_submit"><span class="spinner-border opacity"></span>註冊</button>
+                                <button type="button" class="button btn_submit">
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                    註冊
+                                </button>
                             </div>
                         </div>
                     </div>

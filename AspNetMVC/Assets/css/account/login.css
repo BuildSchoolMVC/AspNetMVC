@@ -1,5 +1,5 @@
 ﻿section[class$='Form'] {
-	background: var(--color-primary-light);
+	background: var(--color-primary-Light);
 }
 .toast-top-center .toast-message {
 	font-size: 16px;
@@ -19,7 +19,10 @@
 
 .login-modal .container-main {
 	padding: 30px;
-	width: 100%
+	width: 100%;
+	box-shadow: 1px 1px 5px #00000080;
+	background: #e8f0fe;
+	border-radius: 10px;
 }
 
 .spinner-border {
@@ -102,7 +105,7 @@
 	width: 100%;
 	font-weight: 400;
 	border: 1px solid rgba(0, 0, 0, 0.15);
-	background: var(--color-primary-light);
+	background: var(--color-primary-solight);
 }
 
 
@@ -134,7 +137,7 @@
 	top: 10px;
 	left: 25px;
 	pointer-events: none;
-	background: transparent;
+	background: #e8f0fe;
 	transition: .25s ease-in-out;
 }
 
@@ -161,13 +164,13 @@
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
 }
 
-.login-modal .form .input:focus+.label-group,
+.login-modal .form .input:focus + .label-group,
 .login-modal .form .label-group.active {
 	top: -15px;
 	width: 70px;
 	overflow: hidden;
 	height: 25px;
-	background: var(--color-primary-light);
+	background: #e8f0fe;
 }
 
 .login-modal .form .form-group .input:focus+.label-group i,
@@ -197,7 +200,21 @@
 	letter-spacing: 1px;
 	background-color: var(--color-primary);
 	border: none;
-	color: #ffffff
+	color: #ffffff;
+	position: relative
+}
+
+.login-modal .spinner-border-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-primary);
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-modal .form .button:hover {
@@ -213,12 +230,12 @@
 	display: flex
 }
 
-.login-modal .other .box {
+.login-modal .other .form-group {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
 
-.login-modal .other .box a {
+.login-modal .other .form-group a {
 	display: block
 }

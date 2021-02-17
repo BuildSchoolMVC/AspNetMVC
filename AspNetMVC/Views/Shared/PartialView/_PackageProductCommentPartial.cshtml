@@ -1,0 +1,25 @@
+﻿@model CommentViewModel
+<div class="comment-item">
+    <div class="row">
+        <div class="col-2 pr-0 pl-4 d-flex justify-content-center align-items-center">
+            <img src="~/Assets/images/p1.jpg" alt="人物" class="user rounded-circle d-block">
+        </div>
+        <div class="col-6 pl-4">
+            <p class="comment-user"><span class="user">@Model.AccountName</span> 用戶於 <br><span>@Model.CreateTime</span></p>
+            <p>@Model.Content</p>
+        </div>
+        <div class="col-4 pr-4 d-flex align-items-center justify-content-center">
+            @for (var i = 1; i <= 5; i++)
+            {
+                if (Model.Star >= i)
+                {
+                    <i class="fas fa-star color-yellow pr-1"></i>
+                }
+                else
+                {
+                    <i class="fas fa-star color-gray pr-1"></i>
+                }
+            }
+        </div>
+    </div>
+</div>

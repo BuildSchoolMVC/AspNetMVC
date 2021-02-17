@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AspNetMVC.Repository;
-using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
-using AspNetMVC.Services;
 
-namespace AspNetMVC.Service
+namespace AspNetMVC.Services
 {
     public class CustomerServiceService
     {
