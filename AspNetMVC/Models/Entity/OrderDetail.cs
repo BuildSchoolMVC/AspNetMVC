@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace AspNetMVC.Models.Entity {
-	public class OrderDetail : BaseEnity {
+	public class OrderDetail : BaseEntity {
 		[Required]
 		public int OrderId { get; set; }
 		[Required]

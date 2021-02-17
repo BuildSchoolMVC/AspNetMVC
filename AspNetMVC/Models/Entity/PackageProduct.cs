@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class PackageProduct : BaseEnity
+    public class PackageProduct : BaseEntity
     {
         [Key]
         [Display(Name = "套裝服務ID")]

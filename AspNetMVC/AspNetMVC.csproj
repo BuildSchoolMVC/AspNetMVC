@@ -208,7 +208,7 @@
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\ProductPageService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\Entity\BaseEnity.cs" />
+    <Compile Include="Models\Entity\BaseEntity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
     <Compile Include="Models\UCleanerDBContext.cs" />
     <Compile Include="Models\CountyModels.cs" />

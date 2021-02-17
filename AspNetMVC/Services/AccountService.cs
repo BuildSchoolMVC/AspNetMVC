@@ -209,9 +209,9 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public string GetAccountId(string accountName)
+        public Guid GetAccountId(string accountName)
         {
-            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId.ToString();
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).AccountId;
         }
 
         public Account GetUser(Guid id) 

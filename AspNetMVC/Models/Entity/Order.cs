@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 
 namespace AspNetMVC.Models.Entity {
-	public class Order : BaseEnity {
+	public class Order : BaseEntity {
 		[Key]
 		public int OrderId { get; set; }
 

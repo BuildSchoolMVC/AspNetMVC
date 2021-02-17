@@ -101,7 +101,7 @@ namespace AspNetMVC.Controllers
                         { "name",model.Name},
                         { "password",model.Password},
                         { "datetime",DateTime.Now.ToString().Split(' ')[0]},
-                        { "accountid",_accountService.GetAccountId(model.Name)},
+                        { "accountid",_accountService.GetAccountId(model.Name).ToString()},
                     };
 
                     Email objEmail = new Email
@@ -208,7 +208,7 @@ namespace AspNetMVC.Controllers
                     };
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
-                        { "id", _accountService.GetAccountId(model.AccountName) },
+                        { "id", _accountService.GetAccountId(model.AccountName).ToString()},
                         { "accountname", model.AccountName},
                         { "datetimestring",DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")},
                         { "datetime",DateTime.Now.ToString()}

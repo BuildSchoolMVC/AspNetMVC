@@ -7,7 +7,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class SingleProduct:BaseEnity
+    public class SingleProduct:BaseEntity
     {
         [Key]
         public int ProductId { get; set; }
