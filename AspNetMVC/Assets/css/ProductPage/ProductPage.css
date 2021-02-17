@@ -706,7 +706,8 @@
                     }
 
                         .ProductPage .userdefined-area .card-body .item-group .item .text ul li {
-                            font-size: 12px
+                            font-size: 12px;
+                            list-style: disc;
                         }
 
     .ProductPage .userdefined-area .content {
@@ -738,7 +739,8 @@
             }
 
                 .ProductPage .userdefined-area .content .text h4 span {
-                    font-size: 14px
+                    margin-left:auto;
+                    font-size: 20px;
                 }
 
         .ProductPage .userdefined-area .content .button-area {

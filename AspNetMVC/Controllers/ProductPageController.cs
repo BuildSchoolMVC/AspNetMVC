@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AspNetMVC.Services;
 using AspNetMVC.ViewModels;
+using AspNetMVC.Models.Entity;
 
 namespace AspNetMVC.Controllers
 {
@@ -23,9 +24,16 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePackage([Bind(Include= "UserDefinedId,MemberId,Name,RoomType,ServiceItem,Squarefeet,Hour")] UserDefinedAllViewModel userDefined)
+        public ActionResult CreatePackage([Bind(Include = "RoomType,ServiceItem,Squarefeet")] UserDefinedAllViewModel model)
         {
-        
+            if (ModelState.IsValid)
+            {
+
+            }
+            else
+            {
+
+            }
             return View();
         }
 

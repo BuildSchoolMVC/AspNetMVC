@@ -1,4 +1,7 @@
 ﻿////全域宣告區
+
+//import { ajax } from "jquery";
+
 //取勾選值
 var sidemenubtn = document.getElementById("sidemenu-contorl");
 var operatingareabtn = document.getElementById("operating-area-btn");
@@ -401,6 +404,29 @@ function fliterCardByServiceItem() {
 
 
     cleanSelected()
+}
+
+function postData() {
+
+    $.ajax({
+        url: "/ProductPage/CreatePackage", // url位置
+        type: 'post', // post/get
+        data: {userdefinedarray}, // 輸入的資料
+        error: function (err) {
+            console.log(err)
+        }, // 錯誤後執行的函數
+        success: function () {
+            cleanView() 
+        } // 成功後要執行的函數
+    });
+}
+
+function cleanView() {
+
+    $(userdefinedbox).empty();
+    userdefinedarray = [];
+    document.getElementById("countprice").innerText = ""
+    checkCartIsEmpty()
 }
 
 
