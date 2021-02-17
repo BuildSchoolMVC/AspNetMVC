@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class OrderDetail : BaseEnity
+    public class OrderDetail : BaseEntity
     {
         [Key]
         [Required]
