@@ -188,6 +188,10 @@
     <Compile Include="Migrations\202102160856081_v4.Designer.cs">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.cs" />
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.Designer.cs">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -502,6 +506,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171045290_changeUserdifine Attributes.resx">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
