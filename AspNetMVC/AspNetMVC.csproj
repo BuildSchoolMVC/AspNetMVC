@@ -187,6 +187,10 @@
     <Compile Include="Migrations\202102160856081_v4.Designer.cs">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102170909343_Order.cs" />
+    <Compile Include="Migrations\202102170909343_Order.Designer.cs">
+      <DependentUpon>202102170909343_Order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -507,6 +511,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102170909343_Order.resx">
+      <DependentUpon>202102170909343_Order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
