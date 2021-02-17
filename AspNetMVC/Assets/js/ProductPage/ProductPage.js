@@ -34,6 +34,7 @@ var GUID;
 var searchbyroombtn = document.getElementById("searchbyroom-btn");
 var searchbysquarebtn = document.getElementById("searchbysquare-btn");
 var addfavoritebtn = document.getElementById("addfavorite-btn");
+var definenamebtn = document.getElementById("definename-btn");
 
 
 
@@ -44,6 +45,7 @@ window.onload = function () {
     shopModeSwitch()
     setViewedContorl()
     showModule()
+    createPackageObj()
 }
 
 ////操作區
@@ -411,9 +413,9 @@ function fliterCardByServiceItem() {
 }
 
 //將組合的資料傳去Controller
-function PostData() {
+function PostData(tempitem) {
     let url = "/ProductPage/CreatePackage"
-    var data = { UserDefinedAlls: userdefinedarray }
+    var data = { UserDefinedAlls:tempitem }
     fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -436,18 +438,34 @@ function cleanView() {
     checkCartIsEmpty()
 }
 
-//彈出取title的Module
+//彈出取名的Module
 function showModule() {
     addfavoritebtn.addEventListener("click", function () {
+        if (userdefinedarray.length == 0) {
+            alert("目前還沒有商品喔!")
+        }
+        else {
+
         this.setAttribute("data-toggle", "modal");
         this.setAttribute("data-target", "#titlemodal");
+        }
     })
 }
 
-function addArrayTitle() {
+function createPackageObj() {
+    definenamebtn.addEventListener("click", function () {
+        if (modalinput.innerText = "") {
+            alert("商品還未取名喔!")
+        }
+        else {
+            var title = document.getElementById("modalinput").value;
+            let tempitem = { Title: title, Data: userdefinedarray }
+            PostData(tempitem)
+            cleanView()
 
+        }
+    })
 }
-
 
 
 
