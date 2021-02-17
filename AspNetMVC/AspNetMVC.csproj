@@ -192,6 +192,8 @@
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
     <Compile Include="Models\Entity\Image.cs" />
+    <Compile Include="Models\Entity\Order.cs" />
+    <Compile Include="Models\Entity\OrderDetail.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItem.cs" />
