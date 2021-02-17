@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class UserDefinedProduct :BaseEnity
+    public class UserDefinedProduct :BaseEntity
     {
         [Key]
         public Guid UserDefinedId { get; set; }

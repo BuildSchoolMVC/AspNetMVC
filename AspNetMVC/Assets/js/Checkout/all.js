@@ -349,9 +349,9 @@ $lastStep.on('click', function () {
   $stepList[state].classList.add('on');
 });
 $nextStep.on('click', function () {
-  if (!isComplete()) {
-    return;
-  }
+  //if (!isComplete()) {
+  //  return;
+  //}
   state++;
   if (state > 3) {
     state = 3;

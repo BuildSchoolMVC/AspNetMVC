@@ -23,10 +23,10 @@ namespace AspNetMVC.Models
         public virtual DbSet<UserDefinedProduct> UserDefinedProducts{ get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        //public virtual DbSet<Order> Orders { get; set; }
-        //public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+		public virtual DbSet<Order> Orders { get; set; }
+		public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
     }
