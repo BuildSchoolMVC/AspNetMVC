@@ -1,4 +1,7 @@
 ﻿////全域宣告區
+
+//import { ajax } from "jquery";
+
 //取勾選值
 var sidemenubtn = document.getElementById("sidemenu-contorl");
 var operatingareabtn = document.getElementById("operating-area-btn");
@@ -30,6 +33,8 @@ var pointoutarea = document.getElementById("pointout-area")
 var GUID;
 var searchbyroombtn = document.getElementById("searchbyroom-btn");
 var searchbysquarebtn = document.getElementById("searchbysquare-btn");
+var addfavoritebtn = document.getElementById("addfavorite-btn");
+
 
 
 ////載入區
@@ -38,6 +43,7 @@ window.onload = function () {
     viewModeSwitch()
     shopModeSwitch()
     setViewedContorl()
+    showModule()
 }
 
 ////操作區
@@ -230,7 +236,7 @@ function countPrice() {
 //創造物件
 function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue, itemserviceitem) {
     var item = {
-        roomtype: parseInt(itemroomtypevalue), squarefeet: parseInt(itemsquarefeetvalue), serviceitem: itemserviceitem, GUID: GUIDvalue
+        RoomType: parseInt(itemroomtypevalue), Squarefeet: parseInt(itemsquarefeetvalue), ServiceItem: itemserviceitem, GUID: GUIDvalue
     }
     userdefinedarray.push(item)
 }
@@ -276,7 +282,7 @@ function createCard() {
     cloneContent.getElementById("temple-hour").innerHTML = `花費時間 : ${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value))}小時`
     createGUID()
     let tempguid = GUID
-    createObject(roomtypeorginal, squarefeetorginal, tempguid, serviceitemorginal)
+    createObject(roomtypeorginal, squarefeetorginal, tempguid, serviceschinese)
     cloneContent.getElementById("temple-deletebtn").onclick = function () {
         $(this).parent().parent().remove()
         countPrice()
@@ -326,6 +332,7 @@ function fliterCardByRoomType() {
     cleanSelected()
 }
 
+//顯示出所有檔案
 function showAllCard() {
     let cardarray = document.getElementsByName("card");
     cardarray.forEach(x => {
@@ -336,7 +343,7 @@ function showAllCard() {
     })
 
 }
-
+//清空勾選欄
 function cleanSelected() {
     let roomtyperadiobtn = document.querySelectorAll('input[name="roomtype"]');
     for (var i = 0; i < roomtyperadiobtn.length; i++) {
@@ -351,7 +358,7 @@ function cleanSelected() {
         serviceitemcheckbox[i].checked = false;
     }
 }
-
+//以空間大小過濾商品
 function fliterCardBySquareFeet() {
     showAllCard()
     let cardarray = document.getElementsByName("card");
@@ -374,7 +381,7 @@ function fliterCardBySquareFeet() {
     })
     cleanSelected()
 }
-
+//以服務項目過濾商品
 function fliterCardByServiceItem() {
     showAllCard()
     let cardarray = document.getElementsByName("card");
@@ -403,6 +410,43 @@ function fliterCardByServiceItem() {
     cleanSelected()
 }
 
+//將組合的資料傳去Controller
+function PostData() {
+    let url = "/ProductPage/CreatePackage"
+    var data = { UserDefinedAlls: userdefinedarray }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+}
+
+
+//清除自訂組合的畫面及陣列
+function cleanView() {
+
+    $(userdefinedbox).empty();
+    userdefinedarray = [];
+    document.getElementById("countprice").innerText = ""
+    checkCartIsEmpty()
+}
+
+//彈出取title的Module
+function showModule() {
+    addfavoritebtn.addEventListener("click", function () {
+        this.setAttribute("data-toggle", "modal");
+        this.setAttribute("data-target", "#titlemodal");
+    })
+}
+
+function addArrayTitle() {
+
+}
 
 
 
