@@ -349,9 +349,9 @@ $lastStep.on('click', function () {
   $stepList[state].classList.add('on');
 });
 $nextStep.on('click', function () {
-  // if (!isComplete()) {
-  //   return;
-  // }
+  if (!isComplete()) {
+    return;
+  }
   state++;
   if (state > 3) {
     state = 3;
@@ -362,24 +362,24 @@ $nextStep.on('click', function () {
       enableBtn($lastStep);
       break;
       case 3:
-      //disableBtn($lastStep);
-      //disableBtn($nextStep);
-      //$.ajax({
-      //  type: 'POST',
-      //  url: '/Checkout/GetOrder',
-      //  data: {
-      //    myname: 'test5678222'
-      //  },
-      //  success: (message) => {
-      //    $('#done .pic').html(`
-      //      <svg id="tick" viewBox="0 0 32 32">
-      //        <path d="M27,9 l-15,15 -7,-7"></path>
-      //      </svg>
-      //    `);
-      //    $('#done .title').text(message.title);
-      //    $('#done .content').text(message.content);
-      //  },
-      //});
+      disableBtn($lastStep);
+      disableBtn($nextStep);
+      $.ajax({
+        type: 'POST',
+        url: '/Checkout/GetOrder',
+        data: {
+          
+        },
+        success: (message) => {
+          $('#done .pic').html(`
+            <svg id="tick" viewBox="0 0 32 32">
+              <path d="M27,9 l-15,15 -7,-7"></path>
+            </svg>
+          `);
+          $('#done .title').text(message.title);
+          $('#done .content').text(message.content);
+        },
+      });
       break;
   }
   $barFront.css('width', `${33.333 * state}%`);
