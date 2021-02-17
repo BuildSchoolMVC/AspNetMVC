@@ -7,7 +7,7 @@ using AspNetMVC.Models.Entity;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class SquareFeet:BaseEnity
+    public class SquareFeet:BaseEntity
     {
         [Key]
         public int SquareFeetId { get; set; }

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Web;
 
 namespace AspNetMVC.Models.Entity {
-	public class Order : BaseEnity {
+	public class Order : BaseEntity {
 		[Key]
 		public Guid OrderId { get; set; }
 
-		[Required]
-		public Guid AccountId { get; set; }
+        [Required]
+        public Guid AccountId { get; set; }
 
 		[Required]
 		public DateTime DateService { get; set; }
@@ -24,9 +24,9 @@ namespace AspNetMVC.Models.Entity {
 		//已付款 1
 		//已取消 2
 
-		public byte Rate { get; set; }
+        public byte Rate { get; set; }
 
-		public string Comment { get; set; }
+        public string Comment { get; set; }
 
 		public Guid CouponID { get; set; }
 

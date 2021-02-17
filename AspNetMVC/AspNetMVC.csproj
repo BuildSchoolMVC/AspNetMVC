@@ -187,9 +187,9 @@
     <Compile Include="Migrations\202102160856081_v4.Designer.cs">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102170909343_Order.cs" />
-    <Compile Include="Migrations\202102170909343_Order.Designer.cs">
-      <DependentUpon>202102170909343_Order.cs</DependentUpon>
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.cs" />
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.Designer.cs">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
@@ -212,7 +212,7 @@
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\ProductPageService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\Entity\BaseEnity.cs" />
+    <Compile Include="Models\Entity\BaseEntity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
     <Compile Include="Models\UCleanerDBContext.cs" />
     <Compile Include="Models\CountyModels.cs" />
@@ -512,8 +512,8 @@
     <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102170909343_Order.resx">
-      <DependentUpon>202102170909343_Order.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102171045290_changeUserdifine Attributes.resx">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
