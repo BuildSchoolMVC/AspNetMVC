@@ -7,22 +7,31 @@ namespace AspNetMVC.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.UserDefinedProducts", "ServiceItems", c => c.String());
-            AlterColumn("dbo.UserDefinedProducts", "MemberId", c => c.Guid(nullable: false));
-            AlterColumn("dbo.UserDefinedProducts", "RoomType", c => c.Int(nullable: false));
-            AlterColumn("dbo.UserDefinedProducts", "Squarefeet", c => c.Int(nullable: false));
-            DropColumn("dbo.UserDefinedProducts", "ServiceItem");
-            DropColumn("dbo.UserDefinedProducts", "PhotoUrl");
+            CreateTable(
+                "dbo.UserDefinedProducts",
+                c => new
+                {
+                    UserDefinedId = c.Guid(nullable: false),
+                    MemberId = c.Guid(nullable: false),
+                    Name = c.String(),
+                    RoomType = c.Int(),
+                    ServiceItems = c.String(),
+                    Squarefeet = c.Int(),
+                    Hour = c.Single(nullable: false),
+                    Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    CreateTime = c.DateTime(nullable: false),
+                    CreateUser = c.String(),
+                    EditTime = c.DateTime(nullable: false),
+                    EditUser = c.String(),
+                })
+                .PrimaryKey(t => t.UserDefinedId);
+
         }
         
         public override void Down()
         {
-            AddColumn("dbo.UserDefinedProducts", "PhotoUrl", c => c.String());
-            AddColumn("dbo.UserDefinedProducts", "ServiceItem", c => c.String());
-            AlterColumn("dbo.UserDefinedProducts", "Squarefeet", c => c.String());
-            AlterColumn("dbo.UserDefinedProducts", "RoomType", c => c.String());
-            AlterColumn("dbo.UserDefinedProducts", "MemberId", c => c.Int(nullable: false));
-            DropColumn("dbo.UserDefinedProducts", "ServiceItems");
+            DropTable("dbo.UserDefinedProducts");
+
         }
     }
 }
