@@ -152,14 +152,14 @@ namespace AspNetMVC.Controllers
             {
                 if (_accountService.EmailIsExist(email))
                 {
-                    return Json(new { response = AccountService.AccountStatus.Exist.ToString() });
+                    return Json(new { response = "Exist" });
                 }
                 else
                 {
-                    return Json(new { response = AccountService.AccountStatus.NonExist.ToString() });
+                    return Json(new { response = "NonExist" });
                 }
             }
-            return Json(new { response = AccountService.AccountStatus.Error.ToString() });
+            return Json(new { response = "Error" });
         }
 
         [AllowAnonymous]
@@ -184,15 +184,6 @@ namespace AspNetMVC.Controllers
                 Expires = DateTime.Now.AddDays(-1)
             };
             Response.Cookies.Add(cookie_user);
-
-            //HttpCookie cookie_decode = new HttpCookie("decode_user");
-
-            //if (Request.Cookies["user"] != null)
-            //{
-            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            //    cookie_decode.Value = convertedResult;
-            //    Response.Cookies.Add(cookie_decode);
-            //}
 
             return RedirectToAction("Index", "Home");
         }

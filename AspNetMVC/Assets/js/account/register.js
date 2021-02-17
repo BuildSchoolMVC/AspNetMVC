@@ -65,24 +65,27 @@ const accountNameCheck = () => {
 }
 const emailCheck = () => {
     document.querySelector("#Email").addEventListener("blur", function () {
-        $.ajax({
-            url: "/Account/RegisterEmailIsExist",
+        let data = {
+            email: this.value
+        }
+        fetch("/Account/RegisterEmailIsExist",{
             method: "POST",
-            data: {
-                email: this.value
-            },
-            success: function (result) {
-                if (document.querySelector(".input.register-email").value.length > 0) {
-                    if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                })
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (document.querySelector(".input.register-email").value.length > 0) {
+                if (document.querySelector(".register-email").classList.contains("input-warn")) clearWarnInfo(emailInput)
 
-                    if (result.response == "exist") showWarnInfo(emailInput, "此信箱已被註冊過")
-                    else clearWarnInfo(emailInput)
-                }
-            },
-            error: function (err) {
-                console.log(err);
+                if (res.response == "Exist") showWarnInfo(emailInput, "此信箱已被註冊過")
+                else clearWarnInfo(emailInput)
             }
         })
+        .catch((err) => console.log(err))
     })
 }
 const submitRegister = () => {

@@ -42,9 +42,7 @@
 						<div class="key">
 							<i class="icon fas fa-thumbtack"></i>
 						</div>
-						<div class="value">
-							選擇打掃地址選擇打掃地址選擇打掃地址選擇打掃地址
-						</div>
+						<div class="value">選擇打掃地址</div>
 					</div>
 				</div>
 				<div class="item">
@@ -336,19 +334,21 @@
 					</form>
 				</div>
 				<div id="done" class="step done">
-					<div class="box">
-						<svg id="tick" viewBox="0 0 32 32">
-							<path d="M27,9 l-15,15 -7,-7"></path>
-						</svg>
+					<div class="my-container">
+						<div class="pic">
+							@* <svg id="tick" viewBox="0 0 32 32">
+								<path d="M27,9 l-15,15 -7,-7"></path>
+							</svg> *@
+							@Html.Partial("PartialView/_LoadingPartial")
+						</div>
 						<div class="text">
-							<div class="title">預約成功</div>
-							<p class="content">服務人員將在預約時間前1小時內與您聯繫
-							</p>
+							<div class="title">處理中</div>
+							<p class="content">請勿關閉此頁面</p>
 						</div>
 					</div>
 				</div>
 				<div class="step-buttons">
-					<button class="button" id="last-step">上一步</button>
+					<button class="button disable" id="last-step" disabled>上一步</button>
 					<button class="button" id="next-step">下一步</button>
 				</div>
 			</main>
