@@ -206,9 +206,6 @@
     <Compile Include="ViewModel\IndexPageViewModels.cs" />
     <Compile Include="ViewModel\AllProductViewModels.cs" />
     <Compile Include="ViewModel\MemberCenterViewModels.cs" />
-    <Compile Include="ViewModel\PackageProductListViewModel .cs" />
-    <Compile Include="ViewModel\PackageProductGridViewModel.cs" />
-    <Compile Include="ViewModel\UserDefinedProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UCleanerDbContextFile.mdf" />
