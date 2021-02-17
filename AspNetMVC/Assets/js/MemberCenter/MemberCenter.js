@@ -1,3 +1,8 @@
+var name_edit = document.getElementById("name");
+var phone_edit = document.getElementById("phone");
+var email_edit = document.getElementById("email");
+var address_edit = document.getElementById("address");
+var btn = document.getElementById("edit-btnblock");
 
 function display() {
     var fg = document.getElementById("Fg");
@@ -18,11 +23,8 @@ function remove(event) {
     let a = document.getElementById(`prod${num}`);
     $(a).remove();
 }
-    var name_edit = document.getElementById("name");
-    var phone_edit = document.getElementById("phone");
-    var email_edit = document.getElementById("email");
-    var address_edit = document.getElementById("address");
-    var btn = document.getElementById("edit-btnblock");
+
+
 function edit() {
     var name = $('#name').text().replace(/\s*/g, "");
     var phone = $('#phone').text().replace(/\s*/g, "");
@@ -49,6 +51,8 @@ function finish() {
                             修改密碼
                         </button>
                         <button class="btn btn-main" onclick="edit()" id="edit">編輯會員資料</button>`;
+    var username = document.getElementById("username");
+    username.innerHTML = `Hi!${name}您好!`;
 }
 function savepassword() {
     let new_pw = document.getElementById("new_password").value;

@@ -15,7 +15,7 @@
         <div class="menu-control">
             <button onclick="display()"><span id="direction">></span></button>
         </div>
-        <div class="username">
+        <div class="username" id="username">
             <p>Hi!小小兵您好!</p>
         </div>
         <div class="user-infro">
@@ -162,24 +162,24 @@
                                         <div class="num">0</div>
                                     </a>
                                 </li>
-                                <li class="nav-item btn page-title-btn" role="presentation">
+                                @*<li class="nav-item btn page-title-btn" role="presentation">
                                     <a class="nav-link btn page-title-btn" id="pills-profile-tab" data-toggle="pill"
                                        href="#pills-profile" role="tab" aria-controls="pills-profile"
                                        aria-selected="false">清潔計畫</a>
-                                </li>
+                                </li>*@
                                 <li class="nav-item btn page-title-btn" role="presentation">
                                     <a class="nav-link btn page-title-btn" id="pills-contact-tab" data-toggle="pill"
                                        href="#pills-contact" role="tab" aria-controls="pills-contact"
                                        aria-selected="false">已完成</a>
                                 </li>
-                                <li class="nav-item btn page-title-btn" role="presentation">
+                                @*<li class="nav-item btn page-title-btn" role="presentation">
                                     <a class="nav-link btn page-title-btn" id="pills-search-tab" data-toggle="pill"
                                        href="#pills-search" role="tab" aria-controls="pills-search"
                                        aria-selected="false">
                                         媒合中
                                         <div class="num">0</div>
                                     </a>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </div>
@@ -188,63 +188,148 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                              aria-labelledby="pills-home-tab">
                             <div class="page-body order-body">
-                                <div class="page-body-img">
-                                    <!-- <img src="~/Image/MemberCenter/hour-clean.png" alt=""> -->
-                                    <img src="~/Assets/images/hour-clean.png" alt="" />
+                                <div class="null-page d-none">
+                                    <div class="page-body-img">
+                                        <!-- <img src="~/Image/MemberCenter/hour-clean.png" alt=""> -->
+                                        <img src="~/Assets/images/hour-clean.png" alt="" />
+                                    </div>
+                                    <div class="page-body-text">
+                                        <p>您還沒有預約中的訂單唷</p>
+                                    </div>
+                                    <div class="page-body-btn">
+                                        <button class="btn" id="btn-model-space">
+                                            查看全部服務
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="page-body-text">
-                                    <p>您還沒有預約中的訂單唷</p>
-                                </div>
-                                <div class="page-body-btn">
-                                    <button class="btn" id="btn-model-space">
-                                        查看全部服務
-                                    </button>
-                                </div>
+                                <table class="order-detail">
+                                    <tr id="order1" class="order-dt">
+                                        <td class="order-date">
+                                            2020/12/24
+                                        </td>
+                                        <td class="order-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                        <td class="order-detail-table_prod_dt">
+                                            <div class="project-id">
+                                                <h5>鐘點清潔</h5>
+                                                <div class="customer">客製化</div>
+                                            </div>
+                                            <div class="order-time">
+                                                14:00~18:00
+                                            </div>
+                                            <div class="space-class">
+                                                辦公室
+                                            </div>
+                                        </td>
+                                        <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                    </tr>
+                                    <tr id="order2" class="order-dt">
+                                        <td class="order-date">
+                                            2020/12/24
+                                        </td>
+                                        <td class="order-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                        <td class="order-detail-table_prod_dt">
+                                            <div class="project-id">
+                                                <h5>鐘點清潔</h5>
+                                                <div class="customer">客製化</div>
+                                            </div>
+                                            <div class="order-time">
+                                                14:00~18:00
+                                            </div>
+                                            <div class="space-class">
+                                                辦公室
+                                            </div>
+                                        </td>
+                                        <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                    </tr>
+                                    <tr id="order3" class="order-dt">
+                                        <td class="order-date">
+                                            2020/12/24
+                                        </td>
+                                        <td class="order-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                        <td class="order-detail-table_prod_dt">
+                                            <div class="project-id">
+                                                <h5>鐘點清潔</h5>
+                                                <div class="customer">客製化</div>
+                                            </div>
+                                            <div class="order-time">
+                                                14:00~18:00
+                                            </div>
+                                            <div class="space-class">
+                                                辦公室
+                                            </div>
+                                        </td>
+                                        <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                    </tr>
+                                    <tr id="order4" class="order-dt">
+                                        <td class="order-date">
+                                            2020/12/24
+                                        </td>
+                                        <td class="order-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                        <td class="order-detail-table_prod_dt">
+                                            <div class="project-id">
+                                                <h5>鐘點清潔</h5>
+                                                <div class="customer">客製化</div>
+                                            </div>
+                                            <div class="order-time">
+                                                14:00~18:00
+                                            </div>
+                                            <div class="space-class">
+                                                辦公室
+                                            </div>
+                                        </td>
+                                        <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                         <!-- 清潔計畫 -->
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                        @*<div class="tab-pane fade" id="pills-profile" role="tabpanel"
                              aria-labelledby="pills-profile-tab">
-                            <div class="page-body order-body">
-                                <div class="page-body-img">
-                                    <!-- <img src="~/Image/MemberCenter/icon-4week.svg" alt=""> -->
-                                    <img src="~/Assets/images/icon-4week.svg" alt="" />
+                            <div class="page-body">
+                                <div class="d-none null-page">
+                                    <div class="page-body-img">
+                                         <img src="~/Image/MemberCenter/icon-4week.svg" alt=""> 
+                                        <img src="~/Assets/images/icon-4week.svg" alt="" />
+                                    </div>
+                                    <div class="page-body-text">
+                                        <p>
+                                            您還沒加入清潔計劃唷<br />加入清潔計畫，每次享有9折優惠唷
+                                        </p>
+                                    </div>
+                                    <div class="page-body-btn">
+                                        <button class="btn" id="btn-model-space">了解詳情</button>
+                                        <button class="btn btn-main">我要加入</button>
+                                    </div>
                                 </div>
-                                <div class="page-body-text">
-                                    <p>
-                                        您還沒加入清潔計劃唷<br />加入清潔計畫，每次享有9折優惠唷
-                                    </p>
-                                </div>
-                                <div class="page-body-btn">
-                                    <button class="btn" id="btn-model-space">了解詳情</button>
-                                    <button class="btn btn-main">我要加入</button>
-                                </div>
+                                
                             </div>
-                        </div>
+                        </div>*@
                         <!-- 已完成 -->
                         <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                              aria-labelledby="pills-contact-tab">
                             <div class="page-body order-body">
-                                <div class="page-body-img">
-                                    <img src="~/Assets/images/hour-clean.png" alt="" />
-                                </div>
-                                <div class="page-body-text">
-                                    <p>您還沒有已完成的訂單唷</p>
-                                </div>
-                                <div class="page-body-btn">
-                                    <button class="btn" id="btn-model-space">
-                                        查看全部服務
-                                    </button>
+                                <div class="null-page">
+                                    <div class="page-body-img">
+                                        <img src="~/Assets/images/hour-clean.png" alt="" />
+                                    </div>
+                                    <div class="page-body-text">
+                                        <p>您還沒有已完成的訂單唷</p>
+                                    </div>
+                                    <div class="page-body-btn">
+                                        <button class="btn" id="btn-model-space">
+                                            查看全部服務
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- 媒合中 -->
-                        <div class="tab-pane fade" id="pills-search" role="tabpanel"
+                        <!--<div class="tab-pane fade" id="pills-search" role="tabpanel"
                              aria-labelledby="pills-search-tab">
                             <div class="page-body order-body">
-                                <div class="page-body-img">
+                                <div class="page-body-img">-->
                                     <!-- <img src="~/Image/MemberCenter/hour-clean.png" alt=""> -->
-                                    <img src="~/Assets/images/hour-clean.png" alt="" />
+                                    <!--<img src="~/Assets/images/hour-clean.png" alt="" />
                                 </div>
                                 <div class="page-body-text">
                                     <p>您還沒有媒合中的訂單唷</p>
@@ -255,7 +340,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -337,7 +422,7 @@
                     <div class="page-title">
                         <h2>我的信用卡</h2>
                     </div>
-                    <div class="page-body credit-body">
+                    <div class="page-body null-page">
                         <button class="btn newCredit" onclick="display()">
                             新增信用卡
                             <div class="radius">
@@ -384,7 +469,9 @@
                                         <tr id="prod1">
                                             <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
                                             <td class="prod-detail-table_prod_dt">
-                                                <h5>辦公室打掃服務</h5>
+                                                <div class="prod_dt_title">
+                                                    <h5>辦公室打掃服務</h5>
+                                                </div>
                                                 <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
                                             </td>
                                             <td class="prod-detail-table_prod_price"><p>2000</p></td>
@@ -415,7 +502,9 @@
 
                                             <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
                                             <td class="prod-detail-table_prod_dt">
-                                                <h5>辦公室打掃服務</h5>
+                                                <div class="prod_dt_title">
+                                                    <h5>辦公室打掃服務</h5>
+                                                </div>
                                                 <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
                                             </td>
                                             <td class="prod-detail-table_prod_price"><p>2000</p></td>
@@ -429,7 +518,9 @@
 
                                             <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
                                             <td class="prod-detail-table_prod_dt">
-                                                <h5>辦公室打掃服務</h5>
+                                                <div class="prod_dt_title">
+                                                    <h5>辦公室打掃服務</h5>
+                                                </div>
                                                 <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
                                             </td>
                                             <td class="prod-detail-table_prod_price"><p>2000</p></td>

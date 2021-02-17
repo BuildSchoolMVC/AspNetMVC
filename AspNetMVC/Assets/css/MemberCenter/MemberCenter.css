@@ -4,18 +4,20 @@
     list-style: none;
 }
 :root {
-    --main: #C09AC2;
-    
+    --main: rgb(98,178,243);
 }
 .wrap {
     width: 100%;
     height: 900px;
-    background: linear-gradient(rgb(240, 230, 241), rgb(255, 255, 255));
+    background: linear-gradient(rgb(182, 219, 248), rgb(255, 255, 255));
     position: relative;
     margin-top: 50px;
 }
 *::-webkit-scrollbar{
     width: 0px;
+}
+table {
+    width:100%;
 }
 .functionpage {
     width: 300px;
@@ -63,7 +65,9 @@
 .row {
     position: relative;
 }
-
+.table th {
+    padding:0.75rem 0px;
+}
 .menu-control button {
     display: block;
     width: 15px;
@@ -126,10 +130,7 @@
     margin: auto;
     margin-bottom: 30px;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    
     padding: 0px 10px;
 }
 
@@ -179,27 +180,28 @@ p {
     margin-bottom: 20px;
     margin-top: 20px;
     box-sizing: border-box;
-    display: flex;
+    
 }
 
 .page-title-btn-block .nav {
+    width:100%;
     display: flex;
     justify-content: center;
+    flex-wrap:unset;
 }
 
 .page-title-btn-block .page-title-btn {
-    margin: auto;
-    width: 150px;
     height: 35px;
     border-radius: 20px;
     font-size: 14px;
     text-align: center;
-    padding: 4px 16px;
-    margin: 0px 0px 0px 0px;
     display: flex;
     flex-direction: row;
+    justify-content:space-around;
 }
-
+.page-title-btn .nav-link {
+    
+}
 .nav-item {
     padding: 0px;
 }
@@ -227,7 +229,6 @@ p {
     /* color: white; */
     color: rgb(0, 123, 255);
     background-color: #eeeeee;
-    margin: 3.5px 0px 3.5px 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -311,8 +312,12 @@ p {
     padding: 40px 0px;
 }
 
-.order-body {
+.null-page {
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .discount-body {
@@ -355,7 +360,7 @@ p {
 
 .prod-form-header td {
     border: 1px solid #cccccc;
-    background-color: #e0ace1;
+    background-color:#eeeeee;
     text-align: center;
     font-size: 16px;
 }
@@ -514,13 +519,44 @@ h5 {
     display:flex;
     flex-direction:row;
     justify-content:space-between;
-    border-bottom-style: double;
-    border-bottom-color: #C09AC2;
+    border-bottom-style: solid;
+    border-bottom-color: #cccccc;
 }
 .customer {
-    width:200px;
-    background-color:#C09AC2;
+    width:50px;
+    background-color:var(--main);
+    color:#ffffff;
     border-radius:10px;
+    text-align:center;
+    font-size:8px;
+    height:20px;
+      
+}
+.order-detail-table_prod_img img{
+    border-radius:50px;
+}
+.order-detail-table_prod_img {
+    width:75px;
+}
+.order-date {
+    margin-left:10px;
+    position:absolute;
+}
+.project-id {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.order-dt {
+    position:relative;
+    border-bottom:1px solid #aaaaaa;
+    
+}
+    .order-dt:nth-last-child(1) {
+        border-bottom:unset;
+    }
+.order-detail-table_prod_img, .order-detail-table_prod_dt, .prod-detail-table_prod_price {
+   padding-top:25px;
 }
 @media screen and (min-width: 768px) {
     .functionpage {
@@ -556,6 +592,7 @@ h5 {
     .page-title-btn-block .nav-pills {
         width: 100%;
         padding: 0px;
+        
     }
 
     .num {
@@ -600,5 +637,11 @@ h5 {
 
     .btn-fav {
         margin: 5px 20%;
+    }
+    .order-body{
+        padding:0px 40px;
+    }
+    .order-detail-table_prod_dt {
+        padding:0px 40px;
     }
 }

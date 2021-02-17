@@ -188,6 +188,7 @@
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
     <Compile Include="Models\Entity\Image.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="ViewModels\DetailPageViewModels.cs" />
     <Compile Include="ViewModels\IndexPageViewModels.cs" />
     <Compile Include="ViewModels\AllProductViewModels.cs" />
+    <Compile Include="ViewModels\MemberCenterViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UCleanerDbContextFile.mdf" />
@@ -481,6 +483,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
+    <Folder Include="Models\Member\" />
+    <Folder Include="Models\ProductPage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
