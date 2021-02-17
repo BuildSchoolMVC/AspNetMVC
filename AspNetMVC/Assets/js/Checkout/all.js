@@ -361,25 +361,25 @@ $nextStep.on('click', function () {
     case 1:
       enableBtn($lastStep);
       break;
-    case 3:
-      disableBtn($lastStep);
-      disableBtn($nextStep);
-      $.ajax({
-        type: 'POST',
-        url: '/Checkout/GetOrder',
-        data: {
-          myname: 'test5678222'
-        },
-        success: (message) => {
-          $('#done .pic').html(`
-            <svg id="tick" viewBox="0 0 32 32">
-              <path d="M27,9 l-15,15 -7,-7"></path>
-            </svg>
-          `);
-          $('#done .title').text(message.title);
-          $('#done .content').text(message.content);
-        },
-      });
+      case 3:
+      //disableBtn($lastStep);
+      //disableBtn($nextStep);
+      //$.ajax({
+      //  type: 'POST',
+      //  url: '/Checkout/GetOrder',
+      //  data: {
+      //    myname: 'test5678222'
+      //  },
+      //  success: (message) => {
+      //    $('#done .pic').html(`
+      //      <svg id="tick" viewBox="0 0 32 32">
+      //        <path d="M27,9 l-15,15 -7,-7"></path>
+      //      </svg>
+      //    `);
+      //    $('#done .title').text(message.title);
+      //    $('#done .content').text(message.content);
+      //  },
+      //});
       break;
   }
   $barFront.css('width', `${33.333 * state}%`);
