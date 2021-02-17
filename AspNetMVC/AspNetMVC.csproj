@@ -223,6 +223,7 @@
     <Compile Include="ViewModels\DetailPageViewModels.cs" />
     <Compile Include="ViewModels\IndexPageViewModels.cs" />
     <Compile Include="ViewModels\AllProductViewModels.cs" />
+    <Compile Include="ViewModels\MemberCenterViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\UCleanerDbContextFile.mdf" />
