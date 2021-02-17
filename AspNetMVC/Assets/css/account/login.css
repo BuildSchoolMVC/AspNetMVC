@@ -230,12 +230,12 @@
 	display: flex
 }
 
-.login-modal .other .box {
+.login-modal .other .form-group {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
 
-.login-modal .other .box a {
+.login-modal .other .form-group a {
 	display: block
 }

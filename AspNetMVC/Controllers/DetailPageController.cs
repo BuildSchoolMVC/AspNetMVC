@@ -16,29 +16,33 @@ namespace AspNetMVC.Controllers
         }
 
         // GET: DetailPage
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
             var result = _detailPageService.GetSingleProduct(id);
 
-            if (result.Name != "") 
-            { 
+            if (result != null) 
+            {
+                    ViewBag.Comments = _detailPageService.GetComment(id);
                 return View(result);
             }
             else 
             {
                 return View("Error");
             }
-
         }
 
-        //public ActionResult Create() {
-        //    _detailPageService.CreateComment("jacko1114", 1, 4,"服務非常周到!!!");
-        //    _detailPageService.CreateComment("jacko1114", 2, 5, "不管相信這是我的家!!!");
-        //    _detailPageService.CreateComment("jacko1114", 4, 5, "準備預約下一次!!!");
-        //    _detailPageService.CreateComment("jacko1114", 6, 3, "還行。");
-        //    _detailPageService.CreateComment("jacko1114", 8, 2, "普通!!!");
-        //    _detailPageService.CreateComment("jacko1114", 5, 4, "讚!!!");
-        //    return null;
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AddComment(int PackageProductId,int StarCount,string Comment) {
+            _detailPageService.CreateComment(Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]), PackageProductId, StarCount, Comment);
+
+            return Json(new { response = "成功新增評論!"});
+        }
+
+        public ActionResult GetLatestComment(int packageProductId)
+        {
+            var result = _detailPageService.GetComment(packageProductId).OrderByDescending(x=>x.CreateTime).First();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

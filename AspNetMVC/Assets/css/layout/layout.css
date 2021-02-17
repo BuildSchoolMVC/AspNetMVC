@@ -1622,8 +1622,7 @@ img {
     animation: fading 1.2s linear 1.1s infinite
 }
 
-
-.box .finished {
+.finished {
     width: 100%;
     height: 100%;
     display: flex;
@@ -1635,20 +1634,22 @@ img {
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--light);
+    position: absolute;
+    z-index: 100;
 }
 
-.box .finished.hide {
+.finished.hide {
     opacity: 0;
     pointer-events: none;
 }
 
-.box .finished img {
+.finished img {
     width: 100%;
     border-radius: 50%;
     opacity: .8;
 }
 
-.box .finished p {
+.finished p {
     color: var(--dark);
 }
 
@@ -1788,7 +1789,7 @@ img {
 
     .section_collapse-zone {
         width: 100%;
-        z-index: 2
+        z-index: 15
     }
 
     .section_collapse-zone.open {

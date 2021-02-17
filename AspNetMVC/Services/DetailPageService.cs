@@ -20,36 +20,39 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public DetailPageViewModel GetSingleProduct(int id) 
+        public DetailPageViewModel GetSingleProduct(int? id) 
         {
+            if(id != null)
+            {
+                var result = _repository.GetAll<PackageProduct>().FirstOrDefault(x=>x.PackageProductId == id);
 
-            var result = _repository.GetAll<PackageProduct>().FirstOrDefault(x=>x.PackageProductId == id);
-
-            if (result != null) {
-                var detailPageVM = new DetailPageViewModel
+                if (result != null) {
+                    var detailPageVM = new DetailPageViewModel
+                    {
+                        Id = result.PackageProductId,
+                        Description = result.Description,
+                        Hour = result.Hour,
+                        Name = result.Name,
+                        PhotoUrl = result.PhotoUrl,
+                        Price = result.Price.ToString("###,###"),
+                        ServiceItem = result.ServiceItem.Replace("+","、"),
+                        RoomName = RoomTypeSwitch(result.RoomType),
+                        RoomName2 = RoomTypeSwitch(result.RoomType2),
+                        RoomName3 = RoomTypeSwitch(result.RoomType3),
+                        SquarefeetName = SquarefeetSwitch(result.Squarefeet),
+                        SquarefeetName2 = SquarefeetSwitch(result.Squarefeet2),
+                        SquarefeetName3 = SquarefeetSwitch(result.Squarefeet3)
+                    };
+                    return detailPageVM;
+                }
+                else
                 {
-                    Id = result.PackageProductId,
-                    Description = result.Description,
-                    Hour = result.Hour,
-                    Name = result.Name,
-                    PhotoUrl = result.PhotoUrl,
-                    Price = result.Price.ToString("###,###"),
-                    ServiceItem = result.ServiceItem.Replace("+","、"),
-                    RoomName = RoomTypeSwitch(result.RoomType),
-                    RoomName2 = RoomTypeSwitch(result.RoomType2),
-                    RoomName3 = RoomTypeSwitch(result.RoomType3),
-                    SquarefeetName = SquarefeetSwitch(result.Squarefeet),
-                    SquarefeetName2 = SquarefeetSwitch(result.Squarefeet2),
-                    SquarefeetName3 = SquarefeetSwitch(result.Squarefeet3)
-                };
-                return detailPageVM;
+                    return null;
+                }
             }
             else
             {
-                return new DetailPageViewModel 
-                {
-                    Name = ""
-                };
+                return null;
             }
         }
 
@@ -68,9 +71,9 @@ namespace AspNetMVC.Services
                         AccountId = AccountId,
                         PackageProductId = productId,
                         CreateTime = DateTime.UtcNow.AddHours(8),
-                        CreateUser = "jacko1114",
+                        CreateUser = account,
                         EditTime = DateTime.UtcNow.AddHours(8),
-                        EditUser = "jacko1114",
+                        EditUser = account,
                         Star = star,
                         Content = comment
                     });
@@ -80,6 +83,7 @@ namespace AspNetMVC.Services
                 else
                 {
                     result.IsSuccessful = false;
+                    result.MessageInfo = "查無此人";
                 }
                
             }
@@ -89,20 +93,27 @@ namespace AspNetMVC.Services
             }
         }
 
-        public List<CommentViewModel> GetComment(int productId) 
+        public List<CommentViewModel> GetComment(int? productId) 
         {
-            var result = from comment in _context.Comments
-                         where comment.PackageProductId == productId
-                         join account in _context.Accounts on comment.AccountId equals account.AccountId
-                         select new CommentViewModel
-                         {
-                             AccountName = account.AccountName,
-                             Content = comment.Content,
-                             CreateTime = comment.CreateTime,
-                             Star = comment.Star
-                         };
+            if(productId != null)
+            {
+                var result = from comment in _context.Comments
+                             where comment.PackageProductId == productId
+                             join account in _context.Accounts on comment.AccountId equals account.AccountId
+                             select new CommentViewModel
+                             {
+                                 AccountName = account.AccountName,
+                                 Content = comment.Content,
+                                 CreateTime = comment.CreateTime,
+                                 Star = comment.Star
+                             };
 
-            return result.ToList();        
+                return result.OrderByDescending(x => x.CreateTime).ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private string RoomTypeSwitch(int? value) {

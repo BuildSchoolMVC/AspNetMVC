@@ -129,27 +129,7 @@ const submitRegister = () => {
         }
     })
 }
-const judgeCharacter = (str, judge) => {
-    let result;
-    switch (judge) {
-        case "capital":
-            result = str.match(/^.*[A-Z]+.*$/);
-            break;
-        case "lowercase":
-            result = str.match(/^.*[a-z]+.*$/);
-            break;
-        case "english":
-            result = str.match(/^.*[a-zA-Z]+.*$/);
-            break;
-        case "number":
-            result = str.match(/^.*[0-9]+.*$/);
-            break;
-        case "other":
-            result = str.match(/^.*[^0-9A-Za-z]+.*$/);
-            break;
-    }
-    return result == null ? false : true;
-}
+
 const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");

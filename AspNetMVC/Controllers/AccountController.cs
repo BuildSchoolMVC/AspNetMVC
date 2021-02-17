@@ -51,7 +51,7 @@ namespace AspNetMVC.Controllers
                             HttpCookie cookie_user = new HttpCookie("user");
                             var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
                             var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-                            cookie_user.Values["user_id"] = encryptedValue;
+                            cookie_user.Values["user_accountname"] = encryptedValue;
 
                             if (model.RememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
 
@@ -189,7 +189,7 @@ namespace AspNetMVC.Controllers
 
             //if (Request.Cookies["user"] != null)
             //{
-            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_id"]);
+            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             //    cookie_decode.Value = convertedResult;
             //    Response.Cookies.Add(cookie_decode);
             //}
