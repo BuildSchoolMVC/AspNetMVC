@@ -1,5 +1,6 @@
 ﻿using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
+using AspNetMVC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace AspNetMVC.Controllers {
 	public class CheckoutController : Controller {
 		// GET: Checkout
 		public ActionResult Index() {
+			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+			
 			return View();
 		}
 		public ActionResult GetDistricts() {
@@ -37,12 +40,12 @@ namespace AspNetMVC.Controllers {
 			//	UserFavorite obj = new UserFavorite {
 			//		FavoriteId = Guid.NewGuid(),
 			//		AccountId = Guid.NewGuid(),
-			//		UserDefinedId = Guid.NewGuid(),
-			//		PackageProductId = 3,
+			//		UserDefinedId = null,
+			//		PackageProductId = 6,
 			//		IsPakage = true,
 			//		IsDelete = false,
-			//		CreateTime = DateTime.UtcNow.AddHours(8),
-			//		EditTime = DateTime.UtcNow.AddHours(8),
+			//		CreateTime = DateTime.Now,
+			//		EditTime = DateTime.Now,
 			//		CreateUser = "",
 			//		EditUser = ""
 			//	};

@@ -9,7 +9,7 @@ namespace AspNetMVC.Models.Entity {
 		[Key]
 		public Guid FavoriteId { get; set; }
 		[Required]
-		public Guid AccountId { get; set; }
+		public string AccountName { get; set; }
 
 		public Guid? UserDefinedId { get; set; }
 
