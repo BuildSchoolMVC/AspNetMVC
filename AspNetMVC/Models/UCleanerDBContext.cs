@@ -30,5 +30,7 @@ namespace AspNetMVC.Models
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+
+        public System.Data.Entity.DbSet<AspNetMVC.Models.Entity.MemberMd> MemberMds { get; set; }
     }
 }
