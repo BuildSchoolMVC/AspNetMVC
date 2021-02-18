@@ -40,7 +40,7 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name,Guid TempGuid)
+        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name, Guid TempGuid)
         {
 
             var result = new OperationResult();
@@ -49,7 +49,7 @@ namespace AspNetMVC.Services
 
                 _repository.Create(new UserDefinedProduct
                 {
-                    UserDefinedProductId = new Guid(),
+                    UserDefinedProductId = Guid.NewGuid(),
                     UserDefinedId = TempGuid,
                     MemberId = account,
                     ServiceItems = model.ServiceItem,
@@ -62,9 +62,7 @@ namespace AspNetMVC.Services
                     CreateUser = name,
                     EditTime = DateTime.UtcNow.AddHours(8),
                     EditUser = name,
-
-                }
-                    ); 
+                });
                 _context.SaveChanges();
                 result.IsSuccessful = true;
             }
@@ -77,7 +75,7 @@ namespace AspNetMVC.Services
         }
         public float countHour(int RoomType, int Squarefeet)
         {
-            float hour;  
+            float hour;
             float basehour = 1;
             float unit = 0.5F;
             if (RoomType <= 2)
