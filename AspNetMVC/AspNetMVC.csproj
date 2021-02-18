@@ -197,7 +197,7 @@
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Models\Entity\UserFavorite.cs" />
-    <Compile Include="Services\DetailPageService.cs" />
+    <Compile Include="Services\DetailService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -490,8 +490,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Js\QA\" />
-    <Folder Include="Models\Member\" />
-    <Folder Include="Models\ProductPage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

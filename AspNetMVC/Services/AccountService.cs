@@ -35,33 +35,53 @@ namespace AspNetMVC.Services
         {
             var result = new OperationResult();
 
-            try
+            using (var transcation = _context.Database.BeginTransaction())
             {
-                _repository.Create(new Account
+                try
                 {
-                    AccountId = Guid.NewGuid(),
-                    AccountName = account.Name,
-                    Address = account.Address,
-                    Password = Helpers.ToMD5(account.Password),
-                    Email = account.Email,
-                    EmailVerification = false,
-                    Gender = account.Gender, // 1 男 2 女 3 其他
-                    Phone = account.Phone,
-                    Authority = 3, //預設 3 : 一般會員
-                    CreateTime = DateTime.UtcNow.AddHours(8),
-                    CreateUser = account.Name,
-                    EditTime = DateTime.UtcNow.AddHours(8),
-                    EditUser = account.Name,
-                    Remark = ""
-                });
-                _context.SaveChanges();
-                result.IsSuccessful = true;
+                    var user = new Account
+                    {
+                        AccountId = Guid.NewGuid(),
+                        AccountName = account.Name,
+                        Address = account.Address,
+                        Password = Helpers.ToMD5(account.Password),
+                        Email = account.Email,
+                        EmailVerification = false,
+                        Gender = account.Gender, // 1 男 2 女 3 其他
+                        Phone = account.Phone,
+                        Authority = 3, //預設 3 : 一般會員
+                        CreateTime = DateTime.UtcNow.AddHours(8),
+                        CreateUser = account.Name,
+                        EditTime = DateTime.UtcNow.AddHours(8),
+                        EditUser = account.Name,
+                        Remark = ""
+                    };
+                    _repository.Create(user);
+                    _context.SaveChanges();
+
+                    var member = new MemberMd
+                    {
+                        AccountId = user.AccountId,
+                        CreateTime = user.CreateTime,
+                        CreateUser = user.CreateUser,
+                        EditTime = user.EditTime,
+                        EditUser = user.EditUser,
+                        Name = user.AccountName
+                    };
+                    _repository.Create(member);
+                    _context.SaveChanges();
+
+                    result.IsSuccessful = true;
+                    transcation.Commit();
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    transcation.Rollback();
+                }
             }
-            catch(Exception ex)
-            {
-                result.IsSuccessful = false;
-                result.Exception = ex;
-            }
+                
         }
 
         /// <summary>

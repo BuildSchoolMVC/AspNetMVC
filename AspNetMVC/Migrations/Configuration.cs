@@ -98,7 +98,7 @@ namespace AspNetMVC.Migrations
 			//  new UserFavorite { FavoriteId = Guid.NewGuid(), AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 3, IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
 			//new UserFavorite { AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 4 , IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
 			//new UserFavorite { AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 5, IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
-			);
+			//);
 		}
     }
 }

@@ -151,6 +151,16 @@ const clearWarnInfo = (ele) => {
     }
     ele.parentNode.querySelector("p").textContent = ""
 }
+const toSocialLogin = () => {
+    document.querySelector(".btn_social-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("pre"))
+    })
+}
+const fromSocialLogin = () => {
+    document.querySelector(".btn_website-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.remove("pre"))
+    })
+}
 
 function GoogleSigninInit() {
     gapi.load('auth2', function () {
@@ -159,6 +169,7 @@ function GoogleSigninInit() {
         })
     })
 }
+
 function GoogleLogin() {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signIn()
@@ -201,6 +212,8 @@ window.addEventListener("load", function () {
     accountNameCheck();
     emailCheck();
     submitRegister();
+    toSocialLogin();
+    fromSocialLogin();
 
     document.querySelector("#btnGoogleSignIn").addEventListener("click", GoogleLogin);
 })

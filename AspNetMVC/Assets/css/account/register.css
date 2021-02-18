@@ -5,6 +5,10 @@
 p {
     margin: 0;
 }
+.w-60{
+    width: 60%;
+    margin: 50px auto 0;
+}
 
 .toast-top-center .toast-message {
     font-size: 20px;
@@ -86,7 +90,7 @@ p {
     overflow: hidden;
 }
 
-.register-modal .form .social-login,
+.register-modal .form .social-login-step,
 .register-modal .form .step1,
 .register-modal .form .step2 {
     width: 100%;
@@ -94,32 +98,45 @@ p {
     transition: .4s ease-in;
 }
 
-/*.register-modal .form .social-login,*/
+.register-modal .form .social-login-step,
 .register-modal .form .step2 {
     opacity: 0;
 }
 
-.register-modal .form .social-login.pre,
-.register-modal .form .step1.pre,
-.register-modal .form .step2.pre {
+.register-modal .form .social-login-step,
+.register-modal .form .step1,
+.register-modal .form .step2 {
     transform: translateX(-100%);
 }
 
-.register-modal .form .social-login{
+.register-modal .form .social-login-step.pre,
+.register-modal .form .step1.pre,
+.register-modal .form .step2.pre {
+    transform: translateX(0%);
+}
+
+.register-modal .form .social-login-step.pre {
+    opacity: 1;
+}
+
+.register-modal .form .social-login-step {
     display: flex;
     justify-content: center;
-    flex-direction:column;
+    flex-direction: column;
 }
-.register-modal .form .social-login h2{
+
+.register-modal .form .social-login-step h2{
     margin-bottom: 50px;
     text-align:center;
 }
-.register-modal .form .social-login .social-btn-grouping {
+
+.register-modal .form .social-login-step .social-btn-grouping {
     display: flex;
     align-items: center;
     flex-direction:column;
 }
-.register-modal .form .social-login .social-btn-grouping button {
+
+.register-modal .form .social-login-step .social-btn-grouping button {
     outline: none;
     border: none;
     border-radius: 5px;
@@ -133,18 +150,25 @@ p {
     font-size: 24px;
     text-align:left;
     padding: 0 10px 0 60px;
+    box-shadow : 1px 1px 10px #adadad80;
 }
-.register-modal .form .social-login .social-btn-grouping #btnGoogleSignIn {
+.register-modal .form .social-login-step btn_website-login{
+    margin-top: 50px;
+    width: 80%;
+}
+
+.register-modal .form .social-login-step .social-btn-grouping #btnGoogleSignIn {
     background: #CE4535;
 }
-.register-modal .form .social-login .social-btn-grouping #btnFacebookSignIn {
+
+.register-modal .form .social-login-step .social-btn-grouping #btnFacebookSignIn {
     background: #1778F2;
 }
-.register-modal .form .social-login .social-btn-grouping #btnLineSignIn {
+.register-modal .form .social-login-step .social-btn-grouping #btnLineSignIn {
     background: #1ACA4D;
 }
 
-.register-modal .form .social-login .social-btn-grouping img {
+.register-modal .form .social-login-step .social-btn-grouping img {
     width: 50px;
     background: var(--light);
     object-fit:cover;
@@ -294,6 +318,9 @@ p {
     border: none;
     color: #ffffff;
     position:relative
+}
+.register-modal .form .btn_social-login {
+    background-color: var(--color-primary-dark);
 }
 
 .register-modal .form .button:hover {
