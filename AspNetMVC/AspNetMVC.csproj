@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Imgur.API, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Imgur.API.5.0.0\lib\netstandard2.0\Imgur.API.dll</HintPath>
@@ -82,6 +82,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -166,11 +168,13 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberCenterController.cs" />
+    <Compile Include="Controllers\MemberCRUDController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MemberContext.cs" />
     <Compile Include="Migrations\202102150947263_init.cs" />
     <Compile Include="Migrations\202102150947263_init.Designer.cs">
       <DependentUpon>202102150947263_init.cs</DependentUpon>
@@ -195,7 +199,12 @@
     <Compile Include="Migrations\202102171236548_OrderV2.Designer.cs">
       <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102181026329_InitialDB.cs" />
+    <Compile Include="Migrations\202102181026329_InitialDB.Designer.cs">
+      <DependentUpon>202102181026329_InitialDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Accounts.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -208,7 +217,6 @@
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
-    <Compile Include="Models\MemberContext.cs" />
     <Compile Include="Services\DetailPageService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
@@ -490,6 +498,11 @@
     <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
+    <Content Include="Views\MemberCRUD\Create.cshtml" />
+    <Content Include="Views\MemberCRUD\Delete.cshtml" />
+    <Content Include="Views\MemberCRUD\Details.cshtml" />
+    <Content Include="Views\MemberCRUD\Edit.cshtml" />
+    <Content Include="Views\MemberCRUD\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
@@ -523,6 +536,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102171236548_OrderV2.resx">
       <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102181026329_InitialDB.resx">
+      <DependentUpon>202102181026329_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -29,6 +29,6 @@ namespace AspNetMVC.ViewModel
     }
     public class Favorites
     { 
-        public Array Favorites { get; set; }
+        public Array _Favorites { get; set; }
     }
 }

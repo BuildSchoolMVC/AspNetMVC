@@ -23,10 +23,10 @@ namespace AspNetMVC.Services
             var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
             var result = new MemberCenterViewModels()
             {
-                name = source.AccountName,
-                phone = source.Phone,
-                mail = source.Email,
-                address = source.Address
+                Name = source.AccountName,
+                Phone = source.Phone,
+                Mail = source.Email,
+                Address = source.Address
             };
             return result;
         }

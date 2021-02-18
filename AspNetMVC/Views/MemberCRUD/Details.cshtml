@@ -1,0 +1,82 @@
+﻿@model AspNetMVC.Models.Entity.MemberMd
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MemberMd</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreditNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreditNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SafeNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SafeNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EditTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EditTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EditUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EditUser)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AccountId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
