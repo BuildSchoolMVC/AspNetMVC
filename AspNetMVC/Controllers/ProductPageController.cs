@@ -14,11 +14,13 @@ namespace AspNetMVC.Controllers
     {
         private readonly ProductPageService _productPageService;
         private readonly AccountService _accountService;
+        private readonly Helpers _helpers;
 
         public ProductPageController()
         {
             _productPageService = new ProductPageService();
             _accountService = new AccountService();
+            _helpers = new Helpers();
         }
         // GET: ProductPage
         public ActionResult Index()
@@ -32,22 +34,24 @@ namespace AspNetMVC.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult CreatePackage( UserDefinedAllViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        foreach (var i in model.UserDefinedAlls)
-        //        {
-        //            var result = _productPageService.CreateUserDefinedPackageData(i);
-        //        }
-        //    }
-        //    else
-        //    {
+        [HttpPost]
+        public ActionResult CreatePackage(UserDefinedAllViewModel model)
+        {
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            var tempName= _accountService.GetAccountId(UserName);
+            var TempGuid = Guid.NewGuid();
 
-        //    }
-        //    return View();
-        //}
+            if (ModelState.IsValid)
+            {
+                foreach (var i in model.UserDefinedAlls)
+                {
+                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName, TempGuid);
+                }
+                
+            }
+
+            return View();
+        }
 
 
     }

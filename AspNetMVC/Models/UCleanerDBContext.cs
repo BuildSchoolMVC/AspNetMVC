@@ -25,6 +25,7 @@ namespace AspNetMVC.Models
         public virtual DbSet<Comment> Comments { get; set; }
 		public virtual DbSet<Order> Orders { get; set; }
 		public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+		public virtual DbSet<UserFavorite> UserFavorites { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

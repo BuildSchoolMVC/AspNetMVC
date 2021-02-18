@@ -44,10 +44,11 @@ namespace AspNetMVC.ViewModels
 
     public class UserDefinedAll
     {
+        public string Title { get; set; }
         public int RoomType { get; set; }
         public string ServiceItem { get; set; }
         public int Squarefeet { get; set; }
-
+        
     }
 
 }
