@@ -11,9 +11,9 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public Guid AccountId { get; set; }
 
-		public Guid UserDefinedId { get; set; }
+		public Guid? UserDefinedId { get; set; }
 
-		public int PackageProductId { get; set; }
+		public int? PackageProductId { get; set; }
 
 		[Required]
 		public bool IsPakage { get; set; }

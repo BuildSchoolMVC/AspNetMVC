@@ -33,10 +33,23 @@ namespace AspNetMVC.Controllers {
 			return Json(new { title = "預約成功", content = "服務人員將在預約時間前1小時內與您聯繫" });
 		}
 		public ActionResult TestLike() {
-			//using (var context = new ) {
-			var obj = new UserFavorite { CreateTime = DateTime.Now };
+			//using (var context = new UCleanerDBContext()) {
+			//	UserFavorite obj = new UserFavorite {
+			//		FavoriteId = Guid.NewGuid(),
+			//		AccountId = Guid.NewGuid(),
+			//		UserDefinedId = Guid.NewGuid(),
+			//		PackageProductId = 3,
+			//		IsPakage = true,
+			//		IsDelete = false,
+			//		CreateTime = DateTime.UtcNow.AddHours(8),
+			//		EditTime = DateTime.UtcNow.AddHours(8),
+			//		CreateUser = "",
+			//		EditUser = ""
+			//	};
+			//	context.UserFavorites.Add(obj);
+			//	context.SaveChanges();
 			//}
-			return Json("");
+			return Json("", JsonRequestBehavior.AllowGet);
 		}
 	}
 }
