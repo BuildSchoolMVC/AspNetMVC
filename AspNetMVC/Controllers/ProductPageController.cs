@@ -39,13 +39,13 @@ namespace AspNetMVC.Controllers
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             var tempName= _accountService.GetAccountId(UserName);
-
+            var TempGuid = Guid.NewGuid();
 
             if (ModelState.IsValid)
             {
                 foreach (var i in model.UserDefinedAlls)
                 {
-                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName);
+                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName, TempGuid);
                 }
                 
             }

@@ -40,13 +40,13 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name)
+        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name,Guid TempGuid)
         {
 
             var result = new OperationResult();
             try
             {
-                var TempGuid = Guid.NewGuid();
+               
                 _repository.Create(new UserDefinedProduct
                 {
                     UserDefinedId = TempGuid,
