@@ -10,7 +10,7 @@ namespace AspNetMVC.Models.Entity {
 		public Guid OrderId { get; set; }
 
         [Required]
-        public Guid AccountId { get; set; }
+        public string AccountName { get; set; }
 
 		[Required]
 		public DateTime DateService { get; set; }
