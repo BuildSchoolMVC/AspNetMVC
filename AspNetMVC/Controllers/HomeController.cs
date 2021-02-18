@@ -15,13 +15,13 @@ namespace AspNetMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IndexPageService _datas;
+        private readonly IndexService _datas;
 
         private readonly CustomerServiceService _customerServiceService;
 
         public HomeController()
         {
-            _datas = new IndexPageService();
+            _datas = new IndexService();
             _customerServiceService = new CustomerServiceService();
         }
         public ActionResult Index()

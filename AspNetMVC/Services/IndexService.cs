@@ -7,7 +7,7 @@ using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Services
 {
-    public class IndexPageService
+    public class IndexService
     {
         public List<ImageCardViewModel> ImageCardData { get; set; }
 
@@ -17,7 +17,7 @@ namespace AspNetMVC.Services
 
         public List<ServiceItemsViewModel> ServicesData { get; set; }
 
-        public IndexPageService()
+        public IndexService()
         {
             ImageCardData = new ImageCardRepository().CreateImageCardList();
 

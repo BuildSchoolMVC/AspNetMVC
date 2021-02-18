@@ -1,9 +1,17 @@
 ﻿.section_register-email-activation {
-    padding: 150px 0 300px;
+    padding: 150px 0 200px;
+}
+.section_register-email-activation .wrap{
+    max-width: 40%;
+    border: 2px solid rgba(138, 127, 127, 0.50);
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 100px 0;
+    background: 10px;
 }
 
 .section_register-email-activation h1,
-.section_register-email-activation p{
+.section_register-email-activation p {
     text-align: center;
 }
 
@@ -11,7 +19,7 @@
     padding: 10px 0;
 }
 .section_register-email-activation .btns-group {
-    padding: 20px 0;
+    padding: 70px 0;
     display: flex;
     justify-content: center;
 }

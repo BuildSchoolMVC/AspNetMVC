@@ -179,11 +179,10 @@ const swipeDeleteEffect = () => {
                     let index = favorites.findIndex(x => x.uid == item.dataset.id);
                     if (index != -1) {
                         favorites.splice(index, 1);
-                        localStorage.setItem("favorites", JSON.stringify(favorites));
                         countFavoritesAmount(favorites.length);
                         checkoutBtnControl();
                         toggleTip();
-                        if (favorites.length == 0) favoritesStatus("你目前的收藏是空的");
+                        if (document.querySelectorAll(".favorites-product-item").length == 0) favoritesStatus("你目前的收藏是空的");
                         toastr.info("成功刪除!!");
                     }
                 }, 500);
@@ -196,6 +195,22 @@ const swipeDeleteEffect = () => {
         })
     })
 }
+const deleteFavorite = (target) => {
+    let id = target.dataset.id;
+    let url = "";
+    let data = { PackageProductId: id };
+    fetch(url, {
+        method: "Post",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then()
+        .catch(err => { console.log(err) })
+} 
+
 const countFavoritesAmount = (count) => {
     if (document.querySelector(".nav-bottom-item .red-dot")) {
         document.querySelector(".nav-bottom-item .red-dot").remove();
@@ -209,6 +224,13 @@ const countFavoritesAmount = (count) => {
     if (count == 0) {
         document.querySelector(".favorites-body").style.overflowY = "auto";
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
+}
+const favoriteSelectEffect = (target) => {
+    if (target.checked) {
+        target.parentNode.parentNode.parentNode.parentNode.classList.add("selected");
+    } else {
+        target.parentNode.parentNode.parentNode.parentNode.classList.remove("selected");
+    }
 }
 
 const createFavoritesCard = (price, title, url, content, info, packageproducid, uid) => {
@@ -262,7 +284,11 @@ const createFavoritesCard = (price, title, url, content, info, packageproducid, 
     a.className = "btns detail";
     a.textContent = "詳情";
 
-    cardBody.append(h3, p1, p2, p3, a);
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+
+    cardBody.append(h3, p1, p2, p3, a, checkbox);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -308,7 +334,7 @@ const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
-    if (getCookieName("user") != "user_id" || favorites.length == 0) {
+    if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
         document.querySelector(".favorites-footer .checkout").classList.add("disabled");
         document.querySelector(".favorites-footer .checkout").removeAttribute("href");
     } else {
@@ -317,7 +343,7 @@ const checkoutBtnControl = () => {
     }
 }
 const toggleTip = () => {
-    if (getCookieName("user") || favorites.length == 0) {
+    if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
         document.querySelector(".tip").classList.add("hide");
     } else {
         document.querySelector(".tip").classList.remove("hide");
@@ -338,7 +364,7 @@ const customerForm = () => {
     let validate = null;
     document.querySelectorAll(".contact-us .question").forEach(x => {
         clearWarn(x);
-        if (x.value.length === 0) {
+        if (x.value.length == 0) {
             x.classList.add("input-warn");
             validate = "fail";
         } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
@@ -404,6 +430,15 @@ const judgeCharacter = (str, judge) => {
     return result == null ? false : true;
 }
 
+const getFavoritesCount = () => {
+    let url = "";
+    fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            countFavoritesAmount(result.count);
+        })
+}
+
 function getCookieName(name) {
     let cookieObj = {};
     let cookieArr = document.cookie.split(";");
@@ -414,6 +449,11 @@ function getCookieName(name) {
     }
 
     return cookieObj[`${name}`]
+}
+
+//得到加密過的帳號名稱
+function getCookieValue() {
+    return document.cookie.split(";")[0].split("=")[2]
 }
 
 
@@ -439,7 +479,7 @@ window.addEventListener("load", () => {
         checkoutBtnControl();
         toggleTip();
     } else {
-        if (favorites.length == 0) {
+        if (document.querySelectorAll(".favorites-product-item").length == 0) {
             checkoutBtnControl();
             countFavoritesAmount(0);
             favoritesStatus("你目前的收藏是空的");
@@ -456,7 +496,6 @@ window.addEventListener("load", () => {
     })
     document.querySelector(".finish-view .box").classList.add("hide");
 })
-
 
 
 
@@ -490,7 +529,7 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {
         console.log(x)
         clearWarn(x);
-        if (x.value.length === 0) {
+        if (x.value.length == 0) {
             x.classList.add("input-warn");
         } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
             x.classList.add("input-warn");

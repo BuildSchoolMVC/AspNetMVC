@@ -132,7 +132,6 @@ const submitRegister = () => {
         }
     })
 }
-
 const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
@@ -151,6 +150,47 @@ const clearWarnInfo = (ele) => {
         ele.parentNode.querySelector(".fa-exclamation-circle").classList.remove("i-warn");
     }
     ele.parentNode.querySelector("p").textContent = ""
+}
+const toSocialLogin = () => {
+    document.querySelector(".btn_social-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("pre"))
+    })
+}
+const fromSocialLogin = () => {
+    document.querySelector(".btn_website-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.remove("pre"))
+    })
+}
+
+function GoogleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
+
+function GoogleLogin() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2.signIn()
+        .then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;
+        let data = { id_token };
+
+        fetch(id_token_to_userIDUrl, {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(res => res.json())
+        .then(res => { console.log(res) })
+        .catch(err => { console.log(err)})
+    });
+
 }
 
 window.addEventListener("load", function () {
@@ -171,4 +211,8 @@ window.addEventListener("load", function () {
     accountNameCheck();
     emailCheck();
     submitRegister();
+    toSocialLogin();
+    fromSocialLogin();
+
+    document.querySelector("#btnGoogleSignIn").addEventListener("click", GoogleLogin);
 })
