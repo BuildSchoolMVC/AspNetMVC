@@ -20,7 +20,7 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public DetailViewModel GetSingleProduct(int? id) 
+        public DetailViewModel GetPackageProduct(int? id) 
         {
             if(id != null)
             {
@@ -158,8 +158,8 @@ namespace AspNetMVC.Services
         private string RoomTypeSwitch(int? value) {
             return value == 0 ? "廚房" :
                    value == 1 ? "客廳" :
-                   value == 2 ? "客廳" :
-                   value == 3 ? "客廳" :
+                   value == 2 ? "臥室" :
+                   value == 3 ? "浴廁" :
                    value == 4 ? "陽台" : "-";
             }
 

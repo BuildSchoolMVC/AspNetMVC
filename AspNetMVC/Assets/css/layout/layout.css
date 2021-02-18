@@ -677,7 +677,7 @@ img {
 }
 
 .section_nav .collapse.navbar-collapse .navbar-nav .nav-link:focus {
-    color: auto
+    color: inherit;
 }
 
 .section_nav .collapse.navbar-collapse .navbar-nav .nav-link.all-service.active {
@@ -1081,6 +1081,10 @@ img {
     position: relative;
     border: 2px solid transparent;
 }
+.section_favorites-side-menu .favorites .favorites-body .favorites-product-item.selected {
+    border: 2px solid var(--color-primary);
+}
+
 
 .section_favorites-side-menu .favorites .favorites-body .favorites-product-item i {
     top: 5%;

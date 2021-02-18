@@ -9,20 +9,20 @@ namespace AspNetMVC.Controllers
 {
     public class DetailController : Controller
     {
-        private readonly DetailService _detailPageService;
+        private readonly DetailService _detailService;
         public DetailController()
         {
-            _detailPageService = new DetailService();
+            _detailService = new DetailService();
         }
 
-        // GET: DetailPage
+        // GET: Detail
         public ActionResult Index(int? id)
         {
-            var result = _detailPageService.GetSingleProduct(id);
+            var result = _detailService.GetPackageProduct(id);
 
             if (result != null) 
             {
-                    ViewBag.Comments = _detailPageService.GetComment(id);
+                ViewBag.Comments = _detailService.GetComment(id);
                 return View(result);
             }
             else 
@@ -34,14 +34,14 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         [AllowAnonymous]
         public ActionResult AddComment(int PackageProductId,int StarCount,string Comment) {
-            _detailPageService.CreateComment(Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]), PackageProductId, StarCount, Comment);
+            _detailService.CreateComment(Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]), PackageProductId, StarCount, Comment);
 
             return Json(new { response = "成功新增評論!"});
         }
 
         public ActionResult GetLatestComment(int packageProductId)
         {
-            var result = _detailPageService.GetComment(packageProductId).OrderByDescending(x=>x.CreateTime).First();
+            var result = _detailService.GetComment(packageProductId).OrderByDescending(x=>x.CreateTime).First();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -50,7 +50,7 @@ namespace AspNetMVC.Controllers
         public ActionResult DeleteComment(Guid? id)
         {
             var accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            var result = _detailPageService.DeleteComment(id, accountName);
+            var result = _detailService.DeleteComment(id, accountName);
 
             return Json(new { response = result.Status });
         }

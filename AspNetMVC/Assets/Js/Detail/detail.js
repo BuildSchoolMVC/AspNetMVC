@@ -26,37 +26,29 @@ const switchTabs = () => {
 
 const addFavorites = () => {
     document.querySelector(".content-footer .add-favorites").addEventListener("click", function () {
-        if (document.querySelector(".wrap")) {
-            document.querySelector(".wrap").remove();
-        }
         if (getCookieName("user")==undefined) {
             toastr.warning("請先註冊或登入!!!");
             return;
         }
-        let price = +document.querySelector(".section_product .content-footer .price").textContent.replace(",", "");
-        let title = document.querySelector(".section_product .content-header h1").textContent;
-        let url = document.querySelector(".product-pic img").src;
-        let content = document.querySelector(".service-content").textContent;
-        let info = document.querySelector(".place").textContent;
+        let url = "";
         let packageproducid = document.querySelector(".title").dataset.id;
-        let uid = document.querySelectorAll(".favorites-product-item").length == 0 ? 0 : Math.max(...Array.from(document.querySelectorAll(".cart-product-item")).map(x => +x.dataset.id));
-        createFavoritesCard(price, title, url, content, info, packageproducid, uid);
+        let data = { PackageProductId: packageproducid };
 
-        favorites.push({
-            price,
-            title,
-            url,
-            content,
-            info,
-            packageproducid,
-            uid
-        });
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        countFavoritesAmount(favorites.length);
-        swipeDeleteEffect();
-        checkoutBtnControl();
-        toggleTip();
-        toastr.success("成功加入至收藏!");
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.response) {
+                    toastr.success("成功加入至收藏!");
+                }
+            })
+             .catch(err=>console.log(err))
     })
 }
 

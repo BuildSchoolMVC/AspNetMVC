@@ -174,7 +174,6 @@ function GoogleLogin() {
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signIn()
         .then(function (GoogleUser) {
-        let user_id = GoogleUser.getId();
         let AuthResponse = GoogleUser.getAuthResponse(true);
         let id_token = AuthResponse.id_token;
         let data = { id_token };

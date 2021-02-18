@@ -56,7 +56,7 @@ namespace AspNetMVC.Services
                         EditUser = account.Name,
                         Remark = ""
                     };
-                    _repository.Create(user);
+                    _repository.Create<Account>(user);
                     _context.SaveChanges();
 
                     var member = new MemberMd
@@ -66,9 +66,12 @@ namespace AspNetMVC.Services
                         CreateUser = user.CreateUser,
                         EditTime = user.EditTime,
                         EditUser = user.EditUser,
-                        Name = user.AccountName
+                        Name = user.AccountName,
+                        CreditNumber = 0,
+                        ExpiryDate = user.CreateTime,
+                        SafeNum = 0
                     };
-                    _repository.Create(member);
+                    _repository.Create<MemberMd>(member);
                     _context.SaveChanges();
 
                     result.IsSuccessful = true;

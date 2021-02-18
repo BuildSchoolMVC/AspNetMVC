@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="product-content p-3">
+                <div class="product-content p-md-3">
                     <div class="content-header">
                         <h1 data-id="@Model.Id" class="title">@Model.Name</h1>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="content-footer">
                         <p>價格 : <span class="price">@Model.Price</span></p>
                         <div class="btn-group">
-                            <a href="@Url.Action("Index","Checkout")" class="btns checkout">直接結帳</a>
+                            <a href="@Url.Action("Index","Checkout",new { PackageProductId = @Model.Id })" class="btns checkout">直接結帳</a>
                             <button class="btns add-favorites">加入收藏</button>
                         </div>
                     </div>

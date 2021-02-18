@@ -7,7 +7,7 @@ p {
 }
 .w-60{
     width: 60%;
-    margin: 50px auto 0;
+    margin: 30px auto 0;
 }
 
 .toast-top-center .toast-message {
@@ -171,12 +171,13 @@ p {
 .register-modal .form .social-login-step .social-btn-grouping img {
     width: 50px;
     background: var(--light);
-    object-fit:cover;
+    object-fit: contain;
     padding: 3px;
     margin-right: 10px;
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
+    height: 100%;
 }
 
 .register-modal .form .step1.next,
@@ -186,10 +187,12 @@ p {
 
 .register-modal .form .step1.next {
     opacity: 0;
+    transform: translateX(-200%);
 }
 
 .register-modal .form .step2.next {
     opacity: 1;
+    transform: translateX(-200%);
 }
 .register-modal .form .step2 .btn_submit{
     padding-right: 10px;
@@ -259,6 +262,21 @@ p {
 
 .register-modal .form .button[disabled] {
     opacity: .6;
+}
+
+.register-modal .form .text-region{
+    text-align:center;
+    margin: 10px 0;
+}
+.register-modal .form .text-region:after,
+.register-modal .form .text-region:before{
+    content:"";
+    width : 35%;
+    display: inline-block;
+    vertical-align:middle;
+    height:1px;
+    background: rgba(161, 146, 146, 0.50);
+    margin: 0 10px;
 }
 
 .register-modal .form .input {
