@@ -3,7 +3,7 @@ namespace AspNetMVC.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class changeUserdifineAttributes : DbMigration
+    public partial class v1 : DbMigration
     {
         public override void Up()
         {
@@ -11,6 +11,7 @@ namespace AspNetMVC.Migrations
                 "dbo.UserDefinedProducts",
                 c => new
                 {
+                    UserDefinedProductId=c.Guid(nullable: false),
                     UserDefinedId = c.Guid(nullable: false),
                     MemberId = c.Guid(nullable: false),
                     Name = c.String(),
@@ -24,14 +25,29 @@ namespace AspNetMVC.Migrations
                     EditTime = c.DateTime(nullable: false),
                     EditUser = c.String(),
                 })
-                .PrimaryKey(t => t.UserDefinedId);
+                .PrimaryKey(t => t.UserDefinedProductId);
+            CreateTable(
+                "dbo.UserFavorites",
+                c => new {
+                    FavoriteId = c.Guid(nullable: false),
+                    AccountId = c.Guid(nullable: false),
+                    UserDefinedId = c.Guid(),
+                    PackageProductId = c.Int(),
+                    IsPakage = c.Boolean(),
+                    IsDelete = c.Boolean(),
+                    CreateTime = c.DateTime(nullable: false),
+                    CreateUser = c.String(),
+                    EditTime = c.DateTime(nullable: false),
+                    EditUser = c.String(),
+                })
+                .PrimaryKey(t => t.FavoriteId);
 
         }
-        
+
         public override void Down()
         {
             DropTable("dbo.UserDefinedProducts");
-
+            DropTable("dbo.UserFavorites");
         }
     }
 }

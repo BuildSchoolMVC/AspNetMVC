@@ -175,45 +175,9 @@
     <Compile Include="Migrations\202102150947263_init.Designer.cs">
       <DependentUpon>202102150947263_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102151121063_v2.cs" />
-    <Compile Include="Migrations\202102151121063_v2.Designer.cs">
-      <DependentUpon>202102151121063_v2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102160853450_v3.cs" />
-    <Compile Include="Migrations\202102160853450_v3.Designer.cs">
-      <DependentUpon>202102160853450_v3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102160856081_v4.cs" />
-    <Compile Include="Migrations\202102160856081_v4.Designer.cs">
-      <DependentUpon>202102160856081_v4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.cs" />
-    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.Designer.cs">
-      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102171236548_OrderV2.cs" />
-    <Compile Include="Migrations\202102171236548_OrderV2.Designer.cs">
-      <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102180732255_Favorite.cs" />
-    <Compile Include="Migrations\202102180732255_Favorite.Designer.cs">
-      <DependentUpon>202102180732255_Favorite.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102180826384_vNext.cs" />
-    <Compile Include="Migrations\202102180826384_vNext.Designer.cs">
-      <DependentUpon>202102180826384_vNext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102180913309_v7.cs" />
-    <Compile Include="Migrations\202102180913309_v7.Designer.cs">
-      <DependentUpon>202102180913309_v7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102180928563_v8.cs" />
-    <Compile Include="Migrations\202102180928563_v8.Designer.cs">
-      <DependentUpon>202102180928563_v8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202102180941291_DecodeUserDefined.cs" />
-    <Compile Include="Migrations\202102180941291_DecodeUserDefined.Designer.cs">
-      <DependentUpon>202102180941291_DecodeUserDefined.cs</DependentUpon>
+    <Compile Include="Migrations\202102181033366_v1.cs" />
+    <Compile Include="Migrations\202102181033366_v1.Designer.cs">
+      <DependentUpon>202102181033366_v1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
@@ -529,35 +493,8 @@
     <EmbeddedResource Include="Migrations\202102150947263_init.resx">
       <DependentUpon>202102150947263_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102151121063_v2.resx">
-      <DependentUpon>202102151121063_v2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102160853450_v3.resx">
-      <DependentUpon>202102160853450_v3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
-      <DependentUpon>202102160856081_v4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102171045290_changeUserdifine Attributes.resx">
-      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102171236548_OrderV2.resx">
-      <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102180732255_Favorite.resx">
-      <DependentUpon>202102180732255_Favorite.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102180826384_vNext.resx">
-      <DependentUpon>202102180826384_vNext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102180913309_v7.resx">
-      <DependentUpon>202102180913309_v7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102180928563_v8.resx">
-      <DependentUpon>202102180928563_v8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102180941291_DecodeUserDefined.resx">
-      <DependentUpon>202102180941291_DecodeUserDefined.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102181033366_v1.resx">
+      <DependentUpon>202102181033366_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

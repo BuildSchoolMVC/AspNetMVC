@@ -12,9 +12,9 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public Guid OrderId { get; set; }
 
-		public Guid UserDefinedId { get; set; }
+		public Guid? UserDefinedId { get; set; }
 
-		public int PackageProductId { get; set; }
+		public int? PackageProductId { get; set; }
 		[Required]
 		public decimal ProductPrice { get; set; }
 		[Required]
