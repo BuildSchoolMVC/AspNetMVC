@@ -32,5 +32,11 @@ namespace AspNetMVC.Controllers {
 
 			return Json(new { title = "預約成功", content = "服務人員將在預約時間前1小時內與您聯繫" });
 		}
+		public ActionResult TestLike() {
+			//using (var context = new ) {
+			var obj = new UserFavorite { CreateTime = DateTime.Now };
+			//}
+			return Json("");
+		}
 	}
 }

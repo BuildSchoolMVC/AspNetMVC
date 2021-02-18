@@ -199,8 +199,11 @@
     <Compile Include="Migrations\202102180732255_Favorite.Designer.cs">
       <DependentUpon>202102180732255_Favorite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102180826384_vNext.cs" />
+    <Compile Include="Migrations\202102180826384_vNext.Designer.cs">
+      <DependentUpon>202102180826384_vNext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Entity\Favorite.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
+    <Compile Include="Models\Entity\UserFavorite.cs" />
     <Compile Include="Services\DetailPageService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
@@ -528,6 +532,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102180732255_Favorite.resx">
       <DependentUpon>202102180732255_Favorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102180826384_vNext.resx">
+      <DependentUpon>202102180826384_vNext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
