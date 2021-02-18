@@ -13,7 +13,7 @@ const $countyList = $('#county-list');
 const $districtList = $('#district-list');
 $.ajax({
   type: 'POST',
-  url: '/Checkout/getDistricts',
+  url: '/Checkout/GetDistricts',
   dataType: 'json',
   success: (data) => {
     data.forEach((item) => {
@@ -21,7 +21,7 @@ $.ajax({
       option.text = item.Name;
       $countyList[0].add(option);
     });
-    $countyList.on('change', function() {
+    $countyList.on('change', function () {
       let districtList = $districtList[0];
       let prompt = districtList.firstElementChild;
       $districtList.empty();
@@ -48,7 +48,7 @@ const dateService = {
     this.time = true;
     this.allSet();
   },
-  allSet: function() {
+  allSet: function () {
     if (this.date && this.time) {
       let ele_date = document.createElement('div');
       let ele_time = document.createElement('div');
@@ -74,7 +74,7 @@ const addressService = {
   district: () => $('#district-list').val(),
   address: () => $('#input_address').val(),
 };
-const printAddress = function() {
+const printAddress = function () {
   for (const key in addressService) {
     if (addressService[key]() == null) return;
   }
@@ -147,7 +147,7 @@ const steps = [{
 }];
 // common event
 const onlyNum = $('.only-num');
-onlyNum.on('input', function() {
+onlyNum.on('input', function () {
   this.value = this.value.replace(/\D/g, '');
 });
 // pick time
@@ -174,7 +174,7 @@ const makeMonth = (obj_startDate, count) => {
       </div>
     `);
     $ele_date[0].obj_date = d;
-    $ele_date.on('click', function() {
+    $ele_date.on('click', function () {
       if ($row_date.focusDate) {
         $row_date.focusDate.removeClass('selected');
       }
@@ -213,12 +213,12 @@ const obj_tomorrow = new Date(
 const obj_nextMonthEnd = new Date(
   thisY, thisM + 2, 0
 );
-$btn_lastM.on('click', function() {
+$btn_lastM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_nextM);
   makeMonth(obj_tomorrow, generateCount);
 });
-$btn_nextM.on('click', function() {
+$btn_nextM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_lastM);
   const tomorrowY = obj_tomorrow.getFullYear();
@@ -261,7 +261,7 @@ for (let i = 0; i < 12; i++) {
   $('#row_time').append(ele);
   workTime.setMinutes(workTime.getMinutes() + 30);
 }
-$row_time.children().on('click', function() {
+$row_time.children().on('click', function () {
   if ($row_time.focusTime) {
     $row_time.focusTime.removeClass('selected');
   }
@@ -280,7 +280,7 @@ const $numList = $('.numGroup .num');
 const $radioCredit = $('#credit');
 const $checkRead = $('#read');
 let state = 0; /* 0 ~ 3 */
-const isComplete = function() {
+const isComplete = function () {
   let ok = true;
   switch (state) {
     case 0:
@@ -296,8 +296,10 @@ const isComplete = function() {
       steps[1]['inputs'].forEach((item) => {
         if (!item.check(item.ele)) {
           ok = false;
+          $(item.ele).addClass('input-warn');
           $(item.ele).next('.warn').text(item.warn);
         } else {
+          $(item.ele).removeClass('input-warn');
           $(item.ele).next('.warn').text('');
         }
       });
@@ -307,42 +309,78 @@ const isComplete = function() {
       steps[2][payMethod].forEach((item) => {
         if (!item.check(item.ele)) {
           ok = false;
+          $(item.ele).addClass('input-warn');
           $(item.ele).next('.warn').text(item.warn);
         } else {
+          $(item.ele).removeClass('input-warn');
           $(item.ele).next('.warn').text('');
         }
       });
       steps[2]['agrees'].forEach((item) => {
         if (!item.check(item.ele)) {
           ok = false;
+          $(item.ele).addClass('input-warn');
           $(item.ele).siblings('.warn').text(item.warn);
         } else {
+          $(item.ele).removeClass('input-warn');
           $(item.ele).siblings('.warn').text('');
         }
       });
       return ok;
+    default:
+      break;
   }
   return false;
 };
-$lastStep.on('click', function() {
+$lastStep.on('click', function () {
   state--;
   if (state < 0) {
     state = 0;
     return;
+  }
+  switch (state) {
+    case 0:
+      disableBtn($lastStep);
+      break;
   }
   $barFront.css('width', `${33.333 * state}%`);
   $numList[state + 1].classList.remove('on');
   $stepList[state + 1].classList.remove('on');
   $stepList[state].classList.add('on');
 });
-$nextStep.on('click', function() {
-  if (!isComplete()) {
-    return;
-  }
+$nextStep.on('click', function () {
+  //if (!isComplete()) {
+  //  return;
+  //}
   state++;
   if (state > 3) {
     state = 3;
     return;
+  }
+  switch (state) {
+    case 1:
+      enableBtn($lastStep);
+      break;
+      case 3:
+      disableBtn($lastStep);
+      disableBtn($nextStep);
+      $.ajax({
+        type: 'POST',
+        url: '/Checkout/GetOrder',
+        data: {
+          
+        },
+        success: (message) => {
+          $('#done .pic').html(`
+            <svg id="tick" viewBox="0 0 32 32">
+              <path d="M27,9 l-15,15 -7,-7"></path>
+            </svg>
+          `);
+          $('#done .title').text(message.title);
+          $('#done .content').text(message.content);
+        },
+      });
+      break;
   }
   $barFront.css('width', `${33.333 * state}%`);
   $numList[state].classList.add('on');

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class Comment : BaseEnity
+    public class Comment : BaseEntity
     {
         [Key]
         public Guid CommentId { get; set; }

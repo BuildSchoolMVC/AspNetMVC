@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class MemberMd : BaseEnity
+    public class MemberMd : BaseEntity
     {
         
         public string Name { get; set; }

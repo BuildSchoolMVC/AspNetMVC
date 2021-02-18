@@ -101,7 +101,7 @@ namespace AspNetMVC.Controllers
                         { "name",model.Name},
                         { "password",model.Password},
                         { "datetime",DateTime.Now.ToString().Split(' ')[0]},
-                        { "accountid",_accountService.GetAccountId(model.Name)},
+                        { "accountid",_accountService.GetAccountId(model.Name).ToString()},
                     };
 
                     Email objEmail = new Email
@@ -152,14 +152,14 @@ namespace AspNetMVC.Controllers
             {
                 if (_accountService.EmailIsExist(email))
                 {
-                    return Json(new { response = AccountService.AccountStatus.Exist.ToString() });
+                    return Json(new { response = "Exist" });
                 }
                 else
                 {
-                    return Json(new { response = AccountService.AccountStatus.NonExist.ToString() });
+                    return Json(new { response = "NonExist" });
                 }
             }
-            return Json(new { response = AccountService.AccountStatus.Error.ToString() });
+            return Json(new { response = "Error" });
         }
 
         [AllowAnonymous]
@@ -185,15 +185,6 @@ namespace AspNetMVC.Controllers
             };
             Response.Cookies.Add(cookie_user);
 
-            //HttpCookie cookie_decode = new HttpCookie("decode_user");
-
-            //if (Request.Cookies["user"] != null)
-            //{
-            //    var convertedResult = DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            //    cookie_decode.Value = convertedResult;
-            //    Response.Cookies.Add(cookie_decode);
-            //}
-
             return RedirectToAction("Index", "Home");
         }
 
@@ -217,7 +208,7 @@ namespace AspNetMVC.Controllers
                     };
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
-                        { "id", _accountService.GetAccountId(model.AccountName) },
+                        { "id", _accountService.GetAccountId(model.AccountName).ToString()},
                         { "accountname", model.AccountName},
                         { "datetimestring",DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")},
                         { "datetime",DateTime.Now.ToString()}

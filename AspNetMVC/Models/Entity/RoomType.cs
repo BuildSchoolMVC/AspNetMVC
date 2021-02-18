@@ -7,7 +7,7 @@ using AspNetMVC.Models.Entity;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class RoomType :BaseEnity
+    public class RoomType :BaseEntity
     {
         [Key]
         public int RoomTypeId { get; set; }

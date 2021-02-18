@@ -60,6 +60,9 @@
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -106,10 +109,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
@@ -188,11 +187,21 @@
     <Compile Include="Migrations\202102160856081_v4.Designer.cs">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.cs" />
+    <Compile Include="Migrations\202102171045290_changeUserdifine Attributes.Designer.cs">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102171236548_OrderV2.cs" />
+    <Compile Include="Migrations\202102171236548_OrderV2.Designer.cs">
+      <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
     <Compile Include="Models\Entity\Image.cs" />
+    <Compile Include="Models\Entity\Order.cs" />
+    <Compile Include="Models\Entity\OrderDetail.cs" />
     <Compile Include="Models\Entity\PackageProduct.cs" />
     <Compile Include="Models\Entity\RoomType.cs" />
     <Compile Include="Models\Entity\ServiceItem.cs" />
@@ -209,7 +218,7 @@
     <Compile Include="Services\OperationResult.cs" />
     <Compile Include="Services\ProductPageService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="Models\Entity\BaseEnity.cs" />
+    <Compile Include="Models\Entity\BaseEntity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
     <Compile Include="Models\UCleanerDBContext.cs" />
     <Compile Include="Models\CountyModels.cs" />
@@ -508,6 +517,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102160856081_v4.resx">
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171045290_changeUserdifine Attributes.resx">
+      <DependentUpon>202102171045290_changeUserdifine Attributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102171236548_OrderV2.resx">
+      <DependentUpon>202102171236548_OrderV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

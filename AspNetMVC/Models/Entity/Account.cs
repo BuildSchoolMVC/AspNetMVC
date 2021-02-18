@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class Account : BaseEnity
+    public class Account : BaseEntity
     {
         [Key]
         [Display(Name = "帳號ID")]

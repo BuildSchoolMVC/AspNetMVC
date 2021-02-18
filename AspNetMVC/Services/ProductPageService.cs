@@ -19,11 +19,11 @@ namespace AspNetMVC.Services
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
-        public List<ProductPageViewModel> CreateData()
+        public List<ProductPageViewModel> GetData()
         {
-            var result= _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
+            var result = _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
             {
-                PackageProductId=x.PackageProductId,
+                PackageProductId = x.PackageProductId,
                 Title = x.Name,
                 Price = x.Price,
                 Hour = x.Hour,
@@ -40,24 +40,55 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public void CreateUserDefinedPackage()
+        //public OperationResult CreateUserDefinedPackageData(UserDefinedAll model,Guid account,string name)
+        //{
+
+        //    var result = new OperationResult();
+        //    try
+        //    {
+        //        var TempGuid = Guid.NewGuid();
+        //        _repository.Create(new UserDefinedProduct
+        //        {
+        //            UserDefinedId= TempGuid,
+        //            MemberId = account,
+        //            ServiceItems = model.ServiceItem,
+        //            RoomType = model.RoomType,
+        //            Squarefeet = model.Squarefeet,
+        //            Name = "服務商品",
+        //            Hour = countHour(model.RoomType,model.Squarefeet),
+        //            Price = Convert.ToDecimal(countHour(model.RoomType, model.Squarefeet))*500,
+        //            CreateTime = DateTime.UtcNow.AddHours(8),
+        //            CreateUser = name,
+        //            EditTime = DateTime.UtcNow.AddHours(8),
+        //            EditUser = name,
+
+        //        }
+        //            );
+        //        _context.SaveChanges();
+        //        result.IsSuccessful = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.IsSuccessful = false;
+        //        result.Exception = ex;
+        //    }
+        //    return result;
+        //}
+        public float countHour(int RoomType, int Squarefeet)
         {
-            var result = new OperationResult();
-            try
+            float hour = 0;
+            float basehour = 0;
+            float unit = 0.5F;
+            if (RoomType <= 2)
             {
-                _repository.Create(new UserDefinedProduct
-                {
-                    
-                }
-                    );
-                _context.SaveChanges();
-                result.IsSuccessful = true;
+                hour = basehour;
             }
-            catch (Exception ex)
+            else
             {
-                result.IsSuccessful = false;
-                result.Exception = ex;
+                hour = basehour / 2;
             }
+            hour += Squarefeet * unit;
+            return hour;
         }
 
     }

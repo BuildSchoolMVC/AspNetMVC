@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class CustomerService : BaseEnity
+    public class CustomerService : BaseEntity
     {
         [Key]
         [Display(Name = "客服資料ID")]

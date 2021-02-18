@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class Image : BaseEnity
+    public class Image : BaseEntity
     {
         public Guid ImageId { get; set; }
         public string Url { get; set; }

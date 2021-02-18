@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class BaseEnity
+    public class BaseEntity
     {
         [Display(Name = "建立時間")]
         public DateTime CreateTime { get; set; }
