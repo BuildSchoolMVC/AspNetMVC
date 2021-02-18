@@ -46,9 +46,10 @@ namespace AspNetMVC.Services
             var result = new OperationResult();
             try
             {
-               
+
                 _repository.Create(new UserDefinedProduct
                 {
+                    UserDefinedProductId = new Guid(),
                     UserDefinedId = TempGuid,
                     MemberId = account,
                     ServiceItems = model.ServiceItem,
@@ -63,7 +64,7 @@ namespace AspNetMVC.Services
                     EditUser = name,
 
                 }
-                    );
+                    ); 
                 _context.SaveChanges();
                 result.IsSuccessful = true;
             }
@@ -76,7 +77,7 @@ namespace AspNetMVC.Services
         }
         public float countHour(int RoomType, int Squarefeet)
         {
-            float hour;
+            float hour;  
             float basehour = 1;
             float unit = 0.5F;
             if (RoomType <= 2)
