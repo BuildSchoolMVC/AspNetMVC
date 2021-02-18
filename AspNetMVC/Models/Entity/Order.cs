@@ -24,11 +24,11 @@ namespace AspNetMVC.Models.Entity {
 		//已付款 1
 		//已取消 2
 
-        public byte Rate { get; set; }
+        public byte? Rate { get; set; }
 
         public string Comment { get; set; }
 
-		public Guid CouponID { get; set; }
+		public Guid? CouponID { get; set; }
 
 		[Required]
 		public byte PaymentMethod { get; set; }

@@ -3,31 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace AspNetMVC.ViewModel
 {
     public class MemberCenterViewModels
     {
-        public int name { get; set; }
-        public int phone { get; set; }
-        public string mail { get; set; }
-        public string address { get; set; }
-        public string password { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Mail { get; set; }
+        public string Address { get; set; }
+        public string Password { get; set; }
     }
 
     public class MemberCenterOrder
     { 
-        public Array reservationOrder { get; set; }
-        public Array finishOrder { get; set; }
+        public Array ReservationOrder { get; set; }
+        public Array FinishOrder { get; set; }
     }
 
     public class MemberCenterCredit
     { 
-        public int creditNumber { get; set; }
-        public DateTime expiryDate { get; set; }
-        public int safeNum { get; set; }
+        public int CreditNumber { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public int SafeNum { get; set; }
     }
     public class Favorites
     { 
-        public Array favorites { get; set; }
+        public Array _Favorites { get; set; }
     }
 }

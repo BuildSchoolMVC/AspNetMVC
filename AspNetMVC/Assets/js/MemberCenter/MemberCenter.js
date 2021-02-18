@@ -52,7 +52,7 @@ function finish() {
                         </button>
                         <button class="btn btn-main" onclick="edit()" id="edit">編輯會員資料</button>`;
     var username = document.getElementById("username");
-    username.innerHTML = `Hi!${name}您好!`;
+    username.innerHTML = `<p>Hi!${name} 您好!</p>`;
 }
 function savepassword() {
     let new_pw = document.getElementById("new_password").value;

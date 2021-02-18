@@ -5,21 +5,19 @@ using System.Linq;
 using System.Web;
 
 namespace AspNetMVC.Models.Entity {
-	public class OrderDetail : BaseEntity {
+	public class UserFavorite : BaseEntity {
 		[Key]
+		public Guid FavoriteId { get; set; }
 		[Required]
-		public Guid OrderDetailId { get; set; }
-		[Required]
-		public Guid OrderId { get; set; }
+		public Guid AccountId { get; set; }
 
 		public Guid? UserDefinedId { get; set; }
 
 		public int? PackageProductId { get; set; }
-		[Required]
-		public decimal ProductPrice { get; set; }
-		[Required]
-		public string ProductName { get; set; }
+
 		[Required]
 		public bool IsPakage { get; set; }
+		[Required]
+		public bool IsDelete { get; set; }
 	}
 }

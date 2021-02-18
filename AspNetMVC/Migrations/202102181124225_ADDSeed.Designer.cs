@@ -6,14 +6,14 @@ namespace AspNetMVC.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class v3 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class ADDSeed : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(v3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ADDSeed));
         
         string IMigrationMetadata.Id
         {
-            get { return "202102160853450_v3"; }
+            get { return "202102181124225_ADDSeed"; }
         }
         
         string IMigrationMetadata.Source

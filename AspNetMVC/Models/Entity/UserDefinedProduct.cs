@@ -9,6 +9,7 @@ namespace AspNetMVC.Models.Entity
     public class UserDefinedProduct :BaseEntity
     {
         [Key]
+        public Guid UserDefinedProductId { get; set; }
         public Guid UserDefinedId { get; set; }
         public Guid MemberId { get; set; }
         public string Name { get; set; }
