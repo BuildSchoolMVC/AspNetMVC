@@ -40,43 +40,43 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        //public OperationResult CreateUserDefinedPackageData(UserDefinedAll model,Guid account,string name)
-        //{
+        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name)
+        {
 
-        //    var result = new OperationResult();
-        //    try
-        //    {
-        //        var TempGuid = Guid.NewGuid();
-        //        _repository.Create(new UserDefinedProduct
-        //        {
-        //            UserDefinedId= TempGuid,
-        //            MemberId = account,
-        //            ServiceItems = model.ServiceItem,
-        //            RoomType = model.RoomType,
-        //            Squarefeet = model.Squarefeet,
-        //            Name = "服務商品",
-        //            Hour = countHour(model.RoomType,model.Squarefeet),
-        //            Price = Convert.ToDecimal(countHour(model.RoomType, model.Squarefeet))*500,
-        //            CreateTime = DateTime.UtcNow.AddHours(8),
-        //            CreateUser = name,
-        //            EditTime = DateTime.UtcNow.AddHours(8),
-        //            EditUser = name,
+            var result = new OperationResult();
+            try
+            {
+                var TempGuid = Guid.NewGuid();
+                _repository.Create(new UserDefinedProduct
+                {
+                    UserDefinedId = TempGuid,
+                    MemberId = account,
+                    ServiceItems = model.ServiceItem,
+                    RoomType = model.RoomType,
+                    Squarefeet = model.Squarefeet,
+                    Name = model.Title,
+                    Hour = countHour(model.RoomType, model.Squarefeet),
+                    Price = Convert.ToDecimal(countHour(model.RoomType, model.Squarefeet)) * 500,
+                    CreateTime = DateTime.UtcNow.AddHours(8),
+                    CreateUser = name,
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                    EditUser = name,
 
-        //        }
-        //            );
-        //        _context.SaveChanges();
-        //        result.IsSuccessful = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.IsSuccessful = false;
-        //        result.Exception = ex;
-        //    }
-        //    return result;
-        //}
+                }
+                    );
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
         public float countHour(int RoomType, int Squarefeet)
         {
-            float hour = 0;
+            float hour;
             float basehour = 0;
             float unit = 0.5F;
             if (RoomType <= 2)

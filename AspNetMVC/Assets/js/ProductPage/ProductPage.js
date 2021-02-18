@@ -238,7 +238,7 @@ function countPrice() {
 //創造物件
 function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue, itemserviceitem) {
     var item = {
-        RoomType: parseInt(itemroomtypevalue), Squarefeet: parseInt(itemsquarefeetvalue), ServiceItem: itemserviceitem, GUID: GUIDvalue
+        RoomType: parseInt(itemroomtypevalue), Squarefeet: parseInt(itemsquarefeetvalue), ServiceItem: itemserviceitem.toString(), GUID: GUIDvalue
     }
     userdefinedarray.push(item)
 }
@@ -280,7 +280,7 @@ function createCard() {
     cloneContent.getElementById("temple-title").innerHTML = `${roomtypevalue}清潔<span class="itemprice">$:${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value)) * hourprice}</span>`;
     cloneContent.getElementById("temple-squarefeet").innerHTML = `坪數大小 : ${squarefeetvalue}`;
     cloneContent.getElementById("temple-img").src = `../../Assets/images/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
-    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese}`;
+    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese.toString()}`;
     cloneContent.getElementById("temple-hour").innerHTML = `花費時間 : ${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value))}小時`
     createGUID()
     let tempguid = GUID
@@ -412,6 +412,8 @@ function fliterCardByServiceItem() {
     cleanSelected()
 }
 
+
+
 //將組合的資料傳去Controller
 function PostData(tempitem) {
     let url = "/ProductPage/CreatePackage"
@@ -424,8 +426,8 @@ function PostData(tempitem) {
             'Content-Type': 'application/json'
         })
     }).then(res => res.json())
+        .then(response => console.log('Success:', response))
         .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
 }
 
 
@@ -441,7 +443,11 @@ function cleanView() {
 //彈出取名的Module
 function showModule() {
     addfavoritebtn.addEventListener("click", function () {
-        if (userdefinedarray.length == 0) {
+        if (!document.cookie.includes("user")) {
+            alert("目前還沒登入喔!")
+            window.location.assign("/Account/Login")
+        }
+        else if (userdefinedarray.length == 0) {
             alert("目前還沒有商品喔!")
         }
         else {
@@ -458,9 +464,14 @@ function createPackageObj() {
             alert("商品還未取名喔!")
         }
         else {
-            var title = document.getElementById("modalinput").value;
-            let tempitem = { Title: title, Data: userdefinedarray }
-            PostData(tempitem)
+            var Title = document.getElementById("modalinput").value;
+            
+
+            userdefinedarray.forEach(x => {
+                x.Title = Title;
+            })
+            
+            PostData(userdefinedarray)
             cleanView()
 
         }

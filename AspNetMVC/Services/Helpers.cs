@@ -19,7 +19,7 @@ namespace AspNetMVC.Services
             return System.Text.Encoding.UTF8.GetString(System.Web.Security.MachineKey.Unprotect(Convert.FromBase64String(cookieValue), "protectedCookie"));
         }
         //如何解密 cookie如下，最後拿到註冊時的名稱
-        //Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]
+        //Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"])
 
 
 
