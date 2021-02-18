@@ -77,7 +77,7 @@ namespace AspNetMVC.Services
         public float countHour(int RoomType, int Squarefeet)
         {
             float hour;
-            float basehour = 0;
+            float basehour = 1;
             float unit = 0.5F;
             if (RoomType <= 2)
             {

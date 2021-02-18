@@ -45,9 +45,9 @@ namespace AspNetMVC.Controllers
             {
                 foreach (var i in model.UserDefinedAlls)
                 {
-                    var result = _productPageService.CreateUserDefinedPackageData(i,tempName, UserName);
-                    return View(result);
+                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName);
                 }
+                
             }
 
             return View();
