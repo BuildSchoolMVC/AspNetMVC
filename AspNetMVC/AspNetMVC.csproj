@@ -175,16 +175,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="MemberContext.cs" />
-    <Compile Include="Migrations\202102150947263_init.cs" />
-    <Compile Include="Migrations\202102150947263_init.Designer.cs">
-      <DependentUpon>202102150947263_init.cs</DependentUpon>
+    <Compile Include="Migrations\202102181111024_init.cs" />
+    <Compile Include="Migrations\202102181111024_init.Designer.cs">
+      <DependentUpon>202102181111024_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102181033366_v1.cs" />
-    <Compile Include="Migrations\202102181033366_v1.Designer.cs">
-      <DependentUpon>202102181033366_v1.cs</DependentUpon>
+    <Compile Include="Migrations\202102181124225_ADDSeed.cs" />
+    <Compile Include="Migrations\202102181124225_ADDSeed.Designer.cs">
+      <DependentUpon>202102181124225_ADDSeed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Accounts.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -488,8 +487,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
-    <Folder Include="Models\Member\" />
-    <Folder Include="Models\ProductPage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -501,11 +498,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102150947263_init.resx">
-      <DependentUpon>202102150947263_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102181111024_init.resx">
+      <DependentUpon>202102181111024_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102181033366_v1.resx">
-      <DependentUpon>202102181033366_v1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102181124225_ADDSeed.resx">
+      <DependentUpon>202102181124225_ADDSeed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

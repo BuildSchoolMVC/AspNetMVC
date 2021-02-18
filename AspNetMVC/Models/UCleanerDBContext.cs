@@ -26,11 +26,12 @@ namespace AspNetMVC.Models
 		public virtual DbSet<Order> Orders { get; set; }
 		public virtual DbSet<OrderDetail> OrderDetails { get; set; }
 		public virtual DbSet<UserFavorite> UserFavorites { get; set; }
+        public virtual DbSet<MemberMd> MemberMds { get; set; }
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
 
-        public System.Data.Entity.DbSet<AspNetMVC.Models.Entity.MemberMd> MemberMds { get; set; }
+        
     }
 }
