@@ -89,6 +89,44 @@ namespace AspNetMVC.Services
             hour += Squarefeet * unit;
             return hour;
         }
+        public OperationResult CreateFavoriteData(int? packageproductId, Guid? userdefinedId, string account, string name)
+        {
+
+            var result = new OperationResult();
+            try
+            {
+                bool ispakage;
+               if (packageproductId != null)
+                {
+                    ispakage = true;
+                }
+               else
+                {
+                    ispakage = false;
+                }
+                _repository.Create(new UserFavorite
+                {
+                    FavoriteId = Guid.NewGuid(),
+                    AccountName = account,
+                    UserDefinedId = userdefinedId,
+                    PackageProductId = packageproductId,
+                    IsPakage = ispakage,
+                    IsDelete = false,
+                    CreateTime = DateTime.UtcNow.AddHours(8),
+                    CreateUser = name,
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                    EditUser = name,
+                });
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
 
     }
 }

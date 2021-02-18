@@ -38,18 +38,37 @@ namespace AspNetMVC.Controllers
         public void CreatePackage(UserDefinedAllViewModel model)
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            var tempName= _accountService.GetAccountId(UserName);
+            var userid= _accountService.GetAccountId(UserName);
             var TempGuid = Guid.NewGuid();
 
             if (ModelState.IsValid)
             {
                 foreach (var i in model.UserDefinedAlls)
                 {
-                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName, TempGuid);
+                    _productPageService.CreateUserDefinedPackageData(i, userid, UserName, TempGuid);
                 }
+                _productPageService.CreateFavoriteData(null, TempGuid, userid.ToString(), UserName);
             }        
         }
 
+        public ActionResult CreateFavoriteData()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public void CreateFavoriteData([Bind(Include = "PackageProductId")] ProductPageViewModel model)
+        {
+            
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            var userid = _accountService.GetAccountId(UserName);
+
+            if (ModelState.IsValid)
+            {
+                _productPageService.CreateFavoriteData(model.PackageProductId, null, userid.ToString(), UserName);
+  
+            }
+        }
 
     }
 }

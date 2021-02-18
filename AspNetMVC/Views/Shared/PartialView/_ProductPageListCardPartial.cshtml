@@ -4,7 +4,7 @@
 @{string[] SquarefeetArray = { "5坪以下", "6-10坪", "11-15坪", "16坪以上"};}
 <div class="card" Name="card" data-RoomtypeValue="@Model.RoomType"data-RoomtypeValue2="@Model.RoomType2"data-RoomtypeValue3="@Model.RoomType3" data-SquareValue="@Model.Squarefeet" data-SquareValue2="@Model.Squarefeet2" data-SquareValue3="@Model.Squarefeet3"data-Serviceitem="@Model.ServiceItem">
     <div class="btn">
-        <button>+</button>
+        <button  name="cartbtn" id="@Model.PackageProductId">+</button>
     </div>
     <div class="pic">
         <img src="https://i.imgur.com/@Model.PhotoUrl">
