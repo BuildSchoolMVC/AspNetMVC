@@ -9,25 +9,25 @@ using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Services
 {
-    public class DetailPageService
+    public class DetailService
     {
         private readonly UCleanerDBContext _context;
         private readonly BaseRepository _repository;
 
-        public DetailPageService()
+        public DetailService()
         {
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
 
-        public DetailPageViewModel GetSingleProduct(int? id) 
+        public DetailViewModel GetSingleProduct(int? id) 
         {
             if(id != null)
             {
                 var result = _repository.GetAll<PackageProduct>().FirstOrDefault(x=>x.PackageProductId == id);
 
                 if (result != null) {
-                    var detailPageVM = new DetailPageViewModel
+                    var detailPageVM = new DetailViewModel
                     {
                         Id = result.PackageProductId,
                         Description = result.Description,
@@ -102,6 +102,7 @@ namespace AspNetMVC.Services
                              join account in _context.Accounts on comment.AccountId equals account.AccountId
                              select new CommentViewModel
                              {
+                                 CommentId = comment.CommentId,
                                  AccountName = account.AccountName,
                                  Content = comment.Content,
                                  CreateTime = comment.CreateTime,
@@ -115,6 +116,44 @@ namespace AspNetMVC.Services
                 return null;
             }
         }
+        public OperationResult DeleteComment(Guid? id,string accountName)
+        {
+
+            var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName);
+
+            var queryResult = _repository.GetAll<Comment>().FirstOrDefault(x => x.CommentId == id && x.AccountId == user.AccountId);
+
+            var operationResult = new OperationResult();
+
+            if(id == null)
+            {
+                operationResult.IsSuccessful = false;
+                operationResult.Status = OperationResultStatus.ErrorRequest;
+            }
+
+            try
+            {
+                if (queryResult != null)
+                {
+                    _repository.Delete<Comment>(queryResult);
+                    _context.SaveChanges();
+                    operationResult.IsSuccessful = true;
+                    operationResult.Status = OperationResultStatus.Success;
+                }
+                else
+                {
+                    operationResult.IsSuccessful = false;
+                    operationResult.Status = OperationResultStatus.NotFound;
+                }
+            }catch(Exception ex)
+            {
+                operationResult.IsSuccessful = false;
+                operationResult.Exception = ex;
+                operationResult.Status = OperationResultStatus.ErrorRequest;
+            }
+            return operationResult;
+        }
+
 
         private string RoomTypeSwitch(int? value) {
             return value == 0 ? "廚房" :

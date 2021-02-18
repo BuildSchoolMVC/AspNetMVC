@@ -210,6 +210,9 @@ const countFavoritesAmount = (count) => {
         document.querySelector(".favorites-body").style.overflowY = "auto";
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
+const favoriteSelectEffect = (target) => {
+    tr
+}
 
 const createFavoritesCard = (price, title, url, content, info, packageproducid, uid) => {
     let card = document.createElement("div");
@@ -262,7 +265,11 @@ const createFavoritesCard = (price, title, url, content, info, packageproducid, 
     a.className = "btns detail";
     a.textContent = "詳情";
 
-    cardBody.append(h3, p1, p2, p3, a);
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+
+    cardBody.append(h3, p1, p2, p3, a, checkbox);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -308,7 +315,7 @@ const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
-    if (getCookieName("user") != "user_id" || favorites.length == 0) {
+    if (!getCookieValue || favorites.length == 0) {
         document.querySelector(".favorites-footer .checkout").classList.add("disabled");
         document.querySelector(".favorites-footer .checkout").removeAttribute("href");
     } else {
@@ -317,7 +324,7 @@ const checkoutBtnControl = () => {
     }
 }
 const toggleTip = () => {
-    if (getCookieName("user") || favorites.length == 0) {
+    if (!getCookieValue || favorites.length == 0) {
         document.querySelector(".tip").classList.add("hide");
     } else {
         document.querySelector(".tip").classList.remove("hide");
@@ -414,6 +421,11 @@ function getCookieName(name) {
     }
 
     return cookieObj[`${name}`]
+}
+
+//加密過的
+function getCookieValue() {
+    return document.cookie.split(";")[0].split("=")[2]
 }
 
 

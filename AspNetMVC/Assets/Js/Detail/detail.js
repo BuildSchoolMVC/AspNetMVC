@@ -100,11 +100,14 @@ const commentForm = () => {
         if (star == 0) {
             toastr.warning("請填選星數!");
             return;
+        } else if(star > 5) {
+            toastr.warning("👿別亂搞👿");
+            return;
         }
         $(".spinner-border-wrap").removeClass("opacity");
 
         let value = comment.value;
-        let url = "/DetailPage/AddComment";
+        let url = "/Detail/AddComment";
         let data = {
             PackageProductId: document.querySelector("h1").dataset.id,
             StarCount : star,
@@ -130,9 +133,10 @@ const commentForm = () => {
             .catch(err => console.log(err))
     })
 }
+
 const getLatestComment = () => {
     let id = document.querySelector("h1").dataset.id;
-    let url = `/DetailPage/GetLatestComment?packageProductId=${id}`;
+    let url = `/Detail/GetLatestComment?packageProductId=${id}`;
 
     fetch(url)
         .then(res => res.json())
@@ -142,6 +146,7 @@ const getLatestComment = () => {
         })
         .catch(err => console.log(err));
 }
+
 const refreshComment = () => {
     let comment = document.querySelector(".comment");
     let commentItem = document.createElement("div");
@@ -195,6 +200,7 @@ const refreshComment = () => {
     let commentCount = document.querySelector(".commentCount").textContent;
     document.querySelector(".commentCount").textContent = parseInt(commentCount) + 1;
 }
+
 const resetCommentInput = () => {
     comment.value = "";
     star = 0
@@ -206,6 +212,29 @@ const resetCommentInput = () => {
     commentBtn.setAttribute("disabled", "disabled");
 }
 
+const deleteComment = (target) => {
+    let commentId = target.dataset.id;
+    let url = "/Detail/DeleteComment";
+    data = { id: commentId };
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(res => {
+            if (parseInt(res.response) == 0) {
+                target.parentNode.remove();
+                document.querySelector(".commentCount").textContent = document.querySelectorAll(".comment-item").length;
+            } else {
+                toastr.error("發生錯誤!");
+            }
+        })
+        .catch(err => console.log(err));
+}
 
 window.addEventListener("load", () => {
     switchTabs();

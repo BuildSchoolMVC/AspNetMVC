@@ -78,4 +78,10 @@ namespace AspNetMVC.ViewModels
         public Guid AccountId { get; set; }
         public string NewPassword { get; set; }
     }
+
+    public class RegisterByGoogle
+    {
+        public string Email { get; set; }
+
+    }
 }

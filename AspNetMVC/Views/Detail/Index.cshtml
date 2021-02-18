@@ -1,10 +1,10 @@
-﻿@model DetailPageViewModel
+﻿@model DetailViewModel
 @{
     ViewBag.Title = Model.Name;
     var comments = (List<CommentViewModel>)ViewBag.Comments;
 }
 @section CSS{
- <link href="~/Assets/css/DetailPage/detailPage.css" rel="stylesheet">    
+ <link href="~/Assets/css/Detail/detail.css" rel="stylesheet">    
 }
 
 <section class="section_product">
@@ -190,5 +190,5 @@
 </section>
 
 @section JS{
-    <script src="~/Assets/js/DetailPage/detailPage.js"></script>    
+    <script src="~/Assets/js/Detail/detail.js"></script>    
 }

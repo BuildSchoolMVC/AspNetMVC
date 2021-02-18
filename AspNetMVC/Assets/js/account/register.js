@@ -132,7 +132,6 @@ const submitRegister = () => {
         }
     })
 }
-
 const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
@@ -153,6 +152,37 @@ const clearWarnInfo = (ele) => {
     ele.parentNode.querySelector("p").textContent = ""
 }
 
+function GoogleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
+function GoogleLogin() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2.signIn()
+        .then(function (GoogleUser) {
+        let user_id = GoogleUser.getId();
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;
+        let data = { id_token };
+
+        fetch(id_token_to_userIDUrl, {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(res => res.json())
+        .then(res => { console.log(res) })
+        .catch(err => { console.log(err)})
+    });
+
+}
+
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {
         if (x.value.length == 0) x.parentNode.querySelector(".label-group").classList.remove("active");
@@ -171,4 +201,6 @@ window.addEventListener("load", function () {
     accountNameCheck();
     emailCheck();
     submitRegister();
+
+    document.querySelector("#btnGoogleSignIn").addEventListener("click", GoogleLogin);
 })

@@ -7,12 +7,12 @@ using AspNetMVC.Services;
 
 namespace AspNetMVC.Controllers
 {
-    public class DetailPageController : Controller
+    public class DetailController : Controller
     {
-        private readonly DetailPageService _detailPageService;
-        public DetailPageController()
+        private readonly DetailService _detailPageService;
+        public DetailController()
         {
-            _detailPageService = new DetailPageService();
+            _detailPageService = new DetailService();
         }
 
         // GET: DetailPage
@@ -42,7 +42,18 @@ namespace AspNetMVC.Controllers
         public ActionResult GetLatestComment(int packageProductId)
         {
             var result = _detailPageService.GetComment(packageProductId).OrderByDescending(x=>x.CreateTime).First();
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult DeleteComment(Guid? id)
+        {
+            var accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            var result = _detailPageService.DeleteComment(id, accountName);
+
+            return Json(new { response = result.Status });
+        }
+
     }
 }

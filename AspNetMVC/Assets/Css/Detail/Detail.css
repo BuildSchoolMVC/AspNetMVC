@@ -160,6 +160,19 @@
     color: var(--gray);
     font-size: 12px;
 }
+.section_product-info .comment .comment-delete,
+.section_product-info .comment .comment-hide {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor:pointer;
+    color: var(--gray);
+    z-index:10;
+}
+.section_product-info .comment .comment-delete:hover,
+.section_product-info .comment .comment-hide:hover {
+    color: var(--dark-blue);
+}
 
 
 .section_product-info .no-comment {
@@ -174,6 +187,7 @@
     padding: 10px;
     border-radius: 5px;
     border-bottom: 1px solid #eee;
+    position: relative;
 }
 
 .section_product-info .comment-item img {

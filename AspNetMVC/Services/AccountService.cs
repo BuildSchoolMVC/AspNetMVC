@@ -123,7 +123,7 @@ namespace AspNetMVC.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public string EmailActivation(Guid id)
+        public string EmailActivation(Guid? id)
         {
             var result = new OperationResult();
             try
@@ -191,19 +191,17 @@ namespace AspNetMVC.Services
                     user.EditUser = user.AccountName;
                     _repository.Update<Account>(user);
                     _context.SaveChanges();
-                    result.IsSuccessful = true;
+                    result.Status = OperationResultStatus.Success;
                 }
                 else
                 {
-                    result.IsSuccessful = false;
-                    result.MessageInfo = "查無此人";
+                    result.Status = OperationResultStatus.Fail;
                 }
             }
             catch (Exception ex)
             {
-                result.IsSuccessful = false;
                 result.Exception = ex;
-                result.MessageInfo = "發生錯誤";
+                result.Status = OperationResultStatus.ErrorRequest;
             }
 
             return result;
