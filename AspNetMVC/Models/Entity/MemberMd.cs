@@ -7,9 +7,10 @@ namespace AspNetMVC.Models.Entity
 {
     public class MemberMd : BaseEnity
     {
-        public string name { get; set; }
-        public int creditNumber { get; set; }
-        public DateTime expiryDate { get; set; }
-        public int safeNum { get; set; }
+        
+        public string Name { get; set; }
+        public int CreditNumber { get; set; }
+        public DateTime ExpiryDate { get; set; }
+        public int SafeNum { get; set; }
     }
 }

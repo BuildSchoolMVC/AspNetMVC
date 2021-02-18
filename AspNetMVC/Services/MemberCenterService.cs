@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using AspNetMVC.ViewModel;
+using AspNetMVC.Repository;
+using AspNetMVC.ViewModels;
+using AspNetMVC.Models;
+using AspNetMVC.Models.Entity;
+
+namespace AspNetMVC.Services
+{
+    public class MemberCenterService
+    {
+        private readonly UCleanerDBContext _context;
+        private readonly BaseRepository _repository;
+
+        public MemberCenterService() {
+            _context = new UCleanerDBContext();
+            _repository = new BaseRepository(_context);
+        }
+        public MemberCenterViewModels GetMember(Guid accountId) {
+            var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
+            var result = new MemberCenterViewModels()
+            {
+                name = source.AccountName,
+                phone = source.Phone,
+                mail = source.Email,
+                address = source.Address
+            };
+            return result;
+        }
+    }
+}
