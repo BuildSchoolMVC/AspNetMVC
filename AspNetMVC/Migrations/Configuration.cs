@@ -38,13 +38,13 @@ namespace AspNetMVC.Migrations
 			//    new RoomType { Name = "浴廁", Value = 3, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
 			//    new RoomType { Name = "陽台", Value = 4, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
 			//);
-			context.ServiceItems.AddOrUpdate
-				(
-				x => x.ServiceitemId,
-				new ServiceItem { Name = "清潔", Value = 0, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
-				new ServiceItem { Name = "收納", Value = 1, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
-				new ServiceItem { Name = "除蟲", Value = 2, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
-				);
+			//context.ServiceItems.AddOrUpdate
+			//	(
+			//	x => x.ServiceitemId,
+			//	new ServiceItem { Name = "清潔", Value = 0, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
+			//	new ServiceItem { Name = "收納", Value = 1, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
+			//	new ServiceItem { Name = "除蟲", Value = 2, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
+			//	);
 			//context.SquareFeets.AddOrUpdate
 			//	(
 			//	x => x.SquareFeetId,
@@ -88,10 +88,12 @@ namespace AspNetMVC.Migrations
 			//    new PackageProduct { Name = "客廳臥室最整齊", RoomType = 1, Squarefeet = 2, RoomType2 = 2, Squarefeet2 = 1, ServiceItem = "清潔+收納", Hour = 3.5F, Price = 1750, PhotoUrl = "qf87eZM.jpg", CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
 			//    new PackageProduct { Name = "浴廁陽台小幫手", RoomType = 3, Squarefeet = 1, RoomType2 = 4, Squarefeet2 = 0, ServiceItem = "清潔+除蟲", Hour = 1.5F, Price = 750, PhotoUrl = "HOoGu7u.jpg", CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
 			//    );
-			//context.UserFavorites.AddOrUpdate(
-			//	x => x.FavoriteId,
-			//	new Models.Entity.UserFavorite { }
-			//);
+			context.UserFavorites.AddOrUpdate(
+				x => x.FavoriteId,
+				new UserFavorite { FavoriteId = Guid.NewGuid(), AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 3, IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
+				//new UserFavorite { AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 4 , IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" },
+				//new UserFavorite { AccountId = Guid.NewGuid(), UserDefinedId = null, PackageProductId = 5, IsPakage = true, IsDelete = false, CreateTime = DateTime.Now, CreateUser = "", EditTime = DateTime.Now, EditUser = "" }
+			);
 		}
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace AspNetMVC.Services {
-	public class OrderService {
-		//private readonly UCleaner
+	public class UserFavoriteService {
+
 	}
 }

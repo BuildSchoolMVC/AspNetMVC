@@ -203,6 +203,14 @@
     <Compile Include="Migrations\202102180826384_vNext.Designer.cs">
       <DependentUpon>202102180826384_vNext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102180913309_v7.cs" />
+    <Compile Include="Migrations\202102180913309_v7.Designer.cs">
+      <DependentUpon>202102180913309_v7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102180928563_v8.cs" />
+    <Compile Include="Migrations\202102180928563_v8.Designer.cs">
+      <DependentUpon>202102180928563_v8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -223,7 +231,9 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\Helpers.cs" />
     <Compile Include="Services\OperationResult.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductPageService.cs" />
+    <Compile Include="Services\UserFavoriteService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Entity\BaseEntity.cs" />
     <Compile Include="Models\Entity\CustomerService.cs" />
@@ -535,6 +545,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102180826384_vNext.resx">
       <DependentUpon>202102180826384_vNext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102180913309_v7.resx">
+      <DependentUpon>202102180913309_v7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102180928563_v8.resx">
+      <DependentUpon>202102180928563_v8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
