@@ -40,15 +40,16 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name,Guid TempGuid)
+        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name, Guid TempGuid)
         {
 
             var result = new OperationResult();
             try
             {
-               
+
                 _repository.Create(new UserDefinedProduct
                 {
+                    UserDefinedProductId = Guid.NewGuid(),
                     UserDefinedId = TempGuid,
                     MemberId = account,
                     ServiceItems = model.ServiceItem,
@@ -61,9 +62,7 @@ namespace AspNetMVC.Services
                     CreateUser = name,
                     EditTime = DateTime.UtcNow.AddHours(8),
                     EditUser = name,
-
-                }
-                    );
+                });
                 _context.SaveChanges();
                 result.IsSuccessful = true;
             }

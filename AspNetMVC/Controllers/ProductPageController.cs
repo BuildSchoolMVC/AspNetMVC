@@ -35,7 +35,7 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePackage(UserDefinedAllViewModel model)
+        public void CreatePackage(UserDefinedAllViewModel model)
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             var tempName= _accountService.GetAccountId(UserName);
@@ -47,10 +47,7 @@ namespace AspNetMVC.Controllers
                 {
                     _productPageService.CreateUserDefinedPackageData(i,tempName, UserName, TempGuid);
                 }
-                
-            }
-
-            return View();
+            }        
         }
 
 
