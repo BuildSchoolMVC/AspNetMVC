@@ -202,12 +202,12 @@
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Models\Entity\UserFavorite.cs" />
     <Compile Include="Services\DetailService.cs" />
-    <Compile Include="Services\Email.cs" />
-    <Compile Include="Services\GoogleReCaptcha.cs" />
+    <Compile Include="Services\Helpers\Email.cs" />
+    <Compile Include="Services\Helpers\GoogleReCaptcha.cs" />
     <Compile Include="Services\AccountService.cs" />
-    <Compile Include="Services\Helpers.cs" />
+    <Compile Include="Services\Helpers\Helpers.cs" />
     <Compile Include="Services\MemberCenterService.cs" />
-    <Compile Include="Services\OperationResult.cs" />
+    <Compile Include="Services\Helpers\OperationResult.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductPageService.cs" />
     <Compile Include="Services\UserFavoriteService.cs" />

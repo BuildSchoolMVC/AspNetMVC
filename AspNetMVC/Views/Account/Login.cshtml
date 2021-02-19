@@ -18,44 +18,63 @@
             <div class="login-block">
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group active">
-                                <label class="label" for="Name">帳號名稱</label>
-                            </div>
-                            <p class="warn login-email"></p>
+                    <div class="social-login">
+                        <h2>使用社群註冊</h2>
+                        <div class="social-btn-grouping">
+                            <button type="button" id="btnGoogleSignIn"><img src="~/Assets/Images/google.png" />Google</button>
+                            <button type="button" id="btnFacebookSignIn" disabled="disabled"><img src="~/Assets/Images/facebook.png" />Facebook</button>
+                            <button type="button" id="btnLineSignIn" disabled="disabled"><img src="~/Assets/Images/line2.png" />Line</button>
+                        </div>
+                        <div class="w-60">
+                            <button type="button" class="button btn_website-login">回去使用本站註冊帳號登入</button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group active">
-                                <label class="label" for="Name">密碼</label>
-                            </div>
-                            <p class="warn login-password"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
-                        </div>
-                    </div>
-                    <button class="button btn_login" type="button">
-                        <div class="spinner-border-wrap opacity">
-                            <span class="spinner-border"></span>
-                        </div>
-                        登入
-                    </button>
-                    <div class="other">
+                    <div class="website-login">
                         <div class="form-group">
-                            <div>
-                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
-                                @Html.LabelFor(m => m.RememberMe)
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group active">
+                                    <label class="label" for="Name">帳號名稱</label>
+                                </div>
+                                <p class="warn login-email"></p>
                             </div>
-                            <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
-                                忘記密碼?
-                            </a>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group active">
+                                    <label class="label" for="Name">密碼</label>
+                                </div>
+                                <p class="warn login-password"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
+                            </div>
+                        </div>
+                        <button class="button btn_login" type="button">
+                            <div class="spinner-border-wrap opacity">
+                                <span class="spinner-border"></span>
+                            </div>
+                            登入
+                        </button>
+                        <button class="button btn_loginBySocial" type="button">
+                            <div class="spinner-border-wrap opacity">
+                                <span class="spinner-border"></span>
+                            </div>
+                            以社群帳號登入
+                        </button>
+                        <div class="other">
+                            <div class="form-group">
+                                <div>
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                                <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
+                                    忘記密碼?
+                                </a>
+                            </div>
                         </div>
                     </div>
                 }

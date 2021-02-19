@@ -25,13 +25,11 @@ namespace AspNetMVC.Controllers
             _accountService = new AccountService();
         }
 
-        // GET: /Account/Login
         public ActionResult Login()
         {
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")] LoginViewModel model)
         {
@@ -48,14 +46,9 @@ namespace AspNetMVC.Controllers
                     if (_accountService.IsActivatedEmail(model.AccountName)) {
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
-                            HttpCookie cookie_user = new HttpCookie("user");
-                            var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
-                            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-                            cookie_user.Values["user_accountname"] = encryptedValue;
+                            var cookie = _accountService.SetCookie(model.AccountName,model.RememberMe);
 
-                            if (model.RememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
-
-                            Response.Cookies.Add(cookie_user);
+                            Response.Cookies.Add(cookie);
 
                             return Json(new { response = "success" });
                         }
@@ -76,13 +69,11 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        // GET: /Account/Register
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
         public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")] RegisterViewModel model)
         {
@@ -98,19 +89,12 @@ namespace AspNetMVC.Controllers
                         { "accountname",model.Name},
                         { "name",model.Name},
                         { "password",model.Password},
-                        { "datetime",DateTime.Now.ToString().Split(' ')[0]},
+                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",_accountService.GetAccountId(model.Name).ToString()},
+                        { "isSocialActivation","false"}
                     };
 
-                    Email objEmail = new Email
-                    {
-                        RecipientAddress = model.Email,
-                        Subject = "會員帳號啟動 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-                    };
-
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp);
-
-                    objEmail.SendEmailFromGmail();
+                    _accountService.SendMail("會員驗證信",model.Email, kvp);
 
                     return Json(new { response = "success" });
                 }
@@ -123,13 +107,13 @@ namespace AspNetMVC.Controllers
             // 如果執行到這裡，發生某項失敗，則重新顯示表單
             return View(model);
         }
-        // POST: /Account/Register
+
         [HttpPost]
         public ActionResult RegisterIsExist(string name)
         {
             if (ModelState.IsValid)
             {
-                if (_accountService.AccountIsExist(name))
+                if (_accountService.IsAccountExist(name))
                 {
                     return Json(new { response = "exist" });
                 }
@@ -146,7 +130,7 @@ namespace AspNetMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_accountService.EmailIsExist(email))
+                if (_accountService.IsEmailExist(email))
                 {
                     return Json(new { response = "Exist" });
                 }
@@ -158,14 +142,14 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "Error" });
         }
 
-        public ActionResult RegisterEmailActivation(Guid? id)
+        public ActionResult RegisterEmailActivation(Guid? id,bool isSocialActivation)
         {
             if(id != null)
             {
                 if (ModelState.IsValid)
                 {
                     ViewBag.Result = _accountService.EmailActivation(id);
-
+                    ViewBag.IsSocialActivation = isSocialActivation;
                     return View();
                 }
                 else
@@ -201,12 +185,6 @@ namespace AspNetMVC.Controllers
             if (ModelState.IsValid) {
                 if (_accountService.IsAccountMatch(model.AccountName, model.Email))
                 {
-
-                    Email objEmail = new Email
-                    {
-                        RecipientAddress = model.Email,
-                        Subject = "密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-                    };
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
                         { "id", _accountService.GetAccountId(model.AccountName).ToString()},
@@ -215,9 +193,7 @@ namespace AspNetMVC.Controllers
                         { "datetime",DateTime.Now.ToString()}
                     };
 
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.ForgotPassword), kvp);
-
-                    objEmail.SendEmailFromGmail();
+                    _accountService.SendMail("密碼重置", model.Email,kvp);
 
                     return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
                 }
@@ -286,24 +262,22 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterByGoogleLogin(string token)
         {
+            var result = await _accountService.RegisterByGoogleToken(token);
 
-            using (HttpClient client = new HttpClient())
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
+        }
+
+        public async Task<ActionResult> LoginByGoogleLogin(string token)
+        {
+            var result = await _accountService.LoginByGoogleToken(token);
+
+            if (result.IsSuccessful)
             {
-                try
-                {
-                    var url = $"https://oauth2.googleapis.com/tokeninfo?id_token={token}";
-                    client.Timeout = TimeSpan.FromSeconds(30);
-                    HttpResponseMessage response = await client.GetAsync(url); //發送Get 請求
-                    response.EnsureSuccessStatusCode();
-                    var responsebody = await response.Content.ReadAsStringAsync();
-
-                    //var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
-                }
-                catch (Exception ex) {
-                    return null;
-                }
+                var cookie = _accountService.SetCookie(result.MessageInfo, false);
+                Response.Cookies.Add(cookie);
             }
-            return Json(new { response="success 好棒棒!"});
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
     }
 }

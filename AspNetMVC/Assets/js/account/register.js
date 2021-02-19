@@ -172,26 +172,35 @@ function GoogleSigninInit() {
 
 function GoogleLogin() {
     let auth2 = gapi.auth2.getAuthInstance();
-    auth2.signIn()
-        .then(function (GoogleUser) {
-        let AuthResponse = GoogleUser.getAuthResponse(true);
-        let id_token = AuthResponse.id_token;
-        let data = { id_token };
+    let url = "/Account/RegisterByGoogleLogin"
 
-        fetch(id_token_to_userIDUrl, {
+    auth2.signIn().then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true) ;//true會回傳access token ，false則不會，自行決定。如果只需要Google登入功能應該不會使用到access token
+        let id_token = AuthResponse.id_token;//取得id_token
+        $.ajax({
+            url: url,
             method: "post",
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            })
-        })
-        .then(res => res.json())
-        .then(res => { console.log(res) })
-        .catch(err => { console.log(err)})
-    });
-
+            data: { token: id_token },
+            success: function (result) {
+                console.log(result)
+                if (result.status = true) {
+                    toastr.success("註冊成功，請前往驗證Gmail信箱")
+                    setTimeout(() => {
+                        window.location.replace(`${window.location.origin}/Account/Login`);
+                    }, 1500)
+                } else {
+                    toastr.error(`${result.response}`)
+                }
+            }
+        });
+               
+    },
+        function (error) {
+            console.log("Google登入失敗");
+            console.log(error);
+        });
 }
+
 
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {

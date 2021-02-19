@@ -1,6 +1,10 @@
 ﻿section[class$='Form'] {
 	background: var(--color-primary-Light);
 }
+.w-60 {
+	width: 60%;
+	margin: 30px auto 0;
+}
 .toast-top-center .toast-message {
 	font-size: 16px;
 	letter-spacing: 1px
@@ -80,7 +84,8 @@
 
 .login-modal .form {
 	display: flex;
-	flex-direction: column
+	overflow: hidden;
+	justify-content:center;
 }
 
 .login-modal .form .form-group {
@@ -116,6 +121,14 @@
 
 .login-modal .form .input.input-warn {
 	border-color: var(--color-warn);
+}
+.login-modal .form .social-login,
+.login-modal .form .website-login{
+	min-width: 100%;
+}
+.login-modal .form .social-login,
+.login-modal .form .website-login {
+	transform: translateX(-50%);
 }
 
 .login-modal .form .warn {
@@ -202,6 +215,93 @@
 	border: none;
 	color: #ffffff;
 	position: relative
+}
+.login-modal .form .social-login,
+.login-modal .form .website-login{
+	width: 100%;
+	flex-shrink: 0;
+	transition: .4s ease-in;
+}
+
+.login-modal .form .social-login {
+	opacity: 0;
+}
+
+.login-modal .form .social-login.pre {
+	transform: translateX(50%);
+	opacity: 1;
+}
+
+.login-modal .form .website-login.pre {
+	transform: translateX(50%);
+	opacity: 0;
+}
+
+.login-modal .form .social-login {
+display: flex;
+justify-content: center;
+flex-direction: column;
+}
+
+.login-modal .form .social-login h2 {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.login-modal .form .social-login .social-btn-grouping {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.login-modal .form .social-login .social-btn-grouping button {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	line-height: 45px;
+	margin-bottom: 15px;
+	letter-spacing: 1px;
+	color: var(--light);
+	overflow: hidden;
+	width: 80%;
+	position: relative;
+	font-size: 24px;
+	text-align: left;
+	padding: 0 10px 0 60px;
+	box-shadow: 1px 1px 10px #adadad80;
+}
+
+.login-modal .form .social-login btn_website-login {
+	margin-top: 50px;
+	width: 80%;
+}
+
+.login-modal .form .social-login .social-btn-grouping #btnGoogleSignIn {
+	background: #CE4535;
+}
+
+.login-modal .form .social-login .social-btn-grouping #btnFacebookSignIn {
+	background: #1778F2;
+}
+
+.login-modal .form .social-login .social-btn-grouping #btnLineSignIn {
+	background: #1ACA4D;
+}
+
+.login-modal .form .social-login .social-btn-grouping img {
+	width: 50px;
+	background: var(--light);
+	object-fit: contain;
+	padding: 3px;
+	margin-right: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+}
+
+.login-modal .form .btn_loginBySocial {
+	background-color: var(--color-primary-dark);
 }
 
 .login-modal .spinner-border-wrap {

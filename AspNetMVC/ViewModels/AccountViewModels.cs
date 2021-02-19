@@ -79,9 +79,12 @@ namespace AspNetMVC.ViewModels
         public string NewPassword { get; set; }
     }
 
-    public class RegisterByGoogle
+    public class GoogleApiTokenInfo
     {
         public string Email { get; set; }
+        public string Locale { get; set; }
+        public string Name { get; set; }
+        public string Sub { get; set; }
 
     }
 }

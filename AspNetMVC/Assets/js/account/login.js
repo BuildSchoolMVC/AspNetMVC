@@ -88,4 +88,40 @@
             })
         }
     });
+
+    $(".btn_loginBySocial").on("click", function () {
+        $(".website-login").addClass("pre");
+        $(".social-login").addClass("pre");
+    })
+
+    $(".btn_website-login").on("click", function () {
+        $(".website-login").removeClass("pre");
+        $(".social-login").removeClass("pre");
+    })
+
+    $("#btnGoogleSignIn").on("click", GoogleLogin)
 })();
+
+function GoogleLogin() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    let url = "/Account/LoginByGoogleLogin"
+
+    auth2.signIn().then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { token: id_token },
+            success: function (result) {
+                if (result.status = true) toastr.error("登入成功")
+                else toastr.error(`${result.response}`)
+            }
+        });
+
+    },
+        function (error) {
+            console.log("Google登入失敗");
+            console.log(error);
+        });
+}

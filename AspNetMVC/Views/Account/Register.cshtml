@@ -5,8 +5,6 @@
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/register.css">
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="30073946478-dq1k9co4jj7sng5pc76068mmger9bnl2.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 }
 <section class="section_registerForm">
@@ -139,7 +137,6 @@
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
-        let id_token_to_userIDUrl = "@Url.Action("RegisterByGoogleLogin", "Account")";
     </script>
     <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }

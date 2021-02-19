@@ -21,7 +21,10 @@
                     <p>現在可以開始使用我們的服務!!!</p>
                     <div class="btns-group">
                         @Html.ActionLink("回首頁", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btns btn-register" })
-                        @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btns btn-login" })
+                        @if(ViewBag.IsSocialActivation == false)
+                        {
+                            @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btns btn-login" })
+                        }
                     </div>
                 </div>
             </div>
