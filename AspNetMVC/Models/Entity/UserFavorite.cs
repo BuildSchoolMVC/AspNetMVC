@@ -16,7 +16,7 @@ namespace AspNetMVC.Models.Entity {
 		public int? PackageProductId { get; set; }
 
 		[Required]
-		public bool IsPakage { get; set; }
+		public bool IsPackage { get; set; }
 		[Required]
 		public bool IsDelete { get; set; }
 	}

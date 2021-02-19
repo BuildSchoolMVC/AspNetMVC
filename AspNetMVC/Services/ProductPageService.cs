@@ -76,7 +76,7 @@ namespace AspNetMVC.Services
                         AccountName = name,
                         UserDefinedId = TempGuid,
                         PackageProductId = null,
-                        IsPakage = false,
+                        IsPackage = false,
                         IsDelete = false,
                         CreateTime = DateTime.UtcNow.AddHours(8),
                         CreateUser = name,
@@ -86,7 +86,7 @@ namespace AspNetMVC.Services
 
 
                     _repository.Create<UserFavorite>(userfavorite);
-                    
+                    _context.SaveChanges();
 
                     result.IsSuccessful = true;
                     transcation.Commit();
@@ -130,7 +130,7 @@ namespace AspNetMVC.Services
                     AccountName = name,
                     UserDefinedId = null,
                     PackageProductId = packageproductId,
-                    IsPakage = true,
+                    IsPackage = true,
                     IsDelete = false,
                     CreateTime = DateTime.UtcNow.AddHours(8),
                     CreateUser = name,
