@@ -1,6 +1,7 @@
 ﻿using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Services;
+using AspNetMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,26 +20,38 @@ namespace AspNetMVC.Controllers {
 
 		public ActionResult Index() {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			Guid favoriteId = Guid.Parse("059ec4ea-21dc-46e1-b730-10fb157b10b4");
+			//Guid favoriteId = Guid.Parse("1a648031-ac16-45db-bbf2-2b6c168f000a");
+			Guid favoriteId = Guid.Parse("2ca80158-498c-43ff-81bb-d2870776bdb3");
 			UserFavorite userFavorite = _checkoutService.GetFavorite(favoriteId, accountName);
+			//if (userFavorite.IsPackage) {
+			//	PackageProduct data = _checkoutService.GetPackage(userFavorite);
+			//	return View(new DataViewModel {
+			//			IsPackage = userFavorite.IsPackage,
+			//			Data = data
+			//		}
+			//	);
+			//} else {
+			//	List<UserDefinedProduct> data = _checkoutService.GetUserDefinedList(userFavorite);
+			//	return View(
+			//		new {
+			//			IsPackage = userFavorite.IsPackage,
+			//			Data = data
+			//		}
+			//	);
+			//}
+			DataViewModel dataViewModel = new DataViewModel {
+				IsPackage = userFavorite.IsPackage,
+				Package = null,
+				UserDefinedList = null,
+				RoomTypeList = _checkoutService.GetRoomTypeList(),
+				SquareFeetList = _checkoutService.GetSquareFeetList()
+			};
 			if (userFavorite.IsPackage) {
-				PackageProduct data = _checkoutService.GetPackage(userFavorite);
-				return View(
-					new {
-						IsPackage = userFavorite.IsPackage,
-						Data = data
-					}
-				);
+				dataViewModel.Package = _checkoutService.GetPackage(userFavorite);
 			} else {
-				List<UserDefinedProduct> data = _checkoutService.GetUserDefinedList(userFavorite);
-				return View(
-					new {
-						IsPackage = userFavorite.IsPackage,
-						Data = data
-					}
-				);
+				dataViewModel.UserDefinedList = _checkoutService.GetUserDefinedList(userFavorite);
 			}
-			//return View(userFavorite);
+			return View(dataViewModel);
 		}
 		[HttpPost]
 		public ActionResult GetOrder(FormCollection submit) {
@@ -56,7 +69,7 @@ namespace AspNetMVC.Controllers {
 		//}
 		[HttpGet]
 		public ActionResult GetDistricts() {
-			return Json(CountyModels.County);
+			return Json(CountyModels.County, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

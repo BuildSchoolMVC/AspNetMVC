@@ -12,7 +12,7 @@ const disableBtn = (btn) => {
 const $countyList = $('#county-list');
 const $districtList = $('#district-list');
 $.ajax({
-  type: 'POST',
+  type: 'GET',
   url: '/Checkout/GetDistricts',
   dataType: 'json',
   success: (data) => {

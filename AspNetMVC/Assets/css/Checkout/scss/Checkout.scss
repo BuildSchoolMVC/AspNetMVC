@@ -73,16 +73,19 @@
       margin-right: 10px;
     }
   }
-  #address {}
+  #favorite-name {
+    margin:0 auto 10px;
+    font-size: 20px;
+    @media screen and (min-width: 576px) {
+      font-size: 22px;
+    }
+  }
   .item {
     margin-bottom: 15px;
     padding: 5px 10px;
     border-radius: 4px;
     background-color: var(--color-primary-soLight);
     box-shadow: 0 0 3px var(--color-primary-dark);
-    .value {
-      flex-grow: 1;
-    }
     .icon {
       font-size: 18px;
       @media screen and (min-width: 576px) {
@@ -94,7 +97,16 @@
     display: flex;
     align-items: center;
   }
+  .place {
+    .square-feet {
+      color: var(--color-lightGray);
+      margin-left: 10px;
+    }
+  }
   .hours {
+    .value {
+      flex-grow: 1;
+    }
     .value > * + * {
       margin-left: 5px;
     }
@@ -103,7 +115,6 @@
     }
   }
   .total {
-    // margin-top: 15px;
     border-top: 2px solid #eee;
     padding: 5px 10px 0;
     .value {
@@ -263,7 +274,7 @@
     }
   }
   .row_dayweek {
-    color: var(--color-lightGray);
+    color: var(--color-gray);
     padding: 20px 0 10px;
     .day-name {
       flex-grow: 1;
