@@ -11,7 +11,7 @@ namespace AspNetMVC.Models.Entity
         [Key]
         public Guid UserDefinedProductId { get; set; }
         public Guid UserDefinedId { get; set; }
-        public Guid MemberId { get; set; }
+        public string AccountName { get; set; }
         public string Name { get; set; }
         public int RoomType { get; set; }
         public string ServiceItems { get; set; }
