@@ -35,20 +35,18 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public void CreatePackage(UserDefinedAllViewModel model)
+        public JsonResult CreatePackage(UserDefinedAllViewModel model)
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            var userid= _accountService.GetAccountId(UserName);
             var TempGuid = Guid.NewGuid();
 
             if (ModelState.IsValid)
             {
-                foreach (var i in model.UserDefinedAlls)
-                {
-                    _productPageService.CreateUserDefinedPackageData(i, userid, UserName, TempGuid);
-                }
-                _productPageService.CreateFavoriteData(null, TempGuid, userid.ToString(), UserName);
-            }        
+               _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
+                
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CreateFavoriteData()
@@ -57,17 +55,17 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public void CreateFavoriteData([Bind(Include = "PackageProductId")] ProductPageViewModel model)
+        public JsonResult CreateFavoriteData([Bind(Include = "PackageProductId")] ProductPageViewModel model)
         {
             
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            var userid = _accountService.GetAccountId(UserName);
 
             if (ModelState.IsValid)
             {
-                _productPageService.CreateFavoriteData(model.PackageProductId, null, userid.ToString(), UserName);
-  
+                _productPageService.CreatePackageProductDataInFavorite(model.PackageProductId, UserName);
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
     }

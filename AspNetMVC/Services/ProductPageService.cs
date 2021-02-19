@@ -40,38 +40,65 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public OperationResult CreateUserDefinedPackageData(UserDefinedAll model, Guid account, string name, Guid TempGuid)
+        public void CreateUserDefinedDataInFavorite(IEnumerable<UserDefinedAll> model, string name, Guid TempGuid)
         {
 
             var result = new OperationResult();
-            try
+            using (var transcation = _context.Database.BeginTransaction())
             {
 
-                _repository.Create(new UserDefinedProduct
+                try
                 {
-                    UserDefinedProductId = Guid.NewGuid(),
-                    UserDefinedId = TempGuid,
-                    MemberId = account,
-                    ServiceItems = model.ServiceItem,
-                    RoomType = model.RoomType,
-                    Squarefeet = model.Squarefeet,
-                    Name = model.Title,
-                    Hour = countHour(model.RoomType, model.Squarefeet),
-                    Price = Convert.ToDecimal(countHour(model.RoomType, model.Squarefeet)) * 500,
-                    CreateTime = DateTime.UtcNow.AddHours(8),
-                    CreateUser = name,
-                    EditTime = DateTime.UtcNow.AddHours(8),
-                    EditUser = name,
-                });
-                _context.SaveChanges();
-                result.IsSuccessful = true;
+                    foreach (var i in model)
+                    {
+                        var product = new UserDefinedProduct
+                        {
+                            UserDefinedProductId = Guid.NewGuid(),
+                            UserDefinedId = TempGuid,
+                            AccountName = name,
+                            ServiceItems = i.ServiceItem,
+                            RoomType = i.RoomType,
+                            Squarefeet = i.Squarefeet,
+                            Name = i.Title,
+                            Hour = countHour(i.RoomType, i.Squarefeet),
+                            Price = Convert.ToDecimal(countHour(i.RoomType, i.Squarefeet)) * 500,
+                            CreateTime = DateTime.UtcNow.AddHours(8),
+                            CreateUser = name,
+                            EditTime = DateTime.UtcNow.AddHours(8),
+                            EditUser = name,
+                        };
+                    _repository.Create<UserDefinedProduct>(product);
+                    }
+                    _context.SaveChanges();
+                    var userfavorite= new UserFavorite
+                    {
+                        FavoriteId = Guid.NewGuid(),
+                        AccountName = name,
+                        UserDefinedId = TempGuid,
+                        PackageProductId = null,
+                        IsPakage = false,
+                        IsDelete = false,
+                        CreateTime = DateTime.UtcNow.AddHours(8),
+                        CreateUser = name,
+                        EditTime = DateTime.UtcNow.AddHours(8),
+                        EditUser = name,
+                    };
+
+
+                    _repository.Create<UserFavorite>(userfavorite);
+                    
+
+                    result.IsSuccessful = true;
+                    transcation.Commit();
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    transcation.Rollback();
+                }
             }
-            catch (Exception ex)
-            {
-                result.IsSuccessful = false;
-                result.Exception = ex;
-            }
-            return result;
+            
         }
         public float countHour(int RoomType, int Squarefeet)
         {
@@ -89,28 +116,21 @@ namespace AspNetMVC.Services
             hour += Squarefeet * unit;
             return hour;
         }
-        public OperationResult CreateFavoriteData(int? packageproductId, Guid? userdefinedId, string account, string name)
+        public OperationResult CreatePackageProductDataInFavorite(int packageproductId, string name)
         {
 
             var result = new OperationResult();
+
             try
             {
-                bool ispakage;
-               if (packageproductId != null)
-                {
-                    ispakage = true;
-                }
-               else
-                {
-                    ispakage = false;
-                }
+
                 _repository.Create(new UserFavorite
                 {
                     FavoriteId = Guid.NewGuid(),
-                    AccountName = account,
-                    UserDefinedId = userdefinedId,
+                    AccountName = name,
+                    UserDefinedId = null,
                     PackageProductId = packageproductId,
-                    IsPakage = ispakage,
+                    IsPakage = true,
                     IsDelete = false,
                     CreateTime = DateTime.UtcNow.AddHours(8),
                     CreateUser = name,
