@@ -9,25 +9,36 @@ using System.Web.Mvc;
 
 namespace AspNetMVC.Controllers {
 	public class CheckoutController : Controller {
-		// GET: Checkout
+		private readonly CheckoutService _checkoutService;
+		private readonly UserFavoriteService _userFavoriteService;
+
+		public CheckoutController() {
+			_checkoutService = new CheckoutService();
+			_userFavoriteService = new UserFavoriteService();
+		}
+
 		public ActionResult Index() {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			
-			return View();
-		}
-		public ActionResult GetDistricts() {
-			List<CountyModels> county = new List<CountyModels>();
-			county.Add(new CountyModels("台北市", new List<string>() {
-				"中正區", "大同區", "中山區", "松山區", "大安區", "萬華區",
-				"信義區", "士林區", "北投區", "內湖區", "南港區", "文山區",
-			}));
-			county.Add(new CountyModels("新北市", new List<string>() {
-				"萬里區", "金山區", "板橋區", "汐止區", "深坑區", "石碇區", "瑞芳區", "平溪區",
-				"雙溪區", "貢寮區", "新店區", "坪林區", "烏來區", "永和區", "中和區", "土城區",
-				"三峽區", "樹林區", "鶯歌區", "三重區", "新莊區", "泰山區", "林口區", "蘆洲區",
-				"五股區", "八里區", "淡水區", "三芝區", "石門區",
-			}));
-			return Json(county);
+			Guid favoriteId = Guid.Parse("059ec4ea-21dc-46e1-b730-10fb157b10b4");
+			UserFavorite userFavorite = _checkoutService.GetFavorite(favoriteId, accountName);
+			if (userFavorite.IsPakage) {
+				PackageProduct data = _checkoutService.GetPackage(userFavorite);
+				return View(
+					new {
+						IsPackage = userFavorite.IsPakage,
+						Data = data
+					}
+				);
+			} else {
+				List<UserDefinedProduct> data = _checkoutService.GetUserDefinedList(userFavorite);
+				return View(
+					new {
+						IsPackage = userFavorite.IsPakage,
+						Data = data
+					}
+				);
+			}
+			//return View(userFavorite);
 		}
 		[HttpPost]
 		public ActionResult GetOrder(FormCollection submit) {
@@ -35,24 +46,17 @@ namespace AspNetMVC.Controllers {
 
 			return Json(new { title = "預約成功", content = "服務人員將在預約時間前1小時內與您聯繫" });
 		}
-		public ActionResult TestLike() {
-			//using (var context = new UCleanerDBContext()) {
-			//	UserFavorite obj = new UserFavorite {
-			//		FavoriteId = Guid.NewGuid(),
-			//		AccountId = Guid.NewGuid(),
-			//		UserDefinedId = null,
-			//		PackageProductId = 6,
-			//		IsPakage = true,
-			//		IsDelete = false,
-			//		CreateTime = DateTime.Now,
-			//		EditTime = DateTime.Now,
-			//		CreateUser = "",
-			//		EditUser = ""
-			//	};
-			//	context.UserFavorites.Add(obj);
-			//	context.SaveChanges();
-			//}
-			return Json("", JsonRequestBehavior.AllowGet);
+		//public ActionResult AddFavorite() {
+		//	string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+		//	Guid? UserDefinedId = null;
+		//	int? PackageProductId = 1;
+		//	accountName = "leemike0429";
+		//	_userFavoriteService.CreateFavorite(accountName, UserDefinedId, PackageProductId);
+		//	return Content("success");
+		//}
+		[HttpGet]
+		public ActionResult GetDistricts() {
+			return Json(CountyModels.County);
 		}
 	}
 }
