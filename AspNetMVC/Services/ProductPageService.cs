@@ -86,7 +86,7 @@ namespace AspNetMVC.Services
 
 
                     _repository.Create<UserFavorite>(userfavorite);
-                    
+                    _context.SaveChanges();
 
                     result.IsSuccessful = true;
                     transcation.Commit();
