@@ -24,7 +24,7 @@ namespace AspNetMVC.Services {
 					AccountName = accountName,
 					UserDefinedId = userDefinedId,
 					PackageProductId = packageProductId,
-					IsPakage = packageProductId != null,
+					IsPackage = packageProductId != null,
 					IsDelete = false,
 					CreateTime = now,
 					EditTime = now,

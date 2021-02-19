@@ -52,7 +52,7 @@
 					@*Model.Package;*@
 				} else {
 					@*List<UserDefinedProduct> list = _checkoutService.GetUserDefinedList(Model);*@
-					@foreach (var item in Model.UserDefinedList) {
+					foreach (var item in Model.UserDefinedList) {
 						<div class="item">
 							<div class="place">
 								<span class="key">

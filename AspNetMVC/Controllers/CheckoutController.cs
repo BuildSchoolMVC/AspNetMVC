@@ -21,11 +21,11 @@ namespace AspNetMVC.Controllers {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
 			Guid favoriteId = Guid.Parse("059ec4ea-21dc-46e1-b730-10fb157b10b4");
 			UserFavorite userFavorite = _checkoutService.GetFavorite(favoriteId, accountName);
-			if (userFavorite.IsPakage) {
+			if (userFavorite.IsPackage) {
 				PackageProduct data = _checkoutService.GetPackage(userFavorite);
 				return View(
 					new {
-						IsPackage = userFavorite.IsPakage,
+						IsPackage = userFavorite.IsPackage,
 						Data = data
 					}
 				);
@@ -33,7 +33,7 @@ namespace AspNetMVC.Controllers {
 				List<UserDefinedProduct> data = _checkoutService.GetUserDefinedList(userFavorite);
 				return View(
 					new {
-						IsPackage = userFavorite.IsPakage,
+						IsPackage = userFavorite.IsPackage,
 						Data = data
 					}
 				);

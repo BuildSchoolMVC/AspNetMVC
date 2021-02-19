@@ -20,6 +20,6 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public string ProductName { get; set; }
 		[Required]
-		public bool IsPakage { get; set; }
+		public bool IsPackage { get; set; }
 	}
 }

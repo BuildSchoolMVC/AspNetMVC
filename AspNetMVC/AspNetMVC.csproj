@@ -191,6 +191,10 @@
     <Compile Include="Migrations\202102190722517_v2.Designer.cs">
       <DependentUpon>202102190722517_v2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102190815313_v3.cs" />
+    <Compile Include="Migrations\202102190815313_v3.Designer.cs">
+      <DependentUpon>202102190815313_v3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -206,7 +210,6 @@
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Models\Entity\UserFavorite.cs" />
     <Compile Include="Services\CheckoutService.cs" />
-    <Compile Include="Services\DetailPageService.cs" />
     <Compile Include="Services\DetailService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
@@ -229,10 +232,7 @@
     <Compile Include="Repository\FakeData\NewsCardRepository.cs" />
     <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
     <Compile Include="Services\CustomerServiceService.cs" />
-    <Compile Include="Services\IndexPageService.cs" />
     <Compile Include="ViewModels\CheckoutViewModel.cs" />
-    <Compile Include="ViewModels\DetailPageViewModels.cs" />
-    <Compile Include="ViewModels\IndexPageViewModels.cs" />
     <Compile Include="Services\IndexService.cs" />
     <Compile Include="ViewModels\DetailViewModels.cs" />
     <Compile Include="ViewModels\IndexViewModels.cs" />
@@ -525,6 +525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102190722517_v2.resx">
       <DependentUpon>202102190722517_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190815313_v3.resx">
+      <DependentUpon>202102190815313_v3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
