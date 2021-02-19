@@ -85,6 +85,12 @@ namespace AspNetMVC.ViewModels
         public string Locale { get; set; }
         public string Name { get; set; }
         public string Sub { get; set; }
+    }
 
+    public class FacebookInfo
+    {
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string FacebookId { get; set; }
     }
 }

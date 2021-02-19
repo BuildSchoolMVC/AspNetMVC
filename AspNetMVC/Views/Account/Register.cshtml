@@ -20,12 +20,12 @@
                     <div class="social-login-step">
                         <h2>使用社群註冊</h2>
                         <div class="social-btn-grouping">
-                            <button type="button" id="btnGoogleSignIn"><img src="~/Assets/Images/google.png"/>Google</button>
-                            <button type="button" id="btnFacebookSignIn" disabled="disabled"><img src="~/Assets/Images/facebook.png" />Facebook</button>
+                            <button type="button" id="btnGoogleSignIn"><img src="~/Assets/Images/google.png" />Google</button>
+                            <button type="button" id="btnFacebookSignIn"><img src="~/Assets/Images/facebook.png" />Facebook</button>
                             <button type="button" id="btnLineSignIn" disabled="disabled"><img src="~/Assets/Images/line2.png" />Line</button>
                         </div>
                         <div class="float-right w-60">
-                                <button type="button" class="button btn_website-login">使用本站註冊</button>
+                            <button type="button" class="button btn_website-login">使用本站註冊</button>
                         </div>
                     </div>
                     <div class="step1">
@@ -138,5 +138,27 @@
     <script>
         let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
     </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@WebConfigurationManager.AppSettings["Facebok_appId"]',
+                cookie: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }

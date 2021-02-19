@@ -235,7 +235,7 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public async Task<OperationResult> RegisterByGoogleToken(string token)
+        public async Task<OperationResult> RegisterByGoogle(string token)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -297,11 +297,10 @@ namespace AspNetMVC.Services
             }
         }
 
-        public async Task<OperationResult> LoginByGoogleToken(string token)
+        public async Task<OperationResult> LoginByGoogle(string token)
         {
             using (HttpClient client = new HttpClient())
             {
-
                 var or = new OperationResult();
                 try
                 {
@@ -335,6 +334,67 @@ namespace AspNetMVC.Services
                 }
                 return or;
             }
+        }
+
+
+        public OperationResult RegisterByFacebook(FacebookInfo fbInfo)
+        {
+            var or = new OperationResult();
+
+            if (IsAccountExist(fbInfo.FacebookId) || IsEmailExist(fbInfo.Email))
+            {
+                or.IsSuccessful = false;
+                or.MessageInfo = "此帳號已重複申請";
+            }
+            else
+            {
+                RegisterViewModel account = new RegisterViewModel
+                {
+                    Address = "",
+                    Email = fbInfo.Email,
+                    Gender = 3,
+                    Name = fbInfo.FacebookId,
+                    Phone = "",
+                    ConfirmPassword = fbInfo.FacebookId,
+                    Password = fbInfo.FacebookId,
+                    ValidationMessage = ""
+                };
+
+                CreateAccount(account);
+
+                Dictionary<string, string> kvp = new Dictionary<string, string>
+                    {
+                        { "accountname",fbInfo.FacebookId},
+                        { "name",fbInfo.Name},
+                        { "password",fbInfo.FacebookId},
+                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
+                        { "accountid",GetAccountId(fbInfo.FacebookId).ToString()},
+                    };
+
+                SendMail("會員驗證信", fbInfo.Email, kvp);
+
+                or.IsSuccessful = true;
+                or.MessageInfo = account.Name;
+            }
+            return or;
+        }
+
+        public OperationResult LoginByFacebook(FacebookInfo fbInfo)
+        {
+            var or = new OperationResult();
+
+            if (IsAccountExist(fbInfo.FacebookId) && IsEmailExist(fbInfo.Email))
+            {
+                or.IsSuccessful = true;
+                or.MessageInfo = $"驗證成功 {fbInfo.FacebookId}";
+            }
+            else
+            {
+                or.IsSuccessful = false;
+                or.MessageInfo = "驗證失敗";
+            }
+
+            return or;
         }
 
         public Guid GetAccountId(string accountName)

@@ -7,6 +7,7 @@ const confirmPasswordInput = document.querySelector("#ConfirmPassword");
 const emailInput = document.querySelector("#Email");
 const phoneInput = document.querySelector("#Phone");
 const addressInput = document.querySelector("#Address");
+const facebookInfo = {}
 
 const nextStep = () => {
     nextBtn.addEventListener("click", function () {
@@ -74,7 +75,7 @@ const emailCheck = () => {
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                })
+            })
         })
         .then(res => res.json())
         .then(res => {
@@ -182,7 +183,6 @@ function GoogleLogin() {
             method: "post",
             data: { token: id_token },
             success: function (result) {
-                console.log(result)
                 if (result.status = true) {
                     toastr.success("註冊成功，請前往驗證Gmail信箱")
                     setTimeout(() => {
@@ -196,10 +196,66 @@ function GoogleLogin() {
                
     },
         function (error) {
-            console.log("Google登入失敗");
+            toastr.error("Google登入失敗")
             console.log(error);
         });
 }
+
+
+function facebookLogin(response) {
+    if (response.status === 'connected') {
+        getProfile();
+    } else {
+        FB.login(function (response) {
+            getProfile()
+        }, { scope: 'email' });
+    }
+}
+
+
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+        facebookLogin(response);
+    });
+}
+
+function getProfile() {
+    FB.api('/me', "GET", { fields: 'name,email,id' }, function (response) {
+        fetchData(response)
+    })
+}
+function fetchData(response) {
+    let url = "/Account/RegisterByFacebookLogin"
+    let data = {
+        Email: response.email,
+        Name: response.name,
+        Id : response.id
+    }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(res => {
+        if (result.status = true) {
+            toastr.success("註冊成功，請前往驗證Gmail信箱")
+            setTimeout(() => {
+                window.location.replace(`${window.location.origin}/Account/Login`);
+            }, 1500)
+        } else {
+        toastr.error(`${result.response}`)
+    })
+    .catch(err => console.log(err))
+}
+
+
+document.querySelector("#btnFacebookSignIn").addEventListener("click", function () {
+    checkLoginState();
+})
 
 
 window.addEventListener("load", function () {

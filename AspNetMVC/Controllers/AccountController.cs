@@ -276,14 +276,36 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterByGoogleLogin(string token)
         {
-            var result = await _accountService.RegisterByGoogleToken(token);
+            var result = await _accountService.RegisterByGoogle(token);
 
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
         }
 
         public async Task<ActionResult> LoginByGoogleLogin(string token)
         {
-            var result = await _accountService.LoginByGoogleToken(token);
+            var result = await _accountService.LoginByGoogle(token);
+
+            if (result.IsSuccessful)
+            {
+                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
+                Response.Cookies.Add(cookie);
+            }
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+        }
+
+        [HttpPost]
+        public ActionResult RegisterByFacebookLogin([Bind(Include ="Id,Email,Name")]FacebookInfo model)
+        {
+            var result = _accountService.RegisterByFacebook(model);
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+        }
+
+        [HttpPost]
+        public ActionResult LoginByFacebookLogin([Bind(Include = "Id,Email,Name")] FacebookInfo model)
+        {
+            var result = _accountService.LoginByFacebook(model);
 
             if (result.IsSuccessful)
             {
