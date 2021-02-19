@@ -30,7 +30,7 @@ const addFavorites = () => {
             toastr.warning("請先註冊或登入!!!");
             return;
         }
-        let url = "";
+        let url = "/ProductPage/CreateFavoriteData";
         let packageproducid = document.querySelector(".title").dataset.id;
         let data = { PackageProductId: packageproducid };
 

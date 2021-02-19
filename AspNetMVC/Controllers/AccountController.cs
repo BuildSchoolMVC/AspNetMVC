@@ -287,7 +287,7 @@ namespace AspNetMVC.Controllers
 
             if (result.IsSuccessful)
             {
-                var cookie = _accountService.SetCookie(result.MessageInfo, false);
+                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
                 Response.Cookies.Add(cookie);
             }
 

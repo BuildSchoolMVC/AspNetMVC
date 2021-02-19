@@ -216,7 +216,6 @@
     <Compile Include="Services\Helpers\Helpers.cs" />
     <Compile Include="Services\MemberCenterService.cs" />
     <Compile Include="Services\Helpers\OperationResult.cs" />
-    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductPageService.cs" />
     <Compile Include="Services\UserFavoriteService.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />

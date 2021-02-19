@@ -319,7 +319,7 @@ namespace AspNetMVC.Services
                     if (IsAccountExist(googleApiTokenInfo.Sub) && IsEmailExist(googleApiTokenInfo.Email))
                     {
                         or.IsSuccessful = true;
-                        or.MessageInfo = "驗證成功";
+                        or.MessageInfo = $"驗證成功 {googleApiTokenInfo.Sub}";
                     }
                     else
                     {
