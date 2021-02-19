@@ -174,7 +174,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MemberContext.cs" />
     <Compile Include="Migrations\202102181111024_init.cs" />
     <Compile Include="Migrations\202102181111024_init.Designer.cs">
       <DependentUpon>202102181111024_init.cs</DependentUpon>
