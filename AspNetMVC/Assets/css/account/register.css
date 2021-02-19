@@ -125,15 +125,27 @@ p {
     flex-direction: column;
 }
 
-.register-modal .form .social-login-step h2{
+.register-modal .form .social-login-step .social-btn-grouping .spinner-border-wrap {
+    right: 0;
+    width: 20%;
+    background: transparent;
+    left : inherit;
+}
+
+.register-modal .form .social-login-step h2 {
     margin-bottom: 50px;
-    text-align:center;
+    text-align: center;
 }
 
 .register-modal .form .social-login-step .social-btn-grouping {
     display: flex;
     align-items: center;
     flex-direction:column;
+}
+
+.register-modal .form .social-login-step .social-btn-grouping .spinner-border {
+    width:30px;
+    height: 30px;
 }
 
 .register-modal .form .social-login-step .social-btn-grouping button {
@@ -148,11 +160,14 @@ p {
     width: 80%;
     position: relative;
     font-size: 24px;
-    text-align:left;
+    text-align: left;
     padding: 0 10px 0 60px;
-    box-shadow : 1px 1px 10px #adadad80;
+    box-shadow: 1px 1px 10px #adadad80;
 }
-.register-modal .form .social-login-step btn_website-login{
+.register-modal .form .social-login-step .social-btn-grouping button.disabled{
+    opacity:.7;
+}
+.register-modal .form .social-login-step btn_website-login {
     margin-top: 50px;
     width: 80%;
 }

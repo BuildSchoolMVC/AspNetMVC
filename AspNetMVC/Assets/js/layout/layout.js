@@ -1,11 +1,11 @@
-﻿let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+﻿let favorites = []
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
-    "showDuration": "800",
+    "showDuration": "1500",
     "hideDuration": "1000",
-    "timeOut": "1000",
-    "extendedTimeOut": "500",
+    "timeOut": "2000",
+    "extendedTimeOut": "2000",
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",

@@ -153,6 +153,17 @@
 	background: #e8f0fe;
 	transition: .25s ease-in-out;
 }
+.login-modal .form .social-btn-grouping button.disabled {
+	opacity: .7;
+}
+
+.login-modal .form .social-btn-grouping .spinner-border-wrap {
+	right: 0;
+	width: 20%;
+	background: transparent;
+	left: inherit;
+}
+
 
 .login-modal .form .form-group .label-group i {
 	display: none;
