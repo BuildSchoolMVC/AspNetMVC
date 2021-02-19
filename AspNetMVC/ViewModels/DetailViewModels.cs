@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AspNetMVC.ViewModels
 {
-    public class DetailPageViewModel
+    public class DetailViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,6 +24,7 @@ namespace AspNetMVC.ViewModels
 
     public class CommentViewModel 
     {
+        public Guid CommentId { get; set; }
         public string AccountName { get; set; }
         public int Star { get; set; }
         public string Content { get; set; }

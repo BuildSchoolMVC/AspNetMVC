@@ -1,11 +1,14 @@
-﻿@model RegisterViewModel
+﻿@using System.Web.Configuration
+@model RegisterViewModel
 @{
     ViewBag.Title = "註冊/登入";
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/register.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="30073946478-dq1k9co4jj7sng5pc76068mmger9bnl2.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 }
-
 <section class="section_registerForm">
     <div class="register-modal">
         <div class="container-main">
@@ -16,6 +19,17 @@
             <div class="register-block">
                 @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
+                    <div class="social-login-step">
+                        <h2>使用社群註冊</h2>
+                        <div class="social-btn-grouping">
+                            <button type="button" id="btnGoogleSignIn"><img src="~/Assets/Images/google.png"/>Google</button>
+                            <button type="button" id="btnFacebookSignIn" disabled="disabled"><img src="~/Assets/Images/facebook.png" />Facebook</button>
+                            <button type="button" id="btnLineSignIn" disabled="disabled"><img src="~/Assets/Images/line2.png" />Line</button>
+                        </div>
+                        <div class="float-right w-60">
+                                <button type="button" class="button btn_website-login">使用本站註冊</button>
+                        </div>
+                    </div>
                     <div class="step1">
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
@@ -54,12 +68,18 @@
                             </div>
                         </div>
                         <div class="form-group my-2">
-                            <div class="float-right w-100">
-                                <button type="button" class="button btn_next"><span class="spinner-border opacity"></span>下一步</button>
+                            <div class="w-100">
+                                <button type="button" class="button btn_next">下一步</button>
+                            </div>
+                            <div>
+                                <p class="text-region">或是</p>
+                            </div>
+                            <div class="w-100">
+                                <button type="button" class="button btn_social-login">使用社群註冊</button>
                             </div>
                         </div>
                     </div>
-                    <div class="step2">
+                    <div class="step2 d-flex flex-column justify-content-center">
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
                                 @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
@@ -96,7 +116,7 @@
                                 <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
                             </div>
                         </div>
-                        <div class="form-group my-2">
+                        <div class="form-group mt-2">
                             <div class="float-right w-100 btn-groups">
                                 <button type="button" class="button btn_pre">上一步</button>
                                 <button type="button" class="button btn_submit">
@@ -117,4 +137,9 @@
 @section JS {
     <script src="~/Assets/js/account/register.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
+        let id_token_to_userIDUrl = "@Url.Action("RegisterByGoogleLogin", "Account")";
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }

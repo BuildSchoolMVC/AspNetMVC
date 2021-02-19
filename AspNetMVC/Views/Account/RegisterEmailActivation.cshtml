@@ -9,18 +9,20 @@
     <div class="container-lg">
         <div class="row">
             <div class="col-12">
-                @if (ViewBag.Result == "Verified")
-                {
-                    <h1>會員註冊成功</h1>
-                }
-                else if(ViewBag.Result == "HasBeenVerified")
-                {
-                    <h1>已通過驗證</h1>
-                }
-                <p>現在可以開始使用我們的服務!!!</p>
-                <div class="btns-group">
-                    @Html.ActionLink("回首頁", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btns btn-register" })
-                    @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btns btn-login" })
+                <div class="wrap">
+                    @if (ViewBag.Result == "Verified")
+                    {
+                        <h1>會員註冊成功</h1>
+                    }
+                    else if (ViewBag.Result == "HasBeenVerified")
+                    {
+                        <h1>已通過驗證</h1>
+                    }
+                    <p>現在可以開始使用我們的服務!!!</p>
+                    <div class="btns-group">
+                        @Html.ActionLink("回首頁", "Index", "Home", routeValues: null, htmlAttributes: new { @class = "btns btn-register" })
+                        @Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btns btn-login" })
+                    </div>
                 </div>
             </div>
         </div>

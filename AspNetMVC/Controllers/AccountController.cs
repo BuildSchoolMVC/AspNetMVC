@@ -12,6 +12,8 @@ using System.Text;
 using System.Web.Security;
 using System.Configuration;
 using System.Collections.Generic;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace AspNetMVC.Controllers
 {
@@ -24,7 +26,6 @@ namespace AspNetMVC.Controllers
         }
 
         // GET: /Account/Login
-        [AllowAnonymous]
         public ActionResult Login()
         {
             return View();
@@ -32,7 +33,6 @@ namespace AspNetMVC.Controllers
 
         // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")] LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -77,7 +77,6 @@ namespace AspNetMVC.Controllers
         }
 
         // GET: /Account/Register
-        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -85,7 +84,6 @@ namespace AspNetMVC.Controllers
 
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")] RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -127,7 +125,6 @@ namespace AspNetMVC.Controllers
         }
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult RegisterIsExist(string name)
         {
             if (ModelState.IsValid)
@@ -145,7 +142,6 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult RegisterEmailIsExist(string email)
         {
             if (ModelState.IsValid)
@@ -162,14 +158,20 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "Error" });
         }
 
-        [AllowAnonymous]
-        public ActionResult RegisterEmailActivation(Guid id)
+        public ActionResult RegisterEmailActivation(Guid? id)
         {
-            if (ModelState.IsValid)
+            if(id != null)
             {
-                ViewBag.Result = _accountService.EmailActivation(id);
+                if (ModelState.IsValid)
+                {
+                    ViewBag.Result = _accountService.EmailActivation(id);
 
-                return View();
+                    return View();
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
             else
             {
@@ -194,7 +196,6 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public JsonResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid) {
@@ -247,14 +248,13 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult ResetPassword([Bind(Include = "AccountId,NewPassword")]NewPasswordViewModel model) 
         {
             if (ModelState.IsValid)
             {
                 var result = _accountService.UpdatePassword(model.AccountId, model.NewPassword);
 
-                if (result.IsSuccessful) 
+                if (result.Status == 0) 
                 {
                     Email objEmail = new Email
                     {
@@ -270,17 +270,40 @@ namespace AspNetMVC.Controllers
 
                     objEmail.SendEmailFromGmail();
 
-                    return Json(new { response = "success" });
+                    return Json(new { response = result.Status });
                 }
                 else
                 {
-                   return Json(new { response = result.MessageInfo });
+                   return Json(new { response = OperationResultStatus.Fail });
                 }
             }
             else
             {
-                return Json(new { response = "error" });
+                return Json(new { response = OperationResultStatus.ErrorRequest });
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RegisterByGoogleLogin(string token)
+        {
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var url = $"https://oauth2.googleapis.com/tokeninfo?id_token={token}";
+                    client.Timeout = TimeSpan.FromSeconds(30);
+                    HttpResponseMessage response = await client.GetAsync(url); //發送Get 請求
+                    response.EnsureSuccessStatusCode();
+                    var responsebody = await response.Content.ReadAsStringAsync();
+
+                    //var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
+                }
+                catch (Exception ex) {
+                    return null;
+                }
+            }
+            return Json(new { response="success 好棒棒!"});
         }
     }
 }

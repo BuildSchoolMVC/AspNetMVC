@@ -12,6 +12,7 @@ namespace AspNetMVC.Services
         public bool IsSuccessful { get; set; }
         public Exception Exception { get; set; }
         public string MessageInfo { get; set; }
+        public int Status { get; set; }
     }
     public static class OperationResultHelper
     {
@@ -29,5 +30,15 @@ namespace AspNetMVC.Services
                 return "沒有存檔";
             }
         }
+    }
+    public static class OperationResultStatus
+    {
+        public const int Success = 0;
+
+        public const int Fail = 1;
+
+        public const int NotFound = 2;
+
+        public const int ErrorRequest = 3;
     }
 }

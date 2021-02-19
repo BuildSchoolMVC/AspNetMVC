@@ -46,6 +46,7 @@ window.onload = function () {
     setViewedContorl()
     showModule()
     createPackageObj()
+    getPackageProductId()
 }
 
 ////操作區
@@ -415,7 +416,7 @@ function fliterCardByServiceItem() {
 
 
 //將組合的資料傳去Controller
-function PostData(tempitem) {
+function postUserDefineData(tempitem) {
     let url = "/ProductPage/CreatePackage"
     var data = { UserDefinedAlls:tempitem }
     fetch(url, {
@@ -471,12 +472,38 @@ function createPackageObj() {
                 x.Title = Title;
             })
             
-            PostData(userdefinedarray)
+            postUserDefineData(userdefinedarray)
             cleanView()
 
         }
     })
 }
+
+function getPackageProductId() {
+    $("button[name='cartbtn']").click(function () {
+        let tempPackageProductId = $(this).attr("id");
+        console.log(tempPackageProductId)
+        postCreateFavoriteData(tempPackageProductId)
+       
+    })
+}
+
+function postCreateFavoriteData(value) {
+    let url = "/ProductPage/CreateFavoriteData"
+    var data = { PackageProductId:value}
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+        .then(response => console.log('Success:', response))
+        .catch(error => console.error('Error:', error))
+}
+
+
 
 
 

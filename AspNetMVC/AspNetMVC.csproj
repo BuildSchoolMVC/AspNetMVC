@@ -164,7 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DetailPageController.cs" />
+    <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberCenterController.cs" />
@@ -187,6 +187,10 @@
     <Compile Include="Migrations\202102181216528_v1.Designer.cs">
       <DependentUpon>202102181216528_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102190722517_v2.cs" />
+    <Compile Include="Migrations\202102190722517_v2.Designer.cs">
+      <DependentUpon>202102190722517_v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Models\Entity\UserFavorite.cs" />
     <Compile Include="Services\CheckoutService.cs" />
     <Compile Include="Services\DetailPageService.cs" />
+    <Compile Include="Services\DetailService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
     <Compile Include="Services\AccountService.cs" />
@@ -228,6 +233,9 @@
     <Compile Include="ViewModels\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModels.cs" />
     <Compile Include="ViewModels\IndexPageViewModels.cs" />
+    <Compile Include="Services\IndexService.cs" />
+    <Compile Include="ViewModels\DetailViewModels.cs" />
+    <Compile Include="ViewModels\IndexViewModels.cs" />
     <Compile Include="ViewModels\AllProductViewModels.cs" />
     <Compile Include="ViewModels\MemberCenterViewModels.cs" />
   </ItemGroup>
@@ -236,87 +244,90 @@
     <Content Include="App_Data\UCleanerDbContextFile_log.ldf">
       <DependentUpon>UCleanerDbContextFile.mdf</DependentUpon>
     </Content>
-    <Content Include="Assets\css\Account\forgotPassword.css" />
-    <Content Include="Assets\css\Account\register.css" />
-    <Content Include="Assets\css\Account\registerEmailActivation.css" />
-    <Content Include="Assets\css\Account\resetPassword.css" />
-    <Content Include="Assets\css\DetailPage\detailPage.css" />
-    <Content Include="Assets\css\Home\fonts\icofont.eot" />
-    <Content Include="Assets\css\Home\fonts\icofont.svg" />
-    <Content Include="Assets\css\Account\login.css" />
-    <Content Include="Assets\css\MemberCenter\MemberCenter.css" />
-    <Content Include="Assets\css\ProductPage\ProductPage.css" />
-    <Content Include="Assets\css\Checkout\Checkout.min.css" />
-    <Content Include="Assets\css\home\allServiceView.css" />
-    <Content Include="Assets\css\home\fonts\icofont.svg" />
-    <Content Include="Assets\css\home\icofont.min.css" />
-    <Content Include="Assets\css\home\index.css" />
-    <Content Include="Assets\css\layout\layout.css" />
-    <Content Include="Assets\css\QA\QA.css" />
-    <Content Include="Assets\images\air condtioner.jpg" />
-    <Content Include="Assets\images\balcony.png" />
-    <Content Include="Assets\images\bathroom.png" />
-    <Content Include="Assets\images\bed.jpg" />
-    <Content Include="Assets\images\bedroom.png" />
-    <Content Include="Assets\images\bg_banner1.jpg" />
-    <Content Include="Assets\images\bg_banner2.jpg" />
-    <Content Include="Assets\images\bg_banner3.jpg" />
-    <Content Include="Assets\images\bg_banner4.jpg" />
-    <Content Include="Assets\images\bg_banner5.jpg" />
-    <Content Include="Assets\images\bg_banner6.jpg" />
-    <Content Include="Assets\images\bg_banner7.jpg" />
-    <Content Include="Assets\images\bg_clean.jpg" />
-    <Content Include="Assets\images\c1.jpg" />
-    <Content Include="Assets\images\c2.jpg" />
-    <Content Include="Assets\images\c3.jpg" />
-    <Content Include="Assets\images\cart.jpg" />
-    <Content Include="Assets\images\clean.jpg" />
-    <Content Include="Assets\images\hour-clean.png" />
-    <Content Include="Assets\images\icon-4week.svg" />
-    <Content Include="Assets\images\inviteicon.png" />
-    <Content Include="Assets\images\email logo.png" />
-    <Content Include="Assets\images\empty.jpg" />
-    <Content Include="Assets\images\empty.png" />
-    <Content Include="Assets\images\kitchen.jpg" />
-    <Content Include="Assets\images\jcb.png" />
-    <Content Include="Assets\images\kitchen.png" />
-    <Content Include="Assets\images\line.png" />
-    <Content Include="Assets\images\livingroom.png" />
-    <Content Include="Assets\images\loading.gif" />
-    <Content Include="Assets\images\logo.png" />
-    <Content Include="Assets\images\master.png" />
-    <Content Include="Assets\images\n1.jpg" />
-    <Content Include="Assets\images\n2.jpg" />
-    <Content Include="Assets\images\n3.jpg" />
-    <Content Include="Assets\images\n4.jpg" />
-    <Content Include="Assets\images\office1.jpg" />
-    <Content Include="Assets\images\office2.jpg" />
-    <Content Include="Assets\images\office3.jpg" />
-    <Content Include="Assets\images\p1.jpg" />
-    <Content Include="Assets\images\p2.jpg" />
-    <Content Include="Assets\images\p3.jpg" />
-    <Content Include="Assets\images\p4.jpg" />
-    <Content Include="Assets\images\p5.jpg" />
-    <Content Include="Assets\images\p6.jpg" />
-    <Content Include="Assets\images\QAbanner.png" />
-    <Content Include="Assets\images\wall.jpg" />
-    <Content Include="Assets\images\wash machine.jpg" />
-    <Content Include="Assets\images\water pip.jpg" />
-    <Content Include="Assets\js\Account\forgotPassword.js" />
-    <Content Include="Assets\js\Account\register.js" />
-    <Content Include="Assets\js\Account\resetPassword.js" />
-    <Content Include="Assets\js\DetailPage\detailPage.js" />
-    <Content Include="Assets\js\Home\index.js" />
-    <Content Include="Assets\js\Layout\layout.js" />
-    <Content Include="Assets\js\Account\login.js" />
-    <Content Include="Assets\js\MemberCenter\MemberCenter.js" />
-    <Content Include="Assets\js\ProductPage\ProductPage.js" />
-    <Content Include="Assets\images\visa.png" />
-    <Content Include="Assets\js\Checkout\all.js" />
-    <Content Include="Assets\template\EmailActivationTemplate.html" />
-    <Content Include="Assets\template\ForgotPasswordTemplate.html" />
-    <Content Include="Assets\template\SuccessResetPasswordTemplate.html" />
-    <Content Include="Assets\template\SystemReplyTemplate.html" />
+    <Content Include="Assets\Css\Account\ForgotPassword.css" />
+    <Content Include="Assets\Css\Account\Register.css" />
+    <Content Include="Assets\Css\Account\RegisterEmailActivation.css" />
+    <Content Include="Assets\Css\Account\ResetPassword.css" />
+    <Content Include="Assets\Css\Detail\Detail.css" />
+    <Content Include="Assets\Css\Home\fonts\icofont.eot" />
+    <Content Include="Assets\Css\Home\fonts\icofont.svg" />
+    <Content Include="Assets\Css\Account\Login.css" />
+    <Content Include="Assets\Css\MemberCenter\MemberCenter.css" />
+    <Content Include="Assets\Css\ProductPage\ProductPage.css" />
+    <Content Include="Assets\Css\Checkout\Checkout.min.css" />
+    <Content Include="Assets\Css\Home\AllServiceView.css" />
+    <Content Include="Assets\Css\Home\fonts\icofont.svg" />
+    <Content Include="Assets\Css\Home\icofont.min.css" />
+    <Content Include="Assets\Css\Home\Index.css" />
+    <Content Include="Assets\Css\Layout\Layout.css" />
+    <Content Include="Assets\Css\QA\QA.css" />
+    <Content Include="Assets\Images\air condtioner.jpg" />
+    <Content Include="Assets\Images\balcony.png" />
+    <Content Include="Assets\Images\bathroom.png" />
+    <Content Include="Assets\Images\bed.jpg" />
+    <Content Include="Assets\Images\bedroom.png" />
+    <Content Include="Assets\Images\bg_banner1.jpg" />
+    <Content Include="Assets\Images\bg_banner2.jpg" />
+    <Content Include="Assets\Images\bg_banner3.jpg" />
+    <Content Include="Assets\Images\bg_banner4.jpg" />
+    <Content Include="Assets\Images\bg_banner5.jpg" />
+    <Content Include="Assets\Images\bg_banner6.jpg" />
+    <Content Include="Assets\Images\bg_banner7.jpg" />
+    <Content Include="Assets\Images\bg_clean.jpg" />
+    <Content Include="Assets\Images\c1.jpg" />
+    <Content Include="Assets\Images\c2.jpg" />
+    <Content Include="Assets\Images\c3.jpg" />
+    <Content Include="Assets\Images\cart.jpg" />
+    <Content Include="Assets\Images\clean.jpg" />
+    <Content Include="Assets\Images\facebook.png" />
+    <Content Include="Assets\Images\google.png" />
+    <Content Include="Assets\Images\hour-clean.png" />
+    <Content Include="Assets\Images\icon-4week.svg" />
+    <Content Include="Assets\Images\inviteicon.png" />
+    <Content Include="Assets\Images\email logo.png" />
+    <Content Include="Assets\Images\empty.jpg" />
+    <Content Include="Assets\Images\empty.png" />
+    <Content Include="Assets\Images\kitchen.jpg" />
+    <Content Include="Assets\Images\jcb.png" />
+    <Content Include="Assets\Images\kitchen.png" />
+    <Content Include="Assets\Images\line.png" />
+    <Content Include="Assets\Images\line2.png" />
+    <Content Include="Assets\Images\livingroom.png" />
+    <Content Include="Assets\Images\loading.gif" />
+    <Content Include="Assets\Images\logo.png" />
+    <Content Include="Assets\Images\master.png" />
+    <Content Include="Assets\Images\n1.jpg" />
+    <Content Include="Assets\Images\n2.jpg" />
+    <Content Include="Assets\Images\n3.jpg" />
+    <Content Include="Assets\Images\n4.jpg" />
+    <Content Include="Assets\Images\office1.jpg" />
+    <Content Include="Assets\Images\office2.jpg" />
+    <Content Include="Assets\Images\office3.jpg" />
+    <Content Include="Assets\Images\p1.jpg" />
+    <Content Include="Assets\Images\p2.jpg" />
+    <Content Include="Assets\Images\p3.jpg" />
+    <Content Include="Assets\Images\p4.jpg" />
+    <Content Include="Assets\Images\p5.jpg" />
+    <Content Include="Assets\Images\p6.jpg" />
+    <Content Include="Assets\Images\QAbanner.png" />
+    <Content Include="Assets\Images\wall.jpg" />
+    <Content Include="Assets\Images\wash machine.jpg" />
+    <Content Include="Assets\Images\water pip.jpg" />
+    <Content Include="Assets\Js\Account\forgotPassword.js" />
+    <Content Include="Assets\Js\Account\register.js" />
+    <Content Include="Assets\Js\Account\resetPassword.js" />
+    <Content Include="Assets\Js\Detail\detail.js" />
+    <Content Include="Assets\Js\Home\index.js" />
+    <Content Include="Assets\Js\Layout\layout.js" />
+    <Content Include="Assets\Js\Account\login.js" />
+    <Content Include="Assets\Js\MemberCenter\MemberCenter.js" />
+    <Content Include="Assets\Js\ProductPage\ProductPage.js" />
+    <Content Include="Assets\Images\visa.png" />
+    <Content Include="Assets\Js\Checkout\all.js" />
+    <Content Include="Assets\Template\EmailActivationTemplate.html" />
+    <Content Include="Assets\Template\ForgotPasswordTemplate.html" />
+    <Content Include="Assets\Template\SuccessResetPasswordTemplate.html" />
+    <Content Include="Assets\Template\SystemReplyTemplate.html" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -349,10 +360,10 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Assets\css\Home\fonts\icofont.ttf" />
-    <Content Include="Assets\css\Home\fonts\icofont.woff" />
-    <Content Include="Assets\css\Home\fonts\icofont.woff2" />
-    <Content Include="Assets\js\Checkout\districts.json" />
+    <Content Include="Assets\Css\Home\fonts\icofont.ttf" />
+    <Content Include="Assets\Css\Home\fonts\icofont.woff" />
+    <Content Include="Assets\Css\Home\fonts\icofont.woff2" />
+    <Content Include="Assets\Js\Checkout\districts.json" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -473,7 +484,7 @@
     <Content Include="Views\QA\Index.cshtml" />
     <Content Include="Views\Shared\PartialView\_BannerPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_ServiceItemPartial.cshtml" />
-    <Content Include="Views\DetailPage\Index.cshtml" />
+    <Content Include="Views\Detail\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Home\ShowList.cshtml" />
     <Content Include="Views\Home\ShowDetail.cshtml" />
@@ -491,7 +502,7 @@
     <Content Include="Views\MemberCRUD\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\js\QA\" />
+    <Folder Include="Assets\Js\QA\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -511,6 +522,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102181216528_v1.resx">
       <DependentUpon>202102181216528_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190722517_v2.resx">
+      <DependentUpon>202102190722517_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

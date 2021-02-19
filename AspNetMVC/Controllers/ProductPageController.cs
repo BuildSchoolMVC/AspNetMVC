@@ -35,24 +35,38 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePackage(UserDefinedAllViewModel model)
+        public JsonResult CreatePackage(UserDefinedAllViewModel model)
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            var tempName= _accountService.GetAccountId(UserName);
             var TempGuid = Guid.NewGuid();
 
             if (ModelState.IsValid)
             {
-                foreach (var i in model.UserDefinedAlls)
-                {
-                    _productPageService.CreateUserDefinedPackageData(i,tempName, UserName, TempGuid);
-                }
+               _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
                 
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
 
+        public ActionResult CreateFavoriteData()
+        {
             return View();
         }
 
+        [HttpPost]
+        public JsonResult CreateFavoriteData([Bind(Include = "PackageProductId")] ProductPageViewModel model)
+        {
+            
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+
+            if (ModelState.IsValid)
+            {
+                _productPageService.CreatePackageProductDataInFavorite(model.PackageProductId, UserName);
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
