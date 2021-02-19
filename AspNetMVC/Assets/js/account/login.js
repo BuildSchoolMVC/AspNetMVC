@@ -102,6 +102,14 @@
     $("#btnGoogleSignIn").on("click", GoogleLogin)
 })();
 
+function GoogleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
+
 function GoogleLogin() {
     let auth2 = gapi.auth2.getAuthInstance();
     let url = "/Account/LoginByGoogleLogin"
@@ -114,7 +122,10 @@ function GoogleLogin() {
             method: "post",
             data: { token: id_token },
             success: function (result) {
-                if (result.status = true) toastr.error("登入成功")
+                if (result.status = true) {
+                    toastr.success("登入成功");
+                    window.location.replace(`${window.location.origin}/Home/`);
+                }
                 else toastr.error(`${result.response}`)
             }
         });

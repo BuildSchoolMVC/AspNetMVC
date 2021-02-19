@@ -27,7 +27,14 @@ namespace AspNetMVC.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            if(Request.Cookies["user"] != null)
+            {
+                return View("Home/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -71,7 +78,14 @@ namespace AspNetMVC.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            if (Request.Cookies["user"] != null)
+            {
+                return View("Home/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

@@ -1,10 +1,11 @@
-﻿@model LoginViewModel
+﻿@using System.Web.Configuration
+@model LoginViewModel
 @{
     ViewBag.Title = "註冊/登入";
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/login.css">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 }
 
 
@@ -60,9 +61,6 @@
                             登入
                         </button>
                         <button class="button btn_loginBySocial" type="button">
-                            <div class="spinner-border-wrap opacity">
-                                <span class="spinner-border"></span>
-                            </div>
                             以社群帳號登入
                         </button>
                         <div class="other">
@@ -86,5 +84,9 @@
 
 @section JS {
     <script src="~/Assets/js/account/login.js"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }
