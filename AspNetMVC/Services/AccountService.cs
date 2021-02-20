@@ -72,9 +72,7 @@ namespace AspNetMVC.Services
                         EditTime = user.EditTime,
                         EditUser = user.EditUser,
                         Name = user.AccountName,
-                        CreditNumber = 0,
-                        ExpiryDate = user.CreateTime,
-                        SafeNum = 0
+                        
                     };
                     _repository.Create<MemberMd>(member);
                     _context.SaveChanges();
