@@ -1,4 +1,7 @@
 ﻿////全域宣告區
+
+//import { ajax } from "jquery";
+
 //取勾選值
 var sidemenubtn = document.getElementById("sidemenu-contorl");
 var operatingareabtn = document.getElementById("operating-area-btn");
@@ -30,6 +33,9 @@ var pointoutarea = document.getElementById("pointout-area")
 var GUID;
 var searchbyroombtn = document.getElementById("searchbyroom-btn");
 var searchbysquarebtn = document.getElementById("searchbysquare-btn");
+var addfavoritebtn = document.getElementById("addfavorite-btn");
+var definenamebtn = document.getElementById("definename-btn");
+
 
 
 ////載入區
@@ -38,6 +44,9 @@ window.onload = function () {
     viewModeSwitch()
     shopModeSwitch()
     setViewedContorl()
+    showModule()
+    createPackageObj()
+    getPackageProductId()
 }
 
 ////操作區
@@ -230,7 +239,7 @@ function countPrice() {
 //創造物件
 function createObject(itemroomtypevalue, itemsquarefeetvalue, GUIDvalue, itemserviceitem) {
     var item = {
-        roomtype: parseInt(itemroomtypevalue), squarefeet: parseInt(itemsquarefeetvalue), serviceitem: itemserviceitem, GUID: GUIDvalue
+        RoomType: parseInt(itemroomtypevalue), Squarefeet: parseInt(itemsquarefeetvalue), ServiceItem: itemserviceitem.toString(), GUID: GUIDvalue
     }
     userdefinedarray.push(item)
 }
@@ -272,11 +281,11 @@ function createCard() {
     cloneContent.getElementById("temple-title").innerHTML = `${roomtypevalue}清潔<span class="itemprice">$:${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value)) * hourprice}</span>`;
     cloneContent.getElementById("temple-squarefeet").innerHTML = `坪數大小 : ${squarefeetvalue}`;
     cloneContent.getElementById("temple-img").src = `../../Assets/images/${roompicarray[document.querySelector('input[name="roomtype"]:checked').value]}.png`
-    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese}`;
+    cloneContent.getElementById("temple-serviceitem").innerHTML = `服務內容 : ${serviceschinese.toString()}`;
     cloneContent.getElementById("temple-hour").innerHTML = `花費時間 : ${countHour(parseInt(document.querySelector('input[name="roomtype"]:checked').value), parseInt(document.querySelector('input[name="squarefeet"]:checked').value))}小時`
     createGUID()
     let tempguid = GUID
-    createObject(roomtypeorginal, squarefeetorginal, tempguid, serviceitemorginal)
+    createObject(roomtypeorginal, squarefeetorginal, tempguid, serviceschinese)
     cloneContent.getElementById("temple-deletebtn").onclick = function () {
         $(this).parent().parent().remove()
         countPrice()
@@ -326,6 +335,7 @@ function fliterCardByRoomType() {
     cleanSelected()
 }
 
+//顯示出所有檔案
 function showAllCard() {
     let cardarray = document.getElementsByName("card");
     cardarray.forEach(x => {
@@ -336,7 +346,7 @@ function showAllCard() {
     })
 
 }
-
+//清空勾選欄
 function cleanSelected() {
     let roomtyperadiobtn = document.querySelectorAll('input[name="roomtype"]');
     for (var i = 0; i < roomtyperadiobtn.length; i++) {
@@ -351,7 +361,7 @@ function cleanSelected() {
         serviceitemcheckbox[i].checked = false;
     }
 }
-
+//以空間大小過濾商品
 function fliterCardBySquareFeet() {
     showAllCard()
     let cardarray = document.getElementsByName("card");
@@ -374,7 +384,7 @@ function fliterCardBySquareFeet() {
     })
     cleanSelected()
 }
-
+//以服務項目過濾商品
 function fliterCardByServiceItem() {
     showAllCard()
     let cardarray = document.getElementsByName("card");
@@ -401,6 +411,96 @@ function fliterCardByServiceItem() {
 
 
     cleanSelected()
+}
+
+
+
+//將組合的資料傳去Controller
+function postUserDefineData(tempitem) {
+    let url = "/ProductPage/CreateUserDefinedData"
+    var data = { UserDefinedAlls:tempitem }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+        .then(response => console.log('Success:', response))
+        .catch(error => console.error('Error:', error))
+}
+
+
+//清除自訂組合的畫面及陣列
+function cleanView() {
+
+    $(userdefinedbox).empty();
+    userdefinedarray = [];
+    document.getElementById("countprice").innerText = ""
+    checkCartIsEmpty()
+}
+
+//彈出取名的Module
+function showModule() {
+    addfavoritebtn.addEventListener("click", function () {
+        if (!document.cookie.includes("user")) {
+            alert("目前還沒登入喔!")
+            window.location.assign("/Account/Login")
+        }
+        else if (userdefinedarray.length == 0) {
+            alert("目前還沒有商品喔!")
+        }
+        else {
+
+        this.setAttribute("data-toggle", "modal");
+        this.setAttribute("data-target", "#titlemodal");
+        }
+    })
+}
+
+function createPackageObj() {
+    definenamebtn.addEventListener("click", function () {
+        if (modalinput.innerText = "") {
+            alert("商品還未取名喔!")
+        }
+        else {
+            var Title = document.getElementById("modalinput").value;
+            
+
+            userdefinedarray.forEach(x => {
+                x.Title = Title;
+            })
+            
+            postUserDefineData(userdefinedarray)
+            cleanView()
+
+        }
+    })
+}
+
+function getPackageProductId() {
+    $("button[name='cartbtn']").click(function () {
+        let tempPackageProductId = $(this).attr("id");
+        console.log(tempPackageProductId)
+        postCreateFavoriteData(tempPackageProductId)
+       
+    })
+}
+
+function postCreateFavoriteData(value) {
+    let url = "/ProductPage/CreateFavoriteData"
+    var data = { PackageProductId:value}
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+        .then(response => console.log('Success:', response))
+        .catch(error => console.error('Error:', error))
 }
 
 

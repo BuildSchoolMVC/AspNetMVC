@@ -1,7 +1,7 @@
 ﻿:root {
     --mainColor: #c09ac2;
     --color-primary: #62b2f3;
-    --color-primary-dark: #3684c3 ;
+    --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
 }
 
@@ -12,7 +12,6 @@
 
 .ProductPage .row {
     font-family: 'Noto Sans TC', sans-serif !important;
-   
 }
 
 .ProductPage body {
@@ -530,18 +529,19 @@
                         line-height: 20px;
                         margin-bottom: 0;
                     }
+
                         .ProductPage .product-area .item-group.list .card .text ul li {
                             list-style: disc;
                         }
 
-                        .ProductPage .product-area .item-group.list .card .text a {
-                            position: absolute;
-                            border: none;
-                            background-color: transparent;
-                            right: 5px;
-                            top: 5px;
-                            color: black
-                        }
+                    .ProductPage .product-area .item-group.list .card .text a {
+                        position: absolute;
+                        border: none;
+                        background-color: transparent;
+                        right: 5px;
+                        top: 5px;
+                        color: black
+                    }
 
 .ProductPage .userdefined-area {
     margin-left: -15px;
@@ -706,7 +706,8 @@
                     }
 
                         .ProductPage .userdefined-area .card-body .item-group .item .text ul li {
-                            font-size: 12px
+                            font-size: 12px;
+                            list-style: disc;
                         }
 
     .ProductPage .userdefined-area .content {
@@ -738,7 +739,8 @@
             }
 
                 .ProductPage .userdefined-area .content .text h4 span {
-                    font-size: 14px
+                    margin-left: auto;
+                    font-size: 20px;
                 }
 
         .ProductPage .userdefined-area .content .button-area {
@@ -832,7 +834,6 @@
 
                 .ProductPage .product-area .item-group.grid .card .text p {
                     margin-bottom: 1px;
-                    
                 }
 
         .ProductPage .product-area .item-group.list {
@@ -860,7 +861,7 @@
                     display: -ms-flexbox;
                     display: flex;
                     width: 65%;
-                    padding-left:20px;
+                    padding-left: 20px;
                 }
 
     .ProductPage .userdefined-area .card-header {
@@ -1097,46 +1098,59 @@
                     -webkit-box-shadow: 1px 1px 5px lightgray;
                     box-shadow: 1px 1px 5px lightgray;
                     width: 25%;
-                    height: 200px
+                    height: 200px;
                 }
 
-                    .ProductPage .row .product-area .item-group.grid .card .pic:hover {
-                        -webkit-filter: opacity(0.6);
-                        filter: opacity(0.6);
-                        -webkit-transition: 1s;
-                        transition: 1s
+                    .ProductPage .row .product-area .item-group.grid .card .pic {
+                        height: 100%;
                     }
 
-                    .ProductPage .row .product-area .item-group.grid .card .pic a {
-                        position: absolute;
+                        .ProductPage .row .product-area .item-group.grid .card .pic .img {
+                            height: 100%;
+                        }
+
+                            .ProductPage .row .product-area .item-group.grid .card .pic .img img {
+                                height: 100%;
+                            }
+
+                        .ProductPage .row .product-area .item-group.grid .card .pic:hover {
+                            -webkit-filter: opacity(0.6);
+                            filter: opacity(0.6);
+                            -webkit-transition: 1s;
+                            transition: 1s
+                        }
+
+                        .ProductPage .row .product-area .item-group.grid .card .pic a {
+                            /*                        position: absolute;
                         width: 300px;
-                        height: 200px
-                    }
+                        height: 200px*/
+                        }
 
-                    .ProductPage .row .product-area .item-group.grid .card .pic:hover .icon-area .plus {
-                        -webkit-transform: translate(-20px, 90px);
-                        transform: translate(-20px, 90px);
-                        -webkit-transition: 0.5s;
-                        transition: 0.5s;
-                        color: white
-                    }
+                        .ProductPage .row .product-area .item-group.grid .card .pic:hover .icon-area .plus {
+                           
+                            transform: translate(-30px, -105px);
+                            -webkit-transition: 0.5s;
+                            transition: 0.5s;
+                            color: white;
+                        }
 
-                    .ProductPage .row .product-area .item-group.grid .card .pic:hover .icon-area .search {
-                        -webkit-transform: translate(20px, 7px);
-                        transform: translate(20px, 7px);
-                        -webkit-transition: 0.5s;
-                        transition: 0.5s;
-                        text-decoration: none
-                    }
+                        .ProductPage .row .product-area .item-group.grid .card .pic:hover .icon-area .search {
+                            
+                            transform: translate(30px, -100px);
+                            -webkit-transition: 0.5s;
+                            transition: 0.5s;
+                            text-decoration: none
+                        }
 
                     .ProductPage .row .product-area .item-group.grid .card .text {
                         left: 0;
                         bottom: 10px;
                         color: white
                     }
-                    .ProductPage .row .product-area .item-group.grid .card .text  p{
-                        background-color:var(--color-primary)
-                    }
+
+                        .ProductPage .row .product-area .item-group.grid .card .text p {
+                            background-color: var(--color-primary)
+                        }
 
                     .ProductPage .row .product-area .item-group.grid .card .icon-area {
                         z-index: 30;
@@ -1147,20 +1161,17 @@
 
                         .ProductPage .row .product-area .item-group.grid .card .icon-area .plus {
                             position: absolute;
-                            -webkit-transform: translate(-130px, 180px);
-                            transform: translate(-130px, 180px);
+                            width: 15px;
+                            transform: translate(-135px, 0px);
                             color: black
                         }
 
                         .ProductPage .row .product-area .item-group.grid .card .icon-area .search {
                             position: absolute;
-                            -webkit-transform: translate(130px, -200px);
-                            transform: translate(130px, -200px)
+                            width: 15px;
+                            transform: translate(130px, -400px)
                         }
 
-                            .ProductPage .row .product-area .item-group.grid .card .icon-area .search a {
-                                color: black
-                            }
 
                 .ProductPage .row .product-area .item-group.list {
                     padding-left: 50px

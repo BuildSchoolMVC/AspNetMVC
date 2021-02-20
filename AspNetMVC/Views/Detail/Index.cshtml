@@ -1,0 +1,194 @@
+﻿@model DetailViewModel
+@{
+    ViewBag.Title = Model.Name;
+    var comments = (List<CommentViewModel>)ViewBag.Comments;
+}
+@section CSS{
+ <link href="~/Assets/css/Detail/detail.css" rel="stylesheet">    
+}
+
+<section class="section_product">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-12 col-md-6  d-flex justify-content-center align-items-lg-center pt-md-1">
+                <div class="product-pic mb-2">
+                    <img src="https://i.imgur.com/@(Model.PhotoUrl)" alt="@Model.Name" class="w-100">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="product-content p-md-3">
+                    <div class="content-header">
+                        <h1 data-id="@Model.Id" class="title">@Model.Name</h1>
+                    </div>
+                    <div class="content-body">
+                        <table>
+                            <tr>
+                                <td class="table-header">服務範圍</td>
+                                <td>台北市 、 新北市</td>
+                            </tr>
+                            <tr>
+                                <td class="table-header">服務內容</td>
+                                <td class="service-content">@Model.ServiceItem</td>
+                            </tr>
+                            <tr>
+                                <td class="table-header">服務場域及<br>坪數</td>
+                                @if (Model.RoomName3 != "-")
+                                {
+                                    <td class="place">
+                                        @Model.RoomName - @Model.SquarefeetName、
+                                        @Model.RoomName2 - @Model.SquarefeetName2、
+                                        @Model.RoomName3 - @Model.SquarefeetName3
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="place">
+                                        @Model.RoomName - @Model.SquarefeetName、
+                                        @Model.RoomName2 - @Model.SquarefeetName2
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <td class="table-header">時數</td>
+                                <td>@Model.Hour</td>
+                            </tr>
+                            <tr>
+                                <td class="table-header">
+                                    注意事項
+                                </td>
+                                <td>
+                                    <ul class="pl-4 note">
+                                        <li>將依實際依照現場狀況為主，若現場判斷時間不足服務人員皆會與您報告可完成進度</li>
+                                        <li>現場如有垃圾服務人員僅協助打包，無法協助帶走垃圾</li>
+                                        <li>黴菌、或水垢深根過長時間，可能無法完全清楚</li>
+                                        <li>若有需處理高處，需要請客人自備梯子</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="content-footer">
+                        <p>價格 : <span class="price">@Model.Price</span></p>
+                        <div class="btn-group">
+                            <a href="@Url.Action("Index","Checkout",new { PackageProductId = @Model.Id })" class="btns checkout">直接結帳</a>
+                            <button class="btns add-favorites">加入收藏</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_product-info">
+    <div class="container-lg">
+        <div class="product-tabs">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">介紹</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">服務規格</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">評價</a>
+                </li>
+            </ul>
+        </div>
+        <div class="product-tab-item">
+            <h2>介紹</h2>
+            <p>
+                @Model.Description
+            </p>
+        </div>
+        <div class="product-tab-item">
+            <h2>服務規格</h2>
+            <div class="service d-flex">
+                <div class="service-title w-50">
+                    服務地區
+                </div>
+                <div class="service-region w-50">
+                    台北市、新北市
+                </div>
+            </div>
+        </div>
+        <div class="product-tab-item active">
+            <h2>商品評價</h2>
+            <h4 class="pt-2">@Model.Name - 共 <span class="commentCount">@comments.Count()</span> 則評論</h4>
+            @if (comments.Count() > 0 && Request.Cookies["user"] != null)
+            {
+                <div class="comment">
+                    @foreach (var item in comments)
+                    {
+                        @Html.Partial("PartialView/_PackageProductCommentPartial", item)
+                    }
+                </div>
+                <div class="comment-area">
+                    <textarea placeholder="新增評論...."></textarea>
+                    <div class="grouping d-flex justify-content-around">
+                        <div class="star-grouping pl-3 pt-2">
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <span class="starcount">0</span>
+                        </div>
+                        <button type="button" id="commentBtn" disabled="disabled">送出
+                            <div class="spinner-border-wrap opacity">
+                                <span class="spinner-border"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            }
+            else if (comments.Count() > 0 && Request.Cookies["user"] == null)
+            {
+                <div class="comment">
+                    @foreach (var item in comments)
+                    {
+                        @Html.Partial("PartialView/_PackageProductCommentPartial", item)
+                    }
+                </div>
+                <div class="no-comment">
+                    <p>只有註冊過會員的用戶才能撰寫評價</p>
+                </div>
+            }
+            else if (comments.Count() == 0 && Request.Cookies["user"] != null)
+            {
+                <div class="no-comment">
+                    <p>目前沒有評論</p>
+                </div>
+                <div class="comment-area">
+                    <textarea placeholder="新增評論...."></textarea>
+                    <div class="grouping d-flex justify-content-around">
+                        <div class="star-grouping pl-3 pt-2">
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <i class="fas fa-star pr-1 color-gray"></i>
+                            <span class="starcount">0</span>
+                        </div>
+                        <button type="button" id="commentBtn" disabled="disabled">
+                            送出
+                            <div class="spinner-border-wrap opacity">
+                                <span class="spinner-border"></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="no-comment">
+                    <p>目前沒有評論</p>
+                    <p>只有註冊過會員的用戶才能撰寫評價</p>
+                </div>
+            }
+         </div>
+    </div>
+</section>
+
+@section JS{
+    <script src="~/Assets/js/Detail/detail.js"></script>    
+}

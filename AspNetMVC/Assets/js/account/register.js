@@ -7,6 +7,7 @@ const confirmPasswordInput = document.querySelector("#ConfirmPassword");
 const emailInput = document.querySelector("#Email");
 const phoneInput = document.querySelector("#Phone");
 const addressInput = document.querySelector("#Address");
+const facebookInfo = {}
 
 const nextStep = () => {
     nextBtn.addEventListener("click", function () {
@@ -74,7 +75,7 @@ const emailCheck = () => {
             headers: new Headers({
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-                })
+            })
         })
         .then(res => res.json())
         .then(res => {
@@ -132,7 +133,6 @@ const submitRegister = () => {
         }
     })
 }
-
 const showWarnInfo = (ele, info) => {
     if (ele) {
         ele.classList.add("input-warn");
@@ -152,6 +152,138 @@ const clearWarnInfo = (ele) => {
     }
     ele.parentNode.querySelector("p").textContent = ""
 }
+const toSocialLogin = () => {
+    document.querySelector(".btn_social-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("pre"))
+    })
+}
+const fromSocialLogin = () => {
+    document.querySelector(".btn_website-login").addEventListener("click", function () {
+        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.remove("pre"))
+    })
+}
+
+function GoogleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
+
+function GoogleLogin() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    let url = "/Account/RegisterByGoogleLogin"
+
+    auth2.signIn().then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;//取得id_token
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { token: id_token },
+            success: function (result) {
+                if (result.status == true) {
+                    toastr.success("註冊成功，請前往驗證Gmail信箱")
+                    setTimeout(() => {
+                        window.location.replace(`${window.location.origin}/Account/Login`);
+                    }, 1500)
+                } else {
+                    toastr.error(`${result.response}`)
+                    document.querySelectorAll("button").forEach(x => {
+                        x.removeAttribute("disabled");
+                        x.classList.remove("disabled");
+                    })
+                    document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                        if (!x.classList.contains("opacity")) x.classList.add("opacity");
+                    })
+                }
+            }
+        });
+               
+    },
+        function (error) {
+            toastr.error("Google登入失敗")
+            document.querySelectorAll("button").forEach(x => {
+                x.removeAttribute("disabled");
+                x.classList.remove("disabled");
+            })
+            document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                if (!x.classList.contains("opacity")) x.classList.add("opacity");
+            })
+
+        });
+}
+
+
+function facebookLogin(response) {
+    if (response.status === 'connected') {
+        getProfile();
+    } else {
+        FB.login(function (response) {
+            getProfile()
+        }, { scope: 'email' });
+    }
+}
+
+
+function checkLoginState() {
+    FB.getLoginStatus(function (response) {
+        facebookLogin(response);
+    });
+}
+
+function getProfile() {
+    FB.api('/me', "GET", { fields: 'name,email,id' }, function (response) {
+        fetchData(response)
+    })
+}
+function fetchData(response) {
+    let url = "/Account/RegisterByFacebookLogin"
+    let data = {
+        Email: response.email,
+        Name: response.name,
+        Id : response.id
+    }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(result => {
+            if (result.response == true) {
+                toastr.success("註冊成功，請前往信箱驗證")
+                setTimeout(() => {
+                    window.location.replace(`${window.location.origin}/Account/Login`);
+                }, 1500)
+            } else {
+                toastr.error(`${result.response}`)
+                document.querySelectorAll("button").forEach(x => {
+                    x.removeAttribute("disabled");
+                    x.classList.remove("disabled");
+                })
+                document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                    if (!x.classList.contains("opacity")) x.classList.add("opacity");
+                })
+            }
+        })
+        .catch(err => console.log(err))
+}
+
+
+document.querySelector("#btnFacebookSignIn").addEventListener("click", function () {
+    document.querySelectorAll("button").forEach(x => {
+        x.setAttribute("disabled", "disabled");
+        x.classList.add("disabled");
+    })
+    this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+    checkLoginState();
+})
+
 
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {
@@ -171,4 +303,15 @@ window.addEventListener("load", function () {
     accountNameCheck();
     emailCheck();
     submitRegister();
+    toSocialLogin();
+    fromSocialLogin();
+
+    document.querySelector("#btnGoogleSignIn").addEventListener("click", function () {
+        GoogleLogin();
+        document.querySelectorAll("button").forEach(x => {
+            x.setAttribute("disabled", "disabled");
+            x.classList.add("disabled");
+        })
+        this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+    });
 })

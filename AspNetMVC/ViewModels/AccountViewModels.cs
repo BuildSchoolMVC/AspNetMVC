@@ -78,4 +78,19 @@ namespace AspNetMVC.ViewModels
         public Guid AccountId { get; set; }
         public string NewPassword { get; set; }
     }
+
+    public class GoogleApiTokenInfo
+    {
+        public string Email { get; set; }
+        public string Locale { get; set; }
+        public string Name { get; set; }
+        public string Sub { get; set; }
+    }
+
+    public class FacebookInfo
+    {
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string FacebookId { get; set; }
+    }
 }

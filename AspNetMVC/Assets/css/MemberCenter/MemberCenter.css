@@ -5,6 +5,7 @@
 }
 :root {
     --main: rgb(98,178,243);
+    --hover: rgb(0, 123, 255);
 }
 .wrap {
     width: 100%;
@@ -36,8 +37,13 @@ table {
     }
 
 .username {
+    width:100%;
     text-align: center;
 }
+    .username p {
+        width: 300px;
+        word-break: break-all;
+    }
 
 .user-infro {
     display: flex;
@@ -429,7 +435,7 @@ h5 {
     color:white;
 }
     .btn-main:hover {
-        background: #99779b;
+        background: var(--hover);
         color:white;
     }
     .btn-main:active {

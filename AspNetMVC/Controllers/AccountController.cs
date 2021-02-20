@@ -12,6 +12,8 @@ using System.Text;
 using System.Web.Security;
 using System.Configuration;
 using System.Collections.Generic;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace AspNetMVC.Controllers
 {
@@ -23,16 +25,19 @@ namespace AspNetMVC.Controllers
             _accountService = new AccountService();
         }
 
-        // GET: /Account/Login
-        [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            if(Request.Cookies["user"] != null)
+            {
+                return View("Home/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        // POST: /Account/Login
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Login([Bind(Include = "AccountName,Password,RememberMe,ValidationMessage")] LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -48,14 +53,9 @@ namespace AspNetMVC.Controllers
                     if (_accountService.IsActivatedEmail(model.AccountName)) {
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
-                            HttpCookie cookie_user = new HttpCookie("user");
-                            var cookieText = Encoding.UTF8.GetBytes(model.AccountName);
-                            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-                            cookie_user.Values["user_accountname"] = encryptedValue;
+                            var cookie = _accountService.SetCookie(model.AccountName,model.RememberMe);
 
-                            if (model.RememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
-
-                            Response.Cookies.Add(cookie_user);
+                            Response.Cookies.Add(cookie);
 
                             return Json(new { response = "success" });
                         }
@@ -76,16 +76,19 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        // GET: /Account/Register
-        [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            if (Request.Cookies["user"] != null)
+            {
+                return View("Home/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult Register([Bind(Include = "Email,Password,Name,Gender,Address,Phone,ValidationMessage")] RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -100,19 +103,12 @@ namespace AspNetMVC.Controllers
                         { "accountname",model.Name},
                         { "name",model.Name},
                         { "password",model.Password},
-                        { "datetime",DateTime.Now.ToString().Split(' ')[0]},
-                        { "accountid",_accountService.GetAccountId(model.Name)},
+                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
+                        { "accountid",_accountService.GetAccountId(model.Name).ToString()},
+                        { "isSocialActivation","false"}
                     };
 
-                    Email objEmail = new Email
-                    {
-                        RecipientAddress = model.Email,
-                        Subject = "會員帳號啟動 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-                    };
-
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp);
-
-                    objEmail.SendEmailFromGmail();
+                    _accountService.SendMail("會員驗證信",model.Email, kvp);
 
                     return Json(new { response = "success" });
                 }
@@ -125,14 +121,13 @@ namespace AspNetMVC.Controllers
             // 如果執行到這裡，發生某項失敗，則重新顯示表單
             return View(model);
         }
-        // POST: /Account/Register
+
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult RegisterIsExist(string name)
         {
             if (ModelState.IsValid)
             {
-                if (_accountService.AccountIsExist(name))
+                if (_accountService.IsAccountExist(name))
                 {
                     return Json(new { response = "exist" });
                 }
@@ -145,12 +140,11 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult RegisterEmailIsExist(string email)
         {
             if (ModelState.IsValid)
             {
-                if (_accountService.EmailIsExist(email))
+                if (_accountService.IsEmailExist(email))
                 {
                     return Json(new { response = "Exist" });
                 }
@@ -162,14 +156,20 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "Error" });
         }
 
-        [AllowAnonymous]
-        public ActionResult RegisterEmailActivation(Guid id)
+        public ActionResult RegisterEmailActivation(Guid? id,bool isSocialActivation)
         {
-            if (ModelState.IsValid)
+            if(id != null)
             {
-                ViewBag.Result = _accountService.EmailActivation(id);
-
-                return View();
+                if (ModelState.IsValid)
+                {
+                    ViewBag.Result = _accountService.EmailActivation(id);
+                    ViewBag.IsSocialActivation = isSocialActivation;
+                    return View();
+                }
+                else
+                {
+                    return View("Error");
+                }
             }
             else
             {
@@ -194,29 +194,20 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public JsonResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid) {
                 if (_accountService.IsAccountMatch(model.AccountName, model.Email))
                 {
-
-                    Email objEmail = new Email
-                    {
-                        RecipientAddress = model.Email,
-                        Subject = "密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-                    };
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
-                        { "id", _accountService.GetAccountId(model.AccountName) },
+                        { "id", _accountService.GetAccountId(model.AccountName).ToString()},
                         { "accountname", model.AccountName},
                         { "datetimestring",DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")},
                         { "datetime",DateTime.Now.ToString()}
                     };
 
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.ForgotPassword), kvp);
-
-                    objEmail.SendEmailFromGmail();
+                    _accountService.SendMail("密碼重置", model.Email,kvp);
 
                     return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
                 }
@@ -247,14 +238,13 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ActionResult ResetPassword([Bind(Include = "AccountId,NewPassword")]NewPasswordViewModel model) 
         {
             if (ModelState.IsValid)
             {
                 var result = _accountService.UpdatePassword(model.AccountId, model.NewPassword);
 
-                if (result.IsSuccessful) 
+                if (result.Status == 0) 
                 {
                     Email objEmail = new Email
                     {
@@ -270,17 +260,67 @@ namespace AspNetMVC.Controllers
 
                     objEmail.SendEmailFromGmail();
 
-                    return Json(new { response = "success" });
+                    return Json(new { response = result.Status });
                 }
                 else
                 {
-                   return Json(new { response = result.MessageInfo });
+                   return Json(new { response = OperationResultStatus.Fail });
                 }
             }
             else
             {
-                return Json(new { response = "error" });
+                return Json(new { response = OperationResultStatus.ErrorRequest });
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> RegisterByGoogleLogin(string token)
+        {
+            var result = await _accountService.RegisterByGoogle(token);
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
+        }
+
+        public async Task<ActionResult> LoginByGoogleLogin(string token)
+        {
+            var result = await _accountService.LoginByGoogle(token);
+
+            if (result.IsSuccessful)
+            {
+                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
+                Response.Cookies.Add(cookie);
+            }
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+        }
+
+        [HttpPost]
+        public ActionResult RegisterByFacebookLogin([Bind(Include ="Id,Email,Name")]FacebookInfo model)
+        {
+            var result = _accountService.RegisterByFacebook(model);
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+        }
+
+        [HttpPost]
+        public ActionResult LoginByFacebookLogin([Bind(Include = "Id,Email,Name")] FacebookInfo model)
+        {
+            var result = _accountService.LoginByFacebook(model);
+
+            if (result.IsSuccessful)
+            {
+                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
+                Response.Cookies.Add(cookie);
+            }
+
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+        }
+
+        public async Task<ActionResult> RegisterByLineLogin(string code)
+        {
+            var result = await _accountService.RegisterByLine(code);
+            return null;
+        }
+
     }
 }

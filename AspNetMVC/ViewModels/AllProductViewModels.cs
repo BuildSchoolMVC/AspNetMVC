@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspNetMVC.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -39,15 +40,29 @@ namespace AspNetMVC.ViewModels
 
     public class UserDefinedAllViewModel
     {
-        public Guid UserDefinedId { get; set; }
-        public string Name { get; set; }
-        public string RoomType { get; set; }
-        public string ServiceItem { get; set; }
-        public string Squarefeet { get; set; }
-        public float Hour { get; set; }
-        public decimal Price { get; set; }
+       public List<UserDefinedAll> UserDefinedAlls { get; set; }
+    }
 
+    public class UserDefinedAll
+    {
+        public string Title { get; set; }
+        public int RoomType { get; set; }
+        public string ServiceItem { get; set; }
+        public int Squarefeet { get; set; }
 
     }
+
+    public class UserFavoritePackageProductViewModel
+    {
+        public Guid FavoriteId{ get; set; }
+        public int? PackageProductId { get; set; }
+    }
+    public class UserFavoriteUserDefineViewModel
+    {
+        public Guid FavoriteId { get; set; }
+        public List<UserDefinedAll> Data { get; set; }
+
+    }
+
 
 }

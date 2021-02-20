@@ -1,10 +1,11 @@
-﻿@model LoginViewModel
+﻿@using System.Web.Configuration
+@model LoginViewModel
 @{
     ViewBag.Title = "註冊/登入";
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/account/login.css">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 }
 
 
@@ -18,44 +19,75 @@
             <div class="login-block">
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group active">
-                                <label class="label" for="Name">帳號名稱</label>
-                            </div>
-                            <p class="warn login-email"></p>
+                    <div class="social-login">
+                        <h2>使用社群註冊</h2>
+                        <div class="social-btn-grouping">
+                            <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/google.png" />Google
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
+                            <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/facebook.png" />Facebook
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
+                            <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/line2.png" />Line
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="w-60">
+                            <button type="button" class="button btn_website-login">回去使用本站註冊帳號登入</button>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
-                            <div class="row align-items-center flex-nowrap label-group active">
-                                <label class="label" for="Name">密碼</label>
-                            </div>
-                            <p class="warn login-password"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-12 my-2 p-0">
-                            <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
-                        </div>
-                    </div>
-                    <button class="button btn_login" type="button">
-                        <div class="spinner-border-wrap opacity">
-                            <span class="spinner-border"></span>
-                        </div>
-                        登入
-                    </button>
-                    <div class="other">
+                    <div class="website-login">
                         <div class="form-group">
-                            <div>
-                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
-                                @Html.LabelFor(m => m.RememberMe)
+                            <div class="col-12 my-2 p-0">
+                                @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group active">
+                                    <label class="label" for="Name">帳號名稱</label>
+                                </div>
+                                <p class="warn login-email"></p>
                             </div>
-                            <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
-                                忘記密碼?
-                            </a>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
+                                <div class="row align-items-center flex-nowrap label-group active">
+                                    <label class="label" for="Name">密碼</label>
+                                </div>
+                                <p class="warn login-password"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 my-2 p-0">
+                                <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
+                            </div>
+                        </div>
+                        <button class="button btn_login" type="button">
+                            <div class="spinner-border-wrap opacity">
+                                <span class="spinner-border"></span>
+                            </div>
+                            登入
+                        </button>
+                        <button class="button btn_loginBySocial" type="button">
+                            以社群帳號登入
+                        </button>
+                        <div class="other">
+                            <div class="form-group">
+                                <div>
+                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                                <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
+                                    忘記密碼?
+                                </a>
+                            </div>
                         </div>
                     </div>
                 }
@@ -67,5 +99,31 @@
 
 @section JS {
     <script src="~/Assets/js/account/login.js"></script>
-
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
+    </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@WebConfigurationManager.AppSettings["Facebok_appId"]',
+                cookie: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }

@@ -6,17 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class UserDefinedProduct :BaseEnity
+    public class UserDefinedProduct :BaseEntity
     {
         [Key]
+        public Guid UserDefinedProductId { get; set; }
         public Guid UserDefinedId { get; set; }
-        public int MemberId { get; set; }
+        public string AccountName { get; set; }
         public string Name { get; set; }
-        public string RoomType { get; set; }
-        public string ServiceItem { get; set; }
-        public string Squarefeet { get; set; }
+        public int RoomType { get; set; }
+        public string ServiceItems { get; set; }
+        public int Squarefeet { get; set; }
         public float Hour { get; set; }
-        public decimal Price { get; set; }//待刪
-        public string PhotoUrl { get; set; }//待刪
+        public decimal Price { get; set; }
     }
 }

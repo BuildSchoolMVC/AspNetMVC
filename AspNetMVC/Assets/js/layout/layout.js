@@ -1,16 +1,54 @@
-﻿let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+﻿let favorites = [{
+        favoriteId: "1",
+        hour: 1.5,
+        price: 1550,
+        url: "/Assets/images/office1.jpg",
+        content: "content",
+        info: "info",
+        title : "title",
+        isPackage: true
+    },
+    {favoriteId: "2",
+        data: [{
+            hour: 1.5,
+            price: 1550,
+            url: "/Assets/images/office3.jpg",
+            content: "content", //服務內容
+            info: "info", //場域
+            feet : "111", //評述
+            title: "title"
+        }, {
+            hour: 1.5,
+            price: 1550,
+            url: "/Assets/images/office2.jpg",
+            content: "content",
+            info: "info",
+            title: "title"
+        }, {
+            hour: 1.5,
+            price: 1550,
+            url: "/Assets/images/office3.jpg",
+            content: "content",
+            info: "info2",
+            title: "title"
+            }
+        ],
+        isPackage: false
+    }]
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
-    "showDuration": "800",
+    "showDuration": "1500",
     "hideDuration": "1000",
-    "timeOut": "1000",
-    "extendedTimeOut": "500",
+    "timeOut": "2000",
+    "extendedTimeOut": "2000",
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+
+
 
 const openHamburger = () => {
     document.querySelector(".hamburger").addEventListener("click", () => {
@@ -179,11 +217,10 @@ const swipeDeleteEffect = () => {
                     let index = favorites.findIndex(x => x.uid == item.dataset.id);
                     if (index != -1) {
                         favorites.splice(index, 1);
-                        localStorage.setItem("favorites", JSON.stringify(favorites));
                         countFavoritesAmount(favorites.length);
                         checkoutBtnControl();
                         toggleTip();
-                        if (favorites.length == 0) favoritesStatus("你目前的收藏是空的");
+                        if (document.querySelectorAll(".favorites-product-item").length == 0) favoritesStatus("你目前的收藏是空的");
                         toastr.info("成功刪除!!");
                     }
                 }, 500);
@@ -196,6 +233,30 @@ const swipeDeleteEffect = () => {
         })
     })
 }
+const deleteFavorite = (target) => {
+    let id = target.dataset.id;
+    let url = "";
+    let data = { FavoriteId: id };
+    fetch(url, {
+        method: "Post",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(result => {
+            if (result.response) {
+                toastr.success("刪除成功")
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            toastr.error("發生錯誤")
+        })
+} 
+
 const countFavoritesAmount = (count) => {
     if (document.querySelector(".nav-bottom-item .red-dot")) {
         document.querySelector(".nav-bottom-item .red-dot").remove();
@@ -210,12 +271,29 @@ const countFavoritesAmount = (count) => {
         document.querySelector(".favorites-body").style.overflowY = "auto";
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
+const favoriteSelectEffect = (target) => {
+    if (target.checked) {
+        target.parentNode.parentNode.parentNode.parentNode.classList.add("selected");
+        document.querySelector(".checkout").href += `?FavoriteId=${target.dataset.id}`
+    } else {
+        target.parentNode.parentNode.parentNode.parentNode.classList.remove("selected");
+        document.querySelector(".checkout").href = document.querySelector(".checkout").href.split("?")[0]
+    }
+}
 
-const createFavoritesCard = (price, title, url, content, info, packageproducid, uid) => {
+const createFavoritesCard = (card) => {
+    if (card.isPackage) {
+        createPackageCard(card)
+    } else {
+        createUserDefinedCard(card)
+    }
+}
+
+const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
     let card = document.createElement("div");
-    card.className = "favorites-product-item mb-3";
+    card.className = "favorites-product-item mb-3 mx-2";
     card.setAttribute("data-price", price);
-    card.setAttribute("data-id", uid);
+    card.setAttribute("data-id", favoriteId);
 
     let row = document.createElement("div");
     row.className = "row no-gutters w-100";
@@ -258,11 +336,16 @@ const createFavoritesCard = (price, title, url, content, info, packageproducid, 
     p3.append(small);
 
     let a = document.createElement("a");
-    a.setAttribute("href", `/DetailPage/Index/${packageproducid}`);
+    a.setAttribute("href", `/Detail/Index/${favoriteId}`);
     a.className = "btns detail";
     a.textContent = "詳情";
 
-    cardBody.append(h3, p1, p2, p3, a);
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+    checkbox.setAttribute("data-id", favoriteId);
+
+    cardBody.append(h3, p1, p2, p3, a, checkbox);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -281,12 +364,99 @@ const createFavoritesCard = (price, title, url, content, info, packageproducid, 
 
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
 }
+
+const createUserDefinedCard = ({ favoriteId, data }) => {
+        let data1 = data[0], data2 = data[1];
+        let card = document.createElement("div");
+        card.className = "favorites-product-item mb-3 mx-2";
+        card.setAttribute("data-id", favoriteId);
+
+        let row = document.createElement("div");
+        row.className = "row no-gutters w-100";
+
+        let col4 = document.createElement("div");
+        col4.classList.add("col-4","position-relative");
+        let col8 = document.createElement("div");
+        col8.classList.add("col-8");
+
+        let img1 = document.createElement("img");
+        img1.src = data1.url;
+        img1.classList = `w-100 h-100 img1`;
+
+        let img2 = document.createElement("img");
+        img2.src = data2.url;
+        img2.classList = `w-100 h-100 img2`;
+
+        col4.append(img1,img2);
+
+        let cardBody = document.createElement("div");
+        cardBody.className = "card-body py-2 px-3 d-flex flex-column";
+
+        let h3 = document.createElement("h3");
+        h3.classList.add("card-title");
+        h3.textContent = data1.title;
+
+        let p1 = document.createElement("p");
+        p1.className = "card-text my-1";
+        p1.textContent = data1.info;
+
+        let p2 = document.createElement("p");
+        p2.className = "card-text my-1";
+        p2.textContent = data1.content;
+
+        let hr = document.createElement("hr");  
+        
+
+        let p3 = document.createElement("p");
+        p3.className = "card-text my-1";
+        p3.textContent = data2.info;
+
+        let p4 = document.createElement("p");
+        p4.className = "card-text my-1";
+        p4.textContent = data2.content;
+
+        let a = document.createElement("a");
+        a.setAttribute("href", `/MemeberCenter`);
+        a.className = "btns detail";
+        a.textContent = "查看收藏詳情";
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+        checkbox.setAttribute("data-id", favoriteId);
+
+        cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
+        col8.append(cardBody);
+
+        let btnGroup = document.createElement("div");
+        btnGroup.classList.add("btns-group");
+
+        let btnConfirm = document.createElement("button");
+        btnConfirm.className = "btns confirm";
+        btnConfirm.textContent = "確認刪除";
+
+        let btnCancel = document.createElement("button");
+        btnCancel.className = "btns cancel";
+        btnCancel.textContent = "取消";
+        btnGroup.append(btnConfirm, btnCancel);
+        row.append(col4, col8, btnGroup);
+        card.appendChild(row);
+
+        document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
+}
+
 const showFavorites = () => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     favorites.forEach(x => {
-        createFavoritesCard(x.price, x.title, x.url, x.content, x.info, x.packageproducid,x.uid);
+        createFavoritesCard(x);
     })
     swipeDeleteEffect();
+    document.querySelectorAll("input[type='checkbox']").forEach(x => {
+
+        x.addEventListener("click", function () {
+            favoriteSelectEffect(x);
+        })
+    })
 }
 const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
@@ -308,7 +478,7 @@ const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
 }
 const checkoutBtnControl = () => {
-    if (getCookieName("user") != "user_id" || favorites.length == 0) {
+    if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
         document.querySelector(".favorites-footer .checkout").classList.add("disabled");
         document.querySelector(".favorites-footer .checkout").removeAttribute("href");
     } else {
@@ -317,7 +487,7 @@ const checkoutBtnControl = () => {
     }
 }
 const toggleTip = () => {
-    if (getCookieName("user") || favorites.length == 0) {
+    if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
         document.querySelector(".tip").classList.add("hide");
     } else {
         document.querySelector(".tip").classList.remove("hide");
@@ -338,7 +508,7 @@ const customerForm = () => {
     let validate = null;
     document.querySelectorAll(".contact-us .question").forEach(x => {
         clearWarn(x);
-        if (x.value.length === 0) {
+        if (x.value.length == 0) {
             x.classList.add("input-warn");
             validate = "fail";
         } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
@@ -404,6 +574,15 @@ const judgeCharacter = (str, judge) => {
     return result == null ? false : true;
 }
 
+const getFavoritesCount = () => {
+    let url = "";
+    fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            countFavoritesAmount(result.count);
+        })
+}
+
 function getCookieName(name) {
     let cookieObj = {};
     let cookieArr = document.cookie.split(";");
@@ -414,6 +593,11 @@ function getCookieName(name) {
     }
 
     return cookieObj[`${name}`]
+}
+
+//得到加密過的帳號名稱
+function getCookieValue() {
+    return document.cookie.split(";")[0].split("=")[2]
 }
 
 
@@ -439,14 +623,16 @@ window.addEventListener("load", () => {
         checkoutBtnControl();
         toggleTip();
     } else {
-        if (favorites.length == 0) {
-            checkoutBtnControl();
-            countFavoritesAmount(0);
-            favoritesStatus("你目前的收藏是空的");
-        } else {
-            showFavorites();
-            countFavoritesAmount(favorites.length);
-        }
+        //if (document.querySelectorAll(".favorites-product-item").length == 0) {
+        //    checkoutBtnControl();
+        //    countFavoritesAmount(0);
+        //    favoritesStatus("你目前的收藏是空的");
+        //} else {
+        //    showFavorites();
+        //    countFavoritesAmount(favorites.length);
+        //}
+        showFavorites();
+        countFavoritesAmount(favorites.length);
     }
 
     document.querySelectorAll(".subItem").forEach(x => {
@@ -456,7 +642,6 @@ window.addEventListener("load", () => {
     })
     document.querySelector(".finish-view .box").classList.add("hide");
 })
-
 
 
 
@@ -490,10 +675,11 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {
         console.log(x)
         clearWarn(x);
-        if (x.value.length === 0) {
+        if (x.value.length == 0) {
             x.classList.add("input-warn");
         } else if (x.tagName.toLowerCase() === "select" && x.value === "-1") {
             x.classList.add("input-warn");
         }
     })
 });
+

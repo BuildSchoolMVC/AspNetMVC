@@ -19,11 +19,11 @@ namespace AspNetMVC.Services
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
-        public List<ProductPageViewModel> CreateData()
+        public List<ProductPageViewModel> GetData()
         {
-            var result= _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
+            var result = _repository.GetAll<PackageProduct>().Select(x => new ProductPageViewModel()
             {
-                PackageProductId=x.PackageProductId,
+                PackageProductId = x.PackageProductId,
                 Title = x.Name,
                 Price = x.Price,
                 Hour = x.Hour,
@@ -40,16 +40,103 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public void CreateUserDefinedPackage()
+        public void CreateUserDefinedDataInFavorite(IEnumerable<UserDefinedAll> model, string name, Guid TempGuid)
         {
+
             var result = new OperationResult();
+            using (var transcation = _context.Database.BeginTransaction())
+            {
+
+                try
+                {
+                    foreach (var i in model)
+                    {
+                        var product = new UserDefinedProduct
+                        {
+                            UserDefinedProductId = Guid.NewGuid(),
+                            UserDefinedId = TempGuid,
+                            AccountName = name,
+                            ServiceItems = i.ServiceItem,
+                            RoomType = i.RoomType,
+                            Squarefeet = i.Squarefeet,
+                            Name = i.Title,
+                            Hour = countHour(i.RoomType, i.Squarefeet),
+                            Price = Convert.ToDecimal(countHour(i.RoomType, i.Squarefeet)) * 500,
+                            CreateTime = DateTime.UtcNow.AddHours(8),
+                            CreateUser = name,
+                            EditTime = DateTime.UtcNow.AddHours(8),
+                            EditUser = name,
+                        };
+                        _repository.Create<UserDefinedProduct>(product);
+                    }
+                    _context.SaveChanges();
+                    var userfavorite = new UserFavorite
+                    {
+                        FavoriteId = Guid.NewGuid(),
+                        AccountName = name,
+                        UserDefinedId = TempGuid,
+                        PackageProductId = null,
+                        IsPackage = false,
+                        IsDelete = false,
+                        CreateTime = DateTime.UtcNow.AddHours(8),
+                        CreateUser = name,
+                        EditTime = DateTime.UtcNow.AddHours(8),
+                        EditUser = name,
+                    };
+
+
+                    _repository.Create<UserFavorite>(userfavorite);
+                    _context.SaveChanges();
+
+                    result.IsSuccessful = true;
+                    transcation.Commit();
+                }
+                catch (Exception ex)
+                {
+                    result.IsSuccessful = false;
+                    result.Exception = ex;
+                    transcation.Rollback();
+                }
+            }
+
+        }
+        public float countHour(int RoomType, int Squarefeet)
+        {
+            float hour;
+            float basehour = 1;
+            float unit = 0.5F;
+            if (RoomType <= 2)
+            {
+                hour = basehour;
+            }
+            else
+            {
+                hour = basehour / 2;
+            }
+            hour += Squarefeet * unit;
+            return hour;
+        }
+        public OperationResult CreatePackageProductDataInFavorite(int packageproductId, string name)
+        {
+
+            var result = new OperationResult();
+
             try
             {
-                _repository.Create(new UserDefinedProduct
+
+                _repository.Create(new UserFavorite
                 {
-                    
-                }
-                    );
+                    FavoriteId = Guid.NewGuid(),
+                    AccountName = name,
+                    UserDefinedId = null,
+                    PackageProductId = packageproductId,
+                    IsPackage = true,
+                    IsDelete = false,
+                    CreateTime = DateTime.UtcNow.AddHours(8),
+                    CreateUser = name,
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                    EditUser = name,
+                });
                 _context.SaveChanges();
                 result.IsSuccessful = true;
             }
@@ -58,7 +145,71 @@ namespace AspNetMVC.Services
                 result.IsSuccessful = false;
                 result.Exception = ex;
             }
+            return result;
         }
+        public Account GetUser(Guid id)
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
+        }
+
+        public UserFavoritePackageProductViewModel GetFavoritePackageProductData(string username)
+        {
+
+            var result = from userFavorite in _context.UserFavorites
+                         where userFavorite.AccountName == username
+                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                         select new UserFavoritePackageProductViewModel
+                         {
+                             FavoriteId = userFavorite.FavoriteId,
+                             PackageProductId = userFavorite.PackageProductId
+                         };
+
+            return (UserFavoritePackageProductViewModel)result;
+        }
+        public UserFavoriteUserDefineViewModel GetFavoritePackageUserDefineData(string username)
+        {
+            var result = from userFavorite in _context.UserFavorites
+                         where userFavorite.AccountName == username && userFavorite.IsPackage==false
+                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                         group userFavorite by userFavorite.UserDefinedId into gp
+                         select new UserFavoriteUserDefineViewModel
+                         {
+                               
+                         };
+
+
+            return (UserFavoriteUserDefineViewModel)result;
+
+        }
+
+        //public OperationResult GetFavoriteDataEachFavoriteId(string username)
+        //{
+        //    var result = new OperationResult();
+
+        //    try
+        //    {
+        //        var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
+
+        //        var Favoritesresult = from userFavorite in _context.UserFavorites
+        //                              where userFavorite.AccountName == username
+        //                              join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+        //                              select new UserFavoriteViewModel
+        //                              {
+        //                                  FavoriteId = userFavorite.FavoriteId,
+        //                              };
+
+        //        return (OperationResult)Favoritesresult;
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.IsSuccessful = false;
+        //        result.Exception = ex;
+        //    }
+        //    return result;
+        //}
 
     }
 }
