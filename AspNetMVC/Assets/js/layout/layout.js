@@ -12,6 +12,18 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
+let fakeData = {
+    favoriteId : "1231",
+    hour: 1.5,
+    price: 1550,
+    url: "",
+    content: "",
+    info: "",
+    isPackage : true
+}
+favorites.push(fakeData)
+
+
 const openHamburger = () => {
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".side-menu").classList.add("show");
@@ -198,7 +210,7 @@ const swipeDeleteEffect = () => {
 const deleteFavorite = (target) => {
     let id = target.dataset.id;
     let url = "";
-    let data = { PackageProductId: id };
+    let data = { FavoriteId: id };
     fetch(url, {
         method: "Post",
         body: JSON.stringify(data),
@@ -207,8 +219,16 @@ const deleteFavorite = (target) => {
             'Content-Type': 'application/json'
         })
     })
-        .then()
-        .catch(err => { console.log(err) })
+        .then(res => res.json())
+        .then(result => {
+            if (result.response) {
+                toastr.success("刪除成功")
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            toastr.error("發生錯誤")
+        })
 } 
 
 const countFavoritesAmount = (count) => {
@@ -233,11 +253,11 @@ const favoriteSelectEffect = (target) => {
     }
 }
 
-const createFavoritesCard = (price, title, url, content, info, packageproducid, uid) => {
+const createFavoritesCard = (price, title, url, content, info, hour,favoriteId) => {
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3";
     card.setAttribute("data-price", price);
-    card.setAttribute("data-id", uid);
+    card.setAttribute("data-id", favoriteId);
 
     let row = document.createElement("div");
     row.className = "row no-gutters w-100";
