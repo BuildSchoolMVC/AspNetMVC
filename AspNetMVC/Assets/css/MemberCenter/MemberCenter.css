@@ -644,4 +644,57 @@ h5 {
     .order-detail-table_prod_dt {
         padding:0px 40px;
     }
+
+
+    .couponwrap {
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        margin: auto;
+        /*width: 550px;*/
+        display: flex;
+    }
+
+    .couponcontainer {
+        display: flex;
+    }
+
+    .coupontitle {
+        font-family: "Sriracha", cursive;
+        writing-mode: vertical-lr;
+        background: aqua;
+        padding: 5px;
+        align-items: center;
+        display: flex;
+        font-size: 44px;
+        justify-content: center;
+        color: white;
+        transform: rotate(180deg);
+        width: 60px;
+    }
+
+    .coupon {
+        border-top: 5px dashed rgb(31, 30, 30);
+        border-right: 5px dashed rgb(31, 30, 30);
+        border-bottom: 5px dashed rgb(31, 30, 30);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px 10px 10px 0px;
+        width: 430px;
+    }
+
+    .couponpic {
+        display: flex;
+        background-color:white;
+    }
+
+    .coupon h2 {
+        font-family: "Sriracha", cursive;
+        font-size: 70px;
+        text-align: center;
+    }
+
+    .coupon h3 {
+        font-size: 20px;
+    }
+
 }

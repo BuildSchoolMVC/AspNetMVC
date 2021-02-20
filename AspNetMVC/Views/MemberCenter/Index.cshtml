@@ -1,8 +1,8 @@
-﻿
+﻿@*@model IEnumerable<CouponViewModel> 
 @{
     ViewBag.Title = "Index";
-
-}
+    var CouponData = (List<CouponViewModel>)ViewBag.CouponData;
+}*@
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
     }
@@ -437,13 +437,35 @@
             <div class="tab-pane fade" id="v-pills-discount" role="tabpanel" aria-labelledby="v-pills-discount-tab">
                 <div class="Card">
                     <div class="page-title">
-                        <h2>我的優惠卷</h2>
+                        @{ 
+                            var coupon =4;
+                        }
+
+                        @if (coupon >= 1)
+                        {
+                            foreach(var coupons in (List<CouponViewModel>)ViewBag.coupondata)
+                            {
+                                @Html.Partial("PartialView/_CouponPartial", coupons)
+                            }
+                        <h2>我的優惠卷有@(coupon)張</h2>
+                        }
+                        else
+                        {   
+                        <div class="page-body discount-body">
+                            <div class="page-body-text discount-txt">
+                                <p>您目前尚無優惠卷!</p>
+                            </div>
+                        </div>                      
+                        }
+
+
+
+                        @*@foreach (var coupon in (List<CouponViewModel>)ViewBag.coupondata)
+                        {
+                            @Html.Partial("PartialView/_CouponPartial", coupon)
+                        }*@
                     </div>
-                    <div class="page-body discount-body">
-                        <div class="page-body-text discount-txt">
-                            <p>您目前尚無優惠卷!</p>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 

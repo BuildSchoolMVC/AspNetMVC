@@ -188,6 +188,8 @@
       <DependentUpon>202102160856081_v4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\Coupon.cs" />
+    <Compile Include="Models\Entity\CouponDetail.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -200,6 +202,8 @@
     <Compile Include="Models\Entity\SingleProduct.cs" />
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
+    <Compile Include="Repository\FakeData\CouponRepository.cs" />
+    <Compile Include="Services\CouponService.cs" />
     <Compile Include="Services\DetailPageService.cs" />
     <Compile Include="Services\Email.cs" />
     <Compile Include="Services\GoogleReCaptcha.cs" />
@@ -221,6 +225,7 @@
     <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
     <Compile Include="Services\CustomerServiceService.cs" />
     <Compile Include="Services\IndexPageService.cs" />
+    <Compile Include="ViewModels\CouponViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModels.cs" />
     <Compile Include="ViewModels\IndexPageViewModels.cs" />
     <Compile Include="ViewModels\AllProductViewModels.cs" />
@@ -480,11 +485,13 @@
     <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_CouponPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\js\QA\" />
     <Folder Include="Models\Member\" />
     <Folder Include="Models\ProductPage\" />
+    <Folder Include="Views\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
