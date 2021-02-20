@@ -445,11 +445,12 @@ function cleanView() {
 function showModule() {
     addfavoritebtn.addEventListener("click", function () {
         if (!document.cookie.includes("user")) {
-            alert("目前還沒登入喔!")
+            //alert("目前還沒登入喔!")
+            toastr.error("目前還沒登入喔!")
             window.location.assign("/Account/Login")
         }
         else if (userdefinedarray.length == 0) {
-            alert("目前還沒有商品喔!")
+            toastr.error("目前還沒有商品喔!")
         }
         else {
 
@@ -462,7 +463,7 @@ function showModule() {
 function createPackageObj() {
     definenamebtn.addEventListener("click", function () {
         if (modalinput.innerText = "") {
-            alert("商品還未取名喔!")
+            toastr.error("商品還未取名喔!")
         }
         else {
             var Title = document.getElementById("modalinput").value;

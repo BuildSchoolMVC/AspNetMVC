@@ -13,11 +13,13 @@ namespace AspNetMVC.Services
     {
         private readonly UCleanerDBContext _context;
         private readonly BaseRepository _repository;
+        private readonly AccountService _account;
 
         public ProductPageService()
         {
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
+            _account = new AccountService();
         }
         public List<ProductPageViewModel> GetData()
         {
@@ -180,7 +182,6 @@ namespace AspNetMVC.Services
         public OperationResult GetFavoriteDataEachFavoriteId(string username)
         {
             var result = new OperationResult();
-
             try
             {
                 var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();

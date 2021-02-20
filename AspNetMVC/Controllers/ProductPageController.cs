@@ -66,15 +66,11 @@ namespace AspNetMVC.Controllers
 
         public JsonResult SearchForFavorite()
         {
-            var accountname = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-
-
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            
+            var Data =_productPageService.GetFavoritePackageProductData(UserName);
                 
-                var Data =_productPageService.GetFavoritePackageProductData(accountname);
-                
-                return Json(Data, JsonRequestBehavior.AllowGet);
-
-            //return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+            return Json(Data, JsonRequestBehavior.AllowGet);
         }
 
 
