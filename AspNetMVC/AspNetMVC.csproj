@@ -194,7 +194,16 @@
     <Compile Include="Migrations\202102190815313_v3.Designer.cs">
       <DependentUpon>202102190815313_v3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102200523500_MemberCreditCard.cs" />
+    <Compile Include="Migrations\202102200523500_MemberCreditCard.Designer.cs">
+      <DependentUpon>202102200523500_MemberCreditCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102200533333_MemberCreditCard1.cs" />
+    <Compile Include="Migrations\202102200533333_MemberCreditCard1.Designer.cs">
+      <DependentUpon>202102200533333_MemberCreditCard1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\MemberCreditCard.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
     <Compile Include="Models\Entity\Comment.cs" />
@@ -527,6 +536,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102190815313_v3.resx">
       <DependentUpon>202102190815313_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200523500_MemberCreditCard.resx">
+      <DependentUpon>202102200523500_MemberCreditCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200533333_MemberCreditCard1.resx">
+      <DependentUpon>202102200533333_MemberCreditCard1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
