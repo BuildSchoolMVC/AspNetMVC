@@ -96,7 +96,7 @@ namespace AspNetMVC.Controllers
                 var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
                 if (isVerify)
                 {
-                    _accountService.CreateAccount(model);
+                    var accountId = _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
@@ -104,7 +104,7 @@ namespace AspNetMVC.Controllers
                         { "name",model.Name},
                         { "password",model.Password},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",_accountService.GetAccountId(model.Name).ToString()},
+                        { "accountid",accountId},
                         { "isSocialActivation","false"}
                     };
 
@@ -316,11 +316,40 @@ namespace AspNetMVC.Controllers
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
 
-        public async Task<ActionResult> RegisterByLineLogin(string code)
+        public ContentResult RegisterByLineLogin(string code)
         {
-            var result = await _accountService.RegisterByLine(code);
-            return null;
+            var result = _accountService.RegisterByLine(code);
+
+            if (result.IsSuccessful)
+            {
+                string content = "註冊成功，已可關閉視窗，並前往信箱收驗證信。";
+                return Content(content);
+            }
+            else
+            {
+                string content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊。";
+                return Content(content);
+            }
         }
+
+        public ContentResult LoginByLineLogin(string code)
+        {
+            var result = _accountService.LoginByLine(code);
+
+            if (result.IsSuccessful)
+            {
+                string content = "登入成功，已可關閉視窗。";
+                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
+                Response.Cookies.Add(cookie);
+                return Content(content);
+            }
+            else
+            {
+                string content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊/登入。";
+                return Content(content);
+            }
+        }
+
 
     }
 }

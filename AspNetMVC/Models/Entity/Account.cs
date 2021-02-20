@@ -13,7 +13,7 @@ namespace AspNetMVC.Models.Entity
         public Guid AccountId { get; set; }
 
         [Display(Name = "帳號名稱")]
-        [StringLength(30)]
+        [StringLength(200)]
         [Required]
         public string AccountName { get; set; }
 
