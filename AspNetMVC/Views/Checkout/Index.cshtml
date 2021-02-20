@@ -47,98 +47,99 @@
 						<div class="value">選擇打掃地址</div>
 					</div>
 				</div>
+				@{
+					decimal total;
+				}
 				@if (Model.IsPackage) {
-					@*PackageProduct product = _checkoutService.GetPackage(Model);*@
-					@*Model.Package;*@
-				} else {
-					@*List<UserDefinedProduct> list = _checkoutService.GetUserDefinedList(Model);*@
-					foreach (var item in Model.UserDefinedList) {
-						<div class="item">
+					int?[] roomTypes = { Model.Package.RoomType, Model.Package.RoomType2, Model.Package.RoomType3 };
+					int?[] squareFeetType = { Model.Package.Squarefeet, Model.Package.Squarefeet2, Model.Package.Squarefeet3 };
+					<div id="favorite-name">@Model.Package.Name</div>
+					total = Model.Package.Price;
+					<div class="item">
+						@for (int i = 0; i < roomTypes.Length; i++) {
+							if (roomTypes[i] == null) { break; }
 							<div class="place">
 								<span class="key">
 									<i class="icon fas fa-house-user"></i>
 								</span>
-								<span class="value">@item.RoomType</span>
-							</div>
-							<div class="service-type">
-								<span class="key">
-									<i class="icon fas fa-user-friends"></i>
+								<span class="value">
+									@Model.RoomTypeList.First(x => x.Value == roomTypes[i]).Name
 								</span>
-								<span class="value">@item.ServiceItems.Replace(",", " + ")</span>
+								<span class="square-feet">
+									(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == squareFeetType[i]).Name.Split('+', ',')))
+								</span>
 							</div>
-							<div class="hours">
-								<div class="key">
-									<i class="icon fas fa-clock"></i>
-								</div>
-								<div class="value">
-									<div class="num">@item.Hour</div>
-									<div class="unit">hr</div>
-									<div>x</div>
-									<div class="num">500</div>
-									<div class="unit">元/hr</div>
-									<div class="subtotal">@item.Price</div>
-								</div>
+						}
+						<div class="service-type">
+							<span class="key">
+								<i class="icon fas fa-user-friends"></i>
+							</span>
+							<span class="value">
+								@String.Join(" + ", Model.Package.ServiceItem.Split('+', ','))
+							</span>
+						</div>
+						<div class="hours">
+							<div class="key">
+								<i class="icon fas fa-clock"></i>
+							</div>
+							<div class="value">
+								<div class="num">@Model.Package.Hour</div>
+								<div class="unit">hr</div>
+								<div>x</div>
+								<div class="num">500</div>
+								<div class="unit">元/hr</div>
+								<div class="subtotal">@Model.Package.Price</div>
 							</div>
 						</div>
+					</div>
+				} else {
+					<div id="favorite-name">@Model.UserDefinedList[0].Name</div>
+					foreach (var item in Model.UserDefinedList) {
+						@UserDefinedItem(item, Model.IsPackage)
+						@*<div class="item">
+								<div class="place">
+									<span class="key">
+										<i class="icon fas fa-house-user"></i>
+									</span>
+									<span class="value">
+										@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
+									</span>
+									<span class="square-feet">
+										(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
+									</span>
+								</div>
+								<div class="service-type">
+									<span class="key">
+										<i class="icon fas fa-user-friends"></i>
+									</span>
+									<span class="value">
+										@String.Join(" + ", item.ServiceItems.Split('+', ','))
+									</span>
+								</div>
+								<div class="hours">
+									<div class="key">
+										<i class="icon fas fa-clock"></i>
+									</div>
+									<div class="value">
+										<div class="num">@item.Hour</div>
+										<div class="unit">hr</div>
+										<div>x</div>
+										<div class="num">500</div>
+										<div class="unit">元/hr</div>
+										<div class="subtotal">@item.Price</div>
+									</div>
+								</div>
+							</div>*@
 					}
+					total = Model.UserDefinedList.Select(x => x.Price).Sum();
 				}
-				@*<div class="item">
-					<div class="place">
-						<span class="key">
-							<i class="icon fas fa-house-user"></i>
-						</span>
-						<span class="value">客廳</span>
-					</div>
-					<div class="service-type">
-						<span class="key">
-							<i class="icon fas fa-user-friends"></i>
-						</span>
-						<span class="value">鐘點清潔</span>
-					</div>
-					<div class="hours">
-						<div class="key">
-							<i class="icon fas fa-clock"></i>
-						</div>
-						<div class="value">
-							<div class="num">3</div>
-							<div class="unit">hr</div>
-							<div>x</div>
-							<div class="num">500</div>
-							<div class="unit">元/hr</div>
-							<div class="subtotal">1500</div>
-						</div>
-					</div>
+				<div class="coupon">
+					<button>選擇優惠券</button>
+					<span class="value"></span>
 				</div>
-				<div class="item">
-					<div class="place">
-						<span class="key">
-							<i class="icon fas fa-house-user"></i>
-						</span>
-						<span class="value">廚房</span>
-					</div>
-					<div class="service-type">
-						<span class="key">
-							<i class="icon fas fa-user-friends"></i>
-						</span>
-						<span class="value">鐘點清潔</span>
-					</div>
-					<div class="hours">
-						<div class="key">
-							<i class="icon fas fa-clock"></i>
-						</div>
-						<div class="value">
-							<div class="num">2</div>
-							<div class="unit">hr</div>
-							<div>x</div>
-							<div class="num">500</div>
-							<div class="unit">元/hr</div>
-							<div class="subtotal">1000</div>
-						</div>
-					</div>
-				</div>*@
 				<div class="total">
 					<span class="key">總計</span>
-					<span class="value">2500</span>
+					<span class="value">@total</span>
 				</div>
 			</div>
 		</div>
@@ -449,6 +450,60 @@
 	</div>
 </div>
 
+@helper UserDefinedItem(UserDefinedProduct item, bool isPackage) {
+	<div class="item">
+		@*<div class="place">
+			<span class="key">
+				<i class="icon fas fa-house-user"></i>
+			</span>
+			<span class="value">
+				@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
+			</span>
+			<span class="square-feet">
+				(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
+			</span>
+		</div>*@
+		@if (isPackage) {
+			
+		} else {
+			@Place(item)
+		}
+		<div class="service-type">
+			<span class="key">
+				<i class="icon fas fa-user-friends"></i>
+			</span>
+			<span class="value">
+				@String.Join(" + ", item.ServiceItems.Split('+', ','))
+			</span>
+		</div>
+		<div class="hours">
+			<div class="key">
+				<i class="icon fas fa-clock"></i>
+			</div>
+			<div class="value">
+				<div class="num">@item.Hour</div>
+				<div class="unit">hr</div>
+				<div>x</div>
+				<div class="num">500</div>
+				<div class="unit">元/hr</div>
+				<div class="subtotal">@item.Price</div>
+			</div>
+		</div>
+	</div>
+}
+@helper Place(UserDefinedProduct item) {
+	<div class="place">
+		<span class="key">
+			<i class="icon fas fa-house-user"></i>
+		</span>
+		<span class="value">
+			@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
+		</span>
+		<span class="square-feet">
+			(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
+		</span>
+	</div>
+}
 
 @section JS{
 	<script src="~/Assets/js/Checkout/all.js"></script>

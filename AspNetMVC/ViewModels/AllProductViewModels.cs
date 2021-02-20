@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspNetMVC.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -48,7 +49,16 @@ namespace AspNetMVC.ViewModels
         public int RoomType { get; set; }
         public string ServiceItem { get; set; }
         public int Squarefeet { get; set; }
-        
+
     }
+
+    public class UserFavoriteViewModel
+    {
+        public Guid FavoriteId{ get; set; }
+        public bool IsPackage { get; set; }
+        public List<UserDefinedAll> Data { get; set; }
+
+    }
+
 
 }
