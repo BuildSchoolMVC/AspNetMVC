@@ -1,40 +1,42 @@
-﻿let favorites = [{
-        favoriteId: "1",
-        hour: 1.5,
-        price: 1550,
-        url: "/Assets/images/office1.jpg",
-        content: "content",
-        info: "info",
-        title : "title",
-        isPackage: true
-    },
-    {favoriteId: "2",
-        data: [{
-            hour: 1.5,
-            price: 1550,
-            url: "/Assets/images/office3.jpg",
-            content: "content", //服務內容
-            info: "info", //場域
-            feet : "111", //評述
-            title: "title"
-        }, {
-            hour: 1.5,
-            price: 1550,
-            url: "/Assets/images/office2.jpg",
-            content: "content",
-            info: "info",
-            title: "title"
-        }, {
-            hour: 1.5,
-            price: 1550,
-            url: "/Assets/images/office3.jpg",
-            content: "content",
-            info: "info2",
-            title: "title"
-            }
-        ],
-        isPackage: false
-    }]
+﻿//let favorites = [{
+//        favoriteId: "1",
+//        hour: 1.5,
+//        price: 1550,
+//        url: "/Assets/images/office1.jpg",
+//        content: "content",
+//        info: "info",
+//        title : "title",
+//        isPackage: true
+//    },
+//    {favoriteId: "2",
+//        data: [{
+//            hour: 1.5,
+//            price: 1550,
+//            url: "/Assets/images/office3.jpg",
+//            content: "content", //服務內容
+//            info: "info", //場域
+//            feet : "111", //評述
+//            title: "title"
+//        }, {
+//            hour: 1.5,
+//            price: 1550,
+//            url: "/Assets/images/office2.jpg",
+//            content: "content",
+//            info: "info",
+//            title: "title"
+//        }, {
+//            hour: 1.5,
+//            price: 1550,
+//            url: "/Assets/images/office3.jpg",
+//            content: "content",
+//            info: "info2",
+//            title: "title"
+//            }
+//        ],
+//        isPackage: false
+//    }]
+
+let favorites = []
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
@@ -274,7 +276,7 @@ const countFavoritesAmount = (count) => {
 const favoriteSelectEffect = (target) => {
     if (target.checked) {
         target.parentNode.parentNode.parentNode.parentNode.classList.add("selected");
-        document.querySelector(".checkout").href += `?FavoriteId=${target.dataset.id}`
+        document.querySelector(".checkout").href += `?id=${target.dataset.id}`
     } else {
         target.parentNode.parentNode.parentNode.parentNode.classList.remove("selected");
         document.querySelector(".checkout").href = document.querySelector(".checkout").href.split("?")[0]
@@ -310,7 +312,7 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
     col4.append(img);
 
     let cardBody = document.createElement("div");
-    cardBody.className = "card-body py-4 px-3 d-flex flex-column";
+    cardBody.className = "card-body py-2 px-3 d-flex flex-column";
 
     let h3 = document.createElement("h3");
     h3.classList.add("card-title");
@@ -366,83 +368,83 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
 }
 
 const createUserDefinedCard = ({ favoriteId, data }) => {
-        let data1 = data[0], data2 = data[1];
-        let card = document.createElement("div");
-        card.className = "favorites-product-item mb-3 mx-2";
-        card.setAttribute("data-id", favoriteId);
+    let data1 = data[0], data2 = data[1];
+    let card = document.createElement("div");
+    card.className = "favorites-product-item mb-3 mx-2";
+    card.setAttribute("data-id", favoriteId);
 
-        let row = document.createElement("div");
-        row.className = "row no-gutters w-100";
+    let row = document.createElement("div");
+    row.className = "row no-gutters w-100";
 
-        let col4 = document.createElement("div");
-        col4.classList.add("col-4","position-relative");
-        let col8 = document.createElement("div");
-        col8.classList.add("col-8");
+    let col4 = document.createElement("div");
+    col4.classList.add("col-4","position-relative");
+    let col8 = document.createElement("div");
+    col8.classList.add("col-8");
 
-        let img1 = document.createElement("img");
-        img1.src = data1.url;
-        img1.classList = `w-100 h-100 img1`;
+    let img1 = document.createElement("img");
+    img1.src = data1.url;
+    img1.classList = `w-100 h-100 img1`;
 
-        let img2 = document.createElement("img");
-        img2.src = data2.url;
-        img2.classList = `w-100 h-100 img2`;
+    let img2 = document.createElement("img");
+    img2.src = data2.url;
+    img2.classList = `w-100 h-100 img2`;
 
-        col4.append(img1,img2);
+    col4.append(img1,img2);
 
-        let cardBody = document.createElement("div");
-        cardBody.className = "card-body py-2 px-3 d-flex flex-column";
+    let cardBody = document.createElement("div");
+    cardBody.className = "card-body py-2 px-3 d-flex flex-column";
 
-        let h3 = document.createElement("h3");
-        h3.classList.add("card-title");
-        h3.textContent = data1.title;
+    let h3 = document.createElement("h3");
+    h3.classList.add("card-title");
+    h3.textContent = data1.title;
 
-        let p1 = document.createElement("p");
-        p1.className = "card-text my-1";
-        p1.textContent = data1.info;
+    let p1 = document.createElement("p");
+    p1.className = "card-text my-1";
+    p1.textContent = data1.info;
 
-        let p2 = document.createElement("p");
-        p2.className = "card-text my-1";
-        p2.textContent = data1.content;
+    let p2 = document.createElement("p");
+    p2.className = "card-text my-1";
+    p2.textContent = data1.content;
 
-        let hr = document.createElement("hr");  
+    let hr = document.createElement("hr");  
         
 
-        let p3 = document.createElement("p");
-        p3.className = "card-text my-1";
-        p3.textContent = data2.info;
+    let p3 = document.createElement("p");
+    p3.className = "card-text my-1";
+    p3.textContent = data2.info;
 
-        let p4 = document.createElement("p");
-        p4.className = "card-text my-1";
-        p4.textContent = data2.content;
+    let p4 = document.createElement("p");
+    p4.className = "card-text my-1";
+    p4.textContent = data2.content;
 
-        let a = document.createElement("a");
-        a.setAttribute("href", `/MemeberCenter`);
-        a.className = "btns detail";
-        a.textContent = "查看收藏詳情";
+    let a = document.createElement("a");
+    a.setAttribute("href", `/MemeberCenter`);
+    a.className = "btns detail";
+    a.textContent = "查看收藏詳情";
 
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "checkbox";
-        checkbox.setAttribute("data-id", favoriteId);
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "checkbox";
+    checkbox.setAttribute("data-id", favoriteId);
 
-        cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
-        col8.append(cardBody);
+    cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
+    col8.append(cardBody);
 
-        let btnGroup = document.createElement("div");
-        btnGroup.classList.add("btns-group");
+    let btnGroup = document.createElement("div");
+    btnGroup.classList.add("btns-group");
 
-        let btnConfirm = document.createElement("button");
-        btnConfirm.className = "btns confirm";
-        btnConfirm.textContent = "確認刪除";
+    let btnConfirm = document.createElement("button");
+    btnConfirm.className = "btns confirm";
+    btnConfirm.textContent = "確認刪除";
 
-        let btnCancel = document.createElement("button");
-        btnCancel.className = "btns cancel";
-        btnCancel.textContent = "取消";
-        btnGroup.append(btnConfirm, btnCancel);
-        row.append(col4, col8, btnGroup);
-        card.appendChild(row);
+    let btnCancel = document.createElement("button");
+    btnCancel.className = "btns cancel";
+    btnCancel.textContent = "取消";
+    btnGroup.append(btnConfirm, btnCancel);
+    row.append(col4, col8, btnGroup);
+    card.appendChild(row);
 
-        document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
+    document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
 }
 
 const showFavorites = () => {
@@ -623,16 +625,15 @@ window.addEventListener("load", () => {
         checkoutBtnControl();
         toggleTip();
     } else {
-        //if (document.querySelectorAll(".favorites-product-item").length == 0) {
-        //    checkoutBtnControl();
-        //    countFavoritesAmount(0);
-        //    favoritesStatus("你目前的收藏是空的");
-        //} else {
-        //    showFavorites();
-        //    countFavoritesAmount(favorites.length);
-        //}
         showFavorites();
         countFavoritesAmount(favorites.length);
+        toggleTip();
+
+        if (document.querySelectorAll(".favorites-product-item").length == 0) {
+            checkoutBtnControl();
+            countFavoritesAmount(0);
+            favoritesStatus("你目前的收藏是空的");
+        } 
     }
 
     document.querySelectorAll(".subItem").forEach(x => {
@@ -667,10 +668,12 @@ document.querySelector(".contact-us input[type='submit']").addEventListener("cli
     e.preventDefault();
     customerForm();
 })
+
 document.querySelector(".finish-view .finishBtn").addEventListener("click", function (e) {
     e.preventDefault();
     document.querySelector(".finish-view .finished").classList.add("hide");
 })
+
 document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {
         console.log(x)
@@ -683,3 +686,10 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
     })
 });
 
+document.querySelector(".checkout").addEventListener("click", function (e) {
+    if (Array.from(document.querySelectorAll("input[type='checkbox']")).every(x => x.checked == false)) {
+        toastr.warning("必須要選一項，才能前往結帳");
+        e.preventDefault();
+        return;
+    }
+})
