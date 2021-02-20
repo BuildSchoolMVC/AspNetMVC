@@ -223,7 +223,9 @@
     <Compile Include="Models\Entity\SquareFeet.cs" />
     <Compile Include="Models\Entity\UserDefinedProduct.cs" />
     <Compile Include="Models\Entity\UserFavorite.cs" />
+    <Compile Include="Repository\FakeData\CouponRepository.cs" />
     <Compile Include="Services\CheckoutService.cs" />
+    <Compile Include="Services\CouponService.cs" />
     <Compile Include="Services\DetailService.cs" />
     <Compile Include="Services\Helpers\Email.cs" />
     <Compile Include="Services\Helpers\GoogleReCaptcha.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Services\CustomerServiceService.cs" />
     <Compile Include="ViewModels\CheckoutViewModel.cs" />
     <Compile Include="Services\IndexService.cs" />
+    <Compile Include="ViewModels\CouponViewModel.cs" />
     <Compile Include="ViewModels\DetailViewModels.cs" />
     <Compile Include="ViewModels\IndexViewModels.cs" />
     <Compile Include="ViewModels\AllProductViewModels.cs" />
@@ -514,9 +517,11 @@
     <Content Include="Views\MemberCRUD\Details.cshtml" />
     <Content Include="Views\MemberCRUD\Edit.cshtml" />
     <Content Include="Views\MemberCRUD\Index.cshtml" />
+    <Content Include="Views\Shared\PartialView\_CouponPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Js\QA\" />
+    <Folder Include="Views\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

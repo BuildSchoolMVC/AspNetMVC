@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class Coupon : BaseEnity
+    public class Coupon : BaseEntity
     {
         public int CouponID { get; set; }
 
