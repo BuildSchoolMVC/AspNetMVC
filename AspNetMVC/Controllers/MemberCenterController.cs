@@ -31,14 +31,14 @@ namespace AspNetMVC.Controllers
             return AccountId;
         }
         
-        public ActionResult Index(Guid AccountId)
+        public ActionResult Index()
         {
-
-            if (AccountId == null)
+            string account = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            if (Request.Cookies["user"]["user_accountname"] == null)
             {
-                return RedirectToAction("Login","AccountController");
+                return RedirectToAction("Login","Account");
             }
-            var result = _MemberCenterService.GetMember(AccountId);
+            var result = _MemberCenterService.GetMember(account);
             return View(result);
         }
         [HttpPost]

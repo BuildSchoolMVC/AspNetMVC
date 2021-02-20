@@ -318,7 +318,7 @@ namespace AspNetMVC.Controllers
 
         public async Task<ActionResult> RegisterByLineLogin(string code)
         {
-            var result = _accountService.RegisterByLine(code);
+            var result = await _accountService.RegisterByLine(code);
             return null;
         }
 

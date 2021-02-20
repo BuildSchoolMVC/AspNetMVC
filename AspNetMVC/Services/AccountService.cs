@@ -278,6 +278,7 @@ namespace AspNetMVC.Services
                         { "password",googleApiTokenInfo.Sub},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
+                        { "isSocialActivation","false" }
                     };
 
                         SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
@@ -368,6 +369,7 @@ namespace AspNetMVC.Services
                         { "password",fbInfo.FacebookId},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(fbInfo.FacebookId).ToString()},
+                        { "isSocialActivation","true"}
                     };
 
                 SendMail("會員驗證信", fbInfo.Email, kvp);
@@ -454,6 +456,7 @@ namespace AspNetMVC.Services
                         { "password",googleApiTokenInfo.Sub},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
+                        { "isSocialActivation","true"}
                     };
 
                         SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
