@@ -52,10 +52,14 @@ namespace AspNetMVC.ViewModels
 
     }
 
-    public class UserFavoriteViewModel
+    public class UserFavoritePackageProductViewModel
     {
         public Guid FavoriteId{ get; set; }
-        public bool IsPackage { get; set; }
+        public int? PackageProductId { get; set; }
+    }
+    public class UserFavoriteUserDefineViewModel
+    {
+        public Guid FavoriteId { get; set; }
         public List<UserDefinedAll> Data { get; set; }
 
     }

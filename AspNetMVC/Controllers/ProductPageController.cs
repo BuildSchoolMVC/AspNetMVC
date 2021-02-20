@@ -60,25 +60,25 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SearchForCheckout(string accountname)
-        {
-            if (ModelState.IsValid)
-            {
-                _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult SearchForCheckout(string accountname)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
+        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        //}
 
-        public JsonResult SearchForFavorite(string accountname)
-        {
-            if (ModelState.IsValid)
-            {
-                _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult SearchForFavorite(string accountname)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
+        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        //}
 
     }
 }

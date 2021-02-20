@@ -147,34 +147,69 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        public OperationResult GetFavoriteDataEachFavoriteId(string username)
+        public Account GetUser(Guid id)
         {
-            var result = new OperationResult();
-
-            try
-            {
-                var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
-
-                var Favoritesresult = from userFavorite in _context.UserFavorites
-                                      where userFavorite.AccountName == username
-                                      join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
-                                      select new UserFavoriteViewModel
-                                      {
-                                          FavoriteId = userFavorite.FavoriteId,
-                                      };
-
-                return (OperationResult)Favoritesresult;
-
-
-
-            }
-            catch (Exception ex)
-            {
-                result.IsSuccessful = false;
-                result.Exception = ex;
-            }
-            return result;
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
         }
+
+        public UserFavoritePackageProductViewModel GetFavoritePackageProductData(string username)
+        {
+
+            var result = from userFavorite in _context.UserFavorites
+                         where userFavorite.AccountName == username
+                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                         select new UserFavoritePackageProductViewModel
+                         {
+                             FavoriteId = userFavorite.FavoriteId,
+                             PackageProductId = userFavorite.PackageProductId
+                         };
+
+            return (UserFavoritePackageProductViewModel)result;
+        }
+        public UserFavoriteUserDefineViewModel GetFavoritePackageUserDefineData(string username)
+        {
+            var result = from userFavorite in _context.UserFavorites
+                         where userFavorite.AccountName == username && userFavorite.IsPackage==false
+                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                         group userFavorite by userFavorite.UserDefinedId into gp
+                         select new UserFavoriteUserDefineViewModel
+                         {
+                               
+                         };
+
+
+            return (UserFavoriteUserDefineViewModel)result;
+
+        }
+
+        //public OperationResult GetFavoriteDataEachFavoriteId(string username)
+        //{
+        //    var result = new OperationResult();
+
+        //    try
+        //    {
+        //        var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
+
+        //        var Favoritesresult = from userFavorite in _context.UserFavorites
+        //                              where userFavorite.AccountName == username
+        //                              join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+        //                              select new UserFavoriteViewModel
+        //                              {
+        //                                  FavoriteId = userFavorite.FavoriteId,
+        //                              };
+
+        //        return (OperationResult)Favoritesresult;
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.IsSuccessful = false;
+        //        result.Exception = ex;
+        //    }
+        //    return result;
+        //}
 
     }
 }
