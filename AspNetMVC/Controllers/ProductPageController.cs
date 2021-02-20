@@ -29,6 +29,11 @@ namespace AspNetMVC.Controllers
             return View(result);
         }
         [HttpGet]
+        public ActionResult CreateUserDefinedData()
+        {
+            
+            return View();
+        }
 
         [HttpPost]
         public JsonResult CreateUserDefinedData(UserDefinedAllViewModel model)
@@ -38,11 +43,12 @@ namespace AspNetMVC.Controllers
 
             if (ModelState.IsValid)
             {
-               _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
+                _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
                 
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+
         }
 
 
@@ -60,25 +66,18 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult SearchForCheckout(string accountname)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult SearchForFavorite(string accountname)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                var Data =_productPageService.GetFavoritePackageProductData(accountname);
+                
+                return Json(Data, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
 
-        //public JsonResult SearchForFavorite(string accountname)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        //}
 
     }
 }
