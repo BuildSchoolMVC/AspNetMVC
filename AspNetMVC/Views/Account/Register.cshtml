@@ -178,12 +178,15 @@
         })(document, "script", "facebook-jssdk");
     </script>
     <script>
+        @*https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1234567890&redirect_uri=https%3A%2F%2Fexample.com%2Fauth&state=12345abcde&scope=openid%20profile&nonce=09876xyz*@
+
         $('#btnLineSignIn').on('click', function (e) {
-            let link = 'https://access.line.me/dialog/oauth/weblogin?';
+            let link = 'https://access.line.me/oauth2/v2.1/authorize?';
             link += 'response_type=code';
             link += '&client_id=' + @WebConfigurationManager.AppSettings["Line_client_id"];
             link += '&redirect_uri=https://localhost:44308/Account/RegisterByLineLogin';
             link += '&state=uCleaner';
+            link += '&scope=profile'
             window.location.href = link
             @*window.open(link, "uCleaner - 打掃服務", config = 'height=600,width=600,top=240,left=600,toolbar=no,resizable = no;location = no 是否顯示位址列, yes為允許;status = no');*@
         });

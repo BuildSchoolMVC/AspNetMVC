@@ -29,7 +29,7 @@ namespace AspNetMVC.Controllers
         {
             if(Request.Cookies["user"] != null)
             {
-                return View("Home/Index");
+                return View("../Home/Index");
             }
             else
             {
@@ -80,7 +80,7 @@ namespace AspNetMVC.Controllers
         {
             if (Request.Cookies["user"] != null)
             {
-                return View("Home/Index");
+                return View("../Home/Index");
             }
             else
             {

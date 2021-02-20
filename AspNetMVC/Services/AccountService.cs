@@ -278,7 +278,7 @@ namespace AspNetMVC.Services
                         { "password",googleApiTokenInfo.Sub},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
-                        { "isSocialActivation","false" }
+                        { "isSocialActivation","true" }
                     };
 
                         SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
@@ -415,7 +415,7 @@ namespace AspNetMVC.Services
                 var or = new OperationResult();
                 try
                 {
-                    var url = $"https://api.line.me/v2/oauth/accessToken";
+                    var url = $"https://api.line.me/oauth2/v2.1/token";
                     client.Timeout = TimeSpan.FromSeconds(30);
                     var values = new Dictionary<string,string>{
                            { "grant_type", "authorization_code" },
