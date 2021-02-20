@@ -14,13 +14,11 @@ namespace AspNetMVC.Controllers
     {
         private readonly ProductPageService _productPageService;
         private readonly AccountService _accountService;
-        private readonly Helpers _helpers;
 
         public ProductPageController()
         {
             _productPageService = new ProductPageService();
             _accountService = new AccountService();
-            _helpers = new Helpers();
         }
         // GET: ProductPage
         public ActionResult Index()
@@ -28,12 +26,12 @@ namespace AspNetMVC.Controllers
             var result = _productPageService.GetData();
             return View(result);
         }
-        [HttpGet]
-        public ActionResult CreateUserDefinedData()
-        {
+        //[HttpGet]
+        //public ActionResult CreateUserDefinedData()
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
 
         [HttpPost]
         public JsonResult CreateUserDefinedData(UserDefinedAllViewModel model)
@@ -66,16 +64,17 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SearchForFavorite(string accountname)
+        public JsonResult SearchForFavorite()
         {
-            if (ModelState.IsValid)
-            {
+            var accountname = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+
+
                 
                 var Data =_productPageService.GetFavoritePackageProductData(accountname);
                 
                 return Json(Data, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+
+            //return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
 

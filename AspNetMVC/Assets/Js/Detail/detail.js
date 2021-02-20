@@ -52,15 +52,7 @@ const addFavorites = () => {
     })
 }
 
-const getFavorites = () => {
-    url = "";
-    fetch(url)
-        .then(res => res.json())
-        .then(result => {
-            favorites = result;
-        })
-        .catch(err=>console.log(err))
-}
+
 
 const hoverStar = () => {
     let stars = document.querySelectorAll(".star-grouping i");
@@ -240,4 +232,5 @@ window.addEventListener("load", () => {
     hoverStar();
     selectStar();
     commentForm();
+    getFavorites();
 })

@@ -448,6 +448,7 @@ const createUserDefinedCard = ({ favoriteId, data }) => {
 }
 
 const showFavorites = () => {
+    debugger;
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     favorites.forEach(x => {
         createFavoritesCard(x);
@@ -576,13 +577,17 @@ const judgeCharacter = (str, judge) => {
     return result == null ? false : true;
 }
 
-const getFavoritesCount = () => {
-    let url = "";
+
+const getFavorites = () => {
+    url = "/ProductPage/SearchForFavorite";
     fetch(url)
-        .then(res => res.json())
+        .then(res =>  res.json())
         .then(result => {
-            countFavoritesAmount(result.count);
+            favorites = result;
+            countFavoritesAmount(favorites.length);
+            showFavorites();
         })
+        .catch(err => console.log(err))
 }
 
 function getCookieName(name) {
@@ -625,8 +630,8 @@ window.addEventListener("load", () => {
         checkoutBtnControl();
         toggleTip();
     } else {
-        showFavorites();
-        countFavoritesAmount(favorites.length);
+        getFavorites();
+       
         toggleTip();
 
         if (document.querySelectorAll(".favorites-product-item").length == 0) {
