@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Services;
+using AspNetMVC.ViewModel;
 
 namespace AspNetMVC.Controllers
 {
@@ -15,7 +16,7 @@ namespace AspNetMVC.Controllers
 
     {
         
-        private UCleanerDBContext db = new UCleanerDBContext();
+        private MemberMd db = new MemberMd();
         // GET: MemberCenter
         private readonly MemberCenterService _MemberCenterService;
         private readonly AccountService _AccountService;
@@ -38,20 +39,22 @@ namespace AspNetMVC.Controllers
             {
                 return RedirectToAction("Login","AccountController");
             }
-            var result = _MemberCenterService.GetMember(AccountId);
-            return View(result);
+            
+            MemberCenterViewModels memberVm = _MemberCenterService.GetMember(AccountId);
+            return View(memberVm);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Name,Phone,Mail,Address")] MemberMd memberMd)
+        public ActionResult Index([Bind(Include = "Name,Phone,Mail,Address")] Guid AccountId, MemberCenterViewModels memberVm)
         {
+            MemberMd memberMd = _MemberCenterService.SaveModel(AccountId,memberVm);
             if (ModelState.IsValid)
             {
-                db.Entry(memberMd).State = EntityState.Modified;
-                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             return View(memberMd);
         }
+        
     }
 }

@@ -168,7 +168,6 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberCenterController.cs" />
-    <Compile Include="Controllers\MemberCRUDController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Global.asax.cs">
