@@ -147,25 +147,23 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        public OperationResult GetFavoriteData(string username)
+        public OperationResult GetFavoriteDataEachFavoriteId(string username)
         {
             var result = new OperationResult();
 
             try
             {
-                //var userFavorites=_repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
+                var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
 
-                //var result = from userFavorite in _context.UserFavorites
-                //             where userFavorite.AccountName == username
-                //             join UserDefinedProduct in _context.UserFavorites on userFavorite.AccountName equals UserDefinedProduct.AccountName
-                //             select new UserFavoriteViewModel
-                //             {
-                //                 FavoriteId = userFavorite.FavoriteId,
-                //                 IsPackage=userFavorite.IsPackage,
-                //                 Data= 
-                //             };
+                var Favoritesresult = from userFavorite in _context.UserFavorites
+                                      where userFavorite.AccountName == username
+                                      join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                                      select new UserFavoriteViewModel
+                                      {
+                                          FavoriteId = userFavorite.FavoriteId,
+                                      };
 
-                //return result.OrderByDescending(x => x.FavoriteId).ToList();
+                return (OperationResult)Favoritesresult;
 
 
 

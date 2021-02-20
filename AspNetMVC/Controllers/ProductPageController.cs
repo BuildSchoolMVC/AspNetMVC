@@ -60,12 +60,21 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SearchFavoriteByAccountName(string account)
+        public JsonResult SearchForCheckout(string accountname)
         {
-            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             if (ModelState.IsValid)
             {
-                _productPageService.GetFavoriteData(UserName);
+                _productPageService.GetFavoriteDataEachFavoriteId(accountname);
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchForFavorite(string accountname)
+        {
+            if (ModelState.IsValid)
+            {
+                _productPageService.GetFavoriteDataEachFavoriteId(accountname);
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
