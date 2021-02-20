@@ -33,12 +33,12 @@ namespace AspNetMVC.Controllers
         
         public ActionResult Index()
         {
-            string account = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-            if (Request.Cookies["user"]["user_accountname"] == null)
+            
+            if (MemberHelper() == null)
             {
                 return RedirectToAction("Login","Account");
             }
-            var result = _MemberCenterService.GetMember(account);
+            var result = _MemberCenterService.GetMember(MemberHelper());
             return View(result);
         }
         [HttpPost]

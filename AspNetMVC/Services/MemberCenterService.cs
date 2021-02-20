@@ -19,8 +19,8 @@ namespace AspNetMVC.Services
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
-        public MemberCenterViewModels GetMember(string accountname) {
-            var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountname);
+        public MemberCenterViewModels GetMember(Guid accountId) {
+            var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
             var result = new MemberCenterViewModels()
             {
                 Name = source.AccountName,
