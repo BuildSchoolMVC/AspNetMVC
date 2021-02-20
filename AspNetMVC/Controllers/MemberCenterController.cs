@@ -32,7 +32,7 @@ namespace AspNetMVC.Controllers
             return AccountId;
         }
         
-        public ActionResult Index()
+        public ActionResult Index(Guid AccountId)
         {
             
             if (MemberHelper() == null)
@@ -40,7 +40,7 @@ namespace AspNetMVC.Controllers
                 return RedirectToAction("Login","Account");
             }
             
-            MemberCenterViewModels memberVm = _MemberCenterService.GetMember(AccountId);
+            MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             return View(memberVm);
         }
         [HttpPost]
