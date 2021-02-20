@@ -176,20 +176,27 @@ function GoogleLogin() {
     let url = "/Account/RegisterByGoogleLogin"
 
     auth2.signIn().then(function (GoogleUser) {
-        let AuthResponse = GoogleUser.getAuthResponse(true) ;//true會回傳access token ，false則不會，自行決定。如果只需要Google登入功能應該不會使用到access token
+        let AuthResponse = GoogleUser.getAuthResponse(true);
         let id_token = AuthResponse.id_token;//取得id_token
         $.ajax({
             url: url,
             method: "post",
             data: { token: id_token },
             success: function (result) {
-                if (result.status = true) {
+                if (result.status == true) {
                     toastr.success("註冊成功，請前往驗證Gmail信箱")
                     setTimeout(() => {
                         window.location.replace(`${window.location.origin}/Account/Login`);
                     }, 1500)
                 } else {
                     toastr.error(`${result.response}`)
+                    document.querySelectorAll("button").forEach(x => {
+                        x.removeAttribute("disabled");
+                        x.classList.remove("disabled");
+                    })
+                    document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                        if (!x.classList.contains("opacity")) x.classList.add("opacity");
+                    })
                 }
             }
         });
@@ -197,7 +204,14 @@ function GoogleLogin() {
     },
         function (error) {
             toastr.error("Google登入失敗")
-            console.log(error);
+            document.querySelectorAll("button").forEach(x => {
+                x.removeAttribute("disabled");
+                x.classList.remove("disabled");
+            })
+            document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                if (!x.classList.contains("opacity")) x.classList.add("opacity");
+            })
+
         });
 }
 
@@ -240,20 +254,33 @@ function fetchData(response) {
         })
     })
         .then(res => res.json())
-        .then(res => {
-        if (result.status = true) {
-            toastr.success("註冊成功，請前往驗證Gmail信箱")
-            setTimeout(() => {
-                window.location.replace(`${window.location.origin}/Account/Login`);
-            }, 1500)
-        } else {
-        toastr.error(`${result.response}`)
-    })
-    .catch(err => console.log(err))
+        .then(result => {
+            if (result.response == true) {
+                toastr.success("註冊成功，請前往信箱驗證")
+                setTimeout(() => {
+                    window.location.replace(`${window.location.origin}/Account/Login`);
+                }, 1500)
+            } else {
+                toastr.error(`${result.response}`)
+                document.querySelectorAll("button").forEach(x => {
+                    x.removeAttribute("disabled");
+                    x.classList.remove("disabled");
+                })
+                document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                    if (!x.classList.contains("opacity")) x.classList.add("opacity");
+                })
+            }
+        })
+        .catch(err => console.log(err))
 }
 
 
 document.querySelector("#btnFacebookSignIn").addEventListener("click", function () {
+    document.querySelectorAll("button").forEach(x => {
+        x.setAttribute("disabled", "disabled");
+        x.classList.add("disabled");
+    })
+    this.querySelector(".spinner-border-wrap").classList.remove("opacity");
     checkLoginState();
 })
 
@@ -279,5 +306,12 @@ window.addEventListener("load", function () {
     toSocialLogin();
     fromSocialLogin();
 
-    document.querySelector("#btnGoogleSignIn").addEventListener("click", GoogleLogin);
+    document.querySelector("#btnGoogleSignIn").addEventListener("click", function () {
+        GoogleLogin();
+        document.querySelectorAll("button").forEach(x => {
+            x.setAttribute("disabled", "disabled");
+            x.classList.add("disabled");
+        })
+        this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+    });
 })
