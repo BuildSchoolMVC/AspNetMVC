@@ -11,5 +11,7 @@ namespace AspNetMVC.ViewModels {
 		public bool IsPackage { get; set; }
 		public PackageProduct Package { get; set; }
 		public List<UserDefinedProduct> UserDefinedList { get; set; }
+		public IEnumerable<RoomType> RoomTypeList { get; set; }
+		public IEnumerable<SquareFeet> SquareFeetList { get; set; }
 	}
 }

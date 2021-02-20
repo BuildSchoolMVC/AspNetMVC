@@ -31,17 +31,19 @@ namespace AspNetMVC.Services {
 			List<UserDefinedProduct> data = _repository
 				.GetAll<UserDefinedProduct>()
 				.Where(x => x.UserDefinedId == favorite.UserDefinedId).ToList();
-			
-
 			return data;
 		}
 		public PackageProduct GetPackage(UserFavorite favorite) {
 			PackageProduct data = _repository
 				.GetAll<PackageProduct>()
 				.First(x => x.PackageProductId == favorite.PackageProductId);
-
-
 			return data;
+		}
+		public IEnumerable<RoomType> GetRoomTypeList() {
+			return _repository.GetAll<RoomType>();
+		}
+		public IEnumerable<SquareFeet> GetSquareFeetList() {
+			return _repository.GetAll<SquareFeet>();
 		}
 	}
 }
