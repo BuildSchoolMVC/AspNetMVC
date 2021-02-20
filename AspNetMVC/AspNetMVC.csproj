@@ -201,7 +201,13 @@
     <Compile Include="Migrations\202102200533333_MemberCreditCard1.Designer.cs">
       <DependentUpon>202102200533333_MemberCreditCard1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.cs" />
+    <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.Designer.cs">
+      <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\Coupon.cs" />
+    <Compile Include="Models\Entity\CouponDetail.cs" />
     <Compile Include="Models\Entity\MemberCreditCard.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
@@ -541,6 +547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102200533333_MemberCreditCard1.resx">
       <DependentUpon>202102200533333_MemberCreditCard1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200848008_addCouponandCouponDetail.resx">
+      <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

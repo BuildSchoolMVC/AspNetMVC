@@ -2,6 +2,7 @@
 let comment = document.querySelector(".comment-area textarea");
 let commentBtn = document.querySelector("#commentBtn");
 let commentData = {};
+
 const switchTabs = () => {
     document.querySelectorAll(".product-tabs .nav-link").forEach((x, index) => {
         x.addEventListener("click", () => {
@@ -23,7 +24,6 @@ const switchTabs = () => {
         })
     })
 }
-
 const addFavorites = () => {
     document.querySelector(".content-footer .add-favorites").addEventListener("click", function () {
         if (getCookieName("user")==undefined) {
@@ -50,6 +50,16 @@ const addFavorites = () => {
             })
              .catch(err=>console.log(err))
     })
+}
+
+const getFavorites = () => {
+    url = "";
+    fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            favorites = result;
+        })
+        .catch(err=>console.log(err))
 }
 
 const hoverStar = () => {
@@ -125,7 +135,6 @@ const commentForm = () => {
             .catch(err => console.log(err))
     })
 }
-
 const getLatestComment = () => {
     let id = document.querySelector("h1").dataset.id;
     let url = `/Detail/GetLatestComment?packageProductId=${id}`;
@@ -138,7 +147,6 @@ const getLatestComment = () => {
         })
         .catch(err => console.log(err));
 }
-
 const refreshComment = () => {
     let comment = document.querySelector(".comment");
     let commentItem = document.createElement("div");
@@ -192,7 +200,6 @@ const refreshComment = () => {
     let commentCount = document.querySelector(".commentCount").textContent;
     document.querySelector(".commentCount").textContent = parseInt(commentCount) + 1;
 }
-
 const resetCommentInput = () => {
     comment.value = "";
     star = 0
@@ -203,7 +210,6 @@ const resetCommentInput = () => {
     })
     commentBtn.setAttribute("disabled", "disabled");
 }
-
 const deleteComment = (target) => {
     let commentId = target.dataset.id;
     let url = "/Detail/DeleteComment";

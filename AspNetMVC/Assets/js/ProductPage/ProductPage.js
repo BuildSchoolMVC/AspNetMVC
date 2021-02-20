@@ -417,7 +417,7 @@ function fliterCardByServiceItem() {
 
 //將組合的資料傳去Controller
 function postUserDefineData(tempitem) {
-    let url = "/ProductPage/CreatePackage"
+    let url = "/ProductPage/CreateUserDefinedData"
     var data = { UserDefinedAlls:tempitem }
     fetch(url, {
         method: "POST",

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Text;
 using System.Web.Security;
+using System.Web.Configuration;
 
 namespace AspNetMVC.Services
 {
@@ -277,6 +278,7 @@ namespace AspNetMVC.Services
                         { "password",googleApiTokenInfo.Sub},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
+                        { "isSocialActivation","false" }
                     };
 
                         SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
@@ -367,6 +369,7 @@ namespace AspNetMVC.Services
                         { "password",fbInfo.FacebookId},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
                         { "accountid",GetAccountId(fbInfo.FacebookId).ToString()},
+                        { "isSocialActivation","true"}
                     };
 
                 SendMail("會員驗證信", fbInfo.Email, kvp);
@@ -381,18 +384,95 @@ namespace AspNetMVC.Services
         {
             var or = new OperationResult();
 
-            if (IsAccountExist(fbInfo.FacebookId) && IsEmailExist(fbInfo.Email))
+            if (!IsEmailExist(fbInfo.Email))
             {
-                or.IsSuccessful = true;
-                or.MessageInfo = $"驗證成功 {fbInfo.FacebookId}";
+                if (IsAccountExist(fbInfo.FacebookId))
+                {
+                    or.IsSuccessful = true;
+                    or.MessageInfo = $"驗證成功 {fbInfo.FacebookId}";
+                }
+                else
+                {
+                    or.IsSuccessful = false;
+                    or.MessageInfo = "此帳號還未註冊";
+                }
+
             }
             else
             {
                 or.IsSuccessful = false;
-                or.MessageInfo = "驗證失敗";
+                or.MessageInfo = "此帳號信箱已註冊過，改以其他社群帳號或使用本站會員系統註冊";
             }
 
             return or;
+        }
+
+        public async Task<OperationResult> RegisterByLine(string code)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                var or = new OperationResult();
+                try
+                {
+                    var url = $"https://api.line.me/v2/oauth/accessToken";
+                    client.Timeout = TimeSpan.FromSeconds(30);
+                    var values = new Dictionary<string,string>{
+                           { "grant_type", "authorization_code" },
+                           { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
+                           { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
+                           { "code",code},
+                           { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
+                        };
+                    var content = new FormUrlEncodedContent(values);
+                    var response = await client.PostAsync(url, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responseString);
+
+
+                    if (IsAccountExist(googleApiTokenInfo.Sub) || IsEmailExist(googleApiTokenInfo.Email))
+                    {
+                        or.IsSuccessful = false;
+                        or.MessageInfo = "此帳號已重複申請";
+                    }
+                    else
+                    {
+                        RegisterViewModel account = new RegisterViewModel
+                        {
+                            Address = "",
+                            Email = googleApiTokenInfo.Email,
+                            Gender = 3,
+                            Name = googleApiTokenInfo.Sub,
+                            Phone = "",
+                            ConfirmPassword = googleApiTokenInfo.Sub,
+                            Password = googleApiTokenInfo.Sub,
+                            ValidationMessage = ""
+                        };
+                        CreateAccount(account);
+                        Dictionary<string, string> kvp = new Dictionary<string, string>
+                    {
+                        { "accountname",googleApiTokenInfo.Sub},
+                        { "name",googleApiTokenInfo.Name},
+                        { "password",googleApiTokenInfo.Sub},
+                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
+                        { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
+                        { "isSocialActivation","true"}
+                    };
+
+                        SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
+
+                        or.IsSuccessful = true;
+                        or.MessageInfo = account.Name;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    or.IsSuccessful = false;
+                    or.Exception = ex;
+                    or.MessageInfo = "發生錯誤";
+                }
+                return or;
+            }
         }
 
         public Guid GetAccountId(string accountName)

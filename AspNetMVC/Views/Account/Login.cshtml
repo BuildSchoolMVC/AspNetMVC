@@ -22,9 +22,24 @@
                     <div class="social-login">
                         <h2>使用社群註冊</h2>
                         <div class="social-btn-grouping">
-                            <button type="button" id="btnGoogleSignIn"><img src="~/Assets/Images/google.png" />Google</button>
-                            <button type="button" id="btnFacebookSignIn" disabled="disabled"><img src="~/Assets/Images/facebook.png" />Facebook</button>
-                            <button type="button" id="btnLineSignIn" disabled="disabled"><img src="~/Assets/Images/line2.png" />Line</button>
+                            <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/google.png" />Google
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
+                            <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/facebook.png" />Facebook
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
+                            <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative">
+                                <img src="~/Assets/Images/line2.png" />Line
+                                <div class="spinner-border-wrap opacity">
+                                    <span class="spinner-border"></span>
+                                </div>
+                            </button>
                         </div>
                         <div class="w-60">
                             <button type="button" class="button btn_website-login">回去使用本站註冊帳號登入</button>
@@ -88,5 +103,27 @@
     <script>
         let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
     </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@WebConfigurationManager.AppSettings["Facebok_appId"]',
+                cookie: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
 }

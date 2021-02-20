@@ -32,12 +32,12 @@ namespace AspNetMVC.Controllers
             return AccountId;
         }
         
-        public ActionResult Index(Guid AccountId)
+        public ActionResult Index()
         {
-
-            if (AccountId == null)
+            
+            if (MemberHelper() == null)
             {
-                return RedirectToAction("Login","AccountController");
+                return RedirectToAction("Login","Account");
             }
             
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(AccountId);

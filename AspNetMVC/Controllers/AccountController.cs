@@ -315,5 +315,12 @@ namespace AspNetMVC.Controllers
 
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
+
+        public async Task<ActionResult> RegisterByLineLogin(string code)
+        {
+            var result = await _accountService.RegisterByLine(code);
+            return null;
+        }
+
     }
 }
