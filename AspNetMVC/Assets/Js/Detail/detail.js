@@ -46,6 +46,7 @@ const addFavorites = () => {
             .then(result => {
                 if (result.response) {
                     toastr.success("成功加入至收藏!");
+                    getFavorites();
                 }
             })
              .catch(err=>console.log(err))

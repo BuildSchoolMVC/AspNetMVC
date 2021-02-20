@@ -1008,6 +1008,10 @@ img {
     height: 100%
 }
 
+.card-text{
+    margin:0;
+}
+
 .section_favorites-side-menu .container-fluid .row .col-12 {
     height: 100vh;
     display: -webkit-box;

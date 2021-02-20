@@ -68,7 +68,7 @@ namespace AspNetMVC.Controllers
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             
-            var Data =_productPageService.GetFavoritePackageProductData(UserName);
+            var Data =_productPageService.GetFavoriteUserFavoriteData(UserName);
                 
             return Json(Data, JsonRequestBehavior.AllowGet);
         }

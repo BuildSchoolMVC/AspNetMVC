@@ -1,41 +1,4 @@
-﻿//let favorites = [{
-//        favoriteId: "1",
-//        hour: 1.5,
-//        price: 1550,
-//        url: "/Assets/images/office1.jpg",
-//        content: "content",
-//        info: "info",
-//        title : "title",
-//        isPackage: true
-//    },
-//    {favoriteId: "2",
-//        data: [{
-//            hour: 1.5,
-//            price: 1550,
-//            url: "/Assets/images/office3.jpg",
-//            content: "content", //服務內容
-//            info: "info", //場域
-//            feet : "111", //評述
-//            title: "title"
-//        }, {
-//            hour: 1.5,
-//            price: 1550,
-//            url: "/Assets/images/office2.jpg",
-//            content: "content",
-//            info: "info",
-//            title: "title"
-//        }, {
-//            hour: 1.5,
-//            price: 1550,
-//            url: "/Assets/images/office3.jpg",
-//            content: "content",
-//            info: "info2",
-//            title: "title"
-//            }
-//        ],
-//        isPackage: false
-//    }]
-
+﻿
 let favorites = []
 toastr.options = {
     "closeButton": true,
@@ -283,19 +246,26 @@ const favoriteSelectEffect = (target) => {
     }
 }
 
-const createFavoritesCard = (card) => {
-    if (card.isPackage) {
-        createPackageCard(card)
+const createFavoritesCard = (datas) => {
+    if (datas.IsPackage) {
+        createPackageCard(datas)
     } else {
-        createUserDefinedCard(card)
+        createUserDefinedCard(datas)
     }
 }
 
-const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
+const createPackageCard = (datas) => {
+    let data = datas.Data[0];
+    let roomTypes = data.RoomType.split(",").filter(x => x != "-");
+    let squrefeets = data.Squarefeet.split(",").filter(x => x != "-");
+    let combinedString = roomTypes.map((x, y) => {
+        return `${roomTypes[y]} - ${ squrefeets[y]}`
+    }).join("、")
     let card = document.createElement("div");
+
     card.className = "favorites-product-item mb-3 mx-2";
-    card.setAttribute("data-price", price);
-    card.setAttribute("data-id", favoriteId);
+    card.setAttribute("data-price", data.Price);
+    card.setAttribute("data-id", datas.FavoriteId);
 
     let row = document.createElement("div");
     row.className = "row no-gutters w-100";
@@ -306,7 +276,7 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
     col8.classList.add("col-8");
 
     let img = document.createElement("img");
-    img.src = url;
+    img.src = `https://i.imgur.com/${data.PhotoUrl}.jpg`;
     img.classList = "w-100 h-100";
 
     col4.append(img);
@@ -316,20 +286,20 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
 
     let h3 = document.createElement("h3");
     h3.classList.add("card-title");
-    h3.textContent = title;
+    h3.textContent = data.Title;
 
     let p1 = document.createElement("p");
-    p1.className = "card-text my-1";
+    p1.className = "card-text";
 
     let p2 = document.createElement("p");
-    p2.className = "card-text my-1";
+    p2.className = "card-text";
 
     let p3 = document.createElement("p");
     p3.className = "card-text mt-1";
 
-    p1.textContent = info;
+    p1.textContent = combinedString;
 
-    p2.textContent = content;
+    p2.textContent = data.ServiceItem.split("+").join("、");
 
     let small = document.createElement("small");
     small.classList.add("color-muted");
@@ -338,14 +308,14 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
     p3.append(small);
 
     let a = document.createElement("a");
-    a.setAttribute("href", `/Detail/Index/${favoriteId}`);
+    a.setAttribute("href", `/Detail/Index/${data.PackageProductId}`);
     a.className = "btns detail";
     a.textContent = "詳情";
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "checkbox";
-    checkbox.setAttribute("data-id", favoriteId);
+    checkbox.setAttribute("data-id", datas.FavoriteId);
 
     cardBody.append(h3, p1, p2, p3, a, checkbox);
     col8.append(cardBody);
@@ -367,11 +337,20 @@ const createPackageCard = ({ price, favoriteId, url, title, info,content }) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
 }
 
-const createUserDefinedCard = ({ favoriteId, data }) => {
-    let data1 = data[0], data2 = data[1];
+const createUserDefinedCard = (datas) => {
+    let data1 = datas.Data[0], data2 = datas.Data[1];
+    let roomType1 = roomTypeSwitch(+data1.RoomType);
+    let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
+    let combinedString1 = `${roomType1} - ${squrefeet1}`
+
+    let roomType2 = roomTypeSwitch(+data2.RoomType);
+    let squrefeet2 = squarefeetSwitch(+data2.Squarefeet);
+    let combinedString2 = `${roomType2} - ${squrefeet2}`
+   
+
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3 mx-2";
-    card.setAttribute("data-id", favoriteId);
+    card.setAttribute("data-id", datas.FavoriteId);
 
     let row = document.createElement("div");
     row.className = "row no-gutters w-100";
@@ -382,11 +361,11 @@ const createUserDefinedCard = ({ favoriteId, data }) => {
     col8.classList.add("col-8");
 
     let img1 = document.createElement("img");
-    img1.src = data1.url;
+    img1.src = data1.PhotoUrl;
     img1.classList = `w-100 h-100 img1`;
 
     let img2 = document.createElement("img");
-    img2.src = data2.url;
+    img2.src = data2.PhotoUrl;
     img2.classList = `w-100 h-100 img2`;
 
     col4.append(img1,img2);
@@ -396,36 +375,36 @@ const createUserDefinedCard = ({ favoriteId, data }) => {
 
     let h3 = document.createElement("h3");
     h3.classList.add("card-title");
-    h3.textContent = data1.title;
+    h3.textContent = data1.Title;
 
     let p1 = document.createElement("p");
-    p1.className = "card-text my-1";
-    p1.textContent = data1.info;
+    p1.className = "card-text";
+    p1.textContent = combinedString1;
 
     let p2 = document.createElement("p");
-    p2.className = "card-text my-1";
-    p2.textContent = data1.content;
+    p2.className = "card-text";
+    p2.textContent = data1.ServiceItem.split(",").join("、");
 
     let hr = document.createElement("hr");  
         
 
     let p3 = document.createElement("p");
-    p3.className = "card-text my-1";
-    p3.textContent = data2.info;
+    p3.className = "card-text";
+    p3.textContent = combinedString2;
 
     let p4 = document.createElement("p");
-    p4.className = "card-text my-1";
-    p4.textContent = data2.content;
+    p4.className = "card-text";
+    p4.textContent = data2.ServiceItem.split("+").join("、");
 
     let a = document.createElement("a");
-    a.setAttribute("href", `/MemeberCenter`);
+    a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
     a.className = "btns detail";
     a.textContent = "查看收藏詳情";
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "checkbox";
-    checkbox.setAttribute("data-id", favoriteId);
+    checkbox.setAttribute("data-id", datas.FavoriteId);
 
     cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
     col8.append(cardBody);
@@ -448,7 +427,6 @@ const createUserDefinedCard = ({ favoriteId, data }) => {
 }
 
 const showFavorites = () => {
-    debugger;
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
     favorites.forEach(x => {
         createFavoritesCard(x);
@@ -586,6 +564,7 @@ const getFavorites = () => {
             favorites = result;
             countFavoritesAmount(favorites.length);
             showFavorites();
+            checkoutBtnControl();
         })
         .catch(err => console.log(err))
 }
@@ -606,6 +585,21 @@ function getCookieName(name) {
 function getCookieValue() {
     return document.cookie.split(";")[0].split("=")[2]
 }
+
+const squarefeetSwitch = value =>
+       value == 0 ? "5坪以下" :
+       value == 1 ? "6-10坪" :
+       value == 2 ? "11-15坪" :
+       value == 3 ? "16坪以上" : "-";
+
+const roomTypeSwitch = value =>
+    value == 0 ? "廚房" :
+    value == 1 ? "客廳" :
+    value == 2 ? "臥室" :
+    value == 3 ? "浴廁" :
+    value == 4 ? "陽台" : "-";
+
+
 
 
 
@@ -631,7 +625,6 @@ window.addEventListener("load", () => {
         toggleTip();
     } else {
         getFavorites();
-       
         toggleTip();
 
         if (document.querySelectorAll(".favorites-product-item").length == 0) {
