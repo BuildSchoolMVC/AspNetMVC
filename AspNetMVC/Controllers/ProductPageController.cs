@@ -29,13 +29,9 @@ namespace AspNetMVC.Controllers
             return View(result);
         }
         [HttpGet]
-        public ActionResult CreatePackage()
-        {
-            return View();
-        }
 
         [HttpPost]
-        public JsonResult CreatePackage(UserDefinedAllViewModel model)
+        public JsonResult CreateUserDefinedData(UserDefinedAllViewModel model)
         {
             var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             var TempGuid = Guid.NewGuid();
@@ -49,10 +45,6 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CreateFavoriteData()
-        {
-            return View();
-        }
 
         [HttpPost]
         public JsonResult CreateFavoriteData([Bind(Include = "PackageProductId")] ProductPageViewModel model)
@@ -63,6 +55,17 @@ namespace AspNetMVC.Controllers
             if (ModelState.IsValid)
             {
                 _productPageService.CreatePackageProductDataInFavorite(model.PackageProductId, UserName);
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchFavoriteByAccountName(string account)
+        {
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            if (ModelState.IsValid)
+            {
+                _productPageService.GetFavoriteData(UserName);
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);

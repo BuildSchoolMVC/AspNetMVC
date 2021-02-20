@@ -67,10 +67,10 @@ namespace AspNetMVC.Services
                             EditTime = DateTime.UtcNow.AddHours(8),
                             EditUser = name,
                         };
-                    _repository.Create<UserDefinedProduct>(product);
+                        _repository.Create<UserDefinedProduct>(product);
                     }
                     _context.SaveChanges();
-                    var userfavorite= new UserFavorite
+                    var userfavorite = new UserFavorite
                     {
                         FavoriteId = Guid.NewGuid(),
                         AccountName = name,
@@ -98,7 +98,7 @@ namespace AspNetMVC.Services
                     transcation.Rollback();
                 }
             }
-            
+
         }
         public float countHour(int RoomType, int Squarefeet)
         {
@@ -139,6 +139,36 @@ namespace AspNetMVC.Services
                 });
                 _context.SaveChanges();
                 result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
+        public OperationResult GetFavoriteData(string username)
+        {
+            var result = new OperationResult();
+
+            try
+            {
+                //var userFavorites=_repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
+
+                //var result = from userFavorite in _context.UserFavorites
+                //             where userFavorite.AccountName == username
+                //             join UserDefinedProduct in _context.UserFavorites on userFavorite.AccountName equals UserDefinedProduct.AccountName
+                //             select new UserFavoriteViewModel
+                //             {
+                //                 FavoriteId = userFavorite.FavoriteId,
+                //                 IsPackage=userFavorite.IsPackage,
+                //                 Data= 
+                //             };
+
+                //return result.OrderByDescending(x => x.FavoriteId).ToList();
+
+
+
             }
             catch (Exception ex)
             {
