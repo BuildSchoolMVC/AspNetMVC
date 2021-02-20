@@ -152,64 +152,59 @@ namespace AspNetMVC.Services
             return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
         }
 
-        public UserFavoritePackageProductViewModel GetFavoritePackageProductData(string username)
+        public List<object> GetFavoritePackageProductData(string username)
         {
+            List<object> packageslist=new List<object>();
+            
+            var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).OrderBy(x=>x.CreateTime).ToList();
 
-            var result = from userFavorite in _context.UserFavorites
-                         where userFavorite.AccountName == username
-                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
-                         select new UserFavoritePackageProductViewModel
-                         {
-                             FavoriteId = userFavorite.FavoriteId,
-                             PackageProductId = userFavorite.PackageProductId
-                         };
+            foreach(var item in userFavorites)
+            {
+                if(item.IsPackage)
+                {
 
-            return (UserFavoritePackageProductViewModel)result;
-        }
-        public UserFavoriteUserDefineViewModel GetFavoritePackageUserDefineData(string username)
-        {
-            var result = from userFavorite in _context.UserFavorites
-                         where userFavorite.AccountName == username && userFavorite.IsPackage==false
-                         join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
-                         group userFavorite by userFavorite.UserDefinedId into gp
-                         select new UserFavoriteUserDefineViewModel
-                         {
-                               
-                         };
+                    PackageProduct p =_repository.GetAll<PackageProduct>().FirstOrDefault(x => x.PackageProductId == item.PackageProductId);
+                    packageslist.Add(p);
+                }
+                else
+                {
+                    List<UserDefinedProduct> Ud=_repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == item.UserDefinedId).ToList();
+                    packageslist.Add(Ud);
 
-
-            return (UserFavoriteUserDefineViewModel)result;
-
+                }
+            }
+            return packageslist;
         }
 
-        //public OperationResult GetFavoriteDataEachFavoriteId(string username)
-        //{
-        //    var result = new OperationResult();
 
-        //    try
-        //    {
-        //        var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
+        public OperationResult GetFavoriteDataEachFavoriteId(string username)
+        {
+            var result = new OperationResult();
 
-        //        var Favoritesresult = from userFavorite in _context.UserFavorites
-        //                              where userFavorite.AccountName == username
-        //                              join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
-        //                              select new UserFavoriteViewModel
-        //                              {
-        //                                  FavoriteId = userFavorite.FavoriteId,
-        //                              };
+            try
+            {
+                var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
 
-        //        return (OperationResult)Favoritesresult;
+                var Favoritesresult = from userFavorite in _context.UserFavorites
+                                      where userFavorite.AccountName == username
+                                      join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
+                                      select new UserFavoriteViewModel
+                                      {
+                                          FavoriteId = userFavorite.FavoriteId,
+                                      };
+
+                return (OperationResult)Favoritesresult;
 
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.IsSuccessful = false;
-        //        result.Exception = ex;
-        //    }
-        //    return result;
-        //}
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
 
     }
 }
