@@ -107,22 +107,7 @@
                                 瀏覽過的商品
                             </button>
                         </div>
-                        <div class="item-group">
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=8">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=5">
-                                    </a>
-                                </div>
-                            </div>
-
+                        <div class="item-group" id="viewed-box">
                         </div>
                     </div>
                 </div>
@@ -295,9 +280,17 @@
         </div>
     </div>
 </div>
+<template id="viewedcard">
+    <div class="item">
+        <div class="pic">
+            <a href="">
+                <img src="">
+            </a>
+        </div>
+    </div>
+</template>
 
 
-
-@section JS{
-    @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
-}
+    @section JS{
+        @Scripts.Render("~/Assets/js/ProductPage/ProductPage.js")
+    }
