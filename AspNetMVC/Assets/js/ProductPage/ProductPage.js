@@ -47,6 +47,7 @@ window.onload = function () {
     showModule()
     createPackageObj()
     getPackageProductId()
+
 }
 
 ////操作區
@@ -332,6 +333,7 @@ function fliterCardByRoomType() {
 
         }
     })
+    toastr.success("根據空間類型搜尋結果...") 
     cleanSelected()
 }
 
@@ -382,6 +384,7 @@ function fliterCardBySquareFeet() {
 
         }
     })
+    toastr.success("根據空間大小搜尋結果...") 
     cleanSelected()
 }
 //以服務項目過濾商品
@@ -408,7 +411,7 @@ function fliterCardByServiceItem() {
 
         })
     })
-
+    toastr.success("根據服務項目搜尋結果...") 
 
     cleanSelected()
 }
@@ -418,7 +421,7 @@ function fliterCardByServiceItem() {
 //將組合的資料傳去Controller
 function postUserDefineData(tempitem) {
     let url = "/ProductPage/CreateUserDefinedData"
-    var data = { UserDefinedAlls:tempitem }
+    var data = { UserDefinedAlls: tempitem }
     fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -427,8 +430,19 @@ function postUserDefineData(tempitem) {
             'Content-Type': 'application/json'
         })
     }).then(res => res.json())
-        .then(response => console.log('Success:', response))
-        .catch(error => console.error('Error:', error))
+        .then(result => {
+
+            if (result.response == "success") {
+                toastr.success("已將商品加入收藏!!!")
+                setTimeout(() => {
+                    cleanView()
+                }, 1000)
+                console.log('Success:', response)
+
+            }
+        }
+        )
+        .catch(error => console.error(error))
 }
 
 
@@ -445,17 +459,16 @@ function cleanView() {
 function showModule() {
     addfavoritebtn.addEventListener("click", function () {
         if (!document.cookie.includes("user")) {
-            //alert("目前還沒登入喔!")
-            toastr.error("目前還沒登入喔!")
+            alert("目前還沒登入喔!")
             window.location.assign("/Account/Login")
         }
         else if (userdefinedarray.length == 0) {
-            toastr.error("目前還沒有商品喔!")
+            toastr.warning("目前還沒有商品喔!")
         }
         else {
 
-        this.setAttribute("data-toggle", "modal");
-        this.setAttribute("data-target", "#titlemodal");
+            this.setAttribute("data-toggle", "modal");
+            this.setAttribute("data-target", "#titlemodal");
         }
     })
 }
@@ -463,18 +476,18 @@ function showModule() {
 function createPackageObj() {
     definenamebtn.addEventListener("click", function () {
         if (modalinput.innerText = "") {
-            toastr.error("商品還未取名喔!")
+            alert("目前還沒登入喔!")
         }
         else {
             var Title = document.getElementById("modalinput").value;
-            
+
 
             userdefinedarray.forEach(x => {
                 x.Title = Title;
             })
-            
+
             postUserDefineData(userdefinedarray)
-            cleanView()
+
 
         }
     })
@@ -482,16 +495,22 @@ function createPackageObj() {
 
 function getPackageProductId() {
     $("button[name='cartbtn']").click(function () {
+
         let tempPackageProductId = $(this).attr("id");
-        console.log(tempPackageProductId)
-        postCreateFavoriteData(tempPackageProductId)
-       
+        if (!document.cookie.includes("user")) {
+            toastr.warning("目前還沒登入喔!")
+        }
+        else {
+            postCreateFavoriteData(tempPackageProductId)
+            toastr.success("已將商品加入收藏!!!")
+        }
+
     })
 }
 
 function postCreateFavoriteData(value) {
     let url = "/ProductPage/CreateFavoriteData"
-    var data = { PackageProductId:value}
+    var data = { PackageProductId: value }
     fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
@@ -504,6 +523,39 @@ function postCreateFavoriteData(value) {
         .catch(error => console.error('Error:', error))
 }
 
+function getPicUrl() {
+    window.addEventListener(onload, function () {
+        var temp = this.document.getElementsByClassName("product-pic mb-2")
+        if (temp == null) {
+            return;
+        }
+        else {
+            var viewedsrc = $(".product-pic mb-2").children().src;
+
+        }
+    })
+}
+ 
+//function addToCart() {
+//    var $ball = document.getElementById('ball');
+
+//    $("button[name='cartbtn']").click(function (evt) {
+//        console.log(evt.pageX, evt.pageY)
+//        $ball.style.top = evt.pageY + 'px';
+//        $ball.style.left = evt.pageX + 'px';
+//        $ball.style.transition = 'left 1s, top 1s';
+//        setTimeout(() => {
+//            $ball.style.top = window.innerHeight + 'px';
+//            $ball.style.backgroundColor = "red";
+//            $ball.style.zIndex = "9999";
+//            $ball.style.top = '0px';
+//            $ball.style.left = '900px';
+//            $ball.style.transition = 'left 1s linear, top 1s ease-in';
+//        }, 20)
+
+//    })
+    
+//}
 
 
 

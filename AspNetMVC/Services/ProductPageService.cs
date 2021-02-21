@@ -162,7 +162,7 @@ namespace AspNetMVC.Services
 
             foreach (var item in userFavorites)
             {
-                if(item.IsDelete == false)
+                if (item.IsDelete == false)
                 {
                     if (item.IsPackage)
                     {
@@ -215,7 +215,7 @@ namespace AspNetMVC.Services
             return packageslist;
 
         }
-            public string SquarefeetSwitch(int? value)
+        public string SquarefeetSwitch(int? value)
         {
             return value == 0 ? "5坪以下" :
                    value == 1 ? "6-10坪" :
@@ -231,24 +231,38 @@ namespace AspNetMVC.Services
                    value == 3 ? "浴廁" :
                    value == 4 ? "陽台" : "-";
         }
+
+        public OperationResult DeleteFavoriteData(Guid favoriteId)
+        {
+            var result = new OperationResult();
+            var item = _repository.GetAll<UserFavorite>().FirstOrDefault(x => x.FavoriteId == favoriteId);
+            try
+            {
+
+                _repository.Update<UserFavorite>(new UserFavorite
+                {
+                    FavoriteId = item.FavoriteId,
+                    AccountName = item.AccountName,
+                    UserDefinedId = null,
+                    PackageProductId = item.PackageProductId,
+                    IsPackage = true,
+                    IsDelete = true,
+                    CreateTime = DateTime.UtcNow.AddHours(8),
+                    CreateUser = item.AccountName,
+                    EditTime = DateTime.UtcNow.AddHours(8),
+                    EditUser = item.AccountName,
+                });
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
+
     }
 }
 
-
-
-    //public OperationResult GetFavoriteDataEachFavoriteId(string username)
-    //{
-    //    var result = new OperationResult();
-
-    //    var userFavorites = _repository.GetAll<UserFavorite>().Where(x => x.AccountName == username).ToList();
-
-    //    var Favoritesresult = from userFavorite in _context.UserFavorites
-    //                          where userFavorite.AccountName == username
-    //                          join UserDefinedProduct in _context.UserFavorites on userFavorite.UserDefinedId equals UserDefinedProduct.UserDefinedId
-    //                          select new UserFavoriteViewModel
-    //                          {
-    //                              FavoriteId = userFavorite.FavoriteId,
-    //                          };
-
-    //    return (OperationResult)Favoritesresult;
-    //}
