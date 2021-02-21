@@ -502,6 +502,7 @@ function getPackageProductId() {
         }
         else {
             postCreateFavoriteData(tempPackageProductId) 
+            addToCart() 
         }
 
     })
@@ -525,7 +526,6 @@ function postCreateFavoriteData(value) {
 
                 getFavorites()
                     toastr.success("已將商品加入收藏!!!")
-                    addToCart()
                 }, 1000)
                 console.log('Success:', response)
 
@@ -551,19 +551,22 @@ function getPicUrl() {
  
 function addToCart() {
      
-    $("button[name='cartbtn']").click(function (evt) {
+    $("button[name='cartbtn']").click(function () {
         var tempplus = document.createElement(HTMLDivElement);
-        tempplus.innerHTML = $(this).children();
-        $(this).style.top = evt.pageY + 'px';
-        $(this).style.left = evt.pageX + 'px';
-        $(this).style.transition = 'left 1s, top 1s';
+        tempplus.setAttribute(id, tempplus)
+        tempplus.innerHTML = '1234567';
+        tempplus.style.top = $(this).pageY + 'px';
+        tempplus.style.left = $(this).pageX + 'px';
+        tempplus.style.transition = 'left 1s, top 1s';
         setTimeout(() => {
-            $(this).style.top = window.innerHeight + 'px';
-            $(this).style.backgroundColor = "red";
-            $(this).style.zIndex = "9999";
-            $(this).style.top = '0px';
-            $(this).style.left = '900px';
-            $(this).style.transition = 'left 1s linear, top 1s ease-in';
+            tempplus.style.top = window.innerHeight + 'px';
+            tempplus.style.position ="absolute"
+            tempplus.style.zIndex = "99999999999";
+            tempplus.style.color = "red";
+            tempplus.style.backgroundColor = "red";
+            tempplus.style.top = '0px';
+            tempplus.style.left = '900px';
+            tempplus.style.transition = 'left 1s linear, top 1s ease-in';
         }, 20)
 
     })
