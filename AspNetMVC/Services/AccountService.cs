@@ -529,7 +529,7 @@ namespace AspNetMVC.Services
                 user.Email = jst.Payload["email"].ToString();
 
 
-                if (IsAccountExist($"l{user.UserId}") || IsEmailExist(user.Email))
+                if (IsAccountExist($"l{user.UserId}") && IsEmailExist(user.Email))
                 {
                     or.IsSuccessful = true;
                     or.MessageInfo = $"驗證成功 {user.UserId}";
