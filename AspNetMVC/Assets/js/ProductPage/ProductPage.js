@@ -479,7 +479,7 @@ function showModule() {
 function createPackageObj() {
     definenamebtn.addEventListener("click", function () {
         if (modalinput.innerText = "") {
-            alert("目前還沒登入喔!")
+            toastr.warning("目前還沒登入喔!")
         }
         else {
             var Title = document.getElementById("modalinput").value;

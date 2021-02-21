@@ -177,14 +177,14 @@ function GoogleLogin() {
 
     auth2.signIn().then(function (GoogleUser) {
         let AuthResponse = GoogleUser.getAuthResponse(true);
-        let id_token = AuthResponse.id_token;//取得id_token
+        let id_token = AuthResponse.id_token;
         $.ajax({
             url: url,
             method: "post",
             data: { token: id_token },
             success: function (result) {
                 if (result.status == true) {
-                    toastr.success("註冊成功，請前往驗證Gmail信箱")
+                    toastr.success("註冊成功，可前往登入")
                     setTimeout(() => {
                         window.location.replace(`${window.location.origin}/Account/Login`);
                     }, 1500)
@@ -243,7 +243,7 @@ function fetchData(response) {
     let data = {
         Email: response.email,
         Name: response.name,
-        Id : response.id
+        FacebookId : response.id
     }
     fetch(url, {
         method: "POST",
@@ -256,7 +256,7 @@ function fetchData(response) {
         .then(res => res.json())
         .then(result => {
             if (result.response == true) {
-                toastr.success("註冊成功，請前往信箱驗證")
+                toastr.success("註冊成功，可前往登入")
                 setTimeout(() => {
                     window.location.replace(`${window.location.origin}/Account/Login`);
                 }, 1500)

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AspNetMVC.Services;
@@ -55,5 +59,11 @@ namespace AspNetMVC.Controllers
             return Json(new { response = result.Status });
         }
 
+        public RedirectResult DirectToCheckout(int id)
+        {
+            var usernameCookie = Request.Cookies["user"]["user_accountname"];
+            var result = _detailService.AddFavoriteAndDirectToCheckout(id, usernameCookie);
+            return new RedirectResult($"/Checkout?id={result.MessageInfo}");
+        }
     }
 }
