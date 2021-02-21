@@ -177,7 +177,9 @@ const swipeDeleteEffect = () => {
 
             item.querySelector(".confirm").addEventListener("click", () => {
                 item.classList.add("delete");
-                deleteFavorite(item)
+                item.remove();
+                deleteFavorite(item);
+                
             })
 
 
@@ -187,11 +189,11 @@ const swipeDeleteEffect = () => {
         })
     })
 }
-const deleteFavorite = (target) => {
+async function deleteFavorite(target){
     let id = target.dataset.id;
     let url = "/ProductPage/DeleteFavorite";
     let data = { favoriteId: id };
-    fetch(url, {
+    await fetch(url, {
         method: "Post",
         body: JSON.stringify(data),
         headers: new Headers({
@@ -202,10 +204,8 @@ const deleteFavorite = (target) => {
         .then(res => res.json())
         .then(result => {
             if (result.response == "success") {
-                setTimeout(() => {
-                    item.remove();
-                    getFavorites();
-                }, 500);
+                toastr.success("已刪除該收藏")
+                getFavorites();
             }
         })
         .catch(err => {
@@ -554,9 +554,9 @@ const judgeCharacter = (str, judge) => {
 }
 
 
-const getFavorites = () => {
+async function getFavorites(){
     url = "/ProductPage/SearchForFavorite";
-    fetch(url)
+    await fetch(url)
         .then(res =>  res.json())
         .then(result => {
             favorites = result;
