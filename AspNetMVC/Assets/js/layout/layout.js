@@ -177,36 +177,7 @@ const swipeDeleteEffect = () => {
 
             item.querySelector(".confirm").addEventListener("click", () => {
                 item.classList.add("delete");
-                fetch("", {
-                    method: "Post",
-                    body: JSON.stringify(data),
-                    headers: new Headers({
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    })
-                })
-                    .then(res => res.json())
-                    .then(result => {
-                        if (result.response) {
-                            toastr.success("刪除成功")
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        toastr.error("發生錯誤")
-                    })
-                setTimeout(() => {
-                    item.remove();
-                    let index = favorites.findIndex(x => x.FavoriteId == item.dataset.id);
-                    if (index != -1) {
-                        favorites.splice(index, 1);
-                        countFavoritesAmount(favorites.length);
-                        checkoutBtnControl();
-                        toggleTip();
-                        if (document.querySelectorAll(".favorites-product-item").length == 0) favoritesStatus("你目前的收藏是空的");
-                        toastr.info("成功刪除!!");
-                    }
-                }, 500);
+                deleteFavorite(item)
             })
 
 
@@ -218,8 +189,8 @@ const swipeDeleteEffect = () => {
 }
 const deleteFavorite = (target) => {
     let id = target.dataset.id;
-    let url = "";
-    let data = { FavoriteId: id };
+    let url = "/ProductPage/DeleteFavorite";
+    let data = { favoriteId: id };
     fetch(url, {
         method: "Post",
         body: JSON.stringify(data),
@@ -230,8 +201,11 @@ const deleteFavorite = (target) => {
     })
         .then(res => res.json())
         .then(result => {
-            if (result.response) {
-                toastr.success("刪除成功")
+            if (result.response == "success") {
+                setTimeout(() => {
+                    item.remove();
+                    getFavorites();
+                }, 500);
             }
         })
         .catch(err => {
