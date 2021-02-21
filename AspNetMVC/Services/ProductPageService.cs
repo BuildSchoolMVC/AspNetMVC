@@ -191,20 +191,22 @@ namespace AspNetMVC.Services
                     }
                     else
                     {
-                        List<UserFavoriteData> Ud = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == item.UserDefinedId).Select(x => new UserFavoriteData
-                        {
-                            Hour = x.Hour,
-                            Price = x.Price,
-                            RoomType = x.RoomType.ToString(),
-                            ServiceItem = x.ServiceItems,
-                            Squarefeet = x.Squarefeet.ToString(),
-                            Title = x.Name,
-                            PhotoUrl = ""
-                        }).ToList();
+                        var query = from udp in _repository.GetAll<UserDefinedProduct>()
+                                    join rt in _repository.GetAll<RoomType>() on udp.RoomType equals rt.Value
+                                    select new UserFavoriteData
+                                    {
+                                        Hour = udp.Hour,
+                                        PhotoUrl = rt.PhotoUrl,
+                                        Price = udp.Price,
+                                        RoomType = udp.RoomType.ToString(),
+                                        ServiceItem = udp.ServiceItems,
+                                        Squarefeet = udp.Squarefeet.ToString(),
+                                        Title = udp.Name
+                                    };
 
                         UserFavoriteViewModel ufVM = new UserFavoriteViewModel
                         {
-                            Data = Ud,
+                            Data = query.ToList(),
                             FavoriteId = item.FavoriteId,
                             IsPackage = item.IsPackage
                         };

@@ -132,7 +132,8 @@
             link += '&redirect_uri=https://localhost:44308/Account/LoginByLineLogin';
             link += '&state=uCleaner';
             link += '&scope=profile%20openid%20email';
-            window.open(link, "uCleaner - 打掃服務", config = 'height=600,width=600,top=240,left=600,toolbar=no,resizable = no;location = no 是否顯示位址列, yes為允許;status = no');
+            @*window.open(link, "uCleaner - 打掃服務", config = 'height=600,width=600,top=240,left=600,toolbar=no,resizable = no;location = no 是否顯示位址列, yes為允許;status = no');*@
+            window.location.href = link;
 
             document.querySelectorAll("button").forEach(x => {
                 x.setAttribute("disabled", "disabled");

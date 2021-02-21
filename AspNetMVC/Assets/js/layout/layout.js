@@ -348,16 +348,16 @@ const createUserDefinedCard = (datas) => {
     row.className = "row no-gutters w-100";
 
     let col4 = document.createElement("div");
-    col4.classList.add("col-4","position-relative");
+    col4.classList.add("col-4","position-relative","h-100");
     let col8 = document.createElement("div");
-    col8.classList.add("col-8");
+    col8.classList.add("col-8", "h-100");
 
     let img1 = document.createElement("img");
-    img1.src = data1.PhotoUrl;
+    img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
     img1.classList = `w-100 h-100 img1`;
 
     let img2 = document.createElement("img");
-    img2.src = data2.PhotoUrl;
+    img2.src = `https://i.imgur.com/${data2.PhotoUrl}`;
     img2.classList = `w-100 h-100 img2`;
 
     col4.append(img1,img2);
@@ -367,7 +367,10 @@ const createUserDefinedCard = (datas) => {
 
     let h3 = document.createElement("h3");
     h3.classList.add("card-title");
-    h3.textContent = data1.Title;
+    let tip = document.createElement("span");
+    tip.classList.add("tip");
+    tip.textContent = " (僅顯示此組合前兩筆)";
+    h3.append(data1.Title);
 
     let p1 = document.createElement("p");
     p1.className = "card-text";
@@ -386,7 +389,7 @@ const createUserDefinedCard = (datas) => {
 
     let p4 = document.createElement("p");
     p4.className = "card-text";
-    p4.textContent = data2.ServiceItem.split("+").join("、");
+    p4.textContent = data2.ServiceItem.split(",").join("、");
 
     let a = document.createElement("a");
     a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
@@ -398,7 +401,7 @@ const createUserDefinedCard = (datas) => {
     checkbox.className = "checkbox";
     checkbox.setAttribute("data-id", datas.FavoriteId);
 
-    cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
+    cardBody.append(h3, tip, p1, p2, hr, p3, p4, a, checkbox);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -563,6 +566,7 @@ async function getFavorites(){
             countFavoritesAmount(favorites.length);
             showFavorites();
             checkoutBtnControl();
+            toggleTip();
         })
         .catch(err => console.log(err))
 }
@@ -623,7 +627,7 @@ window.addEventListener("load", () => {
         toggleTip();
     } else {
         getFavorites();
-        toggleTip();
+       
     }
 
     document.querySelectorAll(".subItem").forEach(x => {

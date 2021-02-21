@@ -316,14 +316,13 @@ namespace AspNetMVC.Controllers
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
 
-        public ContentResult RegisterByLineLogin(string code)
+        public ActionResult RegisterByLineLogin(string code)
         {
             var result = _accountService.RegisterByLine(code);
 
             if (result.IsSuccessful)
             {
-                string content = "註冊成功，已可關閉視窗，並前往登入。";
-                return Content(content);
+                return new RedirectResult("/Account/Login");
             }
             else
             {
@@ -340,16 +339,16 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        public ContentResult LoginByLineLogin(string code)
+        public ActionResult LoginByLineLogin(string code)
         {
             var result = _accountService.LoginByLine(code);
 
             if (result.IsSuccessful)
             {
-                string content = "登入成功，已可關閉視窗。";
+                
                 var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
                 Response.Cookies.Add(cookie);
-                return Content(content);
+                return new RedirectResult("/Home/Index");
             }
             else
             {
