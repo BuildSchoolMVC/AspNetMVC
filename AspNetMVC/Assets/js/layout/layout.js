@@ -691,3 +691,4 @@ document.querySelector(".checkout").addEventListener("click", function (e) {
         return;
     }
 })
+
