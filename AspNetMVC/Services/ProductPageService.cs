@@ -162,53 +162,54 @@ namespace AspNetMVC.Services
 
             foreach (var item in userFavorites)
             {
-                if (item.IsPackage)
+                if(item.IsDelete == false)
                 {
-
-                    PackageProduct p = _repository.GetAll<PackageProduct>().FirstOrDefault(x => x.PackageProductId == item.PackageProductId);
-
-                    UserFavoriteData ufdata = new UserFavoriteData
+                    if (item.IsPackage)
                     {
-                        Hour = p.Hour,
-                        ServiceItem = p.ServiceItem,
-                        Price = p.Price,
-                        Title = p.Name,
-                        RoomType = $"{RoomTypeSwitch(p.RoomType)},{RoomTypeSwitch(p.RoomType2)},{RoomTypeSwitch(p.RoomType3)}",
-                        Squarefeet = $"{SquarefeetSwitch(p.Squarefeet)},{SquarefeetSwitch(p.Squarefeet2)},{SquarefeetSwitch(p.Squarefeet3)}",
-                        PhotoUrl = p.PhotoUrl,
-                        PackageProductId = p.PackageProductId
-                    };
 
-                    UserFavoriteViewModel ufVM = new UserFavoriteViewModel
+                        PackageProduct p = _repository.GetAll<PackageProduct>().FirstOrDefault(x => x.PackageProductId == item.PackageProductId);
+
+                        UserFavoriteData ufdata = new UserFavoriteData
+                        {
+                            Hour = p.Hour,
+                            ServiceItem = p.ServiceItem,
+                            Price = p.Price,
+                            Title = p.Name,
+                            RoomType = $"{RoomTypeSwitch(p.RoomType)},{RoomTypeSwitch(p.RoomType2)},{RoomTypeSwitch(p.RoomType3)}",
+                            Squarefeet = $"{SquarefeetSwitch(p.Squarefeet)},{SquarefeetSwitch(p.Squarefeet2)},{SquarefeetSwitch(p.Squarefeet3)}",
+                            PhotoUrl = p.PhotoUrl,
+                            PackageProductId = p.PackageProductId
+                        };
+
+                        UserFavoriteViewModel ufVM = new UserFavoriteViewModel
+                        {
+                            Data = new List<UserFavoriteData> { ufdata },
+                            FavoriteId = item.FavoriteId,
+                            IsPackage = item.IsPackage
+                        };
+                        packageslist.Add(ufVM);
+                    }
+                    else
                     {
-                        Data = new List<UserFavoriteData> { ufdata },
-                        FavoriteId = item.FavoriteId,
-                        IsPackage = item.IsPackage
-                    };
+                        List<UserFavoriteData> Ud = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == item.UserDefinedId).Select(x => new UserFavoriteData
+                        {
+                            Hour = x.Hour,
+                            Price = x.Price,
+                            RoomType = x.RoomType.ToString(),
+                            ServiceItem = x.ServiceItems,
+                            Squarefeet = x.Squarefeet.ToString(),
+                            Title = x.Name,
+                            PhotoUrl = ""
+                        }).ToList();
 
-                    packageslist.Add(ufVM);
-                }
-                else
-                {
-                    List<UserFavoriteData> Ud = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == item.UserDefinedId).Select(x => new UserFavoriteData
-                    {
-                        Hour = x.Hour,
-                        Price = x.Price,
-                        RoomType = x.RoomType.ToString(),
-                        ServiceItem = x.ServiceItems,
-                        Squarefeet = x.Squarefeet.ToString(),
-                        Title = x.Name,
-                        PhotoUrl = ""
-                    }).ToList();
-
-                    UserFavoriteViewModel ufVM = new UserFavoriteViewModel
-                    {
-                        Data = Ud,
-                        FavoriteId = item.FavoriteId,
-                        IsPackage = item.IsPackage
-                    };
-                    packageslist.Add(ufVM);
-
+                        UserFavoriteViewModel ufVM = new UserFavoriteViewModel
+                        {
+                            Data = Ud,
+                            FavoriteId = item.FavoriteId,
+                            IsPackage = item.IsPackage
+                        };
+                        packageslist.Add(ufVM);
+                    }
                 }
             }
             return packageslist;
