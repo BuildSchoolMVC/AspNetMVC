@@ -238,20 +238,10 @@ namespace AspNetMVC.Services
             var item = _repository.GetAll<UserFavorite>().FirstOrDefault(x => x.FavoriteId == favoriteId);
             try
             {
-
-                _repository.Update<UserFavorite>(new UserFavorite
-                {
-                    FavoriteId = item.FavoriteId,
-                    AccountName = item.AccountName,
-                    UserDefinedId = null,
-                    PackageProductId = item.PackageProductId,
-                    IsPackage = true,
-                    IsDelete = true,
-                    CreateTime = DateTime.UtcNow.AddHours(8),
-                    CreateUser = item.AccountName,
-                    EditTime = DateTime.UtcNow.AddHours(8),
-                    EditUser = item.AccountName,
-                });
+                item.IsDelete = true;
+                item.EditTime = DateTime.UtcNow.AddHours(8);
+                item.EditUser = item.AccountName;
+                _repository.Update<UserFavorite>(item);
                 _context.SaveChanges();
                 result.IsSuccessful = true;
             }

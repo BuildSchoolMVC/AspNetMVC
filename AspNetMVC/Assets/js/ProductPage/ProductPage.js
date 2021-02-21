@@ -501,8 +501,7 @@ function getPackageProductId() {
             toastr.warning("目前還沒登入喔!")
         }
         else {
-            postCreateFavoriteData(tempPackageProductId)
-            toastr.success("已將商品加入收藏!!!")
+            postCreateFavoriteData(tempPackageProductId) 
         }
 
     })
@@ -519,7 +518,21 @@ function postCreateFavoriteData(value) {
             'Content-Type': 'application/json'
         })
     }).then(res => res.json())
-        .then(response => console.log('Success:', response))
+        .then(result => {
+
+            if (result.response == "success") {
+                setTimeout(() => {
+
+                getFavorites()
+                    toastr.success("已將商品加入收藏!!!")
+                    addToCart()
+                }, 1000)
+                console.log('Success:', response)
+
+            }
+        }
+        )
+        
         .catch(error => console.error('Error:', error))
 }
 
@@ -536,26 +549,26 @@ function getPicUrl() {
     })
 }
  
-//function addToCart() {
-//    var $ball = document.getElementById('ball');
+function addToCart() {
+     
+    $("button[name='cartbtn']").click(function (evt) {
+        var tempplus = document.createElement(HTMLDivElement);
+        tempplus.innerHTML = $(this).children();
+        $(this).style.top = evt.pageY + 'px';
+        $(this).style.left = evt.pageX + 'px';
+        $(this).style.transition = 'left 1s, top 1s';
+        setTimeout(() => {
+            $(this).style.top = window.innerHeight + 'px';
+            $(this).style.backgroundColor = "red";
+            $(this).style.zIndex = "9999";
+            $(this).style.top = '0px';
+            $(this).style.left = '900px';
+            $(this).style.transition = 'left 1s linear, top 1s ease-in';
+        }, 20)
 
-//    $("button[name='cartbtn']").click(function (evt) {
-//        console.log(evt.pageX, evt.pageY)
-//        $ball.style.top = evt.pageY + 'px';
-//        $ball.style.left = evt.pageX + 'px';
-//        $ball.style.transition = 'left 1s, top 1s';
-//        setTimeout(() => {
-//            $ball.style.top = window.innerHeight + 'px';
-//            $ball.style.backgroundColor = "red";
-//            $ball.style.zIndex = "9999";
-//            $ball.style.top = '0px';
-//            $ball.style.left = '900px';
-//            $ball.style.transition = 'left 1s linear, top 1s ease-in';
-//        }, 20)
-
-//    })
+    })
     
-//}
+}
 
 
 
