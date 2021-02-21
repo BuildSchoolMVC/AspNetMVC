@@ -47,6 +47,7 @@ window.onload = function () {
     showModule()
     createPackageObj()
     getPackageProductId()
+
 }
 
 ////操作區
@@ -432,7 +433,7 @@ function postUserDefineData(tempitem) {
         .then(result => {
 
             if (result.response == "success") {
-                toastr.success("商品加入收藏成功!!!")
+                toastr.success("已將商品加入收藏!!!")
                 setTimeout(() => {
                     cleanView()
                 }, 1000)
@@ -494,12 +495,14 @@ function createPackageObj() {
 
 function getPackageProductId() {
     $("button[name='cartbtn']").click(function () {
+
         let tempPackageProductId = $(this).attr("id");
         if (!document.cookie.includes("user")) {
             toastr.warning("目前還沒登入喔!")
         }
         else {
             postCreateFavoriteData(tempPackageProductId)
+            toastr.success("已將商品加入收藏!!!")
         }
 
     })
@@ -532,6 +535,27 @@ function getPicUrl() {
         }
     })
 }
+ 
+//function addToCart() {
+//    var $ball = document.getElementById('ball');
+
+//    $("button[name='cartbtn']").click(function (evt) {
+//        console.log(evt.pageX, evt.pageY)
+//        $ball.style.top = evt.pageY + 'px';
+//        $ball.style.left = evt.pageX + 'px';
+//        $ball.style.transition = 'left 1s, top 1s';
+//        setTimeout(() => {
+//            $ball.style.top = window.innerHeight + 'px';
+//            $ball.style.backgroundColor = "red";
+//            $ball.style.zIndex = "9999";
+//            $ball.style.top = '0px';
+//            $ball.style.left = '900px';
+//            $ball.style.transition = 'left 1s linear, top 1s ease-in';
+//        }, 20)
+
+//    })
+    
+//}
 
 
 

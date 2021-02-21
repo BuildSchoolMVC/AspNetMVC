@@ -26,12 +26,6 @@ namespace AspNetMVC.Controllers
             var result = _productPageService.GetData();
             return View(result);
         }
-        //[HttpGet]
-        //public ActionResult CreateUserDefinedData()
-        //{
-            
-        //    return View();
-        //}
 
         [HttpPost]
         public JsonResult CreateUserDefinedData(UserDefinedAllViewModel model)
@@ -71,6 +65,19 @@ namespace AspNetMVC.Controllers
             var Data =_productPageService.GetFavoriteUserFavoriteData(UserName);
                 
             return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteFavorite(string favoriteid)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _productPageService.DeleteFavoriteData(Guid.Parse(favoriteid));
+
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
 
