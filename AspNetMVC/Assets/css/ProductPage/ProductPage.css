@@ -4,10 +4,10 @@
     --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
 }
-#ball {
+#tempplus {
     width: 40px;
     height: 40px;
-    background-color:transparent;
+    color:red;
     border-radius: 50%;
     position: fixed;
     transition: left 1s linear, top 1s ease-in;
@@ -943,7 +943,7 @@
             border-radius: 5px;
             font-size: 16px;
             line-height: 16px;
-            margin: 5px;
+            margin: 0px 5px;
             width: 100px;
             height: 30px;
             border: none;

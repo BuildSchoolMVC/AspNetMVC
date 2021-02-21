@@ -230,6 +230,10 @@
     <Compile Include="Migrations\202102210406369_v9.Designer.cs">
       <DependentUpon>202102210406369_v9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102210718244_addPhotoUrl in Roomtype.cs" />
+    <Compile Include="Migrations\202102210718244_addPhotoUrl in Roomtype.Designer.cs">
+      <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
     <Compile Include="Models\Entity\CouponDetail.cs" />
@@ -585,6 +589,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102210406369_v9.resx">
       <DependentUpon>202102210406369_v9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210718244_addPhotoUrl in Roomtype.resx">
+      <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
