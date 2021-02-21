@@ -32,7 +32,7 @@ namespace AspNetMVC.Controllers
             return AccountId;
         }
         
-        public ActionResult Index(Guid AccountId)
+        public ActionResult Index()
         {
             
             if (MemberHelper() == null)
@@ -45,15 +45,11 @@ namespace AspNetMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "Name,Phone,Mail,Address")] Guid AccountId, MemberCenterViewModels memberVm)
+        public ActionResult Index([Bind(Include = "Name,Phone,Mail,Address")] MemberCenterViewModels memberVm)
         {
-            MemberMd memberMd = _MemberCenterService.SaveModel(AccountId,memberVm);
-            if (ModelState.IsValid)
-            {
-                
-                return RedirectToAction("Index");
-            }
-            return View(memberMd);
+            MemberMd memberMd = _MemberCenterService.SaveModel(MemberHelper(),memberVm);
+            
+            return View(memberVm);
         }
         
     }
