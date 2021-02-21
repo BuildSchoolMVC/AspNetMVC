@@ -47,6 +47,7 @@ window.onload = function () {
     showModule()
     createPackageObj()
     getPackageProductId()
+    addToCart()
 
 }
 
@@ -502,7 +503,6 @@ function getPackageProductId() {
         }
         else {
             postCreateFavoriteData(tempPackageProductId) 
-            addToCart() 
         }
 
     })
@@ -548,28 +548,38 @@ function getPicUrl() {
         }
     })
 }
- 
+
+
+
+    var allcartbtn = document.getElementsByName("cartbtn");
 function addToCart() {
-     
-    $("button[name='cartbtn']").click(function () {
-        var tempplus = document.createElement(HTMLDivElement);
-        tempplus.setAttribute(id, tempplus)
-        tempplus.innerHTML = '1234567';
-        tempplus.style.top = $(this).pageY + 'px';
-        tempplus.style.left = $(this).pageX + 'px';
-        tempplus.style.transition = 'left 1s, top 1s';
+    var $ball = document.getElementById('ball');
+    allcartbtn.forEach(x => x.onclick = function (evt) {
+        $ball.style.top = evt.pageY + 'px';
+        $ball.style.left = evt.pageX + 'px';
+        $ball.style.transition = 'left 0s, top 0s';
+
+
+
         setTimeout(() => {
-            tempplus.style.top = window.innerHeight + 'px';
-            tempplus.style.position ="absolute"
-            tempplus.style.zIndex = "99999999999";
-            tempplus.style.color = "red";
-            tempplus.style.backgroundColor = "red";
-            tempplus.style.top = '0px';
-            tempplus.style.left = '900px';
-            tempplus.style.transition = 'left 1s linear, top 1s ease-in';
+            $ball.style.opacity = '1';
+            $ball.style.top = '24px';
+            $ball.style.left = '1387px';
+            $ball.style.fontSize = '22px';
+            $ball.style.Color = "black";
+            $ball.style.transition = 'left 1.5s , top 1.2s ease-in';
         }, 20)
 
+        setTimeout(() => {
+            $ball.style.opacity = '0';
+        }, 2000)
+
+
+
     })
+    
+    
+
     
 }
 

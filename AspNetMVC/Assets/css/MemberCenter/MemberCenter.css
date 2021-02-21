@@ -6,6 +6,7 @@
 :root {
     --main: rgb(98,178,243);
     --hover: rgb(0, 123, 255);
+    --active:rgb(12, 53, 86);
 }
 .wrap {
     width: 100%;
@@ -439,7 +440,7 @@ h5 {
         color:white;
     }
     .btn-main:active {
-        background:#7c4380;
+        background:var(--active);
     }
 
 

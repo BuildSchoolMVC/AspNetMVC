@@ -4,10 +4,18 @@
     --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
 }
-#tempplus {
+/*#tempplus {
     width: 40px;
     height: 40px;
+    color:black;
+    border-radius: 50%;
+    position: absolute;
+    transition: left 2s linear, top 2s ease-in;
+}*/
+#ball {
+    font-size:40px;
     color:red;
+    z-index:99999 !important;
     border-radius: 50%;
     position: fixed;
     transition: left 1s linear, top 1s ease-in;
