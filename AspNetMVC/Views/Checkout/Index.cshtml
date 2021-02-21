@@ -51,95 +51,23 @@
 					decimal total;
 				}
 				@if (Model.IsPackage) {
-					int?[] roomTypes = { Model.Package.RoomType, Model.Package.RoomType2, Model.Package.RoomType3 };
-					int?[] squareFeetType = { Model.Package.Squarefeet, Model.Package.Squarefeet2, Model.Package.Squarefeet3 };
 					<div id="favorite-name">@Model.Package.Name</div>
+					@PackageProduct()
 					total = Model.Package.Price;
-					<div class="item">
-						@for (int i = 0; i < roomTypes.Length; i++) {
-							if (roomTypes[i] == null) { break; }
-							<div class="place">
-								<span class="key">
-									<i class="icon fas fa-house-user"></i>
-								</span>
-								<span class="value">
-									@Model.RoomTypeList.First(x => x.Value == roomTypes[i]).Name
-								</span>
-								<span class="square-feet">
-									(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == squareFeetType[i]).Name.Split('+', ',')))
-								</span>
-							</div>
-						}
-						<div class="service-type">
-							<span class="key">
-								<i class="icon fas fa-user-friends"></i>
-							</span>
-							<span class="value">
-								@String.Join(" + ", Model.Package.ServiceItem.Split('+', ','))
-							</span>
-						</div>
-						<div class="hours">
-							<div class="key">
-								<i class="icon fas fa-clock"></i>
-							</div>
-							<div class="value">
-								<div class="num">@Model.Package.Hour</div>
-								<div class="unit">hr</div>
-								<div>x</div>
-								<div class="num">500</div>
-								<div class="unit">元/hr</div>
-								<div class="subtotal">@Model.Package.Price</div>
-							</div>
-						</div>
-					</div>
 				} else {
 					<div id="favorite-name">@Model.UserDefinedList[0].Name</div>
 					foreach (var item in Model.UserDefinedList) {
-						@UserDefinedItem(item, Model.IsPackage)
-						@*<div class="item">
-								<div class="place">
-									<span class="key">
-										<i class="icon fas fa-house-user"></i>
-									</span>
-									<span class="value">
-										@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
-									</span>
-									<span class="square-feet">
-										(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
-									</span>
-								</div>
-								<div class="service-type">
-									<span class="key">
-										<i class="icon fas fa-user-friends"></i>
-									</span>
-									<span class="value">
-										@String.Join(" + ", item.ServiceItems.Split('+', ','))
-									</span>
-								</div>
-								<div class="hours">
-									<div class="key">
-										<i class="icon fas fa-clock"></i>
-									</div>
-									<div class="value">
-										<div class="num">@item.Hour</div>
-										<div class="unit">hr</div>
-										<div>x</div>
-										<div class="num">500</div>
-										<div class="unit">元/hr</div>
-										<div class="subtotal">@item.Price</div>
-									</div>
-								</div>
-							</div>*@
+						@UserDefinedItem(item)
 					}
 					total = Model.UserDefinedList.Select(x => x.Price).Sum();
 				}
 				<div class="coupon">
-					<button>選擇優惠券</button>
-					<span class="value"></span>
+					<button data-toggle="modal" data-target="#modal_coupon">選擇優惠券</button>
+					<span class="money">0</span>
 				</div>
 				<div class="total">
 					<span class="key">總計</span>
-					<span class="value">@total</span>
+					<span class="money">@total</span>
 				</div>
 			</div>
 		</div>
@@ -390,10 +318,81 @@
 			</main>
 		</div>
 	</div>
-
 </div>
 
-<div class="modal fade" id="no-service-range" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_coupon" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="coupon-item">
+					<div class="money">100</div>
+					<div class="text">
+						<div class="name">新年大掃除</div>
+						<div class="date-end">有效日期: 2021.02.28</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+				<div class="coupon-item">
+					<div class="money">200</div>
+					<div class="text">
+						<div class="name">歡慶UCleaner一週年</div>
+						<div class="date-end">有效日期: 2021.12.31</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade extraInfo" id="no-service-range" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -421,7 +420,8 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="change-policy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade extraInfo" id="change-policy" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -449,10 +449,51 @@
 		</div>
 	</div>
 </div>
-
-@helper UserDefinedItem(UserDefinedProduct item, bool isPackage) {
+@helper PackageProduct() {
+	int?[] roomTypes = { Model.Package.RoomType, Model.Package.RoomType2, Model.Package.RoomType3 };
+	int?[] squareFeetType = { Model.Package.Squarefeet, Model.Package.Squarefeet2, Model.Package.Squarefeet3 };
 	<div class="item">
-		@*<div class="place">
+		@for (int i = 0; i < roomTypes.Length; i++) {
+			if (roomTypes[i] == null) { break; }
+			<div class="place">
+				<span class="key">
+					<i class="icon fas fa-house-user"></i>
+				</span>
+				<span class="value">
+					@Model.RoomTypeList.First(x => x.Value == roomTypes[i]).Name
+				</span>
+				<span class="square-feet">
+					(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == squareFeetType[i]).Name.Split('+', ',')))
+				</span>
+			</div>
+		}
+		<div class="service-type">
+			<span class="key">
+				<i class="icon fas fa-user-friends"></i>
+			</span>
+			<span class="value">
+				@String.Join(" + ", Model.Package.ServiceItem.Split('+', ','))
+			</span>
+		</div>
+		<div class="hours">
+			<div class="key">
+				<i class="icon fas fa-clock"></i>
+			</div>
+			<div class="value">
+				<div class="num">@Model.Package.Hour</div>
+				<div class="unit">hr</div>
+				<div>x</div>
+				<div class="num">500</div>
+				<div class="unit">元/hr</div>
+				<div class="subtotal">@Model.Package.Price</div>
+			</div>
+		</div>
+	</div>
+}
+
+@helper UserDefinedItem(UserDefinedProduct item) {
+	<div class="item">
+		<div class="place">
 			<span class="key">
 				<i class="icon fas fa-house-user"></i>
 			</span>
@@ -462,12 +503,7 @@
 			<span class="square-feet">
 				(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
 			</span>
-		</div>*@
-		@if (isPackage) {
-			
-		} else {
-			@Place(item)
-		}
+		</div>
 		<div class="service-type">
 			<span class="key">
 				<i class="icon fas fa-user-friends"></i>
@@ -489,19 +525,6 @@
 				<div class="subtotal">@item.Price</div>
 			</div>
 		</div>
-	</div>
-}
-@helper Place(UserDefinedProduct item) {
-	<div class="place">
-		<span class="key">
-			<i class="icon fas fa-house-user"></i>
-		</span>
-		<span class="value">
-			@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
-		</span>
-		<span class="square-feet">
-			(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
-		</span>
 	</div>
 }
 

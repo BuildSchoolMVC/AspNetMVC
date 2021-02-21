@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Web.Security;
 using System.Web.Configuration;
+using System.Net;
+using System.Collections.Specialized;
+using System.IO;
 
 namespace AspNetMVC.Services
 {
@@ -37,10 +40,11 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public void CreateAccount(RegisterViewModel account)
+        public string CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();
 
+            Account userInfo;
             using (var transcation = _context.Database.BeginTransaction())
             {
                 try
@@ -62,6 +66,8 @@ namespace AspNetMVC.Services
                         EditUser = account.Name,
                         Remark = ""
                     };
+                    userInfo = user;
+
                     _repository.Create<Account>(user);
                     _context.SaveChanges();
 
@@ -80,15 +86,17 @@ namespace AspNetMVC.Services
 
                     result.IsSuccessful = true;
                     transcation.Commit();
+                    return userInfo.AccountId.ToString();
                 }
                 catch (Exception ex)
                 {
                     result.IsSuccessful = false;
                     result.Exception = ex;
                     transcation.Rollback();
+                    return "";
                 }
             }
-                
+            
         }
 
         /// <summary>
@@ -264,21 +272,21 @@ namespace AspNetMVC.Services
                             Address = "",
                             Email = googleApiTokenInfo.Email,
                             Gender = 3,
-                            Name = googleApiTokenInfo.Sub,
+                            Name = $"g{googleApiTokenInfo.Sub}",
                             Phone = "",
                             ConfirmPassword = googleApiTokenInfo.Sub,
                             Password = googleApiTokenInfo.Sub,
                             ValidationMessage = ""
                         };
-                        CreateAccount(account);
+                        var accountId = CreateAccount(account);
                         Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
                         { "accountname",googleApiTokenInfo.Sub},
                         { "name",googleApiTokenInfo.Name},
                         { "password",googleApiTokenInfo.Sub},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
-                        { "isSocialActivation","false" }
+                        { "accountid",accountId},
+                        { "isSocialActivation","true" }
                     };
 
                         SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
@@ -353,14 +361,14 @@ namespace AspNetMVC.Services
                     Address = "",
                     Email = fbInfo.Email,
                     Gender = 3,
-                    Name = fbInfo.FacebookId,
+                    Name = $"f{fbInfo.FacebookId}",
                     Phone = "",
                     ConfirmPassword = fbInfo.FacebookId,
                     Password = fbInfo.FacebookId,
                     ValidationMessage = ""
                 };
 
-                CreateAccount(account);
+                var accountId = CreateAccount(account);
 
                 Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
@@ -368,7 +376,7 @@ namespace AspNetMVC.Services
                         { "name",fbInfo.Name},
                         { "password",fbInfo.FacebookId},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",GetAccountId(fbInfo.FacebookId).ToString()},
+                        { "accountid",accountId},
                         { "isSocialActivation","true"}
                     };
 
@@ -407,16 +415,18 @@ namespace AspNetMVC.Services
             return or;
         }
 
-        public async Task<OperationResult> RegisterByLine(string code)
+        public OperationResult RegisterByLine(string code)
         {
-            using (HttpClient client = new HttpClient())
-            {
-
                 var or = new OperationResult();
                 try
                 {
-                    var url = $"https://api.line.me/v2/oauth/accessToken";
-                    client.Timeout = TimeSpan.FromSeconds(30);
+                    var url = $"https://api.line.me/oauth2/v2.1/token";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
+
                     var values = new Dictionary<string,string>{
                            { "grant_type", "authorization_code" },
                            { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
@@ -424,13 +434,44 @@ namespace AspNetMVC.Services
                            { "code",code},
                            { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
                         };
-                    var content = new FormUrlEncodedContent(values);
-                    var response = await client.PostAsync(url, content);
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responseString);
+                    foreach(var kvp in values)
+                    {
+                        postParams.Add(kvp.Key, kvp.Value);
+                    }
+
+                    byte[] byteArray = Encoding.UTF8.GetBytes(postParams.ToString());
+                    using (Stream reqStream = request.GetRequestStream())
+                    {
+                        reqStream.Write(byteArray, 0, byteArray.Length);
+                    }
+
+                  
+                    string responseStr = "";
+                   
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                    {
+                        using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                        {
+                            responseStr = sr.ReadToEnd();
+                        }
+                    }
 
 
-                    if (IsAccountExist(googleApiTokenInfo.Sub) || IsEmailExist(googleApiTokenInfo.Email))
+                    LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
+                    string id_token = tokenObj.Id_token;
+
+
+                    var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
+                    LineUserProfile user = new LineUserProfile();
+                    user.UserId = jst.Payload.Sub;
+                    user.DisplayName = jst.Payload["name"].ToString();
+                    user.PictureUrl = jst.Payload["picture"].ToString();
+                    if (jst.Payload.ContainsKey("email") && !string.IsNullOrEmpty(Convert.ToString(jst.Payload["email"])))
+                    {
+                        user.Email = jst.Payload["email"].ToString();
+                    }
+
+                    if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
                     {
                         or.IsSuccessful = false;
                         or.MessageInfo = "此帳號已重複申請";
@@ -440,26 +481,26 @@ namespace AspNetMVC.Services
                         RegisterViewModel account = new RegisterViewModel
                         {
                             Address = "",
-                            Email = googleApiTokenInfo.Email,
+                            Email = user.Email,
                             Gender = 3,
-                            Name = googleApiTokenInfo.Sub,
+                            Name = $"l{user.UserId}",
                             Phone = "",
-                            ConfirmPassword = googleApiTokenInfo.Sub,
-                            Password = googleApiTokenInfo.Sub,
+                            ConfirmPassword = user.UserId,
+                            Password = user.UserId,
                             ValidationMessage = ""
                         };
-                        CreateAccount(account);
-                        Dictionary<string, string> kvp = new Dictionary<string, string>
+                    var accountId = CreateAccount(account);
+                    Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
-                        { "accountname",googleApiTokenInfo.Sub},
-                        { "name",googleApiTokenInfo.Name},
-                        { "password",googleApiTokenInfo.Sub},
+                        { "accountname",user.UserId},
+                        { "name",user.DisplayName},
+                        { "password",user.UserId},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",GetAccountId(googleApiTokenInfo.Sub).ToString()},
+                        { "accountid",accountId},
                         { "isSocialActivation","true"}
                     };
 
-                        SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
+                        SendMail("會員驗證信", user.Email, kvp);
 
                         or.IsSuccessful = true;
                         or.MessageInfo = account.Name;
@@ -472,7 +513,78 @@ namespace AspNetMVC.Services
                     or.MessageInfo = "發生錯誤";
                 }
                 return or;
+        }
+
+        public OperationResult LoginByLine(string code)
+        {
+            var or = new OperationResult();
+            try
+            {
+                var url = $"https://api.line.me/oauth2/v2.1/token";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
+
+                var values = new Dictionary<string, string>{
+                           { "grant_type", "authorization_code" },
+                           { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
+                           { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
+                           { "code",code},
+                           { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
+                        };
+                foreach (var kvp in values)
+                {
+                    postParams.Add(kvp.Key, kvp.Value);
+                }
+
+                byte[] byteArray = Encoding.UTF8.GetBytes(postParams.ToString());
+                using (Stream reqStream = request.GetRequestStream())
+                {
+                    reqStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+
+                string responseStr = "";
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        responseStr = sr.ReadToEnd();
+                    }
+                }
+
+
+                LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
+                string id_token = tokenObj.Id_token;
+
+
+                var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
+                LineUserProfile user = new LineUserProfile();
+                user.UserId = jst.Payload.Sub;
+                user.Email = jst.Payload["email"].ToString();
+
+
+                if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
+                {
+                    or.IsSuccessful = true;
+                    or.MessageInfo = $"驗證成功 {user.UserId}";
+                }
+                else
+                {
+                    or.IsSuccessful = false;
+                    or.MessageInfo = "驗證失敗";
+                }
             }
+            catch (Exception ex)
+            {
+                or.IsSuccessful = false;
+                or.Exception = ex;
+                or.MessageInfo = "發生錯誤";
+            }
+            return or;
         }
 
         public Guid GetAccountId(string accountName)

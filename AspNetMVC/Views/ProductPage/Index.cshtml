@@ -107,22 +107,7 @@
                                 瀏覽過的商品
                             </button>
                         </div>
-                        <div class="item-group">
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=8">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="pic">
-                                    <a href="">
-                                        <img src="https://picsum.photos/200/200/?random=5">
-                                    </a>
-                                </div>
-                            </div>
-
+                        <div class="item-group" id="viewed-box">
                         </div>
                     </div>
                 </div>
@@ -185,7 +170,7 @@
                         </div>
                         <div class="button-area">
                             <button class="btn" id="addfavorite-btn">加入收藏</button>
-                            <a href="" class="btn">前往結帳</a>
+                            <a href="" class="btn">前往收藏</a>
                         </div>
                     </div>
                 </div>
@@ -287,7 +272,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" id="modalinput" width="100">
+                <input type="text" id="modalinput" width="100" maxlength="7">
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" id="definename-btn" data-dismiss="modal">取名</button>
@@ -295,6 +280,16 @@
         </div>
     </div>
 </div>
+<template id="viewedcard">
+    <div class="item">
+        <div class="pic">
+            <a href="">
+                <img src="">
+            </a>
+        </div>
+    </div>
+</template>
+<i class="fas fa-heart"id="ball"></i>
 
 
 

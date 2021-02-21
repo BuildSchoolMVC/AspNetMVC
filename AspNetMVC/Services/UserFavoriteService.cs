@@ -38,6 +38,19 @@ namespace AspNetMVC.Services {
 				result.Exception = ex;
 			}
 		}
-		
+		public void CreateCoupon(string accountName, int couponId) {
+			DateTime now = DateTime.Now;
+			_repository.Create<CouponDetail>(new CouponDetail {
+				CouponDetailId = Guid.NewGuid(),
+				CouponId = couponId,
+				AccountName = accountName,
+				State = (int)UseState.Unused,
+				CreateTime = now,
+				EditTime = now,
+				CreateUser = accountName,
+				EditUser = accountName,
+			});
+			_context.SaveChanges();
+		}
 	}
 }

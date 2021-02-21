@@ -417,6 +417,10 @@ $inputCredit.on('input', (e) => {
   $inputCredit.lastStr = output;
   $inputCredit.val(output);
 });
+//coupon
+$('.coupon button').on('click', function() {
+  console.log('ajax');
+});
 // invoice
 const invoiceData = {
   // 傳回後端用
