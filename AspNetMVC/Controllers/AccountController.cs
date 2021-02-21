@@ -96,7 +96,7 @@ namespace AspNetMVC.Controllers
                 var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
                 if (isVerify)
                 {
-                    var accountId = _accountService.CreateAccount(model);
+                    _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
@@ -104,7 +104,7 @@ namespace AspNetMVC.Controllers
                         { "name",model.Name},
                         { "password",model.Password},
                         { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
+                        { "accountid",_accountService.GetAccountId(model.Name).ToString()},
                         { "isSocialActivation","false"}
                     };
 

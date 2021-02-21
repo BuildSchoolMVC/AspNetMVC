@@ -40,11 +40,10 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public string CreateAccount(RegisterViewModel account)
+        public void CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();
 
-            Account userInfo;
             using (var transcation = _context.Database.BeginTransaction())
             {
                 try
@@ -56,7 +55,7 @@ namespace AspNetMVC.Services
                         Address = account.Address,
                         Password = Helpers.ToMD5(account.Password),
                         Email = account.Email,
-                        EmailVerification = false,
+                        EmailVerification = account.EmailVerification,
                         Gender = account.Gender, // 1 男 2 女 3 其他
                         Phone = account.Phone,
                         Authority = 3, //預設 3 : 一般會員
@@ -66,7 +65,6 @@ namespace AspNetMVC.Services
                         EditUser = account.Name,
                         Remark = ""
                     };
-                    userInfo = user;
 
                     _repository.Create<Account>(user);
                     _context.SaveChanges();
@@ -86,14 +84,12 @@ namespace AspNetMVC.Services
 
                     result.IsSuccessful = true;
                     transcation.Commit();
-                    return userInfo.AccountId.ToString();
                 }
                 catch (Exception ex)
                 {
                     result.IsSuccessful = false;
                     result.Exception = ex;
                     transcation.Rollback();
-                    return "";
                 }
             }
             
@@ -276,20 +272,10 @@ namespace AspNetMVC.Services
                             Phone = "",
                             ConfirmPassword = googleApiTokenInfo.Sub,
                             Password = googleApiTokenInfo.Sub,
-                            ValidationMessage = ""
+                            ValidationMessage = "",
+                            EmailVerification = true
                         };
-                        var accountId = CreateAccount(account);
-                        Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",googleApiTokenInfo.Sub},
-                        { "name",googleApiTokenInfo.Name},
-                        { "password",googleApiTokenInfo.Sub},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true" }
-                    };
-
-                        SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
+                        CreateAccount(account);
 
                         or.IsSuccessful = true;
                         or.MessageInfo = account.Name;
@@ -344,7 +330,6 @@ namespace AspNetMVC.Services
             }
         }
 
-
         public OperationResult RegisterByFacebook(FacebookInfo fbInfo)
         {
             var or = new OperationResult();
@@ -365,22 +350,11 @@ namespace AspNetMVC.Services
                     Phone = "",
                     ConfirmPassword = fbInfo.FacebookId,
                     Password = fbInfo.FacebookId,
-                    ValidationMessage = ""
+                    ValidationMessage = "",
+                    EmailVerification = true
                 };
 
-                var accountId = CreateAccount(account);
-
-                Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",fbInfo.FacebookId},
-                        { "name",fbInfo.Name},
-                        { "password",fbInfo.FacebookId},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true"}
-                    };
-
-                SendMail("會員驗證信", fbInfo.Email, kvp);
+                CreateAccount(account);
 
                 or.IsSuccessful = true;
                 or.MessageInfo = account.Name;
@@ -445,7 +419,6 @@ namespace AspNetMVC.Services
                         reqStream.Write(byteArray, 0, byteArray.Length);
                     }
 
-                  
                     string responseStr = "";
                    
                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -456,10 +429,8 @@ namespace AspNetMVC.Services
                         }
                     }
 
-
                     LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
                     string id_token = tokenObj.Id_token;
-
 
                     var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
                     LineUserProfile user = new LineUserProfile();
@@ -487,20 +458,11 @@ namespace AspNetMVC.Services
                             Phone = "",
                             ConfirmPassword = user.UserId,
                             Password = user.UserId,
-                            ValidationMessage = ""
+                            ValidationMessage = "",
+                            EmailVerification = true
                         };
-                    var accountId = CreateAccount(account);
-                    Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",user.UserId},
-                        { "name",user.DisplayName},
-                        { "password",user.UserId},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true"}
-                    };
 
-                        SendMail("會員驗證信", user.Email, kvp);
+                        CreateAccount(account);
 
                         or.IsSuccessful = true;
                         or.MessageInfo = account.Name;
