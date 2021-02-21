@@ -16,7 +16,7 @@
         <!-- 會員中心切換功能欄 -->
         <div class="functionpage Fg-sm" id="Fg">
             <div class="menu-control">
-                <button onclick="display()"><span id="direction">></span></button>
+                <button onclick="display()" type="button" id="menu-control"><span id="direction">></span></button>
             </div>
             <div class="username" id="username">
                 <p>Hi!@Model.Name 您好!</p>
@@ -88,8 +88,8 @@
                                     <p>姓名</p>
                                 </div>
                                 <div class="user_infro-item-label" id="name">
-                                    <p class="" id="label">@Model.Name</p>
-                                    <div class="col-md-10 d-none" id="input">
+                                    <p class="" id="label1">@Model.Name</p>
+                                    <div class="col-md-10 d-none" id="input1">
                                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                     </div>
@@ -100,8 +100,8 @@
                                     <p>手機號碼</p>
                                 </div>
                                 <div class="user_infro-item-label" id="phone">
-                                    <p class="" id="label">@Model.Phone</p>
-                                    <div class="col-md-10 d-none" id="input">
+                                    <p class="" id="label2">@Model.Phone</p>
+                                    <div class="col-md-10 d-none" id="input2">
                                         @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                                     </div>
@@ -112,8 +112,8 @@
                                     <p>E-mail</p>
                                 </div>
                                 <div class="user_infro-item-label" id="email">
-                                    <p class="" id="label">@Model.Mail</p>
-                                    <div class="col-md-10 d-none" id="input">
+                                    <p class="" id="label3">@Model.Mail</p>
+                                    <div class="col-md-10 d-none" id="input3">
                                         @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
                                     </div>
@@ -124,15 +124,15 @@
                                     <p>服務地址</p>
                                 </div>
                                 <div class="user_infro-item-label" id="address">
-                                    <p class="" id="label">@Model.Address</p>
-                                    <div class="col-md-10 d-none" id="input">
+                                    <p class="" id="label4">@Model.Address</p>
+                                    <div class="col-md-10 d-none" id="input4">
                                         @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" value="Save" class="btn btn-default" />
+                        
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">

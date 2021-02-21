@@ -4,8 +4,9 @@ var email_edit = document.getElementById("email");
 var address_edit = document.getElementById("address");
 var btn = document.getElementById("edit-btnblock");
 var edit_btn = document.getElementById("edit");
+var menu = document.getElementById("menu-control");
 
-function display() {
+menu.onclick = function display() {
     var fg = document.getElementById("Fg");
     var icon = document.getElementById("direction");
     if (fg.classList.contains("Fg-sm")) {
@@ -15,7 +16,7 @@ function display() {
         fg.classList.add("Fg-sm");
         icon.innerHTML=">"
     }
-    console.log(fg.classList);
+    
 }
 function remove(event) {
     var id = event.currentTarget.id;
@@ -26,23 +27,27 @@ function remove(event) {
 
 
 edit_btn.onclick = function edit() {
-        var input = document.getElementById("input");
-        var label = document.getElementById("label");
-        if (input.classList.contains("d-none")) {
-            label.classList.add("d-none");
-            input.classList.remove("d-none");
-        }
-        btn.innerHTML = `<input type="submit" value="Save" class="btn btn-default" />`;
+    var _Input = [];
+    var _Label = [];
+    for (i = 1; i <= 4; i++) {
+        var input = _Input.push(document.getElementById(`input${i}`));
+        var label = _Label.push(document.getElementById(`label${i}`));
     }
-function finish() {
-    
-    btn.innerHTML = `<button type="button" class="btn btn-password" data-toggle="modal" data-target="#exampleModal" id="btn-model-space">
-                            修改密碼
-                        </button>
-                        <button class="btn btn-main" onclick="edit()" id="edit">編輯會員資料</button>`;
-    var username = document.getElementById("username");
-    username.innerHTML = `<p>Hi!${name} 您好!</p>`;
-}
+    _Label.forEach(function (item)
+    {
+        item.classList.add("d-none");
+    });
+    _Input.forEach(function (item)
+    {
+        if (item.classList.contains("d-none"))
+        {
+            item.classList.remove("d-none");
+
+        }
+    });
+        btn.innerHTML = `<input type="submit" value="完成" class="btn btn-main" />`;
+    }
+
 function savepassword() {
     let new_pw = document.getElementById("new_password").value;
     let confirm_pw = document.getElementById("confirm_password").value;
