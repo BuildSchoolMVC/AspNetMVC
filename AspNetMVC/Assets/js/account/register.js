@@ -314,4 +314,5 @@ window.addEventListener("load", function () {
         })
         this.querySelector(".spinner-border-wrap").classList.remove("opacity");
     });
+
 })

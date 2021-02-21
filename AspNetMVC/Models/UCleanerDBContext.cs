@@ -28,8 +28,8 @@ namespace AspNetMVC.Models
 		public virtual DbSet<UserFavorite> UserFavorites { get; set; }
         public virtual DbSet<MemberMd> MemberMds { get; set; }
         public virtual DbSet<MemberCreditCard> MemberCreditCards { get; set; }
-        public virtual DbSet<Coupon> Coupons { get; set; }
-        public virtual DbSet<CouponDetail> CouponDetails { get; set; }
+		public virtual DbSet<Coupon> Coupons { get; set; }
+		public virtual DbSet<CouponDetail> CouponDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

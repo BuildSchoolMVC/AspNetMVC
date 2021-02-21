@@ -52,18 +52,23 @@ namespace AspNetMVC.ViewModels
 
     }
 
-    //public class UserFavoritePackageProductViewModel
-    //{
-    //    public Guid FavoriteId{ get; set; }
-    //    public int? PackageProductId { get; set; }
-    //}
+    public class UserFavoriteData
+    {
+        public string Title { get; set; }
+        public string RoomType { get; set; }
+        public string ServiceItem { get; set; }
+        public string Squarefeet { get; set; }
+        public decimal Price { get; set; }
+        public float Hour { get; set; }
+        public string PhotoUrl { get; set; }
+        public int PackageProductId { get; set; } //for 詳情連結用
+    }
+
     public class UserFavoriteViewModel
     {
         public Guid FavoriteId { get; set; }
-
         public bool IsPackage { get; set; }
-        public List<UserDefinedAll> Data { get; set; }
-
+        public List<UserFavoriteData> Data { get; set; }
     }
 
 

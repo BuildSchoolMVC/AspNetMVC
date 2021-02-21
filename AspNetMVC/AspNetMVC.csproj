@@ -60,6 +60,15 @@
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -72,6 +81,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -205,6 +217,18 @@
     <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.cs" />
     <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.Designer.cs">
       <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102201715180_modify-column.cs" />
+    <Compile Include="Migrations\202102201715180_modify-column.Designer.cs">
+      <DependentUpon>202102201715180_modify-column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102210359102_v8.cs" />
+    <Compile Include="Migrations\202102210359102_v8.Designer.cs">
+      <DependentUpon>202102210359102_v8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102210406369_v9.cs" />
+    <Compile Include="Migrations\202102210406369_v9.Designer.cs">
+      <DependentUpon>202102210406369_v9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
@@ -552,6 +576,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102200848008_addCouponandCouponDetail.resx">
       <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102201715180_modify-column.resx">
+      <DependentUpon>202102201715180_modify-column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210359102_v8.resx">
+      <DependentUpon>202102210359102_v8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210406369_v9.resx">
+      <DependentUpon>202102210406369_v9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
