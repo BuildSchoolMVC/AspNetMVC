@@ -257,7 +257,7 @@ namespace AspNetMVC.Services
                     var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
 
 
-                    if (IsAccountExist(googleApiTokenInfo.Sub) || IsEmailExist(googleApiTokenInfo.Email))
+                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") || IsEmailExist(googleApiTokenInfo.Email))
                     {
                         or.IsSuccessful = false;
                         or.MessageInfo = "此帳號已重複申請";
@@ -309,10 +309,10 @@ namespace AspNetMVC.Services
                     var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
 
 
-                    if (IsAccountExist(googleApiTokenInfo.Sub) && IsEmailExist(googleApiTokenInfo.Email))
+                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") && IsEmailExist(googleApiTokenInfo.Email))
                     {
                         or.IsSuccessful = true;
-                        or.MessageInfo = $"驗證成功 {googleApiTokenInfo.Sub}";
+                        or.MessageInfo = $"驗證成功 g{googleApiTokenInfo.Sub}";
                     }
                     else
                     {
@@ -366,12 +366,12 @@ namespace AspNetMVC.Services
         {
             var or = new OperationResult();
 
-            if (!IsEmailExist(fbInfo.Email))
+            if (IsEmailExist(fbInfo.Email))
             {
-                if (IsAccountExist(fbInfo.FacebookId))
+                if (IsAccountExist($"f{ fbInfo.FacebookId}"))
                 {
                     or.IsSuccessful = true;
-                    or.MessageInfo = $"驗證成功 {fbInfo.FacebookId}";
+                    or.MessageInfo = $"驗證成功 f{fbInfo.FacebookId}";
                 }
                 else
                 {
@@ -445,7 +445,7 @@ namespace AspNetMVC.Services
                     if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
                     {
                         or.IsSuccessful = false;
-                        or.MessageInfo = "此帳號已重複申請";
+                        or.MessageInfo = "此帳號或信箱已重複申請";
                     }
                     else
                     {
@@ -494,7 +494,7 @@ namespace AspNetMVC.Services
                            { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
                            { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
                            { "code",code},
-                           { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
+                           { "redirect_uri","https://localhost:44308/Account/LoginByLineLogin"}
                         };
                 foreach (var kvp in values)
                 {
@@ -529,7 +529,7 @@ namespace AspNetMVC.Services
                 user.Email = jst.Payload["email"].ToString();
 
 
-                if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
+                if (IsAccountExist($"l{user.UserId}") || IsEmailExist(user.Email))
                 {
                     or.IsSuccessful = true;
                     or.MessageInfo = $"驗證成功 {user.UserId}";
@@ -544,7 +544,7 @@ namespace AspNetMVC.Services
             {
                 or.IsSuccessful = false;
                 or.Exception = ex;
-                or.MessageInfo = "發生錯誤";
+                or.MessageInfo = ex.ToString();
             }
             return or;
         }

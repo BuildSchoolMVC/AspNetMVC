@@ -295,7 +295,7 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterByFacebookLogin([Bind(Include ="Id,Email,Name")]FacebookInfo model)
+        public ActionResult RegisterByFacebookLogin([Bind(Include = "FacebookId,Email,Name")]FacebookInfo model)
         {
             var result = _accountService.RegisterByFacebook(model);
 
@@ -303,7 +303,7 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginByFacebookLogin([Bind(Include = "Id,Email,Name")] FacebookInfo model)
+        public ActionResult LoginByFacebookLogin([Bind(Include = "FacebookId,Email,Name")] FacebookInfo model)
         {
             var result = _accountService.LoginByFacebook(model);
 
@@ -322,12 +322,20 @@ namespace AspNetMVC.Controllers
 
             if (result.IsSuccessful)
             {
-                string content = "註冊成功，已可關閉視窗，並前往信箱收驗證信。";
+                string content = "註冊成功，已可關閉視窗，並前往登入。";
                 return Content(content);
             }
             else
             {
-                string content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊。";
+                string content;
+                if (string.IsNullOrEmpty(result.MessageInfo))
+                {
+                    content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊。";
+                }
+                else
+                {
+                    content = result.MessageInfo;
+                }
                 return Content(content);
             }
         }

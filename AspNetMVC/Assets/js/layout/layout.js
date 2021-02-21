@@ -177,9 +177,27 @@ const swipeDeleteEffect = () => {
 
             item.querySelector(".confirm").addEventListener("click", () => {
                 item.classList.add("delete");
+                fetch("", {
+                    method: "Post",
+                    body: JSON.stringify(data),
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    })
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.response) {
+                            toastr.success("刪除成功")
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        toastr.error("發生錯誤")
+                    })
                 setTimeout(() => {
                     item.remove();
-                    let index = favorites.findIndex(x => x.uid == item.dataset.id);
+                    let index = favorites.findIndex(x => x.FavoriteId == item.dataset.id);
                     if (index != -1) {
                         favorites.splice(index, 1);
                         countFavoritesAmount(favorites.length);
@@ -428,16 +446,22 @@ const createUserDefinedCard = (datas) => {
 
 const showFavorites = () => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
-    favorites.forEach(x => {
-        createFavoritesCard(x);
-    })
-    swipeDeleteEffect();
-    document.querySelectorAll("input[type='checkbox']").forEach(x => {
+    if (favorites.length == 0) {
+        favoritesStatus("你目前的收藏是空的")
+    } else {
+        favorites.forEach(x => {
+            createFavoritesCard(x);
+        })
+    }
 
+    swipeDeleteEffect();
+
+    document.querySelectorAll("input[type='checkbox']").forEach(x => {
         x.addEventListener("click", function () {
             favoriteSelectEffect(x);
         })
     })
+
 }
 const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
@@ -626,12 +650,6 @@ window.addEventListener("load", () => {
     } else {
         getFavorites();
         toggleTip();
-
-        if (document.querySelectorAll(".favorites-product-item").length == 0) {
-            checkoutBtnControl();
-            countFavoritesAmount(0);
-            favoritesStatus("你目前的收藏是空的");
-        } 
     }
 
     document.querySelectorAll(".subItem").forEach(x => {
@@ -685,6 +703,7 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
 });
 
 document.querySelector(".checkout").addEventListener("click", function (e) {
+    if (this.classList.contains("disabled")) return;
     if (Array.from(document.querySelectorAll("input[type='checkbox']")).every(x => x.checked == false)) {
         toastr.warning("必須要選一項，才能前往結帳");
         e.preventDefault();
