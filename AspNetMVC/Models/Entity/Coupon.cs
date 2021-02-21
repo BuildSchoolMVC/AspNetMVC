@@ -7,6 +7,7 @@ namespace AspNetMVC.Models.Entity
 {
     public class Coupon : BaseEntity
     {
+        [key]
         public int CouponID { get; set; }
 
         public string CouponName { get; set; }

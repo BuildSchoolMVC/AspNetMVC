@@ -209,6 +209,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
     <Compile Include="Models\Entity\CouponDetail.cs" />
+    <Compile Include="Models\Entity\keyAttribute.cs" />
     <Compile Include="Models\Entity\MemberCreditCard.cs" />
     <Compile Include="Models\Entity\MemberMd.cs" />
     <Compile Include="Models\Entity\Account.cs" />
