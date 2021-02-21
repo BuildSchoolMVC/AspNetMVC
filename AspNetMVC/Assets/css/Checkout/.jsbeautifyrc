@@ -1,0 +1,7 @@
+{
+    "newline_between_rules": false,
+    "selector_separator_newline": false,
+    "space_around_combinator": true,
+    "indent_size": 2,
+    "preserve_newlines": true
+}

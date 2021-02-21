@@ -21,12 +21,6 @@ namespace AspNetMVC.Services {
 				.First(f => f.FavoriteId == favoriteId && f.AccountName == accountName);
 			return favorite;
 		}
-		//public IEnumerable<T> GetFavoriteList<T>(UserFavorite favorite) where T : class {
-		//	_repository.GetAll<T>().Where(item => item.UserDefinedId == favorite.UserDefinedId);
-				
-
-		//	return null;
-		//}
 		public List<UserDefinedProduct> GetUserDefinedList(UserFavorite favorite) {
 			List<UserDefinedProduct> data = _repository
 				.GetAll<UserDefinedProduct>()
@@ -44,6 +38,16 @@ namespace AspNetMVC.Services {
 		}
 		public IEnumerable<SquareFeet> GetSquareFeetList() {
 			return _repository.GetAll<SquareFeet>();
+		}
+		public IEnumerable<dynamic> GetCouponList(string accountName) {
+			var allCoupons = _repository
+				.GetAll<CouponDetail>()
+				.Where(x => x.AccountName == accountName);
+			var list = from cd in allCoupons
+					   join c in _repository.GetAll<Coupon>()
+					   on cd.CouponId equals c.CouponId
+					   select new { c.CouponName, c.DiscountAmount, c.DateEnd, cd.State };
+			return list;
 		}
 	}
 }
