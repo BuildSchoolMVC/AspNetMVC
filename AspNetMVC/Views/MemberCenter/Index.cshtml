@@ -5,61 +5,64 @@
 }*@
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
-    }
+}
 
 
-
-<div class="wrap">
-    <!-- 會員中心切換功能欄 -->
-    <div class="functionpage Fg-sm" id="Fg">
-        <div class="menu-control">
-            <button onclick="display()"><span id="direction">></span></button>
-        </div>
-        <div class="username" id="username">
-            <p>Hi!@Model.Name 您好!</p>
-        </div>
-        <div class="user-infro">
-            <div class="user-item">
-                <div class="user-item-txt">
-                    <p class="user-item-number">0</p>
-                    <p class="user-item-infro">預約中</p>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="wrap">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!-- 會員中心切換功能欄 -->
+        <div class="functionpage Fg-sm" id="Fg">
+            <div class="menu-control">
+                <button onclick="display()" type="button" id="menu-control"><span id="direction">></span></button>
+            </div>
+            <div class="username" id="username">
+                <p>Hi!@Model.Name 您好!</p>
+            </div>
+            <div class="user-infro">
+                <div class="user-item">
+                    <div class="user-item-txt">
+                        <p class="user-item-number">0</p>
+                        <p class="user-item-infro">預約中</p>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div class="user-item-txt">
+                        <p class="user-item-number">0</p>
+                        <p class="user-item-infro">收藏頁商品</p>
+                    </div>
+                </div>
+                <div class="user-item">
+                    <div class="user-item-txt">
+                        <p class="user-item-number">0</p>
+                        <p class="user-item-infro">優惠卷</p>
+                    </div>
                 </div>
             </div>
-            <div class="user-item">
-                <div class="user-item-txt">
-                    <p class="user-item-number">0</p>
-                    <p class="user-item-infro">收藏頁商品</p>
-                </div>
-            </div>
-            <div class="user-item">
-                <div class="user-item-txt">
-                    <p class="user-item-number">0</p>
-                    <p class="user-item-infro">優惠卷</p>
-                </div>
-            </div>
-        </div>
-        <!-- 功能列表 -->
-        <div class="row">
-            <div class="col-3">
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="btn functionpage-btn nav-link active" id="v-pills-infro-tab" data-toggle="pill"
-                       href="#v-pills-infro" role="tab" aria-controls="v-pills-infro" aria-selected="true">會員資料</a>
+            <!-- 功能列表 -->
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="btn functionpage-btn nav-link active" id="v-pills-infro-tab" data-toggle="pill"
+                           href="#v-pills-infro" role="tab" aria-controls="v-pills-infro" aria-selected="true">會員資料</a>
 
-                    <a class="btn functionpage-btn nav-link" id="v-pills-order-tab" data-toggle="pill"
-                       href="#v-pills-order" role="tab" aria-controls="v-pills-order"
-                       aria-selected="false">我的訂單</a>
+                        <a class="btn functionpage-btn nav-link" id="v-pills-order-tab" data-toggle="pill"
+                           href="#v-pills-order" role="tab" aria-controls="v-pills-order"
+                           aria-selected="false">我的訂單</a>
 
-                    <!--<a class="btn functionpage-btn nav-link" id="v-pills-point-tab" data-toggle="pill"
-       href="#v-pills-point" role="tab" aria-controls="v-pills-messages"
-       aria-selected="false">我的G點</a>-->
+                        <!--<a class="btn functionpage-btn nav-link" id="v-pills-point-tab" data-toggle="pill"
+                        href="#v-pills-point" role="tab" aria-controls="v-pills-messages"
+                        aria-selected="false">我的G點</a>-->
 
-                    <a class="btn functionpage-btn nav-link" id="v-pills-credit-tab" data-toggle="pill"
-                       href="#v-pills-credit" role="tab" aria-controls="v-pills-credit"
-                       aria-selected="false">我的信用卡</a>
+                        <a class="btn functionpage-btn nav-link" id="v-pills-credit-tab" data-toggle="pill"
+                           href="#v-pills-credit" role="tab" aria-controls="v-pills-credit"
+                           aria-selected="false">我的信用卡</a>
 
-                    <a class="btn functionpage-btn nav-link" id="v-pills-discount-tab" data-toggle="pill"
-                       href="#v-pills-discount" role="tab" aria-controls="v-pills-discount"
-                       aria-selected="false">我的優惠卷</a>
+                        <a class="btn functionpage-btn nav-link" id="v-pills-discount-tab" data-toggle="pill"
+                           href="#v-pills-discount" role="tab" aria-controls="v-pills-discount"
+                           aria-selected="false">我的優惠卷</a>
 
                     <a class="btn functionpage-btn nav-link" id="v-pills-favorites-tab" data-toggle="pill"
                        href="#v-pills-favorites" role="tab" aria-controls="v-pills-favorites" aria-selected="false">
@@ -470,101 +473,102 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-favorites" role="tabpanel" aria-labelledby="v-pills-favorites-tab">
-                <div class="Card">
-                    <div class="page-title">
-                        <h2>收藏頁</h2>
-                    </div>
-                    <div class="favorites-body">
-                        <div class="prod-form">
-                            <table class="prod-form-header">
-                                <tbody>
-                                    <tr>
-                                        <td class="prod_dt">商品明細</td>
-                                        <td class="prod_price">價格</td>
-                                        <td class="remove">變更帳單</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <ul class="prod-form-body">
-                                <li>
-                                    <table class="prod-detail">
-                                        <tr id="prod1">
-                                            <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
-                                            <td class="prod-detail-table_prod_dt">
-                                                <div class="prod_dt_title">
-                                                    <h5>辦公室打掃服務</h5>
-                                                </div>
-                                                <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
-                                            </td>
-                                            <td class="prod-detail-table_prod_price"><p>2000</p></td>
-                                            <td class="prod-detail-table_remove">
-                                                <button class="btn btn-main btn-fav" id="remove1" onclick="remove(event)"><p>刪除</p></button>
-                                                <button class="btn btn-main btn-fav" id="change1" onclick="modify(event)"><p>修改</p></button>
-                                                <button class="btn btn-main btn-fav" id="buying1" onclick="buying(event)"><p>結帳</p></button>
-                                            </td>
+                <div class="tab-pane fade" id="v-pills-favorites" role="tabpanel" aria-labelledby="v-pills-favorites-tab">
+                    <div class="Card">
+                        <div class="page-title">
+                            <h2>收藏頁</h2>
+                        </div>
+                        <div class="favorites-body">
+                            <div class="prod-form">
+                                <table class="prod-form-header">
+                                    <tbody>
+                                        <tr>
+                                            <td class="prod_dt">商品明細</td>
+                                            <td class="prod_price">價格</td>
+                                            <td class="remove">變更帳單</td>
                                         </tr>
-                                        <tr id="prod2">
+                                    </tbody>
+                                </table>
+                                <ul class="prod-form-body">
+                                    <li>
+                                        <table class="prod-detail">
+                                            <tr id="prod1">
+                                                <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                                <td class="prod-detail-table_prod_dt">
+                                                    <div class="prod_dt_title">
+                                                        <h5>辦公室打掃服務</h5>
+                                                    </div>
+                                                    <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
+                                                </td>
+                                                <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                                <td class="prod-detail-table_remove">
+                                                    <button class="btn btn-main btn-fav" id="remove1" onclick="remove(event)"><p>刪除</p></button>
+                                                    <button class="btn btn-main btn-fav" id="change1" onclick="modify(event)"><p>修改</p></button>
+                                                    <button class="btn btn-main btn-fav" id="buying1" onclick="buying(event)"><p>結帳</p></button>
+                                                </td>
+                                            </tr>
+                                            <tr id="prod2">
 
-                                            <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
-                                            <td class="prod-detail-table_prod_dt">
-                                                <div class="prod_dt_title">
-                                                    <h5>辦公室打掃服務</h5>
-                                                    <div class="customer">客製化</div>
-                                                </div>
-                                                <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
-                                            </td>
-                                            <td class="prod-detail-table_prod_price"><p>2000</p></td>
-                                            <td class="prod-detail-table_remove">
-                                                <button class="btn btn-main btn-fav" id="remove2" onclick="remove(event)"><p>刪除</p></button>
-                                                <button class="btn btn-main btn-fav" id="change2" onclick="modify(event)"><p>修改</p></button>
-                                                <button class="btn btn-main btn-fav" id="buying2" onclick="buying(event)"><p>結帳</p></button>
-                                            </td>
-                                        </tr>
-                                        <tr id="prod3">
+                                                <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                                <td class="prod-detail-table_prod_dt">
+                                                    <div class="prod_dt_title">
+                                                        <h5>辦公室打掃服務</h5>
+                                                        <div class="customer">客製化</div>
+                                                    </div>
+                                                    <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
+                                                </td>
+                                                <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                                <td class="prod-detail-table_remove">
+                                                    <button class="btn btn-main btn-fav" id="remove2" onclick="remove(event)"><p>刪除</p></button>
+                                                    <button class="btn btn-main btn-fav" id="change2" onclick="modify(event)"><p>修改</p></button>
+                                                    <button class="btn btn-main btn-fav" id="buying2" onclick="buying(event)"><p>結帳</p></button>
+                                                </td>
+                                            </tr>
+                                            <tr id="prod3">
 
-                                            <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
-                                            <td class="prod-detail-table_prod_dt">
-                                                <div class="prod_dt_title">
-                                                    <h5>辦公室打掃服務</h5>
-                                                </div>
-                                                <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
-                                            </td>
-                                            <td class="prod-detail-table_prod_price"><p>2000</p></td>
-                                            <td class="prod-detail-table_remove">
-                                                <button class="btn btn-main btn-fav" id="remove3" onclick="remove(event)"><p>刪除</p></button>
-                                                <button class="btn btn-main btn-fav" id="change3" onclick="modify(event)"><p>修改</p></button>
-                                                <button class="btn btn-main btn-fav" id="buying3" onclick="buying(event)"><p>結帳</p></button>
-                                            </td>
-                                        </tr>
-                                        <tr id="prod4">
+                                                <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                                <td class="prod-detail-table_prod_dt">
+                                                    <div class="prod_dt_title">
+                                                        <h5>辦公室打掃服務</h5>
+                                                    </div>
+                                                    <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
+                                                </td>
+                                                <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                                <td class="prod-detail-table_remove">
+                                                    <button class="btn btn-main btn-fav" id="remove3" onclick="remove(event)"><p>刪除</p></button>
+                                                    <button class="btn btn-main btn-fav" id="change3" onclick="modify(event)"><p>修改</p></button>
+                                                    <button class="btn btn-main btn-fav" id="buying3" onclick="buying(event)"><p>結帳</p></button>
+                                                </td>
+                                            </tr>
+                                            <tr id="prod4">
 
-                                            <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
-                                            <td class="prod-detail-table_prod_dt">
-                                                <div class="prod_dt_title">
-                                                    <h5>辦公室打掃服務</h5>
-                                                </div>
-                                                <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
-                                            </td>
-                                            <td class="prod-detail-table_prod_price"><p>2000</p></td>
-                                            <td class="prod-detail-table_remove">
-                                                <button class="btn btn-main btn-fav" id="remove4" onclick="remove(event)"><p>刪除</p></button>
-                                                <button class="btn btn-main btn-fav" id="change4" onclick="modify(event)"><p>修改</p></button>
-                                                <button class="btn btn-main btn-fav" id="buying4" onclick="buying(event)"><p>結帳</p></button>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </li>
-                            </ul>
+                                                <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+                                                <td class="prod-detail-table_prod_dt">
+                                                    <div class="prod_dt_title">
+                                                        <h5>辦公室打掃服務</h5>
+                                                    </div>
+                                                    <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
+                                                </td>
+                                                <td class="prod-detail-table_prod_price"><p>2000</p></td>
+                                                <td class="prod-detail-table_remove">
+                                                    <button class="btn btn-main btn-fav" id="remove4" onclick="remove(event)"><p>刪除</p></button>
+                                                    <button class="btn btn-main btn-fav" id="change4" onclick="modify(event)"><p>修改</p></button>
+                                                    <button class="btn btn-main btn-fav" id="buying4" onclick="buying(event)"><p>結帳</p></button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
 
 @section JS{
-    <script src="~/Assets/js/MemberCenter/MemberCenter.js"> </script>
-    }
+    <script src="~/Assets/js/MemberCenter/MemberCenter.js"></script>
+}
 

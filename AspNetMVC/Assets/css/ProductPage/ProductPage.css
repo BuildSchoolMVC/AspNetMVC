@@ -4,6 +4,22 @@
     --color-primary-dark: #3684c3;
     --color-primary-light: #cde1f1;
 }
+/*#tempplus {
+    width: 40px;
+    height: 40px;
+    color:black;
+    border-radius: 50%;
+    position: absolute;
+    transition: left 2s linear, top 2s ease-in;
+}*/
+#ball {
+    font-size:40px;
+    color:red;
+    z-index:99999 !important;
+    border-radius: 50%;
+    position: fixed;
+    transition: left 1s linear, top 1s ease-in;
+}
 
 .ProductPage .container-fluid {
     max-width: 1280px;
@@ -457,7 +473,7 @@
                     border: none;
                     background-color: var(--color-primary-dark);
                     color: white;
-                    font-size: 30px;
+                    font-size: 18px;
                     width: 35px;
                     height: 35px;
                     line-height: 15px;
@@ -935,7 +951,7 @@
             border-radius: 5px;
             font-size: 16px;
             line-height: 16px;
-            margin: 5px;
+            margin: 0px 5px;
             width: 100px;
             height: 30px;
             border: none;

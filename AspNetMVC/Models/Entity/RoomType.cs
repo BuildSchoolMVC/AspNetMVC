@@ -13,6 +13,7 @@ namespace AspNetMVC.Models.Entity
         public int RoomTypeId { get; set; }
         public string Name { get; set; }
         public int Value { get; set; }
+        public string PhotoUrl { get; set; }
         
     }
 }

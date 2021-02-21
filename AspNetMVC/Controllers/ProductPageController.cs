@@ -14,13 +14,11 @@ namespace AspNetMVC.Controllers
     {
         private readonly ProductPageService _productPageService;
         private readonly AccountService _accountService;
-        private readonly Helpers _helpers;
 
         public ProductPageController()
         {
             _productPageService = new ProductPageService();
             _accountService = new AccountService();
-            _helpers = new Helpers();
         }
         // GET: ProductPage
         public ActionResult Index()
@@ -28,7 +26,6 @@ namespace AspNetMVC.Controllers
             var result = _productPageService.GetData();
             return View(result);
         }
-        [HttpGet]
 
         [HttpPost]
         public JsonResult CreateUserDefinedData(UserDefinedAllViewModel model)
@@ -38,11 +35,12 @@ namespace AspNetMVC.Controllers
 
             if (ModelState.IsValid)
             {
-               _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
+                _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
                 
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+
         }
 
 
@@ -60,25 +58,28 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult SearchForCheckout(string accountname)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult SearchForFavorite()
+        {
+            var UserName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            
+            var Data =_productPageService.GetFavoriteUserFavoriteData(UserName);
+                
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
 
-        //public JsonResult SearchForFavorite(string accountname)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _productPageService.GetFavoriteDataEachFavoriteId(accountname);
-        //        return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public JsonResult DeleteFavorite(string favoriteid)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _productPageService.DeleteFavoriteData(Guid.Parse(favoriteid));
+
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

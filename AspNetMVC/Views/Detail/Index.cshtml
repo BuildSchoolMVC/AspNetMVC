@@ -70,7 +70,7 @@
                     <div class="content-footer">
                         <p>價格 : <span class="price">@Model.Price</span></p>
                         <div class="btn-group">
-                            <a href="@Url.Action("Index","Checkout",new { PackageProductId = @Model.Id })" class="btns checkout">直接結帳</a>
+                            <a href="@Url.Action("Index","Checkout",new { id = @Model.Id })" class="btns checkout">直接結帳</a>
                             <button class="btns add-favorites">加入收藏</button>
                         </div>
                     </div>
