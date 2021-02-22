@@ -326,15 +326,8 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                string content;
-                if (string.IsNullOrEmpty(result.MessageInfo))
-                {
-                    content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊。";
-                }
-                else
-                {
-                    content = result.MessageInfo;
-                }
+                string content = $"<h1 style='text-align:center;font-size:80px;margin-top:100px;'>{result.MessageInfo}或改以其他社群帳號或本站會員系統註冊。</h1><a href='https://localhost:44308/' style='text-align:center;display:block;'>將於5秒後回到首頁，或是按此回去</a></script>" + "<script>setTimeout(function(){ window.location.href = 'https://localhost:44308/'},5000);</script>";
+               
                 return Content(content);
             }
         }
@@ -352,11 +345,10 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                string content = "發生錯誤，請等會嘗試或改以其他社群帳號或本站會員系統註冊/登入。";
+                string content = @"<h1 style='text-align:center;font-size:80px;margin-top:100px;'>此帳號還未註冊</h1><a href='https://localhost:44308/' style='text-align:center;display:block;'>將於5秒後回到首頁，或是按此回去</a></script><script>setTimeout(function(){ window.location.href = 'https://localhost:44308/'},5000);</script>";
                 return Content(content);
             }
         }
-
 
     }
 }
