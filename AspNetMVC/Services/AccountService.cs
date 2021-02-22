@@ -40,11 +40,10 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public string CreateAccount(RegisterViewModel account)
+        public void CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();
 
-            Account userInfo;
             using (var transcation = _context.Database.BeginTransaction())
             {
                 try
@@ -56,7 +55,7 @@ namespace AspNetMVC.Services
                         Address = account.Address,
                         Password = Helpers.ToMD5(account.Password),
                         Email = account.Email,
-                        EmailVerification = false,
+                        EmailVerification = account.EmailVerification,
                         Gender = account.Gender, // 1 男 2 女 3 其他
                         Phone = account.Phone,
                         Authority = 3, //預設 3 : 一般會員
@@ -66,7 +65,6 @@ namespace AspNetMVC.Services
                         EditUser = account.Name,
                         Remark = ""
                     };
-                    userInfo = user;
 
                     _repository.Create<Account>(user);
                     _context.SaveChanges();
@@ -86,14 +84,12 @@ namespace AspNetMVC.Services
 
                     result.IsSuccessful = true;
                     transcation.Commit();
-                    return userInfo.AccountId.ToString();
                 }
                 catch (Exception ex)
                 {
                     result.IsSuccessful = false;
                     result.Exception = ex;
                     transcation.Rollback();
-                    return "";
                 }
             }
             
@@ -261,7 +257,7 @@ namespace AspNetMVC.Services
                     var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
 
 
-                    if (IsAccountExist(googleApiTokenInfo.Sub) || IsEmailExist(googleApiTokenInfo.Email))
+                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") || IsEmailExist(googleApiTokenInfo.Email))
                     {
                         or.IsSuccessful = false;
                         or.MessageInfo = "此帳號已重複申請";
@@ -276,20 +272,10 @@ namespace AspNetMVC.Services
                             Phone = "",
                             ConfirmPassword = googleApiTokenInfo.Sub,
                             Password = googleApiTokenInfo.Sub,
-                            ValidationMessage = ""
+                            ValidationMessage = "",
+                            EmailVerification = true
                         };
-                        var accountId = CreateAccount(account);
-                        Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",googleApiTokenInfo.Sub},
-                        { "name",googleApiTokenInfo.Name},
-                        { "password",googleApiTokenInfo.Sub},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true" }
-                    };
-
-                        SendMail("會員驗證信", googleApiTokenInfo.Email, kvp);
+                        CreateAccount(account);
 
                         or.IsSuccessful = true;
                         or.MessageInfo = account.Name;
@@ -323,10 +309,10 @@ namespace AspNetMVC.Services
                     var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
 
 
-                    if (IsAccountExist(googleApiTokenInfo.Sub) && IsEmailExist(googleApiTokenInfo.Email))
+                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") && IsEmailExist(googleApiTokenInfo.Email))
                     {
                         or.IsSuccessful = true;
-                        or.MessageInfo = $"驗證成功 {googleApiTokenInfo.Sub}";
+                        or.MessageInfo = $"驗證成功 g{googleApiTokenInfo.Sub}";
                     }
                     else
                     {
@@ -343,7 +329,6 @@ namespace AspNetMVC.Services
                 return or;
             }
         }
-
 
         public OperationResult RegisterByFacebook(FacebookInfo fbInfo)
         {
@@ -365,22 +350,11 @@ namespace AspNetMVC.Services
                     Phone = "",
                     ConfirmPassword = fbInfo.FacebookId,
                     Password = fbInfo.FacebookId,
-                    ValidationMessage = ""
+                    ValidationMessage = "",
+                    EmailVerification = true
                 };
 
-                var accountId = CreateAccount(account);
-
-                Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",fbInfo.FacebookId},
-                        { "name",fbInfo.Name},
-                        { "password",fbInfo.FacebookId},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true"}
-                    };
-
-                SendMail("會員驗證信", fbInfo.Email, kvp);
+                CreateAccount(account);
 
                 or.IsSuccessful = true;
                 or.MessageInfo = account.Name;
@@ -392,12 +366,12 @@ namespace AspNetMVC.Services
         {
             var or = new OperationResult();
 
-            if (!IsEmailExist(fbInfo.Email))
+            if (IsEmailExist(fbInfo.Email))
             {
-                if (IsAccountExist(fbInfo.FacebookId))
+                if (IsAccountExist($"f{ fbInfo.FacebookId}"))
                 {
                     or.IsSuccessful = true;
-                    or.MessageInfo = $"驗證成功 {fbInfo.FacebookId}";
+                    or.MessageInfo = $"驗證成功 f{fbInfo.FacebookId}";
                 }
                 else
                 {
@@ -445,7 +419,6 @@ namespace AspNetMVC.Services
                         reqStream.Write(byteArray, 0, byteArray.Length);
                     }
 
-                  
                     string responseStr = "";
                    
                     using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -456,10 +429,8 @@ namespace AspNetMVC.Services
                         }
                     }
 
-
                     LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
                     string id_token = tokenObj.Id_token;
-
 
                     var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
                     LineUserProfile user = new LineUserProfile();
@@ -474,7 +445,7 @@ namespace AspNetMVC.Services
                     if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
                     {
                         or.IsSuccessful = false;
-                        or.MessageInfo = "此帳號已重複申請";
+                        or.MessageInfo = "此帳號或信箱已重複申請";
                     }
                     else
                     {
@@ -487,20 +458,11 @@ namespace AspNetMVC.Services
                             Phone = "",
                             ConfirmPassword = user.UserId,
                             Password = user.UserId,
-                            ValidationMessage = ""
+                            ValidationMessage = "",
+                            EmailVerification = true
                         };
-                    var accountId = CreateAccount(account);
-                    Dictionary<string, string> kvp = new Dictionary<string, string>
-                    {
-                        { "accountname",user.UserId},
-                        { "name",user.DisplayName},
-                        { "password",user.UserId},
-                        { "datetime",DateTime.UtcNow.AddHours(8).ToString().Split(' ')[0]},
-                        { "accountid",accountId},
-                        { "isSocialActivation","true"}
-                    };
 
-                        SendMail("會員驗證信", user.Email, kvp);
+                        CreateAccount(account);
 
                         or.IsSuccessful = true;
                         or.MessageInfo = account.Name;
@@ -532,7 +494,7 @@ namespace AspNetMVC.Services
                            { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
                            { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
                            { "code",code},
-                           { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
+                           { "redirect_uri","https://localhost:44308/Account/LoginByLineLogin"}
                         };
                 foreach (var kvp in values)
                 {
@@ -567,7 +529,7 @@ namespace AspNetMVC.Services
                 user.Email = jst.Payload["email"].ToString();
 
 
-                if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
+                if (IsAccountExist($"l{user.UserId}") && IsEmailExist(user.Email))
                 {
                     or.IsSuccessful = true;
                     or.MessageInfo = $"驗證成功 {user.UserId}";
@@ -582,7 +544,7 @@ namespace AspNetMVC.Services
             {
                 or.IsSuccessful = false;
                 or.Exception = ex;
-                or.MessageInfo = "發生錯誤";
+                or.MessageInfo = ex.ToString();
             }
             return or;
         }

@@ -654,8 +654,8 @@ h5 {
 
 
     .couponwrap {
-        border: 1px solid #ccc;
-        border-radius: 2px;
+       /* border: 1px solid #ccc;
+        border-radius: 2px;*/
         margin: auto;
         /*width: 550px;*/
         display: flex;
@@ -663,6 +663,7 @@ h5 {
 
     .couponcontainer {
         display: flex;
+        margin:auto;
     }
 
     .coupontitle {

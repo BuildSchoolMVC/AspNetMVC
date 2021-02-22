@@ -9,6 +9,7 @@ namespace AspNetMVC.ViewModels
 {
     public class CouponViewModel
     {
+        public int CouponId { get; set; }
         public string CouponName { get; set; }
 
         public decimal DiscountAmount { get; set; }

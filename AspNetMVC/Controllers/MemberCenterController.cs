@@ -11,6 +11,7 @@ using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Services;
 using AspNetMVC.ViewModel;
+using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Controllers
 {
@@ -41,6 +42,14 @@ namespace AspNetMVC.Controllers
             {
                 return RedirectToAction("Login","Account");
             }
+
+            List<CouponViewModel> coupons = new List<CouponViewModel>()
+            {
+                new CouponViewModel(){CouponId=1,CouponName="2021Xmas"},
+            };
+
+            ViewBag.coupondata = coupons;
+
             
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             return View(memberVm);

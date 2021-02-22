@@ -70,8 +70,9 @@
                     <div class="content-footer">
                         <p>價格 : <span class="price">@Model.Price</span></p>
                         <div class="btn-group">
-                            <a href="@Url.Action("Index","Checkout",new { id = @Model.Id })" class="btns checkout">直接結帳</a>
+                            <a href="@Url.Action("DirectToCheckout","Detail",new { id = @Model.Id })" class="btns checkout">直接結帳</a>
                             <button class="btns add-favorites">加入收藏</button>
+                            <a href="@Url.Action("Index","ProductPage")" class="btns goback">回上一頁</a>
                         </div>
                     </div>
                 </div>
@@ -190,5 +191,5 @@
 </section>
 
 @section JS{
-    <script src="~/Assets/js/Detail/detail.js"></script>    
+    <script src="~/Assets/js/Detail/detail.js"></script>      
 }

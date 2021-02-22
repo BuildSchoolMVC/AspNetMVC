@@ -48,6 +48,8 @@ namespace AspNetMVC.ViewModels
         [Display(Name = "電話")]
         public string Phone { get; set; }
         public string ValidationMessage { get; set; }
+
+        public bool EmailVerification { get; set; }
     }
 
     public class ForgotPasswordViewModel

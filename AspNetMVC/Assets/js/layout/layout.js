@@ -177,18 +177,9 @@ const swipeDeleteEffect = () => {
 
             item.querySelector(".confirm").addEventListener("click", () => {
                 item.classList.add("delete");
-                setTimeout(() => {
-                    item.remove();
-                    let index = favorites.findIndex(x => x.uid == item.dataset.id);
-                    if (index != -1) {
-                        favorites.splice(index, 1);
-                        countFavoritesAmount(favorites.length);
-                        checkoutBtnControl();
-                        toggleTip();
-                        if (document.querySelectorAll(".favorites-product-item").length == 0) favoritesStatus("你目前的收藏是空的");
-                        toastr.info("成功刪除!!");
-                    }
-                }, 500);
+                item.remove();
+                deleteFavorite(item);
+                
             })
 
 
@@ -198,11 +189,11 @@ const swipeDeleteEffect = () => {
         })
     })
 }
-const deleteFavorite = (target) => {
+async function deleteFavorite(target){
     let id = target.dataset.id;
-    let url = "";
-    let data = { FavoriteId: id };
-    fetch(url, {
+    let url = "/ProductPage/DeleteFavorite";
+    let data = { favoriteId: id };
+    await fetch(url, {
         method: "Post",
         body: JSON.stringify(data),
         headers: new Headers({
@@ -212,8 +203,9 @@ const deleteFavorite = (target) => {
     })
         .then(res => res.json())
         .then(result => {
-            if (result.response) {
-                toastr.success("刪除成功")
+            if (result.response == "success") {
+                toastr.success("已刪除該收藏")
+                getFavorites();
             }
         })
         .catch(err => {
@@ -356,16 +348,16 @@ const createUserDefinedCard = (datas) => {
     row.className = "row no-gutters w-100";
 
     let col4 = document.createElement("div");
-    col4.classList.add("col-4","position-relative");
+    col4.classList.add("col-4","position-relative","h-100");
     let col8 = document.createElement("div");
-    col8.classList.add("col-8");
+    col8.classList.add("col-8", "h-100");
 
     let img1 = document.createElement("img");
-    img1.src = data1.PhotoUrl;
+    img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
     img1.classList = `w-100 h-100 img1`;
 
     let img2 = document.createElement("img");
-    img2.src = data2.PhotoUrl;
+    img2.src = `https://i.imgur.com/${data2.PhotoUrl}`;
     img2.classList = `w-100 h-100 img2`;
 
     col4.append(img1,img2);
@@ -375,7 +367,10 @@ const createUserDefinedCard = (datas) => {
 
     let h3 = document.createElement("h3");
     h3.classList.add("card-title");
-    h3.textContent = data1.Title;
+    let tip = document.createElement("span");
+    tip.classList.add("tip");
+    tip.textContent = " (僅顯示此組合前兩筆)";
+    h3.append(data1.Title);
 
     let p1 = document.createElement("p");
     p1.className = "card-text";
@@ -394,7 +389,7 @@ const createUserDefinedCard = (datas) => {
 
     let p4 = document.createElement("p");
     p4.className = "card-text";
-    p4.textContent = data2.ServiceItem.split("+").join("、");
+    p4.textContent = data2.ServiceItem.split(",").join("、");
 
     let a = document.createElement("a");
     a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
@@ -406,7 +401,7 @@ const createUserDefinedCard = (datas) => {
     checkbox.className = "checkbox";
     checkbox.setAttribute("data-id", datas.FavoriteId);
 
-    cardBody.append(h3, p1, p2, hr, p3, p4, a, checkbox);
+    cardBody.append(h3, tip, p1, p2, hr, p3, p4, a, checkbox);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -428,16 +423,22 @@ const createUserDefinedCard = (datas) => {
 
 const showFavorites = () => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
-    favorites.forEach(x => {
-        createFavoritesCard(x);
-    })
-    swipeDeleteEffect();
-    document.querySelectorAll("input[type='checkbox']").forEach(x => {
+    if (favorites.length == 0) {
+        favoritesStatus("你目前的收藏是空的")
+    } else {
+        favorites.forEach(x => {
+            createFavoritesCard(x);
+        })
+    }
 
+    swipeDeleteEffect();
+
+    document.querySelectorAll("input[type='checkbox']").forEach(x => {
         x.addEventListener("click", function () {
             favoriteSelectEffect(x);
         })
     })
+
 }
 const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
@@ -556,15 +557,16 @@ const judgeCharacter = (str, judge) => {
 }
 
 
-const getFavorites = () => {
+async function getFavorites(){
     url = "/ProductPage/SearchForFavorite";
-    fetch(url)
+    await fetch(url)
         .then(res =>  res.json())
         .then(result => {
             favorites = result;
             countFavoritesAmount(favorites.length);
             showFavorites();
             checkoutBtnControl();
+            toggleTip();
         })
         .catch(err => console.log(err))
 }
@@ -625,13 +627,7 @@ window.addEventListener("load", () => {
         toggleTip();
     } else {
         getFavorites();
-        toggleTip();
-
-        if (document.querySelectorAll(".favorites-product-item").length == 0) {
-            checkoutBtnControl();
-            countFavoritesAmount(0);
-            favoritesStatus("你目前的收藏是空的");
-        } 
+       
     }
 
     document.querySelectorAll(".subItem").forEach(x => {
@@ -685,9 +681,11 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
 });
 
 document.querySelector(".checkout").addEventListener("click", function (e) {
+    if (this.classList.contains("disabled")) return;
     if (Array.from(document.querySelectorAll("input[type='checkbox']")).every(x => x.checked == false)) {
         toastr.warning("必須要選一項，才能前往結帳");
         e.preventDefault();
         return;
     }
 })
+
