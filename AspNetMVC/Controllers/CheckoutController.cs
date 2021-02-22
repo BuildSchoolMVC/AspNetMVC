@@ -23,7 +23,7 @@ namespace AspNetMVC.Controllers {
 			Guid favoriteId;
 			UserFavorite userFavorite;
 			//id = "1a648031-ac16-45db-bbf2-2b6c168f000a";
-			id = "2ca80158-498c-43ff-81bb-d2870776bdb3";
+			//id = "2ca80158-498c-43ff-81bb-d2870776bdb3";
 			//假資料
 			//UserFavorite userFavorite = new UserFavorite {
 			//	FavoriteId = favoriteId,
