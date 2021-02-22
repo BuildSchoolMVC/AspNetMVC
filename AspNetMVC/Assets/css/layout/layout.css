@@ -1537,7 +1537,7 @@ img {
     margin: auto;
     width: 10px;
     height: 32px;
-    background-color: #e5bde7
+    background-color: var(--color-primary-light)
 }
 
 @-webkit-keyframes fading {

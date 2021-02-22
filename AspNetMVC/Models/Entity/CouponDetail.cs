@@ -11,13 +11,13 @@ namespace AspNetMVC.Models.Entity {
 		public int CouponId { get; set; }
 		public string AccountName { get; set; }
 		public int State { get; set; }
-		//0 未使用
-		//1 已使用
-		//2 已過期
 	}
 	public enum UseState {
 		Unused,
 		Used,
 		Expired,
+		//0 未使用
+		//1 已使用
+		//2 已過期
 	}
 }

@@ -20,9 +20,6 @@ namespace AspNetMVC.Models.Entity {
 
 		[Required]
 		public byte OrderState { get; set; }
-		//待付款 0
-		//已付款 1
-		//已取消 2
 
         public byte? Rate { get; set; }
 
@@ -32,49 +29,41 @@ namespace AspNetMVC.Models.Entity {
 
 		[Required]
 		public byte PaymentMethod { get; set; }
-		//信用卡 0
-		//ATM 1
 
 		[Required]
 		public byte InvoiceType { get; set; }
-		//個人電子發票 0
-		//捐贈 1
-		//載具發票 2
 
 		public byte InvoiceDonateTo { get; set; }
-		//中華民國唐氏症基金會 0
-		//陽光社會福利基金會 1
-		//台灣兒童暨家庭扶助基金會 2
 
 	}
-	//public enum OrderState {
-	//  //
-	//	PendingPayment,
-	//	//
-	//	AlreadyPaid,
-	//	//
-	//	Cancelled,
-	//}
-	//public enum PaymentMethod {
-	//  //
-	//	CreditCard,
-	//	//
-	//	ATM,
-	//}
-	//public enum InvoiceType {
-	//	//
-	//	Personal,
-	//	//
-	//	Carrier,
-	//	//
-	//	Donate,
-	//}
-	//public enum InvoiceDonateTo {
-	//	
-	//	DownSyndrome,
-	//	
-	//	SunshineSocial,
-	//	
-	//	ChildrenFamilies,
-	//}
+	public enum OrderState {
+		//待付款 0
+		PendingPayment,
+		//已付款 1
+		AlreadyPaid,
+		//已取消 2
+		Cancelled,
+	}
+	public enum PaymentMethod {
+		//信用卡 0
+		CreditCard,
+		//ATM 1
+		ATM,
+	}
+	public enum InvoiceType {
+		//個人電子發票 0
+		Personal,
+		//捐贈 1
+		Donate,
+		//載具發票 2
+		Carrier,
+	}
+	public enum InvoiceDonateTo {
+		//中華民國唐氏症基金會 0
+		DownSyndrome,
+		//陽光社會福利基金會 1
+		SunshineSocial,
+		//台灣兒童暨家庭扶助基金會 2
+		ChildrenFamilies,
+	}
 }

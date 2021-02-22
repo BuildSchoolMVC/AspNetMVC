@@ -20,13 +20,10 @@ namespace AspNetMVC.Controllers {
 		[HttpGet]
 		public ActionResult Index(string id) {
 			string accountName;
-			//try {
-				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			//} catch (Exception) {
-			//	return View("Error");
-			//}
-			//Guid favoriteId = Guid.Parse("1a648031-ac16-45db-bbf2-2b6c168f000a");
-			//Guid favoriteId = Guid.Parse("2ca80158-498c-43ff-81bb-d2870776bdb3");
+			Guid favoriteId;
+			UserFavorite userFavorite;
+			//id = "1a648031-ac16-45db-bbf2-2b6c168f000a";
+			//id = "2ca80158-498c-43ff-81bb-d2870776bdb3";
 			//假資料
 			//UserFavorite userFavorite = new UserFavorite {
 			//	FavoriteId = favoriteId,
@@ -44,9 +41,9 @@ namespace AspNetMVC.Controllers {
 			//	SquareFeetList = _checkoutService.GetSquareFeetList()
 			//};
 			//================================================
-			Guid favoriteId;
-			UserFavorite userFavorite;
+			
 			try {
+				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
 				favoriteId = Guid.Parse(id);
 				userFavorite = _checkoutService.GetFavorite(favoriteId, accountName);
 			} catch (Exception) {
@@ -67,7 +64,7 @@ namespace AspNetMVC.Controllers {
 			return View(dataViewModel);
 		}
 		[HttpPost]
-		public ActionResult GetOrder(FormCollection submit) {
+		public ActionResult AddOrder(FormCollection submit) {
 
 			return Json(new { title = "預約成功", content = "服務人員將在預約時間前1小時內與您聯繫" });
 		}
@@ -81,16 +78,21 @@ namespace AspNetMVC.Controllers {
 		//}
 		public ActionResult AddCoupon() {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			_userFavoriteService.CreateCoupon(accountName, 2);
+			_checkoutService.CreateCoupon(accountName, 2);
+			return null;
+		}
+		public ActionResult AddCouponDetail() {
+			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+			_checkoutService.CreateCouponDetail(accountName, 2);
 			return null;
 		}
 		[HttpGet]
-		public ActionResult GetCoupons() {
+		public ActionResult GetCouponList() {
 			try {
 				string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
 				var couponList = _checkoutService.GetCouponList(accountName);
 				return Json(couponList, JsonRequestBehavior.AllowGet);
-			} catch (Exception ex) {
+			} catch (Exception) {
 				return View("Error");
 			}
 		}
