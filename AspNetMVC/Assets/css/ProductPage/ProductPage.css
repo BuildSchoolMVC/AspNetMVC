@@ -18,6 +18,7 @@
     z-index:99999 !important;
     border-radius: 50%;
     position: fixed;
+    opacity:0;
     transition: left 1s linear, top 1s ease-in;
 }
 
