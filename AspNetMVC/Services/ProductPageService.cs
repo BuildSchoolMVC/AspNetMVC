@@ -192,6 +192,7 @@ namespace AspNetMVC.Services
                     else
                     {
                         var query = from udp in _repository.GetAll<UserDefinedProduct>()
+                                    where udp.UserDefinedId == item.UserDefinedId
                                     join rt in _repository.GetAll<RoomType>() on udp.RoomType equals rt.Value
                                     select new UserFavoriteData
                                     {
