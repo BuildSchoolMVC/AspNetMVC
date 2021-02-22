@@ -468,8 +468,11 @@ $('.coupon button').on('click', function () {
     }
   });
 });
+const totalBox = $('.block_items .total .money')[0];
+totalBox.total = totalBox.textContent;
 $('#modal_coupon .ok').on('click', () => {
   $('#modal_coupon').modal('hide');
+  totalBox.textContent = totalBox.total - $('.block_items .coupon .money').text();
 });
 $('#modal_coupon .clear').on('click', () => {
   $couponBox[0].selectedGuid = null;
