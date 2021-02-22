@@ -845,35 +845,43 @@
   background-color: #333;
 }
 #modal_coupon {
-  &.show {
-    // display: flex !important;
-  }
   &.show.fade {
     transition: opacity .3s;
   }
   .modal-dialog {
-    // @media screen and (min-width: 576px) {
-    //   margin: auto auto;
-    // }
+    margin-top: 30px;
   }
   .modal-content {
-    padding: 15px;
+    padding: 30px 15px;
     border: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    @media screen and (min-width: 576px) {
+      padding: 30px;
+    }
+    .modal-header {
+      padding: 0 0 20px 0;
+      border: none;
+      .modal-title {
+        font-size: 22px;
+        font-weight: 400;
+      }
+    }
     .modal-body {
-      padding: 0;
+      padding: 0 8px 0 0;
       padding-right: 8px;
       margin-right: -8px;
-      height: 500px;
+      height: 400px;
       overflow-y: auto;
     }
   }
   .coupon-item {
     display: flex;
-    border-radius: 10px;
+    border-radius: 5px;
     color: var(--color-darkGray);
     background-color: #f7f7f7;
+    opacity: 0.7;
     overflow: hidden;
+    cursor: pointer;
     & + .coupon-item {
       margin-top: 10px;
     }
@@ -885,7 +893,7 @@
       max-width: 140px;
       font-size: 32px;
       font-family: 'Open Sans', sans-serif;
-      background-color: var(--color-primary-dark);
+      background-color: #aaa;
       color: #fff;
       &::before {
         content: '$';
@@ -893,12 +901,12 @@
       }
     }
     .text {
-      padding-left: 10px;
+      padding-left: 15px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background-color: var(--color-primary-light);
+      background-color: #ddd;
       height: 100px;
       .name {
         font-size: 16px;
@@ -908,6 +916,49 @@
         color: var(--color-gray);
       }
     }
+    &:hover {
+      opacity: 0.7;
+      .money {
+        background-color: var(--color-primary-dark);
+      }
+      .text {
+        background-color: var(--color-primary-light);
+      }
+    }
+    &.selected {
+      opacity: 1;
+      filter: brightness(1.05);
+      .money {
+        background-color: var(--color-primary-dark);
+      }
+      .text {
+        background-color: var(--color-primary-light);
+      }
+    }
+  }
+  .button-box {
+    margin-top: 30px;
+    display: flex;
+    button {
+      flex-grow: 1;
+      padding: 10px 0;
+      color: #fff;
+      border: none;
+      background-color: var(--color-primary);
+      border-radius: 3px;
+      & + button {
+        margin-left: 10px;
+      }
+      &:hover {
+        filter: brightness(1.05);
+      }
+    }
+  }
+  .loading {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 #no-service-range {
@@ -974,4 +1025,10 @@ select > option:first-child {
 // bootstrap
 .tooltip-inner {
   font-size: 12px;
+}
+//other reset
+.loading {
+  top: 0;
+  left: 0;
+  transform: none;
 }

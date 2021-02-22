@@ -103,7 +103,7 @@ const steps = [{
     warn: '請輸入正確的手機號碼，例如: 0912345678',
   }, {
     ele: document.querySelector('#fill-info #input_email'),
-    check: hasInput,
+    check: (ele) => (/^[\w\.\-]+\@[\w\.\-]+$/).test(ele.value),
     warn: '請輸入正確的email',
   }, {
     ele: document.querySelector('#fill-info #county-list'),
@@ -196,11 +196,6 @@ const makeMonth = (obj_startDate, count) => {
     }
     $row_date.append($ele_date);
   }
-  // 結束空格
-  // const start = $row_date[0].childElementCount + 1;
-  // for (let i = start; i <= 42; i++) {
-  //   $row_date.append(`<div class="date"></div>`);
-  // }
 };
 const $btn_lastM = $('#last-month');
 const $btn_nextM = $('#next-month');
@@ -349,9 +344,9 @@ $lastStep.on('click', function () {
   $stepList[state].classList.add('on');
 });
 $nextStep.on('click', function () {
-  //if (!isComplete()) {
-  //  return;
-  //}
+  if (!isComplete()) {
+    return;
+  }
   state++;
   if (state > 3) {
     state = 3;
@@ -361,24 +356,25 @@ $nextStep.on('click', function () {
     case 1:
       enableBtn($lastStep);
       break;
-      case 3:
+    case 3:
       disableBtn($lastStep);
       disableBtn($nextStep);
+      $('.coupon button').replaceWith($('<span>優惠券</span>'));
       $.ajax({
         type: 'POST',
-        url: '/Checkout/GetOrder',
+        url: '/Checkout/AddOrder',
         data: {
           
         },
-        success: (message) => {
-          $('#done .pic').html(`
-            <svg id="tick" viewBox="0 0 32 32">
-              <path d="M27,9 l-15,15 -7,-7"></path>
-            </svg>
-          `);
-          $('#done .title').text(message.title);
-          $('#done .content').text(message.content);
-        },
+        // success: (message) => {
+        //   $('#done .pic').html(`
+        //     <svg id="tick" viewBox="0 0 32 32">
+        //       <path d="M27,9 l-15,15 -7,-7"></path>
+        //     </svg>
+        //   `);
+        //   $('#done .title').text(message.title);
+        //   $('#done .content').text(message.content);
+        // },
       });
       break;
   }
@@ -418,8 +414,67 @@ $inputCredit.on('input', (e) => {
   $inputCredit.val(output);
 });
 //coupon
-$('.coupon button').on('click', function() {
-  console.log('ajax');
+const $couponBox = $('#modal_coupon .modal-body');
+const setOneSelect = ($box) => {
+  const $allCoupon = $box.children();
+  $allCoupon.on('click', function () {
+    $box[0].selectedGuid = this.obj.CouponDetailId;
+    $('.coupon .money').text(this.obj.DiscountAmount);
+    $allCoupon.removeClass('selected');
+    $(this).addClass('selected');
+  });
+};
+$('.coupon button').on('click', function () {
+  $couponBox.empty();
+  $couponBox.append($(`
+    <div class="loading">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  `));
+  $.ajax({
+    type: 'GET',
+    url: '/Checkout/GetCouponList',
+    dataType: 'json',
+    success: (data) => {
+      $couponBox.empty();
+      data.forEach((obj) => {
+        let $item = $(`
+          <div class="coupon-item">
+            <div class="money">${obj.DiscountAmount}</div>
+            <div class="text">
+              <div class="name">${obj.CouponName}</div>
+              <div class="date-end">有效日期: ${obj.DateEnd}</div>
+            </div>
+          </div>
+        `);
+        $item[0].obj = obj;
+        $couponBox.append($item);
+        if (obj.CouponDetailId == $couponBox[0].selectedGuid) {
+          $item.addClass('selected');
+        }
+      });
+      setOneSelect($couponBox);
+    }
+  });
+});
+$('#modal_coupon .ok').on('click', () => {
+  $('#modal_coupon').modal('hide');
+});
+$('#modal_coupon .clear').on('click', () => {
+  $couponBox[0].selectedGuid = null;
+  $('.coupon .money').text(0);
+  $couponBox.children().removeClass('selected');
 });
 // invoice
 const invoiceData = {
