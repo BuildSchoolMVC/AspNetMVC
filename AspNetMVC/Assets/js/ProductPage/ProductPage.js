@@ -594,7 +594,8 @@ function createViewedPic() {
 
 
 
-
+var temppageY = $("#hearticon").offset().top;
+var temppageX = $("#hearticon").offset().left;
 
 //加入收藏頁特效
 function addToCart() {
@@ -608,14 +609,16 @@ function addToCart() {
             $ball.style.top = evt.pageY + 'px';
             $ball.style.left = evt.pageX + 'px';
             $ball.style.transition = 'left 0s, top 0s';
+            
             setTimeout(() => {
                 $ball.style.opacity = '1';
-                $ball.style.top = '24px';
-                $ball.style.left = '1387px';
+                $ball.style.top = temppageY+"px";
+                $ball.style.left = temppageX-15 + "px";
+                console.log(temppageX)
                 $ball.style.fontSize = '22px';
                 $ball.style.Color = "black";
                 $ball.style.transition = 'left 1.5s , top 1.2s ease-in';
-            }, 20)
+            }, 200)
             setTimeout(() => {
                 $ball.style.opacity = '0';
             }, 2000)
