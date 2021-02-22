@@ -138,7 +138,7 @@ function GoogleLogin() {
             method: "post",
             data: { token: id_token },
             success: function (result) {
-                if (result.status = true) {
+                if (result.status == true) {
                     toastr.success("登入成功");
                     window.location.replace(`${window.location.origin}/Home/`);
                 }
@@ -196,7 +196,7 @@ function fetchData(response) {
     let data = {
         Email: response.email,
         Name: response.name,
-        Id: response.id
+        FacebookId: response.id
     }
     fetch(url, {
         method: "POST",
@@ -208,7 +208,7 @@ function fetchData(response) {
     })
         .then(res => res.json())
         .then(result => {
-            if (result.response == true) {
+            if (result.status == true) {
                 toastr.success("登入成功")
                 setTimeout(() => {
                     window.location.replace(`${window.location.origin}/Home/`);

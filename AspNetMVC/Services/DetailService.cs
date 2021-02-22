@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Web;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
@@ -154,7 +158,57 @@ namespace AspNetMVC.Services
             return operationResult;
         }
 
+        public OperationResult AddFavoriteAndDirectToCheckout(int id,string cookieValue)
+        {
+            var result = new OperationResult();
+            try
+            {
+                var url = $"https://localhost:44308/ProductPage/CreateFavoriteData";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                var cookies = new CookieContainer();
+                var cookie = new Cookie();
+                cookie.Name = "user";
+                cookie.Value = $"user_accountname={cookieValue}";
+                cookie.Domain = "localhost";
+                cookies.Add(cookie);
+                var username = Helpers.DecodeCookie(cookieValue);
 
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.CookieContainer = cookies;
+
+                NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
+
+                postParams.Add("PackageProductId", id.ToString());
+
+                byte[] byteArray = Encoding.UTF8.GetBytes(postParams.ToString());
+                using (Stream reqStream = request.GetRequestStream())
+                {
+                    reqStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+                var responseStr = "";
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        responseStr = sr.ReadToEnd();
+                    }
+                }
+
+                var query = _repository.GetAll<UserFavorite>().OrderByDescending(x=>x.CreateTime).FirstOrDefault(x => x.PackageProductId == id && x.AccountName == username);
+
+                result.IsSuccessful = true;
+                result.MessageInfo = query.FavoriteId.ToString();
+            }catch(Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+                result.MessageInfo = ex.ToString();
+            }
+            return result;
+        }
         private string RoomTypeSwitch(int? value) {
             return value == 0 ? "廚房" :
                    value == 1 ? "客廳" :

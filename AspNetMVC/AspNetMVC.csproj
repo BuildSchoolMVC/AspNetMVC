@@ -541,7 +541,6 @@
     <Content Include="Views\MemberCRUD\Details.cshtml" />
     <Content Include="Views\MemberCRUD\Edit.cshtml" />
     <Content Include="Views\MemberCRUD\Index.cshtml" />
-    <Content Include="Views\Shared\PartialView\_ViewedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Js\QA\" />

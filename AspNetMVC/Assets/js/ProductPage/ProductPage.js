@@ -35,6 +35,7 @@ var searchbyroombtn = document.getElementById("searchbyroom-btn");
 var searchbysquarebtn = document.getElementById("searchbysquare-btn");
 var addfavoritebtn = document.getElementById("addfavorite-btn");
 var definenamebtn = document.getElementById("definename-btn");
+var allcartbtn = document.getElementsByName("cartbtn");
 
 
 
@@ -47,6 +48,7 @@ window.onload = function () {
     showModule()
     createPackageObj()
     getPackageProductId()
+    createViewedPic()
     addToCart()
 
 }
@@ -334,7 +336,7 @@ function fliterCardByRoomType() {
 
         }
     })
-    toastr.success("根據空間類型搜尋結果...") 
+    toastr.success("根據空間類型搜尋結果...")
     cleanSelected()
 }
 
@@ -385,7 +387,7 @@ function fliterCardBySquareFeet() {
 
         }
     })
-    toastr.success("根據空間大小搜尋結果...") 
+    toastr.success("根據空間大小搜尋結果...")
     cleanSelected()
 }
 //以服務項目過濾商品
@@ -412,7 +414,7 @@ function fliterCardByServiceItem() {
 
         })
     })
-    toastr.success("根據服務項目搜尋結果...") 
+    toastr.success("根據服務項目搜尋結果...")
 
     cleanSelected()
 }
@@ -473,11 +475,11 @@ function showModule() {
         }
     })
 }
-
+//幫自訂義商品取名，傳去後端
 function createPackageObj() {
     definenamebtn.addEventListener("click", function () {
         if (modalinput.innerText = "") {
-            alert("目前還沒登入喔!")
+            toastr.warning("目前還沒登入喔!")
         }
         else {
             var Title = document.getElementById("modalinput").value;
@@ -493,7 +495,7 @@ function createPackageObj() {
         }
     })
 }
-
+//取得套裝產品ID
 function getPackageProductId() {
     $("button[name='cartbtn']").click(function () {
 
@@ -502,12 +504,12 @@ function getPackageProductId() {
             toastr.warning("目前還沒登入喔!")
         }
         else {
-            postCreateFavoriteData(tempPackageProductId) 
+            postCreateFavoriteData(tempPackageProductId)
         }
 
     })
 }
-
+//傳套裝產品的Json資料去後端建立收藏
 function postCreateFavoriteData(value) {
     let url = "/ProductPage/CreateFavoriteData"
     var data = { PackageProductId: value }
@@ -524,7 +526,7 @@ function postCreateFavoriteData(value) {
             if (result.response == "success") {
                 setTimeout(() => {
 
-                getFavorites()
+                    getFavorites()
                     toastr.success("已將商品加入收藏!!!")
                 }, 1000)
                 console.log('Success:', response)
@@ -532,55 +534,96 @@ function postCreateFavoriteData(value) {
             }
         }
         )
-        
+
         .catch(error => console.error('Error:', error))
 }
 
+//抓到單一商品頁圖片的Url
 function getPicUrl() {
-    window.addEventListener(onload, function () {
-        var temp = this.document.getElementsByClassName("product-pic mb-2")
-        if (temp == null) {
-            return;
-        }
-        else {
-            var viewedsrc = $(".product-pic mb-2").children().src;
+    var temp = this.document.getElementsByClassName("product-pic mb-2")
+    if (temp == null) {
+        return;
+    }
+    else {
+        var viewedsrc = $(".product-pic.mb-2").children()[0].src;
+        savePicData(viewedsrc)
 
+    }
+}
+//將資料存到localStorage
+function savePicData(src) {
+    let localData = JSON.parse(localStorage.getItem('key'))
+    if (localData == null) {
+        let viewArray = [];
+        let temp = {
+            Id: src
         }
-    })
+        viewArray.push(temp)
+        localStorage.setItem('key', JSON.stringify(viewArray))
+    }
+    else {
+        let temp = {
+            Id: src
+        }
+        localData.push(temp)
+        localStorage.setItem('key', JSON.stringify(localData))
+
+    }
+}
+//創造瀏覽過的商品
+function createViewedPic() {
+    var temp = JSON.parse(localStorage.getItem("key"))
+    if (Array.isArray(temp)) {
+        temp.forEach(
+            x => {
+                let ViewedBox = document.getElementById("viewed-box")
+                let ViewedPic = document.createElement("div")
+                ViewedPic.setAttribute("class", "pic")
+                let Viewalink = document.createElement("a")
+                let Viewedimg = document.createElement("img")
+                Viewedimg.src = x.Id
+                Viewalink.href = x.Url
+                Viewalink.appendChild(Viewedimg)
+                ViewedPic.appendChild(Viewalink)
+                ViewedBox.appendChild(ViewedPic)
+            }
+        )
+    }
 }
 
 
 
-    var allcartbtn = document.getElementsByName("cartbtn");
+
+var temppageY = $("#hearticon").offset().top;
+var temppageX = $("#hearticon").offset().left;
+
+//加入收藏頁特效
 function addToCart() {
     var $ball = document.getElementById('ball');
     allcartbtn.forEach(x => x.onclick = function (evt) {
-        $ball.style.top = evt.pageY + 'px';
-        $ball.style.left = evt.pageX + 'px';
-        $ball.style.transition = 'left 0s, top 0s';
 
-
-
-        setTimeout(() => {
-            $ball.style.opacity = '1';
-            $ball.style.top = '24px';
-            $ball.style.left = '1387px';
-            $ball.style.fontSize = '22px';
-            $ball.style.Color = "black";
-            $ball.style.transition = 'left 1.5s , top 1.2s ease-in';
-        }, 20)
-
-        setTimeout(() => {
-            $ball.style.opacity = '0';
-        }, 2000)
-
-
-
+        if (!document.cookie.includes("user")) {
+            return;
+        }
+        else {
+            $ball.style.top = evt.pageY + 'px';
+            $ball.style.left = evt.pageX + 'px';
+            $ball.style.transition = 'left 0s, top 0s';
+            
+            setTimeout(() => {
+                $ball.style.opacity = '1';
+                $ball.style.top = temppageY+"px";
+                $ball.style.left = temppageX-15 + "px";
+                console.log(temppageX)
+                $ball.style.fontSize = '22px';
+                $ball.style.Color = "black";
+                $ball.style.transition = 'left 1.5s , top 1.2s ease-in';
+            }, 200)
+            setTimeout(() => {
+                $ball.style.opacity = '0';
+            }, 2000)
+        }
     })
-    
-    
-
-    
 }
 
 
