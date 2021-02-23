@@ -125,29 +125,29 @@ namespace AspNetMVC.Services
 
             try
             {
-                var include=_repository.GetAll<UserFavorite>().Any(x => x.PackageProductId == packageproductId);
+                var include = _repository.GetAll<UserFavorite>().Any(x => x.PackageProductId == packageproductId && x.AccountName == name && x.IsDelete == false);
 
                 if (include)
                 {
                     result.IsSuccessful = false;
                 }
-                else { 
-                
-                _repository.Create(new UserFavorite
+                else
                 {
-                    FavoriteId = Guid.NewGuid(),
-                    AccountName = name,
-                    UserDefinedId = null,
-                    PackageProductId = packageproductId,
-                    IsPackage = true,
-                    IsDelete = false,
-                    CreateTime = DateTime.UtcNow.AddHours(8),
-                    CreateUser = name,
-                    EditTime = DateTime.UtcNow.AddHours(8),
-                    EditUser = name,
-                });
-                _context.SaveChanges();
-                result.IsSuccessful = true;
+                    _repository.Create(new UserFavorite
+                    {
+                        FavoriteId = Guid.NewGuid(),
+                        AccountName = name,
+                        UserDefinedId = null,
+                        PackageProductId = packageproductId,
+                        IsPackage = true,
+                        IsDelete = false,
+                        CreateTime = DateTime.UtcNow.AddHours(8),
+                        CreateUser = name,
+                        EditTime = DateTime.UtcNow.AddHours(8),
+                        EditUser = name,
+                    });
+                    _context.SaveChanges();
+                    result.IsSuccessful = true;
                 }
             }
             catch (Exception ex)
