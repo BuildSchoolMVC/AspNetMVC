@@ -233,6 +233,10 @@
     <Compile Include="Migrations\202102210718244_addPhotoUrl in Roomtype.Designer.cs">
       <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102230704226_AddThirdPartyAccountColumn.cs" />
+    <Compile Include="Migrations\202102230704226_AddThirdPartyAccountColumn.Designer.cs">
+      <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
     <Compile Include="Models\Entity\CouponDetail.cs" />
@@ -541,6 +545,7 @@
     <Content Include="Views\MemberCRUD\Details.cshtml" />
     <Content Include="Views\MemberCRUD\Edit.cshtml" />
     <Content Include="Views\MemberCRUD\Index.cshtml" />
+    <Content Include="Views\Account\SocialRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Js\QA\" />
@@ -590,6 +595,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102210718244_addPhotoUrl in Roomtype.resx">
       <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102230704226_AddThirdPartyAccountColumn.resx">
+      <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
