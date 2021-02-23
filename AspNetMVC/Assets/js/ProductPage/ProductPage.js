@@ -436,6 +436,7 @@ function postUserDefineData(tempitem) {
         .then(result => {
 
             if (result.response == "success") {
+                getFavorites()
                 toastr.success("已將商品加入收藏!!!")
                 setTimeout(() => {
                     cleanView()

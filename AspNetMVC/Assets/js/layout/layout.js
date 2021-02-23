@@ -330,16 +330,6 @@ const createPackageCard = (datas) => {
 }
 
 const createUserDefinedCard = (datas) => {
-    let data1 = datas.Data[0], data2 = datas.Data[1];
-    let roomType1 = roomTypeSwitch(+data1.RoomType);
-    let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
-    let combinedString1 = `${roomType1} - ${squrefeet1}`
-
-    let roomType2 = roomTypeSwitch(+data2.RoomType);
-    let squrefeet2 = squarefeetSwitch(+data2.Squarefeet);
-    let combinedString2 = `${roomType2} - ${squrefeet2}`
-   
-
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3 mx-2";
     card.setAttribute("data-id", datas.FavoriteId);
@@ -348,60 +338,118 @@ const createUserDefinedCard = (datas) => {
     row.className = "row no-gutters w-100";
 
     let col4 = document.createElement("div");
-    col4.classList.add("col-4","position-relative","h-100");
+    col4.classList.add("col-4", "position-relative", "h-100");
+
     let col8 = document.createElement("div");
     col8.classList.add("col-8", "h-100");
 
-    let img1 = document.createElement("img");
-    img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
-    img1.classList = `w-100 h-100 img1`;
-
-    let img2 = document.createElement("img");
-    img2.src = `https://i.imgur.com/${data2.PhotoUrl}`;
-    img2.classList = `w-100 h-100 img2`;
-
-    col4.append(img1,img2);
-
     let cardBody = document.createElement("div");
     cardBody.className = "card-body py-2 px-3 d-flex flex-column";
+    if (datas.Data.length < 2) {
+        let data1 = datas.Data[0];
+        let roomType1 = roomTypeSwitch(+data1.RoomType);
+        let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
+        let combinedString1 = `${roomType1} - ${squrefeet1}`
 
-    let h3 = document.createElement("h3");
-    h3.classList.add("card-title");
-    let tip = document.createElement("span");
-    tip.classList.add("tip");
-    tip.textContent = " (僅顯示此組合前兩筆)";
-    h3.append(data1.Title);
+        let img1 = document.createElement("img");
+        img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
+        img1.classList = `w-100 h-100`;
 
-    let p1 = document.createElement("p");
-    p1.className = "card-text";
-    p1.textContent = combinedString1;
+        col4.append(img1);
 
-    let p2 = document.createElement("p");
-    p2.className = "card-text";
-    p2.textContent = data1.ServiceItem.split(",").join("、");
+        let h3 = document.createElement("h3");
+        h3.classList.add("card-title");
+        let tip = document.createElement("span");
+        tip.classList.add("tip");
+        tip.textContent = " (僅顯示此組合前兩筆)";
+        h3.append(data1.Title);
 
-    let hr = document.createElement("hr");  
-        
+        let p1 = document.createElement("p");
+        p1.className = "card-text";
+        p1.textContent = combinedString1;
 
-    let p3 = document.createElement("p");
-    p3.className = "card-text";
-    p3.textContent = combinedString2;
+        let p2 = document.createElement("p");
+        p2.className = "card-text";
+        p2.textContent = data1.ServiceItem.split(",").join("、");
 
-    let p4 = document.createElement("p");
-    p4.className = "card-text";
-    p4.textContent = data2.ServiceItem.split(",").join("、");
+        let a = document.createElement("a");
+        a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
+        a.className = "btns detail";
+        a.textContent = "查看收藏詳情";
 
-    let a = document.createElement("a");
-    a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
-    a.className = "btns detail";
-    a.textContent = "查看收藏詳情";
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+        checkbox.setAttribute("data-id", datas.FavoriteId);
 
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "checkbox";
-    checkbox.setAttribute("data-id", datas.FavoriteId);
+        cardBody.append(h3, tip, p1, p2, a, checkbox);
+    } else {
+        let data1 = datas.Data[0], data2 = datas.Data[1];
+        let roomType1 = roomTypeSwitch(+data1.RoomType);
+        let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
+        let combinedString1 = `${roomType1} - ${squrefeet1}`
 
-    cardBody.append(h3, tip, p1, p2, hr, p3, p4, a, checkbox);
+        let roomType2 = roomTypeSwitch(+data2.RoomType);
+        let squrefeet2 = squarefeetSwitch(+data2.Squarefeet);
+        let combinedString2 = `${roomType2} - ${squrefeet2}`
+
+
+        let card = document.createElement("div");
+        card.className = "favorites-product-item mb-3 mx-2";
+        card.setAttribute("data-id", datas.FavoriteId);
+
+        let row = document.createElement("div");
+        row.className = "row no-gutters w-100";
+
+        let img1 = document.createElement("img");
+        img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
+        img1.classList = `w-100 h-100 img1`;
+
+        let img2 = document.createElement("img");
+        img2.src = `https://i.imgur.com/${data2.PhotoUrl}`;
+        img2.classList = `w-100 h-100 img2`;
+
+        col4.append(img1, img2);
+
+        let h3 = document.createElement("h3");
+        h3.classList.add("card-title");
+        let tip = document.createElement("span");
+        tip.classList.add("tip");
+        tip.textContent = " (僅顯示此組合前兩筆)";
+        h3.append(data1.Title);
+
+        let p1 = document.createElement("p");
+        p1.className = "card-text";
+        p1.textContent = combinedString1;
+
+        let p2 = document.createElement("p");
+        p2.className = "card-text";
+        p2.textContent = data1.ServiceItem.split(",").join("、");
+
+        let hr = document.createElement("hr");
+
+
+        let p3 = document.createElement("p");
+        p3.className = "card-text";
+        p3.textContent = combinedString2;
+
+        let p4 = document.createElement("p");
+        p4.className = "card-text";
+        p4.textContent = data2.ServiceItem.split(",").join("、");
+
+        let a = document.createElement("a");
+        a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
+        a.className = "btns detail";
+        a.textContent = "查看收藏詳情";
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+        checkbox.setAttribute("data-id", datas.FavoriteId);
+
+        cardBody.append(h3, tip, p1, p2, hr, p3, p4, a, checkbox);
+    }
+   
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");

@@ -63,6 +63,9 @@ namespace AspNetMVC.Services
                         CreateUser = account.Name,
                         EditTime = DateTime.UtcNow.AddHours(8),
                         EditUser = account.Name,
+                        IsThirdParty = account.IsThirdParty,
+                        IsIntegrated = account.IsIntegrated,
+                        SocialPlatform = account.SocialPatform,
                         Remark = ""
                     };
 
@@ -154,7 +157,7 @@ namespace AspNetMVC.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public string EmailActivation(Guid? id)
+        public OperationResult EmailActivation(Guid? id)
         {
             var result = new OperationResult();
             try
@@ -191,7 +194,7 @@ namespace AspNetMVC.Services
                 result.IsSuccessful = false;
                 result.Exception = ex;
             }
-            return result.MessageInfo;
+            return result;
         }
        
         /// <summary>
@@ -238,48 +241,26 @@ namespace AspNetMVC.Services
             return result;
         }
 
-        public async Task<OperationResult> RegisterByGoogle(string token)
+
+
+        public async Task<OperationResult> GetGoogleInfo(string token)
         {
             using (HttpClient client = new HttpClient())
             {
-
                 var or = new OperationResult();
                 try
                 {
                     var url = $"https://oauth2.googleapis.com/tokeninfo?id_token={token}";
                     client.Timeout = TimeSpan.FromSeconds(30);
-
                     HttpResponseMessage response = await client.GetAsync(url); //發送Get 請求
                     response.EnsureSuccessStatusCode();
 
                     var responsebody = await response.Content.ReadAsStringAsync();
+                   
 
-                    var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
-
-
-                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") || IsEmailExist(googleApiTokenInfo.Email))
-                    {
-                        or.IsSuccessful = false;
-                        or.MessageInfo = "此帳號已重複申請";
-                    }
-                    else
-                    {
-                        RegisterViewModel account = new RegisterViewModel {
-                            Address = "",
-                            Email = googleApiTokenInfo.Email,
-                            Gender = 3,
-                            Name = $"g{googleApiTokenInfo.Sub}",
-                            Phone = "",
-                            ConfirmPassword = googleApiTokenInfo.Sub,
-                            Password = googleApiTokenInfo.Sub,
-                            ValidationMessage = "",
-                            EmailVerification = true
-                        };
-                        CreateAccount(account);
-
-                        or.IsSuccessful = true;
-                        or.MessageInfo = account.Name;
-                    }
+                    or.IsSuccessful = true;
+                    or.MessageInfo = responsebody;
+                    
                 }
                 catch (Exception ex)
                 {
@@ -548,6 +529,8 @@ namespace AspNetMVC.Services
             }
             return or;
         }
+
+        public bool IsSocialAccountRegister(string email,string socailPlatform) => _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email && x.SocialPlatform == socailPlatform) == null;
 
         public Guid GetAccountId(string accountName)
         {
