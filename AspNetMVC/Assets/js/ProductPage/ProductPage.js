@@ -539,37 +539,37 @@ function postCreateFavoriteData(value) {
 }
 
 //抓到單一商品頁圖片的Url
-function getPicUrl() {
-    var temp = this.document.getElementsByClassName("product-pic mb-2")
-    if (temp == null) {
-        return;
-    }
-    else {
-        var viewedsrc = $(".product-pic.mb-2").children()[0].src;
-        savePicData(viewedsrc)
+//function getPicUrl() {
+//    var temp = this.document.getElementsByClassName("product-pic mb-2")
+//    if (temp == null) {
+//        return;
+//    }
+//    else {
+//        var viewedsrc = $(".product-pic.mb-2").children()[0].src;
+//        savePicData(viewedsrc)
 
-    }
-}
+//    }
+//}
 //將資料存到localStorage
-function savePicData(src) {
-    let localData = JSON.parse(localStorage.getItem('key'))
-    if (localData == null) {
-        let viewArray = [];
-        let temp = {
-            Id: src
-        }
-        viewArray.push(temp)
-        localStorage.setItem('key', JSON.stringify(viewArray))
-    }
-    else {
-        let temp = {
-            Id: src
-        }
-        localData.push(temp)
-        localStorage.setItem('key', JSON.stringify(localData))
+//function savePicData(src) {
+//    let localData = JSON.parse(localStorage.getItem('key'))
+//    if (localData == null) {
+//        let viewArray = [];
+//        let temp = {
+//            Id: src
+//        }
+//        viewArray.push(temp)
+//        localStorage.setItem('key', JSON.stringify(viewArray))
+//    }
+//    else {
+//        let temp = {
+//            Id: src
+//        }
+//        localData.push(temp)
+//        localStorage.setItem('key', JSON.stringify(localData))
 
-    }
-}
+//    }
+//}
 //創造瀏覽過的商品
 function createViewedPic() {
     var temp = JSON.parse(localStorage.getItem("key"))

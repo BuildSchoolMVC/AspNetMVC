@@ -125,7 +125,14 @@ namespace AspNetMVC.Services
 
             try
             {
+                var include=_repository.GetAll<UserFavorite>().Any(x => x.PackageProductId == packageproductId);
 
+                if (include)
+                {
+                    result.IsSuccessful = false;
+                }
+                else { 
+                
                 _repository.Create(new UserFavorite
                 {
                     FavoriteId = Guid.NewGuid(),
@@ -141,6 +148,7 @@ namespace AspNetMVC.Services
                 });
                 _context.SaveChanges();
                 result.IsSuccessful = true;
+                }
             }
             catch (Exception ex)
             {
