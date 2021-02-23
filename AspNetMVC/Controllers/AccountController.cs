@@ -42,7 +42,7 @@ namespace AspNetMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { response = "fail" });
+                return Json(new { response = "fail", isSuccess = false });
             }
             else
             {
@@ -57,21 +57,21 @@ namespace AspNetMVC.Controllers
 
                             Response.Cookies.Add(cookie);
 
-                            return Json(new { response = "success" });
+                            return Json(new { response = "success", isSuccess = true });
                         }
                         else
                         {
-                            return Json(new { response = "fail" });
+                            return Json(new { response = "",isSuccess = false });
                         }
                     }
                     else
                     {
-                        return Json(new { response = "emailActivationFail" });
+                        return Json(new { response = "emailActivationFail", isSuccess = false });
                     }
                 }
                 else
                 {
-                    return Json(new { response = "valdationFail" });
+                    return Json(new { response = "valdationFail", isSuccess = false });
                 }
             }
         }
@@ -96,6 +96,9 @@ namespace AspNetMVC.Controllers
                 var isVerify = new GoogleReCaptcha().GetCaptchaResponse(model.ValidationMessage);
                 if (isVerify)
                 {
+                    model.IsIntegrated = false;
+                    model.IsThirdParty = false;
+                    model.SocialPatform = "None";
                     _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
@@ -110,11 +113,11 @@ namespace AspNetMVC.Controllers
 
                     _accountService.SendMail("會員驗證信",model.Email, kvp);
 
-                    return Json(new { response = "success" });
+                    return Json(new { response = "success",isSuccess= true });
                 }
                 else
                 {
-                    return Json(new { response = "valdationFail" });
+                    return Json(new { response = "valdationFail", isSuccess = false });
                 }
             }
 
@@ -156,14 +159,13 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "Error" });
         }
 
-        public ActionResult RegisterEmailActivation(Guid? id,bool isSocialActivation)
+        public ActionResult RegisterEmailActivation(Guid? id)
         {
             if(id != null)
             {
                 if (ModelState.IsValid)
                 {
-                    ViewBag.Result = _accountService.EmailActivation(id);
-                    ViewBag.IsSocialActivation = isSocialActivation;
+                    ViewBag.Result = _accountService.EmailActivation(id).MessageInfo;
                     return View();
                 }
                 else
@@ -276,9 +278,34 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> RegisterByGoogleLogin(string token)
         {
-            var result = await _accountService.RegisterByGoogle(token);
+            var result = await _accountService.GetGoogleInfo(token);
 
-            return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
+            if (result.IsSuccessful)
+            {
+                var googleTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(result.MessageInfo);
+
+                if (_accountService.IsSocialAccountRegister(googleTokenInfo.Email, "Google"))
+                {
+
+                    // 登入並導回首頁登入
+                    //return View();
+                }
+                else
+                {
+                    ViewBag.SocialInfo = new RegisterViewModel
+                    {
+                        Email = googleTokenInfo.Email,
+                        SocialPatform = "Google",
+                        ImgUrl = googleTokenInfo.Picture,
+                    };
+                }
+            }
+            else
+            {
+
+            }
+
+            return View();
         }
 
         public async Task<ActionResult> LoginByGoogleLogin(string token)
@@ -311,9 +338,12 @@ namespace AspNetMVC.Controllers
             {
                 var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
                 Response.Cookies.Add(cookie);
+                return Json(new { response = "註冊成功", status = result.IsSuccessful });
             }
-
-            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+            else
+            {
+                return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+            }
         }
 
         public ActionResult RegisterByLineLogin(string code)
