@@ -50,6 +50,14 @@ namespace AspNetMVC.ViewModels
         public string ValidationMessage { get; set; }
 
         public bool EmailVerification { get; set; }
+
+        public bool IsThirdParty { get; set; }
+
+        public bool IsIntegrated { get; set; }
+
+        public string SocialPatform { get; set; }
+
+        public string ImgUrl { get; set; }
     }
 
     public class ForgotPasswordViewModel
@@ -87,6 +95,7 @@ namespace AspNetMVC.ViewModels
         public string Locale { get; set; }
         public string Name { get; set; }
         public string Sub { get; set; }
+        public string Picture { get;set }
     }
 
     public class FacebookInfo
