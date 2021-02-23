@@ -44,7 +44,7 @@ namespace AspNetMVC.Models.Entity {
 		//已取消 2
 		Cancelled,
 	}
-	public enum PaymentMethod {
+	public enum PayMethod {
 		//信用卡 0
 		CreditCard,
 		//ATM 1

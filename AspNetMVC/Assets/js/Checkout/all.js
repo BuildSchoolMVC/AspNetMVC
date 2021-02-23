@@ -170,9 +170,15 @@ const makeMonth = (obj_startDate, count) => {
     );
     const $ele_date = $(`
       <div class="date">
-        <div class="text">${d.getMonth() + 1}/${d.getDate()}</div>
+        <div class="text">${d.getDate()}</div>
       </div>
     `);
+    // 過去禁止選取(包含今天)，未來可選取(明天過後)
+    if (d <= obj_now) {
+      $ele_date.addClass('past');
+    } else {
+      $ele_date.addClass('future');
+    }
     $ele_date[0].obj_date = d;
     $ele_date.on('click', function () {
       if ($row_date.focusDate) {
@@ -202,6 +208,12 @@ const $btn_nextM = $('#next-month');
 const thisY = obj_now.getFullYear();
 const thisM = obj_now.getMonth();
 const thisD = obj_now.getDate();
+const obj_thisStart = new Date(
+  thisY, thisM, 1
+);
+const obj_thisEnd = new Date(
+  thisY, thisM + 1, 0
+);
 const obj_tomorrow = new Date(
   thisY, thisM, thisD + 1
 );
@@ -211,7 +223,7 @@ const obj_nextMonthEnd = new Date(
 $btn_lastM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_nextM);
-  makeMonth(obj_tomorrow, generateCount);
+  makeMonth(obj_thisStart, obj_thisEnd.getDate());
 });
 $btn_nextM.on('click', function () {
   disableBtn($(this));
@@ -547,5 +559,5 @@ for (; year < endYear; year++) {
 }
 $("[data-toggle=tooltip").tooltip();
 // main
-makeMonth(obj_tomorrow, generateCount);
+makeMonth(obj_thisStart, obj_thisEnd.getDate());
 // })();
