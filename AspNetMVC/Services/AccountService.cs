@@ -40,7 +40,7 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public void CreateAccount(RegisterViewModel account)
+        public OperationResult CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();
 
@@ -95,7 +95,8 @@ namespace AspNetMVC.Services
                     transcation.Rollback();
                 }
             }
-            
+
+            return result;
         }
 
         /// <summary>
@@ -241,7 +242,78 @@ namespace AspNetMVC.Services
             return result;
         }
 
+        public OperationResult RegisterByThirdParty(SocialRegisterViewModel model)
+        {
+            var op = new OperationResult();
+            if (model.IsIntegrated)
+            {
+                if (IsLoginValid(model.AccountName, model.Password))
+                {
+                    var account = new RegisterViewModel
+                    {
+                        Email = model.Email,
+                        Address = null,
+                        Gender = 3,
+                        EmailVerification = true,
+                        Name = model.AccountName,
+                        ConfirmPassword = model.Password,
+                        Password = model.Password,
+                        SocialPatform = model.SocialPlatform,
+                        Phone = null,
+                        IsIntegrated = true,
+                        IsThirdParty = true,
+                    };
+                    var result = CreateAccount(account);
 
+                    if (result.IsSuccessful)
+                    {
+                        op.IsSuccessful = result.IsSuccessful;
+                        op.MessageInfo = "註冊成功";
+                    }
+                    else
+                    {
+                        op.IsSuccessful = result.IsSuccessful;
+                        op.MessageInfo = "註冊失敗";
+                    }
+                }
+                else
+                {
+                    op.IsSuccessful = false;
+                    op.MessageInfo = "帳密有誤";
+                }
+            }
+            else
+            {
+                var account = new RegisterViewModel
+                {
+                    Email = model.Email,
+                    Address = null,
+                    Gender = 3,
+                    EmailVerification = true,
+                    Name = model.AccountName,
+                    ConfirmPassword = "",
+                    Password = "",
+                    SocialPatform = model.SocialPlatform,
+                    Phone = null,
+                    IsIntegrated = false,
+                    IsThirdParty = true,
+                };
+                var result = CreateAccount(account);
+
+                if (result.IsSuccessful)
+                {
+                    op.IsSuccessful = result.IsSuccessful;
+                    op.MessageInfo = "註冊成功";
+                }
+                else
+                {
+                    op.IsSuccessful = result.IsSuccessful;
+                    op.MessageInfo = "註冊失敗";
+                }
+            }
+
+            return op;
+        }
 
         public async Task<OperationResult> GetGoogleInfo(string token)
         {
@@ -257,10 +329,8 @@ namespace AspNetMVC.Services
 
                     var responsebody = await response.Content.ReadAsStringAsync();
                    
-
                     or.IsSuccessful = true;
                     or.MessageInfo = responsebody;
-                    
                 }
                 catch (Exception ex)
                 {
@@ -272,182 +342,36 @@ namespace AspNetMVC.Services
             }
         }
 
-        public async Task<OperationResult> LoginByGoogle(string token)
+        public async Task<OperationResult> GetFacebookInfo(string code)
         {
             using (HttpClient client = new HttpClient())
             {
                 var or = new OperationResult();
                 try
                 {
-                    var url = $"https://oauth2.googleapis.com/tokeninfo?id_token={token}";
-                    client.Timeout = TimeSpan.FromSeconds(30);
+                    var getAccessTokenUrl = "https://graph.facebook.com/v9.0/oauth/access_token?";
+                    getAccessTokenUrl += $"client_id={WebConfigurationManager.AppSettings["Facebook_id"]}";
+                    getAccessTokenUrl += $"&redirect_uri=https://localhost:44308/Account/RegisterByFacebookLogin";
+                    getAccessTokenUrl += $"&client_secret={WebConfigurationManager.AppSettings["Facebook_secret"]}";
+                    getAccessTokenUrl += $"&code={code}";
 
-                    HttpResponseMessage response = await client.GetAsync(url); //發送Get 請求
-                    response.EnsureSuccessStatusCode();
+                    HttpResponseMessage accessTokenResponse = await client.GetAsync(getAccessTokenUrl);
+                    accessTokenResponse.EnsureSuccessStatusCode();
 
-                    var responsebody = await response.Content.ReadAsStringAsync();
+                    var responseBody = await accessTokenResponse.Content.ReadAsStringAsync();
 
-                    var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(responsebody);
+                    var result = JsonConvert.DeserializeObject<FacebookApiTokenInfo>(responseBody);
 
+                    var getUserInfoUrl = "https://graph.facebook.com/me?access_token=";
+                    getUserInfoUrl += result.Access_token;
 
-                    if (IsAccountExist($"g{googleApiTokenInfo.Sub}") && IsEmailExist(googleApiTokenInfo.Email))
-                    {
-                        or.IsSuccessful = true;
-                        or.MessageInfo = $"驗證成功 g{googleApiTokenInfo.Sub}";
-                    }
-                    else
-                    {
-                        or.IsSuccessful = false;
-                        or.MessageInfo = "驗證失敗";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    or.IsSuccessful = false;
-                    or.Exception = ex;
-                    or.MessageInfo = "發生錯誤";
-                }
-                return or;
-            }
-        }
+                    HttpResponseMessage userInforesponse = await client.GetAsync(getUserInfoUrl);
+                    userInforesponse.EnsureSuccessStatusCode();
 
-        public OperationResult RegisterByFacebook(FacebookInfo fbInfo)
-        {
-            var or = new OperationResult();
+                    var userInfoResponseBody = await userInforesponse.Content.ReadAsStringAsync();
 
-            if (IsAccountExist(fbInfo.FacebookId) || IsEmailExist(fbInfo.Email))
-            {
-                or.IsSuccessful = false;
-                or.MessageInfo = "此帳號已重複申請";
-            }
-            else
-            {
-                RegisterViewModel account = new RegisterViewModel
-                {
-                    Address = "",
-                    Email = fbInfo.Email,
-                    Gender = 3,
-                    Name = $"f{fbInfo.FacebookId}",
-                    Phone = "",
-                    ConfirmPassword = fbInfo.FacebookId,
-                    Password = fbInfo.FacebookId,
-                    ValidationMessage = "",
-                    EmailVerification = true
-                };
-
-                CreateAccount(account);
-
-                or.IsSuccessful = true;
-                or.MessageInfo = account.Name;
-            }
-            return or;
-        }
-
-        public OperationResult LoginByFacebook(FacebookInfo fbInfo)
-        {
-            var or = new OperationResult();
-
-            if (IsEmailExist(fbInfo.Email))
-            {
-                if (IsAccountExist($"f{ fbInfo.FacebookId}"))
-                {
                     or.IsSuccessful = true;
-                    or.MessageInfo = $"驗證成功 f{fbInfo.FacebookId}";
-                }
-                else
-                {
-                    or.IsSuccessful = false;
-                    or.MessageInfo = "此帳號還未註冊";
-                }
-
-            }
-            else
-            {
-                or.IsSuccessful = false;
-                or.MessageInfo = "此帳號信箱已註冊過，改以其他社群帳號或使用本站會員系統註冊";
-            }
-
-            return or;
-        }
-
-        public OperationResult RegisterByLine(string code)
-        {
-                var or = new OperationResult();
-                try
-                {
-                    var url = $"https://api.line.me/oauth2/v2.1/token";
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-                    request.Method = "POST";
-                    request.ContentType = "application/x-www-form-urlencoded";
-                    NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
-
-                    var values = new Dictionary<string,string>{
-                           { "grant_type", "authorization_code" },
-                           { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
-                           { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
-                           { "code",code},
-                           { "redirect_uri","https://localhost:44308/Account/RegisterByLineLogin"}
-                        };
-                    foreach(var kvp in values)
-                    {
-                        postParams.Add(kvp.Key, kvp.Value);
-                    }
-
-                    byte[] byteArray = Encoding.UTF8.GetBytes(postParams.ToString());
-                    using (Stream reqStream = request.GetRequestStream())
-                    {
-                        reqStream.Write(byteArray, 0, byteArray.Length);
-                    }
-
-                    string responseStr = "";
-                   
-                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                    {
-                        using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                        {
-                            responseStr = sr.ReadToEnd();
-                        }
-                    }
-
-                    LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
-                    string id_token = tokenObj.Id_token;
-
-                    var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
-                    LineUserProfile user = new LineUserProfile();
-                    user.UserId = jst.Payload.Sub;
-                    user.DisplayName = jst.Payload["name"].ToString();
-                    user.PictureUrl = jst.Payload["picture"].ToString();
-                    if (jst.Payload.ContainsKey("email") && !string.IsNullOrEmpty(Convert.ToString(jst.Payload["email"])))
-                    {
-                        user.Email = jst.Payload["email"].ToString();
-                    }
-
-                    if (IsAccountExist(user.UserId) || IsEmailExist(user.Email))
-                    {
-                        or.IsSuccessful = false;
-                        or.MessageInfo = "此帳號或信箱已重複申請";
-                    }
-                    else
-                    {
-                        RegisterViewModel account = new RegisterViewModel
-                        {
-                            Address = "",
-                            Email = user.Email,
-                            Gender = 3,
-                            Name = $"l{user.UserId}",
-                            Phone = "",
-                            ConfirmPassword = user.UserId,
-                            Password = user.UserId,
-                            ValidationMessage = "",
-                            EmailVerification = true
-                        };
-
-                        CreateAccount(account);
-
-                        or.IsSuccessful = true;
-                        or.MessageInfo = account.Name;
-                    }
+                    or.MessageInfo = userInfoResponseBody;
                 }
                 catch (Exception ex)
                 {
@@ -456,14 +380,16 @@ namespace AspNetMVC.Services
                     or.MessageInfo = "發生錯誤";
                 }
                 return or;
+            }
         }
 
-        public OperationResult LoginByLine(string code)
+        public OperationResult GetLineInfo(string code)
         {
             var or = new OperationResult();
+
             try
             {
-                var url = $"https://api.line.me/oauth2/v2.1/token";
+                var url = "https://api.line.me/oauth2/v2.1/token";
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
                 request.Method = "POST";
@@ -471,12 +397,12 @@ namespace AspNetMVC.Services
                 NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
 
                 var values = new Dictionary<string, string>{
-                           { "grant_type", "authorization_code" },
-                           { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
-                           { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
-                           { "code",code},
-                           { "redirect_uri","https://localhost:44308/Account/LoginByLineLogin"}
-                        };
+                        { "grant_type", "authorization_code" },
+                        { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
+                        { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
+                        { "code",code},
+                        { "redirect_uri","https://localhost:44308/Account/LineLogin"}
+                    };
                 foreach (var kvp in values)
                 {
                     postParams.Add(kvp.Key, kvp.Value);
@@ -488,7 +414,6 @@ namespace AspNetMVC.Services
                     reqStream.Write(byteArray, 0, byteArray.Length);
                 }
 
-
                 string responseStr = "";
 
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -499,38 +424,32 @@ namespace AspNetMVC.Services
                     }
                 }
 
-
                 LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
                 string id_token = tokenObj.Id_token;
-
 
                 var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
                 LineUserProfile user = new LineUserProfile();
                 user.UserId = jst.Payload.Sub;
-                user.Email = jst.Payload["email"].ToString();
-
-
-                if (IsAccountExist($"l{user.UserId}") && IsEmailExist(user.Email))
+                user.DisplayName = jst.Payload["name"].ToString();
+                user.PictureUrl = jst.Payload["picture"].ToString();
+                if (jst.Payload.ContainsKey("email") && !string.IsNullOrEmpty(Convert.ToString(jst.Payload["email"])))
                 {
-                    or.IsSuccessful = true;
-                    or.MessageInfo = $"驗證成功 {user.UserId}";
+                    user.Email = jst.Payload["email"].ToString();
                 }
-                else
-                {
-                    or.IsSuccessful = false;
-                    or.MessageInfo = "驗證失敗";
-                }
+
+                or.IsSuccessful = true;
+                or.MessageInfo = JsonConvert.SerializeObject(user);
             }
             catch (Exception ex)
             {
                 or.IsSuccessful = false;
                 or.Exception = ex;
-                or.MessageInfo = ex.ToString();
+                or.MessageInfo = "發生錯誤";
             }
             return or;
         }
 
-        public bool IsSocialAccountRegister(string email,string socailPlatform) => _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email && x.SocialPlatform == socailPlatform) == null;
+        public bool IsSocialAccountRegister(string email,string socailPlatform) => _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email && x.SocialPlatform == socailPlatform) != null;
 
         public Guid GetAccountId(string accountName)
         {
@@ -540,6 +459,11 @@ namespace AspNetMVC.Services
         public Account GetUser(Guid id) 
         {
             return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
+        }
+
+        public Account GetUser(string email)
+        {
+            return _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email);
         }
 
         public HttpCookie SetCookie(string accountName,bool rememberMe)

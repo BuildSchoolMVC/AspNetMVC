@@ -17,7 +17,6 @@ namespace AspNetMVC.Controllers
     {
         
         private MemberMd db = new MemberMd();
-        // GET: MemberCenter
         private readonly MemberCenterService _MemberCenterService;
         private readonly AccountService _AccountService;
         public MemberCenterController()

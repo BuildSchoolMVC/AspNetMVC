@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Configuration
+<!DOCTYPE html>
 <html lang="zh-hant">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -382,6 +383,55 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
+    </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@WebConfigurationManager.AppSettings["Facebook_id"]',
+                cookie: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    </script>
+    <script>
+        $('#btnLineSignIn').on('click', function (e) {
+            let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+            link += 'response_type=code';
+            link += '&client_id=' + @WebConfigurationManager.AppSettings["Line_client_id"];
+            link += '&redirect_uri=https://localhost:44308/Account/LineLogin';
+            link += `&state=${this.dataset.type}`;
+            link += '&scope=profile%20openid%20email';
+            window.location.href = link;
+
+            document.querySelectorAll("button").forEach(x => {
+                x.setAttribute("disabled", "disabled");
+                x.classList.add("disabled");
+            })
+            this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+
+            setTimeout(function(){
+                document.querySelectorAll("button").forEach(x => {
+                    x.removeAttribute("disabled");
+                    x.classList.remove("disabled");
+                })
+                document.querySelector("#btnLineSignIn .spinner-border-wrap").classList.add("opacity");
+            },6000)
+        });
+    </script>
     @Scripts.Render("~/Assets/js/layout/layout.js")
     @RenderSection("JS", false)
 </body>
