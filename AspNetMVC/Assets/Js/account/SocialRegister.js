@@ -60,7 +60,10 @@ const registerForm = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.status) {
-                    toastr.success(`${result.response}`)
+                    toastr.success(`${result.response}`);
+                    setTimeout(() => {
+                        window.location.href = "/home";
+                    }, 1500);
                 } else {
                     toastr.error(`${result.response}`)
                     document.querySelector(".spinner-border-wrap").classList.add("opacity");

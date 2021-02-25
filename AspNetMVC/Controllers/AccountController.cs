@@ -335,6 +335,7 @@ namespace AspNetMVC.Controllers
                         Email = email,
                         ImgUrl = imgUrl
                     };
+
                     return Json(new { response = JsonConvert.SerializeObject(info), status = 1 }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -391,6 +392,11 @@ namespace AspNetMVC.Controllers
         public ActionResult SocialRegister(SocialRegisterViewModel model)
         {
             var result = _accountService.RegisterByThirdParty(model);
+            if (result.IsSuccessful)
+            {
+                var cookie = _accountService.SetCookie(model.AccountName, false);
+                Response.Cookies.Add(cookie);
+            }
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
         }
     }

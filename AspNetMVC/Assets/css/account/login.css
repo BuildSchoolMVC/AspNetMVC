@@ -407,4 +407,7 @@ flex-direction: column;
 	.login-modal .form .social-btn-grouping button#btnFacebookSignIn{
 		font-size: 14px;
 	}
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap {
+		width: 15%;
+	}
 }
