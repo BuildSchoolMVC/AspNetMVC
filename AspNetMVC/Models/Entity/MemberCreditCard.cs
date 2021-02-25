@@ -10,8 +10,13 @@ namespace AspNetMVC.Models.Entity
     {
         [Key]
         public string AccountName { get; set; }
-        public int CreditNumber { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        [MinLength(16)]
+        [MaxLength(16)]
+        [Required]
+        public string CreditNumber { get; set; }
+        [Required]
+        public int ExpiryDate { get; set; }
+        [Required]
         public int SafeNum { get; set; }
     }
 }
