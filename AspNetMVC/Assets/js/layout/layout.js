@@ -649,9 +649,60 @@ const roomTypeSwitch = value =>
     value == 3 ? "浴廁" :
     value == 4 ? "陽台" : "-";
 
+function GoogleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
 
+function GoogleLogin(target) {
+    let auth2 = gapi.auth2.getAuthInstance();
+    let url = "/Account/GoogleLogin"
 
-
+    auth2.signIn().then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { token: id_token, type: target.dataset.type },
+            success: function (result) {
+                if (result.status == 1 && result.response == "第三方登入") {
+                    setTimeout(() => {
+                        window.location.replace(`${window.location.origin}/Home/Index`);
+                    }, 1500)
+                }
+                else if (result.status == 1) {
+                    setTimeout(() => {
+                        localStorage.setItem("social", result.response)
+                        window.location.replace(`${window.location.origin}/Account/SocialRegister`);
+                    }, 1500)
+                } else if (result.status == 0) {
+                    setTimeout(() => {
+                        toastr.warning(`${result.response}`);
+                        document.querySelectorAll("button").forEach(x => {
+                            x.removeAttribute("disabled");
+                            x.classList.remove("disabled");
+                        })
+                        target.querySelector(".spinner-border-wrap").classList.add("opacity");
+                    }, 1500)
+                }
+            }
+        });
+    },
+        function (error) {
+            toastr.error("Google登入失敗")
+            document.querySelectorAll("button").forEach(x => {
+                x.removeAttribute("disabled");
+                x.classList.remove("disabled");
+            })
+            document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                if (!x.classList.contains("opacity")) x.classList.add("opacity");
+            })
+        });
+}
 
 window.addEventListener("load", () => {
     loadingAnimation();
@@ -686,6 +737,64 @@ window.addEventListener("load", () => {
     document.querySelector(".finish-view .box").classList.add("hide");
 })
 
+function facebookLogin(response, target) {
+    FB.login(function (response) {
+        getProfile(target)
+    }, { scope: 'email' });
+}
+
+function checkLoginState(target) {
+    FB.getLoginStatus(function (response) {
+        facebookLogin(response, target);
+    });
+}
+
+function getProfile(target) {
+    FB.api('/me', "GET", { fields: 'name,email,id,picture' }, function (response) {
+        fetchData(response, target)
+    })
+}
+function fetchData(response, target) {
+    let url = "/Account/FacebookLogin"
+    let data = {
+        email: response.email,
+        socialPlatform: "Facebook",
+        imgUrl: response.picture.data.url,
+        type: target.dataset.type
+    }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(result => {
+            if (result.status == 1 && result.response == "第三方登入") {
+                setTimeout(() => {
+                    window.location.replace(`${window.location.origin}/Home/Index`);
+                }, 1500)
+            }
+            else if (result.status == 1) {
+                setTimeout(() => {
+                    localStorage.setItem("social", result.response)
+                    window.location.replace(`${window.location.origin}/Account/SocialRegister`);
+                }, 1500)
+            } else if (result.status == 0) {
+                setTimeout(() => {
+                    toastr.warning(`${result.response}`);
+                    document.querySelectorAll("button").forEach(x => {
+                        x.removeAttribute("disabled");
+                        x.classList.remove("disabled");
+                    })
+                    target.querySelector(".spinner-border-wrap").classList.add("opacity");
+                }, 1500)
+            }
+        })
+        .catch(err => console.log(err))
+}
 
 
 window.addEventListener("resize", () => {
@@ -718,7 +827,6 @@ document.querySelector(".finish-view .finishBtn").addEventListener("click", func
 
 document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {
-        console.log(x)
         clearWarn(x);
         if (x.value.length == 0) {
             x.classList.add("input-warn");

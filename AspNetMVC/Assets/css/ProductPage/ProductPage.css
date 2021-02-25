@@ -290,6 +290,7 @@
             .ProductPage .transform-area .viewed-area .item-group .pic {
                 width: 100%;
                 margin: 0 0 5px 0
+                
             }
 
                 .ProductPage .transform-area .viewed-area .item-group .item .pic img {
@@ -974,7 +975,7 @@
     }
 
     .ProductPage .transform-area .viewed-area .item-group {
-        height: 40vh
+        height: 34vh
     }
 
         .ProductPage .transform-area .viewed-area .item-group .item {
@@ -1038,7 +1039,7 @@
         .ProductPage .row .transform-area {
             position: relative;
             width: 40%;
-            height: 40vh;
+            height: 32vh;
             top: 40px;
             right: 10px;
             z-index: 20;
@@ -1060,7 +1061,8 @@
                 -webkit-box-pack: end;
                 -ms-flex-pack: end;
                 justify-content: flex-end;
-                z-index: 0
+                z-index: 0;
+                box-shadow: 2px 2px 3px grey;
             }
 
                 .ProductPage .row .transform-area .viewed-area .title {

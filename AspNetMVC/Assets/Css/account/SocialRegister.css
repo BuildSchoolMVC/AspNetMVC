@@ -1,0 +1,155 @@
+﻿.section_social-register {
+    height: 90vh;
+    background: var(--light);
+    padding: 20vh 0 30vh;
+    color: #fff;
+}
+
+.social-register-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;   
+    max-width: 1200px;
+    margin: auto;
+}
+
+.social-register-modal .form {
+    display: flex;
+    flex-direction : column;
+    justify-content: center;
+    background : var(--light-blue);
+    padding: 30px 30px 20px;
+     border-radius : 10px;
+     box-shadow : 1px 1px 5px #00000080;
+     color: var(--color-primary-dark);
+     margin-top: 70px;
+     width: 600px;
+     max-width : 100%;
+}
+
+.social-register-modal .form .form-group,
+.social-register-modal .form .form-header,
+.social-register-modal .form .form-body{
+    margin: 10px 0;
+}
+
+.social-register-modal .form .pic {
+    border-radius: 50%;
+    display: block;
+    margin: 30px auto 0;
+    max-width: 100px;
+    max-height: 100px;
+    width: 80px;
+}
+
+.social-register-modal .form .input {
+    width: 100%;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #e8f0fe;
+    margin: 20px 0 0;
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 16px;
+    font-family: Arial;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+}
+
+.social-register-modal .form .input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
+}
+    .social-register-modal .form .social-platform {
+        color: var(--light);
+        font-weight: 700;
+        padding: 0 10px;
+        text-shadow: 2px 0 var(--color-primary-dark), 0 2px var(--color-primary-dark),-2px 0 var(--color-primary-dark),0 -2px var(--color-primary-dark);
+    }
+
+.social-register-modal .form .label {
+    color: var(--color-primary-dark);
+    font-size: 18px;
+    padding: 0 10px;
+    white-space: nowrap;
+    margin: 0;
+    transition: .2s ease;
+}
+.social-register-modal .form  .isIntegrated{
+    font-size : 14px;   
+}
+
+.checkbox-controlled{
+    height: 0;
+    opacity:0;
+    transition : .4s ease-in;
+}
+
+input[type='checkbox']:checked ~ .checkbox-controlled {
+    height: 80px;
+    opacity: 1;
+}
+
+.social-register-modal .form .form-group .label-group {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    pointer-events: none;
+    background: #e8f0fe;
+    transition: .25s ease-in-out;
+}
+
+.social-register-modal .form .input:focus + .label-group, 
+.social-register-modal .form .label-group.active {
+    height: 25px;
+    top: 5px;
+    overflow: hidden;
+    background: #e8f0fe;
+    padding : 0 8px;
+}
+
+.social-register-modal .form .form-group .input:focus + .label-group .label,
+.social-register-modal .form .label-group.active .label {
+    font-size: 14px;
+}
+
+.social-register-modal .form i {
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: .4s ease-in;
+    font-size: 16px;
+}
+
+.social-register-modal .form .form-group .input:focus + .label-group i,
+.social-register-modal .form .label-group.active i {
+    display: block;
+    pointer-events: auto;
+}
+
+
+.social-register-modal .form .button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    color: var(--light);
+}
+
+.social-register-modal .form .cancel {
+    background-color: var(--color-primary);
+    margin-right: 10px;
+}
+.social-register-modal .form .submit {
+    background-color: var(--color-primary-dark);
+}
+
+.social-register-modal .form .form-header h3 img {
+    max-width: 30px;
+    max-height: 30px;
+    margin-left: 5px;
+    vertical-align: middle;
+}

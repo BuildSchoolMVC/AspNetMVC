@@ -160,12 +160,12 @@ table {
     margin-right: 30px;
 }
 
-#btn-model-space {
+.btn-model-space {
     border: 1px solid var(--main);
     color:var(--main);
 }
 
-#btn-model-space:hover {
+.btn-model-space:hover {
     background-color:var(--main);
     color: white;
 }
