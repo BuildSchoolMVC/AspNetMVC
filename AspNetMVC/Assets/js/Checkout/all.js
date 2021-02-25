@@ -376,7 +376,7 @@ $nextStep.on('click', function () {
         type: 'POST',
         url: '/Checkout/AddOrder',
         data: {
-          
+
         },
         // success: (message) => {
         //   $('#done .pic').html(`
@@ -460,6 +460,13 @@ $('.coupon button').on('click', function () {
     dataType: 'json',
     success: (data) => {
       $couponBox.empty();
+      if (data.length == 0) {
+        let $centerBox = $(`<div class="text-center"></div>`);
+        $(`<img src="/Assets/images/empty.png">`).appendTo($centerBox);
+        $(`<h4 class="empty-info">目前沒有可用的優惠券</h4>`).appendTo($centerBox);
+        $couponBox.append($centerBox);
+        return;
+      }
       data.forEach((obj) => {
         let $item = $(`
           <div class="coupon-item">
@@ -525,6 +532,70 @@ $('#invoice-select .option').on('click', (e) => {
 $('#donate-select .option').on('click', (e) => {
   $foundationCheck.click();
   invoiceData.foundationI = e.target.getAttribute('data-index');
+});
+// ECPay
+Date.prototype.toFormat = function() {
+  let yyyy = this.getFullYear();
+  let MM = this.getMonth() + 1;
+  let dd = this.getDate();
+  let HH = this.getHours();
+  let mm = this.getMinutes();
+  let ss = this.getSeconds();
+  return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+};
+document.querySelector('#toECPay').addEventListener('click', function() {
+  let merchantTradeNo = 'A0000000000000000001';
+  let allString = encodeURIComponent(
+    `HashKey=5294y06JbISpM5x9&ChoosePayment=Credit&EncryptType=1&ItemName=TestItemName&MerchantID=2000132&MerchantTradeDate=${new Date().toFormat()}&MerchantTradeNo=${merchantTradeNo}&PaymentType=aio&ReturnURL=/Checkout/MoneyTest&TotalAmount=1000&TradeDesc=${encodeURIComponent('testTradeDesc')}&HashIV=v77hoKGq4kWxNNIS`
+  ).toLowerCase();
+  // 6. 以 SHA256 加密方式來產生雜凑值
+  let hash = sha256(allString);
+  // 7. 再轉大寫產生 CheckMacValue
+  hash = hash.toUpperCase();
+  // console.log(hash);
+
+  $.ajax({
+    method: 'POST',
+    url: 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5',
+    contentType: 'application/json',
+    data: {
+      MerchantID: '2000132',
+      MerchantTradeNo: 'A0000000000000000001',
+      MerchantTradeDate: new Date().toFormat(),
+      PaymentType: 'aio',
+      TotalAmount: 1000,
+      TradeDesc: encodeURIComponent('testTradeDesc'),
+      ItemName: 'TestItemName',
+      ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
+      ChoosePayment: 'ALL',
+      EncryptType: 1,
+      // CheckMacValue: hash,
+    },
+    success: function() {
+      console.log('yes');
+    },
+  });
+  // $.ajax({
+  //   method: 'POST',
+  //   url: 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5',
+  //   contentType: 'application/x-www-form-urlencoded',
+  //   data: {
+  //     MerchantID: '2000132',
+  //     MerchantTradeNo: 'A0000000000000000001',
+  //     MerchantTradeDate: new Date().toFormat(),
+  //     PaymentType: 'aio',
+  //     TotalAmount: 1000,
+  //     TradeDesc: encodeURIComponent('testTradeDesc'),
+  //     ItemName: 'TestItemName',
+  //     ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
+  //     ChoosePayment: 'ALL',
+  //     EncryptType: 1,
+  //     CheckMacValue: hash,
+  //   },
+  //   success: function() {
+  //     console.log('yes');
+  //   },
+  // });
 });
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {

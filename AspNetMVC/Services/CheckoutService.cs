@@ -39,18 +39,18 @@ namespace AspNetMVC.Services {
 		public IEnumerable<SquareFeet> GetSquareFeetList() {
 			return _repository.GetAll<SquareFeet>();
 		}
-		public void CreateCoupon(string accountName, int couponId) {
+		public void CreateCoupon(int couponId) {
 			DateTime now = DateTime.Now;
 			_repository.Create<Coupon>(new Coupon {
 				CouponId = couponId,
-				CouponName = "uCleaner一週年",
-				DiscountAmount = 50,
-				DateStart = new DateTime(2021, 1, 1),
-				DateEnd = new DateTime(2021, 12, 31),
+				CouponName = "母親節優惠券",
+				DiscountAmount = 150,
+				DateStart = new DateTime(2021, 5, 1),
+				DateEnd = new DateTime(2021, 5, 31),
 				CreateTime = now,
 				EditTime = now,
-				CreateUser = accountName,
-				EditUser = accountName,
+				CreateUser = "blender222",
+				EditUser = "blender222",
 			});
 			_context.SaveChanges();
 		}
@@ -97,6 +97,20 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
+
+		/// 產生檢查碼 傳遞 parameters 參數,需要先經過英文字母 A-Z 排序 
+		//private string BuildCheckMacValue(string parameters, int encryptType = 1) {
+		//	string szCheckMacValue = String.Empty;
+		//	// 產生檢查碼。 
+		//	szCheckMacValue = String.Format("HashKey={0}{1}&HashIV={2}", this.HashKey, parameters, this.HashIV);
+		//	szCheckMacValue = HttpUtility.UrlEncode(szCheckMacValue).ToLower();
+		//	if (encryptType == 1) {
+		//		szCheckMacValue = SHA256Encoder.Encrypt(szCheckMacValue);
+		//	} else {
+		//		szCheckMacValue = MD5Encoder.Encrypt(szCheckMacValue);
+		//	}
+		//	return szCheckMacValue;
+		//}
 	}
 	public class CouponJson {
 		public Guid CouponDetailId { get; set; }
