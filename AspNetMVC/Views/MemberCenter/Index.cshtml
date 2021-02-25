@@ -446,13 +446,45 @@
             </div>
         </div>
     </div>-->
+                <!--信用卡modal-->
+                <div class="modal fade" id="creditModal" tabindex="-1" aria-labelledby="creditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="creditModalLabel">新增信用卡</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="password_body">
+                                <p>請輸入信用卡卡號</p>
+                                <input type="password" id="origin_password">
+
+                                <p>請輸入到期日</p>
+                                <input type="password" id="new_password">
+
+                                <p>請輸入安全碼</p>
+                                <input type="password" id="confirm_password">
+
+                                <span class="error"></span>
+                                <span class="success"></span>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-password btn-model-space" id="" data-dismiss="modal">關閉</button>
+                                <button type="button" class="btn btn-main" value="" id="">儲存密碼</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--頁面資訊-->
                 <div class="tab-pane fade" id="v-pills-credit" role="tabpanel" aria-labelledby="v-pills-credit-tab">
                     <div class="Card">
                         <div class="page-title">
                             <h2>我的信用卡</h2>
                         </div>
+                        
                         <div class="page-body null-page">
-                            <button class="btn newCredit" onclick="display()">
+                            <button class="btn newCredit" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
                                 新增信用卡
                                 <div class="radius">
                                     <div>
@@ -463,6 +495,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="v-pills-discount" role="tabpanel" aria-labelledby="v-pills-discount-tab">
                     <div class="Card">
                         <div class="page-title">

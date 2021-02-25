@@ -237,6 +237,10 @@
     <Compile Include="Migrations\202102230704226_AddThirdPartyAccountColumn.Designer.cs">
       <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102250408454_CreditCard.cs" />
+    <Compile Include="Migrations\202102250408454_CreditCard.Designer.cs">
+      <DependentUpon>202102250408454_CreditCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
     <Compile Include="Models\Entity\CouponDetail.cs" />
@@ -600,6 +604,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102230704226_AddThirdPartyAccountColumn.resx">
       <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102250408454_CreditCard.resx">
+      <DependentUpon>202102250408454_CreditCard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
