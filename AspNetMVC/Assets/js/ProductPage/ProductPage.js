@@ -464,8 +464,10 @@ function cleanView() {
 function showModule() {
     addfavoritebtn.addEventListener("click", function () {
         if (!document.cookie.includes("user")) {
-            alert("目前還沒登入喔!")
-            window.location.assign("/Account/Login")
+            toastr.warning("目前還沒登入喔!")
+            setTimeout(() => {
+                window.location.assign("/Account/Login")
+            },800)
         }
         else if (userdefinedarray.length == 0) {
             toastr.warning("目前還沒有商品喔!")
