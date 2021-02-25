@@ -17,7 +17,7 @@
             <div class="register-block">
                 @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    <div class="social-login-step">
+                    @*<div class="social-login-step">
                         <h2>使用社群帳號快速註冊</h2>
                         <div class="social-btn-grouping">
                             <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative" data-type="0">
@@ -45,7 +45,7 @@
                         <div class="float-right w-60">
                             <button type="button" class="button btn_website-login">回去使用本站註冊</button>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="step1">
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
@@ -87,11 +87,34 @@
                             <div class="w-100">
                                 <button type="button" class="button btn_next">下一步</button>
                             </div>
-                            <div>
+                            <div class="my-4">
                                 <p class="text-region">或是</p>
                             </div>
-                            <div class="w-100">
-                                <button type="button" class="button btn_social-login">使用社群註冊</button>
+                            
+                        </div>
+                        <div class="form-group my-2">
+                            <div class="social-btn-grouping">
+                                <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/google.png" />
+                                    Google
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/facebook.png" />
+                                    Facebook
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/line.png" />
+                                    Line
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                     </div>

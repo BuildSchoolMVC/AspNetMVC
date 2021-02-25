@@ -152,16 +152,6 @@ const clearWarnInfo = (ele) => {
     }
     ele.parentNode.querySelector("p").textContent = ""
 }
-const toSocialLogin = () => {
-    document.querySelector(".btn_social-login").addEventListener("click", function () {
-        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.add("pre"))
-    })
-}
-const fromSocialLogin = () => {
-    document.querySelector(".btn_website-login").addEventListener("click", function () {
-        document.querySelectorAll("div[class*='step']").forEach(x => x.classList.remove("pre"))
-    })
-}
 
 window.addEventListener("load", function () {
     document.querySelectorAll(".input").forEach(x => {
@@ -181,8 +171,6 @@ window.addEventListener("load", function () {
     accountNameCheck();
     emailCheck();
     submitRegister();
-    toSocialLogin();
-    fromSocialLogin();
 
     document.querySelector("#btnGoogleSignIn").addEventListener("click", function () {
         GoogleLogin(this);
