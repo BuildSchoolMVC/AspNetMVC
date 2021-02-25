@@ -1,0 +1,29 @@
+﻿@model UserFavoriteViewModel
+<tr id="prod1">
+    @if (!Model.IsPackage)
+    {
+        <td class="prod-detail-table_prod_img"><img src=""></td>
+
+    }
+    <td class="prod-detail-table_prod_img"><img src=""></td>
+    
+    <td class="prod-detail-table_prod_dt">
+        <div class="prod_dt_title">
+            <h5>@foreach(var item in Model.Data)
+            {
+                item.Title.ToString();
+            }</h5>
+        </div>
+        <p>
+        </p>
+    </td>
+    <td class="prod-detail-table_prod_price"><p></p></td>
+    <td class="prod-detail-table_remove">
+        <button class="btn btn-main btn-fav" id="remove1" onclick="remove(event)"><p>刪除</p></button>
+        @if (!Model.IsPackage)
+        {
+            <button class="btn btn-main btn-fav" id="change1" onclick="modify(event)"><p>修改</p></button>
+        }
+        <button class="btn btn-main btn-fav" id="buying1" onclick="buying(event)"><p>結帳</p></button>
+    </td>
+</tr>

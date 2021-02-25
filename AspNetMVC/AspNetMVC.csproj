@@ -552,6 +552,7 @@
     <Content Include="Views\MemberCRUD\Edit.cshtml" />
     <Content Include="Views\MemberCRUD\Index.cshtml" />
     <Content Include="Views\Account\SocialRegister.cshtml" />
+    <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Js\QA\" />
