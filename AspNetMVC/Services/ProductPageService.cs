@@ -129,7 +129,7 @@ namespace AspNetMVC.Services
 
                 if (include)
                 {
-                    result.IsSuccessful = false;
+                    result.Status = 1;
                 }
                 else
                 {
@@ -147,12 +147,12 @@ namespace AspNetMVC.Services
                         EditUser = name,
                     });
                     _context.SaveChanges();
-                    result.IsSuccessful = true;
+                    result.Status = 0;
                 }
             }
             catch (Exception ex)
             {
-                result.IsSuccessful = false;
+                result.Status = 2;
                 result.Exception = ex;
             }
             return result;
@@ -263,6 +263,35 @@ namespace AspNetMVC.Services
             }
             return result;
         }
+        public OperationResult modifyUserDefined(Guid userDefinedId, UserDefinedAll userDefinedall)
+        {
+            var result = new OperationResult();
+            var itemarray = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == userDefinedId);
+            try
+            {
+                foreach(var item in itemarray)
+                {
+                item.RoomType = userDefinedall.RoomType;
+                item.Squarefeet = userDefinedall.Squarefeet;
+                item.ServiceItems = userDefinedall.ServiceItem;
+                item.Hour = countHour(userDefinedall.RoomType, userDefinedall.Squarefeet);
+                item.Price = Convert.ToDecimal(countHour(userDefinedall.RoomType, userDefinedall.Squarefeet)) * 500;
+                item.EditTime = DateTime.UtcNow.AddHours(8);
+                item.EditUser = item.AccountName;
+                _repository.Update<UserDefinedProduct>(item);
+                }
+                _context.SaveChanges();
+                result.IsSuccessful = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccessful = false;
+                result.Exception = ex;
+            }
+            return result;
+        }
+
 
     }
 }

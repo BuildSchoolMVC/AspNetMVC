@@ -50,6 +50,7 @@ window.onload = function () {
     getPackageProductId()
     createViewedPic()
     addToCart()
+    UserDefindaddToCart()
 
 }
 
@@ -440,7 +441,7 @@ function postUserDefineData(tempitem) {
                 toastr.success("已將商品加入收藏!!!")
                 setTimeout(() => {
                     cleanView()
-                }, 1000)
+                }, 1500)
                 console.log('Success:', response)
 
             }
@@ -491,7 +492,8 @@ function createPackageObj() {
             })
 
             postUserDefineData(userdefinedarray)
-
+            document.getElementById("modalinput").value = "";
+            $('#titlemodal').modal('hide')
 
         }
     })
@@ -529,8 +531,18 @@ function postCreateFavoriteData(value) {
 
                     getFavorites()
                     toastr.success("已將商品加入收藏!!!")
-                }, 1000)
+                }, 1500)
+
                 console.log('Success:', response)
+
+            }
+            else if (result.response == "exist") {
+                setTimeout(() => {
+
+                    toastr.warning("收藏已經有該商品!!!")
+                }, 1500)
+
+                console.log('exist:', response)
 
             }
         }
@@ -539,38 +551,6 @@ function postCreateFavoriteData(value) {
         .catch(error => console.error('Error:', error))
 }
 
-//抓到單一商品頁圖片的Url
-//function getPicUrl() {
-//    var temp = this.document.getElementsByClassName("product-pic mb-2")
-//    if (temp == null) {
-//        return;
-//    }
-//    else {
-//        var viewedsrc = $(".product-pic.mb-2").children()[0].src;
-//        savePicData(viewedsrc)
-
-//    }
-//}
-//將資料存到localStorage
-//function savePicData(src) {
-//    let localData = JSON.parse(localStorage.getItem('key'))
-//    if (localData == null) {
-//        let viewArray = [];
-//        let temp = {
-//            Id: src
-//        }
-//        viewArray.push(temp)
-//        localStorage.setItem('key', JSON.stringify(viewArray))
-//    }
-//    else {
-//        let temp = {
-//            Id: src
-//        }
-//        localData.push(temp)
-//        localStorage.setItem('key', JSON.stringify(localData))
-
-//    }
-//}
 //創造瀏覽過的商品
 function createViewedPic() {
     var temp = JSON.parse(localStorage.getItem("key"))
@@ -595,8 +575,8 @@ function createViewedPic() {
 
 
 
-var temppageY = $("#hearticon").offset().top;
-var temppageX = $("#hearticon").offset().left;
+var temppageY = $("#hearticon").offset().top - $("#hearticon").width()/ 3*2;
+var temppageX = $("#hearticon").offset().left - $("#hearticon").width()/3*5;
 
 //加入收藏頁特效
 function addToCart() {
@@ -610,21 +590,47 @@ function addToCart() {
             $ball.style.top = evt.pageY + 'px';
             $ball.style.left = evt.pageX + 'px';
             $ball.style.transition = 'left 0s, top 0s';
-            
+
             setTimeout(() => {
                 $ball.style.opacity = '1';
-                $ball.style.top = temppageY+"px";
-                $ball.style.left = temppageX-15 + "px";
-                console.log(temppageX)
-                $ball.style.fontSize = '22px';
+                $ball.style.top = temppageY + "px";
+                $ball.style.left = temppageX + "px";
+                $ball.style.fontSize = '36px';
                 $ball.style.Color = "black";
-                $ball.style.transition = 'left 1.5s , top 1.2s ease-in';
+                $ball.style.transition = 'left 1.2s linear, top 1.2s ease-in';
             }, 200)
             setTimeout(() => {
                 $ball.style.opacity = '0';
             }, 2000)
         }
     })
+}
+
+function UserDefindaddToCart() {
+    var $ball = document.getElementById('ball');
+    definenamebtn.onclick = function (evt) {
+
+        $ball.style.top = evt.pageY + 'px';
+        $ball.style.left = evt.pageX + 'px';
+        $ball.style.transition = 'left 0s, top 0s';
+
+        setTimeout(() => {
+            $ball.style.opacity = '1';
+            $ball.style.top = temppageY + "px";
+            $ball.style.left = temppageX + "px";
+            $ball.style.fontSize = '36px';
+            $ball.style.Color = "black";
+            $ball.style.transition = 'left 1s , top 1.2s ease-in';
+        }, 200)
+        setTimeout(() => {
+            $ball.style.opacity = '0';
+        }, 2000)
+
+    }
+}
+
+function closeModule() {
+    
 }
 
 

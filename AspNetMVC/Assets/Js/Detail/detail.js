@@ -278,11 +278,21 @@ function savePicData(src) {
             }
             else {
 
-                let temp = {
-                    Id: src,
-                    Url: tempURL
+                if (viewArray.length < 5) {
+                    let temp = {
+                        Id: src,
+                        Url: tempURL
+                    }
+                    viewArray.push(temp)
                 }
-                viewArray.push(temp)
+                else {
+                    let temp = {
+                        Id: src,
+                        Url: tempURL
+                    }
+                    viewArray.splice(0,1)
+                    viewArray.push(temp)
+                }
                 localStorage.setItem("key", JSON.stringify(viewArray))
             }
         }
