@@ -173,7 +173,7 @@ window.addEventListener("load", function () {
     submitRegister();
 
     document.querySelector("#btnGoogleSignIn").addEventListener("click", function () {
-        GoogleLogin(this);
+        googleLogin(this);
         document.querySelectorAll("button").forEach(x => {
             x.setAttribute("disabled", "disabled");
             x.classList.add("disabled");

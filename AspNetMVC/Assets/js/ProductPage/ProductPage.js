@@ -442,7 +442,7 @@ function postUserDefineData(tempitem) {
                 setTimeout(() => {
                     cleanView()
                 }, 1500)
-                console.log('Success:', response)
+                console.log('Success:', result.response)
 
             }
         }

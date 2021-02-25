@@ -115,6 +115,7 @@ p {
 .register-modal .form {
     display: flex;
     justify-content: center;
+    overflow:hidden;
 }
 
 .register-modal .form .social-btn-grouping .spinner-border-wrap {
@@ -202,19 +203,14 @@ p {
     height: 100%;
 }
 
-.register-modal .form .step1.next,
-.register-modal .form .step2.next {
-    transform: translateX(-100%);
-}
-
 .register-modal .form .step1.next {
     opacity: 0;
-    transform: translateX(-200%);
+    transform: translateX(-100%);
 }
 
 .register-modal .form .step2.next {
     opacity: 1;
-    transform: translateX(-200%);
+    transform: translateX(-50%);
 }
 .register-modal .form .step2 .btn_submit{
     padding-right: 10px;

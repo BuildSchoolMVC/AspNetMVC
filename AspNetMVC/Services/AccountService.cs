@@ -249,32 +249,19 @@ namespace AspNetMVC.Services
             {
                 if (IsLoginValid(model.AccountName, model.Password))
                 {
-                    var account = new RegisterViewModel
-                    {
-                        Email = model.Email,
-                        Address = null,
-                        Gender = 3,
-                        EmailVerification = true,
-                        Name = model.AccountName,
-                        ConfirmPassword = model.Password,
-                        Password = model.Password,
-                        SocialPatform = model.SocialPlatform,
-                        Phone = null,
-                        IsIntegrated = true,
-                        IsThirdParty = true,
-                    };
-                    var result = CreateAccount(account);
+                    var user = GetUser(model.AccountName, Helpers.ToMD5(model.Password));
 
-                    if (result.IsSuccessful)
-                    {
-                        op.IsSuccessful = result.IsSuccessful;
-                        op.MessageInfo = "註冊成功";
-                    }
-                    else
-                    {
-                        op.IsSuccessful = result.IsSuccessful;
-                        op.MessageInfo = "註冊失敗";
-                    }
+                    user.IsIntegrated = true;
+                    user.IsThirdParty = true;
+                    user.SocialPlatform = model.SocialPlatform;
+                    user.EditTime = DateTime.UtcNow.AddHours(8);
+                    user.AccountName = model.AccountName;
+
+                    _repository.Update<Account>(user);
+                    _context.SaveChanges();
+
+                    op.IsSuccessful = true;
+                    op.MessageInfo = "註冊成功";
                 }
                 else
                 {
@@ -464,6 +451,11 @@ namespace AspNetMVC.Services
         public Account GetUser(string email)
         {
             return _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email);
+        }
+
+        public Account GetUser(string accountName,string password)
+        {
+           return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
         }
 
         public HttpCookie SetCookie(string accountName,bool rememberMe)

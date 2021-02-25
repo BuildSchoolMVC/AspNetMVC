@@ -335,7 +335,6 @@ namespace AspNetMVC.Controllers
                         Email = email,
                         ImgUrl = imgUrl
                     };
-
                     return Json(new { response = JsonConvert.SerializeObject(info), status = 1 }, JsonRequestBehavior.AllowGet);
                 }
                 else
