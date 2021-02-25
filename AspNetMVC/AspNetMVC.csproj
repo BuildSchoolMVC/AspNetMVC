@@ -293,6 +293,7 @@
     <Content Include="Assets\Css\Account\Register.css" />
     <Content Include="Assets\Css\Account\RegisterEmailActivation.css" />
     <Content Include="Assets\Css\Account\ResetPassword.css" />
+    <Content Include="Assets\Css\Account\SocialRegister.css" />
     <Content Include="Assets\Css\Detail\Detail.css" />
     <Content Include="Assets\Css\Home\fonts\icofont.eot" />
     <Content Include="Assets\Css\Home\fonts\icofont.svg" />
@@ -361,6 +362,7 @@
     <Content Include="Assets\Js\Account\forgotPassword.js" />
     <Content Include="Assets\Js\Account\register.js" />
     <Content Include="Assets\Js\Account\resetPassword.js" />
+    <Content Include="Assets\Js\Account\SocialRegister.js" />
     <Content Include="Assets\Js\Detail\detail.js" />
     <Content Include="Assets\Js\Home\index.js" />
     <Content Include="Assets\Js\Layout\layout.js" />

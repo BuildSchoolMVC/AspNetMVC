@@ -20,7 +20,6 @@ namespace AspNetMVC.Controllers
             _productPageService = new ProductPageService();
             _accountService = new AccountService();
         }
-        // GET: ProductPage
         public ActionResult Index()
         {
             var result = _productPageService.GetData();
