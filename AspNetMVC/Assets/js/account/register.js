@@ -110,14 +110,14 @@ const submitRegister = () => {
                     validationMessage: grecaptcha.getResponse() //取得驗證token
                 },
                 success: function (result) {
-                    if (result.response == "success") {
+                    if (result.status == 1) {
                         setTimeout(function () {
                             toastr.success("註冊成功，請前往信箱進行驗證");
                             setTimeout(() => {
                                 window.location.replace(`${window.location.origin}/Account/Login`);
                             }, 1500)
                         }, 1000)
-                    } else if (result.response == "valdationFail") {
+                    } else if (result.status == 0) {
                         toastr.warning("請勾選以便進行驗證");
                         setTimeout(function () {
                             document.querySelector(".btn_submit .spinner-border-wrap").classList.add("opacity");

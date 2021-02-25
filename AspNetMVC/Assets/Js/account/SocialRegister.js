@@ -7,6 +7,12 @@
         document.querySelector(".form-header h3 img").src = `/Assets/images/${userInfo.SocialPlatform.toLowerCase()}.png`;
         localStorage.removeItem("social");
     }
+    if (document.querySelector(".form-header .social-platform").textContent.length == 0) {
+        window.location.href = "/Home/Index";
+    }
+    if (document.querySelector(".form-body .social-email").value.length == 0) {
+        document.querySelector(".form-body .social-email").removeAttribute("readonly");
+    }
 }
 
 const registerForm = () => {
@@ -27,7 +33,14 @@ const registerForm = () => {
                 toastr.error("密碼欄位不得為空");
                 return;
             }   
-        }else {
+        } else {
+            document.querySelector(".spinner-border-wrap").classList.remove("opacity");
+            document.querySelectorAll(".button").forEach(x => {
+                x.classList.add("disabled");
+                x.setAttribute("disabled", "disabled");
+            });
+            document.querySelector(".cancel").removeAttribute("href");
+
             data = {
                 AccountName: account.value,
                 Email: email.value,
@@ -50,8 +63,16 @@ const registerForm = () => {
                     toastr.success(`${result.response}`)
                 } else {
                     toastr.error(`${result.response}`)
+                    document.querySelector(".spinner-border-wrap").classList.add("opacity");
+                    document.querySelectorAll(".button").forEach(x => {
+                        x.classList.remove("disabled");
+                        x.removeAttribute("disabled");
+                    });
+                    document.querySelector(".cancel").setAttribute("href","/Account/Register");
                 }
 
+            }).catch(err => {
+                toastr.error(`${err}`);
             })
         }
     })
