@@ -19,32 +19,6 @@
             <div class="login-block">
                 @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    <div class="social-login">
-                        <h2>使用社群快速登入</h2>
-                        <div class="social-btn-grouping">
-                            <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative" data-type="1">
-                                <img src="~/Assets/Images/google.png" />Google
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                            <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative" data-type="1">
-                                <img src="~/Assets/Images/facebook.png" />Facebook
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                            <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative" data-type="1">
-                                <img src="~/Assets/Images/line.png" />Line
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="w-60">
-                            <button type="button" class="button btn_website-login">回去使用本站註冊帳號登入</button>
-                        </div>
-                    </div>
                     <div class="website-login">
                         <div class="form-group">
                             <div class="col-12 my-2 p-0">
@@ -75,18 +49,43 @@
                             </div>
                             登入
                         </button>
-                        <button class="button btn_loginBySocial" type="button">
-                            以社群帳號登入
-                        </button>
-                        <div class="other">
-                            <div class="form-group">
-                                <div>
-                                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
-                                    @Html.LabelFor(m => m.RememberMe)
-                                </div>
-                                <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
-                                    忘記密碼?
-                                </a>
+                        <div class="form-group d-flex justify-content-between pt-4 mb-0">
+                            <div>
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                            <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
+                                忘記密碼?
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <div class="mt-2 mb-4">
+                                <p class="text-region">或是 社群帳號登入</p>
+                            </div>
+                        </div>
+                        <div class="form-group my-2">
+                            <div class="social-btn-grouping">
+                                <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative" data-type="1">
+                                    <img src="~/Assets/Images/google.png" />
+                                    Google
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative" data-type="1">
+                                    <img src="~/Assets/Images/facebook.png" />
+                                    Facebook
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative" data-type="1">
+                                    <img src="~/Assets/Images/line.png" />
+                                    Line
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                     </div>
