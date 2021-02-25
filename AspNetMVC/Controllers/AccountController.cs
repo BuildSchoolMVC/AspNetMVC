@@ -42,7 +42,7 @@ namespace AspNetMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { response = "fail", isSuccess = false });
+                return Json(new { response = "fail", status = false });
             }
             else
             {
@@ -57,21 +57,21 @@ namespace AspNetMVC.Controllers
 
                             Response.Cookies.Add(cookie);
 
-                            return Json(new { response = "success", isSuccess = true });
+                            return Json(new { response = "登入成功", status = 1 });
                         }
                         else
                         {
-                            return Json(new { response = "",isSuccess = false });
+                            return Json(new { response = "無此人", status = 0 });
                         }
                     }
                     else
                     {
-                        return Json(new { response = "emailActivationFail", isSuccess = false });
+                        return Json(new { response = "信箱尚未驗證成功", status = 0 });
                     }
                 }
                 else
                 {
-                    return Json(new { response = "valdationFail", isSuccess = false });
+                    return Json(new { response = "驗證失敗", status = 0 });
                 }
             }
         }
@@ -113,11 +113,11 @@ namespace AspNetMVC.Controllers
 
                     _accountService.SendMail("會員驗證信",model.Email, kvp);
 
-                    return Json(new { response = "success",isSuccess= true });
+                    return Json(new { response = "操作成立", status = 1 });
                 }
                 else
                 {
-                    return Json(new { response = "valdationFail", isSuccess = false });
+                    return Json(new { response = "驗證失敗", status = 0 });
                 }
             }
 
@@ -132,14 +132,14 @@ namespace AspNetMVC.Controllers
             {
                 if (_accountService.IsAccountExist(name))
                 {
-                    return Json(new { response = "exist" });
-                }
+                    return Json(new { response = "已存在", status = 1 });
+                    }
                 else
                 {
-                    return Json(new { response = "nonexist" });
+                    return Json(new { response = "不存在", status = 1 });
                 }
             }
-            return Json(new { response = "error" });
+            return Json(new { response = "發生錯誤", status = 0 });
         }
 
         [HttpPost]
@@ -149,14 +149,14 @@ namespace AspNetMVC.Controllers
             {
                 if (_accountService.IsEmailExist(email))
                 {
-                    return Json(new { response = "Exist" });
+                    return Json(new { response = "已存在", status = 1 });
                 }
                 else
                 {
-                    return Json(new { response = "NonExist" });
+                    return Json(new { response = "不存在", status = 1 });
                 }
             }
-            return Json(new { response = "Error" });
+            return Json(new { response = "發生錯誤", status = 0 });
         }
 
         public ActionResult RegisterEmailActivation(Guid? id)
@@ -211,14 +211,14 @@ namespace AspNetMVC.Controllers
 
                     _accountService.SendMail("密碼重置", model.Email,kvp);
 
-                    return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { response = "操作完成", status = 1 }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
                 }
             }
-            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+            return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ResetPassword() 
@@ -262,21 +262,21 @@ namespace AspNetMVC.Controllers
 
                     objEmail.SendEmailFromGmail();
 
-                    return Json(new { response = result.Status });
+                    return Json(new { response = result.Status, status = 1 });
                 }
                 else
                 {
-                   return Json(new { response = OperationResultStatus.Fail });
+                   return Json(new { response = OperationResultStatus.Fail, status = 0 });
                 }
             }
             else
             {
-                return Json(new { response = OperationResultStatus.ErrorRequest });
+                return Json(new { response = OperationResultStatus.ErrorRequest , status = 0 });
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> RegisterByGoogleLogin(string token)
+        public async Task<ActionResult> GoogleLogin(string token,int type)
         {
             var result = await _accountService.GetGoogleInfo(token);
 
@@ -284,101 +284,114 @@ namespace AspNetMVC.Controllers
             {
                 var googleTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>(result.MessageInfo);
 
-                if (_accountService.IsSocialAccountRegister(googleTokenInfo.Email, "Google"))
+                if (_accountService.IsSocialAccountRegister(googleTokenInfo.Email, "Google")) //檢查此帳戶是否存在並註冊
                 {
-
-                    // 登入並導回首頁登入
-                    //return View();
+                    var cookie = _accountService.SetCookie(_accountService.GetUser(googleTokenInfo.Email).AccountName, false);
+                    Response.Cookies.Add(cookie);
+                    return Json(new { response = "第三方登入", status = 1 });
                 }
                 else
                 {
-                    ViewBag.SocialInfo = new RegisterViewModel
+                    if(type == 0) //若不是，去判斷是進行註冊還是登入
                     {
-                        Email = googleTokenInfo.Email,
-                        SocialPatform = "Google",
-                        ImgUrl = googleTokenInfo.Picture,
-                    };
+                        var SocialInfo = new SocialInfo
+                        {
+                            Email = googleTokenInfo.Email,
+                            SocialPlatform = "Google",
+                            ImgUrl = googleTokenInfo.Picture,
+                        };
+
+                        return Json(new { response = JsonConvert.SerializeObject(SocialInfo), status = 1 });
+                    }
+                    else
+                    {
+                        return Json(new { response = "尚未註冊", status = 0 });
+                    }
+                    
                 }
             }
             else
             {
-
+                return Json(new { response = "發生錯誤", status = 0 });
             }
+        }
 
+        [HttpPost]
+        public ActionResult FacebookLogin(string email,string socialPlatform,string imgUrl,int type)
+        {
+            if (_accountService.IsSocialAccountRegister(email, socialPlatform))
+            {
+                var cookie = _accountService.SetCookie(_accountService.GetUser(email).AccountName, false);
+                Response.Cookies.Add(cookie);
+                return Json(new { response = "第三方登入", status = 1 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                if(type == 0)
+                {
+                    var info = new SocialInfo
+                    {
+                        SocialPlatform = socialPlatform,
+                        Email = email,
+                        ImgUrl = imgUrl
+                    };
+                    return Json(new { response = JsonConvert.SerializeObject(info), status = 1 }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { response = "尚未註冊", status = 0 }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        public ActionResult LineLogin(string code,int state)
+        {
+            var result = _accountService.GetLineInfo(code);
+
+            if(result.IsSuccessful)
+            {
+                var user = JsonConvert.DeserializeObject<LineUserProfile>(result.MessageInfo);
+
+                if (_accountService.IsSocialAccountRegister(user.Email, "Line"))
+                {
+                    var cookie = _accountService.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
+                    Response.Cookies.Add(cookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    if (state == 0)
+                    {
+                        return RedirectToAction("SocialRegister", "Account", new { email = user.Email,photo = user.PictureUrl,social="Line"});
+                    }
+                    else
+                    {
+                        ViewBag.Error = true;
+                        return View("Login");
+                    }
+
+                }
+            }
+            else
+            {
+                return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SocialRegister(string email,string photo,string social)
+        {
+            ViewBag.Email = email;
+            ViewBag.Photo = photo;
+            ViewBag.Social = social;
             return View();
         }
 
-        public async Task<ActionResult> LoginByGoogleLogin(string token)
-        {
-            var result = await _accountService.LoginByGoogle(token);
-
-            if (result.IsSuccessful)
-            {
-                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
-                Response.Cookies.Add(cookie);
-            }
-
-            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
-        }
-
         [HttpPost]
-        public ActionResult RegisterByFacebookLogin([Bind(Include = "FacebookId,Email,Name")]FacebookInfo model)
+        public ActionResult SocialRegister(SocialRegisterViewModel model)
         {
-            var result = _accountService.RegisterByFacebook(model);
-
-            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
+            var result = _accountService.RegisterByThirdParty(model);
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
         }
-
-        [HttpPost]
-        public ActionResult LoginByFacebookLogin([Bind(Include = "FacebookId,Email,Name")] FacebookInfo model)
-        {
-            var result = _accountService.LoginByFacebook(model);
-
-            if (result.IsSuccessful)
-            {
-                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
-                Response.Cookies.Add(cookie);
-                return Json(new { response = "註冊成功", status = result.IsSuccessful });
-            }
-            else
-            {
-                return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
-            }
-        }
-
-        public ActionResult RegisterByLineLogin(string code)
-        {
-            var result = _accountService.RegisterByLine(code);
-
-            if (result.IsSuccessful)
-            {
-                return new RedirectResult("/Account/Login");
-            }
-            else
-            {
-                string content = $"<h1 style='text-align:center;font-size:80px;margin-top:100px;'>{result.MessageInfo}或改以其他社群帳號或本站會員系統註冊。</h1><a href='https://localhost:44308/' style='text-align:center;display:block;'>將於5秒後回到首頁，或是按此回去</a></script>" + "<script>setTimeout(function(){ window.location.href = 'https://localhost:44308/'},5000);</script>";
-               
-                return Content(content);
-            }
-        }
-
-        public ActionResult LoginByLineLogin(string code)
-        {
-            var result = _accountService.LoginByLine(code);
-
-            if (result.IsSuccessful)
-            {
-                
-                var cookie = _accountService.SetCookie(result.MessageInfo.Split(' ')[1], false);
-                Response.Cookies.Add(cookie);
-                return new RedirectResult("/Home/Index");
-            }
-            else
-            {
-                string content = @"<h1 style='text-align:center;font-size:80px;margin-top:100px;'>此帳號還未註冊</h1><a href='https://localhost:44308/' style='text-align:center;display:block;'>將於5秒後回到首頁，或是按此回去</a></script><script>setTimeout(function(){ window.location.href = 'https://localhost:44308/'},5000);</script>";
-                return Content(content);
-            }
-        }
-
     }
 }

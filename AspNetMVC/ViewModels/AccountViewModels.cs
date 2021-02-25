@@ -57,7 +57,6 @@ namespace AspNetMVC.ViewModels
 
         public string SocialPatform { get; set; }
 
-        public string ImgUrl { get; set; }
     }
 
     public class ForgotPasswordViewModel
@@ -98,6 +97,13 @@ namespace AspNetMVC.ViewModels
         public string Picture { get; set; }
     }
 
+    public class FacebookApiTokenInfo
+    {
+        public string Access_token { get; set; }
+        public string Token_type { get; set; }
+        public int Expires_in { get; set; }
+    }
+
     public class FacebookInfo
     {
         public string Email { get; set; }
@@ -122,5 +128,21 @@ namespace AspNetMVC.ViewModels
         public string PictureUrl { get; set; }
         public string StatusMessage { get; set; }
         public string Email { get; set; }
+    }
+
+    public class SocialRegisterViewModel
+    {
+        public string AccountName { get; set; }
+        public string Password { get; set; }
+        public string SocialPlatform { get; set; }
+        public bool IsIntegrated { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class SocialInfo
+    {
+        public string Email { get; set; }
+        public string SocialPlatform { get; set; }
+        public string ImgUrl { get; set; }
     }
 }
