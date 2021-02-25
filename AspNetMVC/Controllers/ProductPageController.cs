@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -36,6 +37,7 @@ namespace AspNetMVC.Controllers
             {
                 _productPageService.CreateUserDefinedDataInFavorite(model.UserDefinedAlls, UserName, TempGuid);
                 
+
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
@@ -51,8 +53,15 @@ namespace AspNetMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                _productPageService.CreatePackageProductDataInFavorite(model.PackageProductId, UserName);
+                var result=_productPageService.CreatePackageProductDataInFavorite(model.PackageProductId, UserName);
+                if (result.Status == 0)
+                {
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+                }
+                else if(result.Status==1)
+                {
+                    return Json(new { response = "exist" }, JsonRequestBehavior.AllowGet);
+                }
             }
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
@@ -79,6 +88,18 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult ModifyUserDefinedByUserDefindId(Guid userDefinedId, UserDefinedAll userDefinedall)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _productPageService.modifyUserDefined(userDefinedId,userDefinedall);
+
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
