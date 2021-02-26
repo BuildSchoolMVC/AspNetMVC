@@ -58,6 +58,7 @@ namespace AspNetMVC.Controllers {
 				return View("Error");
 			}
 			DataViewModel dataViewModel = new DataViewModel {
+				FavoriteId = favoriteId,
 				IsPackage = userFavorite.IsPackage,
 				Package = null,
 				UserDefinedList = null,
@@ -76,17 +77,21 @@ namespace AspNetMVC.Controllers {
 			//檢查
 			string accountName;
 			Guid favoriteId;
+			DateTime now = DateTime.Now;
+			Decimal totalAmount;
 			try {
 				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+				favoriteId = Guid.Parse(post.UserForm.FavoriteId);
+				_checkoutService.CheckAccountExist(accountName);
+				_checkoutService.CheckFavoriteId(accountName, favoriteId);
+
+				totalAmount = _checkoutService.GetTotalAmount(favoriteId);
+				
+
 				//從資料庫依據accountName取得價格
-				//favoriteId = Guid.Parse(id);
 				//= _checkoutService.GetTotalAmount(favoriteId, accountName);
-			} catch (Exception) {
-				return View("Error");
-			}
-			//建立訂單
-			try {
-				var result = _checkoutService.AddOrder(post.UserForm, accountName);
+				//建立訂單
+				var result = _checkoutService.AddOrder(post.UserForm, accountName, favoriteId, totalAmount, ref now);
 				if (!result.IsSuccessful) {
 					throw new Exception("訂單建立失敗");
 				}
@@ -96,13 +101,13 @@ namespace AspNetMVC.Controllers {
 
 			post.ChoosePayment = "ALL";
 			post.EncryptType = "1";
-			post.ItemName = HttpUtility.UrlEncode("");
+			post.ItemName = HttpUtility.UrlEncode("打掃服務");
 			post.MerchantID = "2000132";
-			post.MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+			post.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
 			post.MerchantTradeNo = Guid.NewGuid().ToString().Substring(0, 20);
 			post.PaymentType = "aio";
-			post.ReturnURL = "https://872599f54008.ngrok.io" + "/Checkout/TestResponse";
-			post.TotalAmount = "1000";
+			post.ReturnURL = "https://872599f54008.ngrok.io" + "/Checkout/TestResponse";//todo
+			post.TotalAmount = totalAmount.ToString();
 			post.TradeDesc = HttpUtility.UrlEncode("打掃服務");
 
 			string HashKey = "5294y06JbISpM5x9";
@@ -232,6 +237,7 @@ namespace AspNetMVC.Controllers {
 		public string TradeDesc { get; set; }
 	}
 	public class UserForm {
+		public string FavoriteId { get; set; }
 		public string DateService { get; set; }
 		public string FullName { get; set; }
 		public string Phone { get; set; }
