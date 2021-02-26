@@ -395,6 +395,20 @@
 		</div>
 	</div>
 </div>
+@* hide form *@
+<form action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" id="ECPayForm" method="post" ref="form">
+	<input type="hidden" name="CheckMacValue" id="CheckMacValue" value="8C58542F3B269D331AD3195B02857C60FF0A45726D4156C965362EB90D6AFC15" />
+	<input type="hidden" name="ChoosePayment" id="ChoosePayment" value="ALL" />
+	<input type="hidden" name="EncryptType" id="EncryptType" value="1" />
+	<input type="hidden" name="ItemName" id="ItemName" value="uCleaner" />
+	<input type="hidden" name="MerchantID" id="MerchantID" value="2000132" />
+	<input type="hidden" name="MerchantTradeDate" value="" />
+	<input type="hidden" name="MerchantTradeNo" value="durkzodkfjafdaf00009" />
+	<input type="hidden" name="PaymentType" value="aio" />
+	<input type="hidden" name="ReturnURL" value="https://872599f54008.ngrok.io/Checkout/TestResponse" />
+	<input type="hidden" name="TotalAmount" value="1200" />
+	<input type="hidden" name="TradeDesc" value="desc" />
+</form>
 @helper PackageProduct() {
 	int?[] roomTypes = { Model.Package.RoomType, Model.Package.RoomType2, Model.Package.RoomType3 };
 	int?[] squareFeetType = { Model.Package.Squarefeet, Model.Package.Squarefeet2, Model.Package.Squarefeet3 };

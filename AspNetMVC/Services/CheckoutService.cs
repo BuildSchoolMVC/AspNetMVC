@@ -97,20 +97,9 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
+		public void GetTotalAmount(string accountName) {
 
-		/// 產生檢查碼 傳遞 parameters 參數,需要先經過英文字母 A-Z 排序 
-		//private string BuildCheckMacValue(string parameters, int encryptType = 1) {
-		//	string szCheckMacValue = String.Empty;
-		//	// 產生檢查碼。 
-		//	szCheckMacValue = String.Format("HashKey={0}{1}&HashIV={2}", this.HashKey, parameters, this.HashIV);
-		//	szCheckMacValue = HttpUtility.UrlEncode(szCheckMacValue).ToLower();
-		//	if (encryptType == 1) {
-		//		szCheckMacValue = SHA256Encoder.Encrypt(szCheckMacValue);
-		//	} else {
-		//		szCheckMacValue = MD5Encoder.Encrypt(szCheckMacValue);
-		//	}
-		//	return szCheckMacValue;
-		//}
+		}
 	}
 	public class CouponJson {
 		public Guid CouponDetailId { get; set; }
