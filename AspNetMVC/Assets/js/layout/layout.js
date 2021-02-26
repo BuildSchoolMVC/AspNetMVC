@@ -757,7 +757,6 @@ window.addEventListener("load", () => {
         toggleTip();
     } else {
         getFavorites();
-       
     }
 
     document.querySelectorAll(".subItem").forEach(x => {
