@@ -27,7 +27,6 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public string Address { get; set; }
 
-		[Required]
 		public string Remark { get; set; }
 
 		[Required]

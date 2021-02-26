@@ -113,8 +113,9 @@ namespace AspNetMVC.Services {
 			} else {
 				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
 			}
+			//userForm.Remark = userForm.Remark == null ? string.Empty : userForm.Remark;
 			using (var transcation = _context.Database.BeginTransaction()) {
-				try {
+				//try {
 					Order order = new Order {
 						OrderId = Guid.NewGuid(),
 						AccountName = accountName,
@@ -123,7 +124,7 @@ namespace AspNetMVC.Services {
 						Phone = userForm.Phone,
 						DateService = DateTime.Parse(userForm.DateService),
 						Address = $"{userForm.County}{userForm.District}{userForm.Address}",
-						Remark = userForm.Remark,
+						Remark = userForm.Remark == null ? string.Empty : userForm.Remark,
 						OrderState = (byte)OrderState.PendingPayment,
 						Rate = null,
 						Comment = string.Empty,
@@ -169,11 +170,11 @@ namespace AspNetMVC.Services {
 					result.IsSuccessful = true;
 					transcation.Commit();
 
-				} catch (Exception ex) {
-					result.IsSuccessful = false;
-					result.Exception = ex;
-					transcation.Rollback();
-				}
+				//} catch (Exception ex) {
+				//	result.IsSuccessful = false;
+				//	result.Exception = ex;
+				//	transcation.Rollback();
+				//}
 			}
 			return result;
 		}

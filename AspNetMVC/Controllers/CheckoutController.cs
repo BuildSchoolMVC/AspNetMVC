@@ -86,13 +86,16 @@ namespace AspNetMVC.Controllers {
 				_checkoutService.CheckFavoriteId(accountName, favoriteId);
 				totalAmount = _checkoutService.GetTotalAmount(favoriteId);
 				
-				var result = _checkoutService.AddOrder(post.UserForm, accountName, favoriteId, totalAmount, ref now);
-				if (!result.IsSuccessful) {
-					throw new Exception("訂單建立失敗");
-				}
+				
 			} catch (Exception ex) {
 				return Json(ex.Message);
 			}
+
+			var result = _checkoutService.AddOrder(post.UserForm, accountName, favoriteId, totalAmount, ref now);
+			if (!result.IsSuccessful) {
+				throw new Exception("訂單建立失敗");
+			}
+
 
 			post.ChoosePayment = "ALL";
 			post.EncryptType = "1";
