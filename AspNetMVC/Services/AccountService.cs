@@ -39,7 +39,6 @@ namespace AspNetMVC.Services
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
-
         public OperationResult CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();

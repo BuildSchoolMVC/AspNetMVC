@@ -27,7 +27,7 @@ namespace AspNetMVC.Services
         /// 新增客服資料到資料表
         /// </summary>
         /// <param name="c">從前端表單所有收集的資料</param>
-        public void CreateData(CustomerViewModel c)
+        public void CreateData(CustomerViewModel cVM)
         {
             var result = new OperationResult();
 
@@ -36,15 +36,15 @@ namespace AspNetMVC.Services
                 _repository.Create(new CustomerService
                 {
                     CustomerServiceId = Guid.NewGuid(),
-                    Name = c.Name,
-                    Phone = c.Phone,
-                    Email = c.Email,
-                    Category = c.Category,
-                    Content = c.Content,
+                    Name = cVM.Name,
+                    Phone = cVM.Phone,
+                    Email = cVM.Email,
+                    Category = cVM.Category,
+                    Content = cVM.Content,
                     IsRead = false,
-                    CreateUser = c.Name, //建立後不可改變
+                    CreateUser = cVM.Name, //建立後不可改變
                     CreateTime = DateTime.UtcNow.AddHours(8),//轉換為我們時區之時間
-                    EditUser = c.Name,//第一次建立時即為編輯者，後續可改變
+                    EditUser = cVM.Name,//第一次建立時即為編輯者，後續可改變
                     EditTime = DateTime.UtcNow.AddHours(8),
                 });
                 _context.SaveChanges();
@@ -60,7 +60,7 @@ namespace AspNetMVC.Services
         /// 顯示該資料表所有資料
         /// </summary>
         /// <returns></returns>
-        public List<CustomerService> ShowData() => _repository.GetAll<CustomerService>().ToList();
+        public List<CustomerService> ShowAllData() => _repository.GetAll<CustomerService>().ToList();
 
         /// <summary>
         ///  查看單筆資料
@@ -68,7 +68,7 @@ namespace AspNetMVC.Services
         /// <param name="id"></param>
         /// <param name="user">編輯者</param>
         /// <returns></returns>
-        public CustomerService ReadContent(Guid? id,string user)
+        public CustomerService ShowSingleData(Guid? id,string user)
         {
             var customer = _repository.GetAll<CustomerService>().FirstOrDefault(x => x.CustomerServiceId == id);
             customer.IsRead = true;
