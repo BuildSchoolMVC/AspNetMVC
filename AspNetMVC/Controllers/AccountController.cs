@@ -99,6 +99,8 @@ namespace AspNetMVC.Controllers
                     model.IsIntegrated = false;
                     model.IsThirdParty = false;
                     model.SocialPatform = "None";
+                    model.IsProvidedByThirdParty = false;
+                    model.IsProvidedByUser = true;
                     _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
@@ -335,7 +337,6 @@ namespace AspNetMVC.Controllers
                         Email = email,
                         ImgUrl = imgUrl
                     };
-
                     return Json(new { response = JsonConvert.SerializeObject(info), status = 1 }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -385,6 +386,7 @@ namespace AspNetMVC.Controllers
             ViewBag.Email = email;
             ViewBag.Photo = photo;
             ViewBag.Social = social;
+            ViewBag.IsProvidedByThirdParty = string.IsNullOrEmpty(email);
             return View();
         }
 

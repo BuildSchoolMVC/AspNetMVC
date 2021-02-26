@@ -13,6 +13,8 @@
     if (document.querySelector(".form-body .social-email").value.length == 0) {
         document.querySelector(".form-body .social-email").removeAttribute("readonly");
     }
+
+    document.querySelector("#Password").setAttribute("type", "password");
 }
 
 const registerForm = () => {
@@ -28,11 +30,9 @@ const registerForm = () => {
         } else if (!judgeCharacter(account.value, "english") || account.value.length < 6 && account.value.length >= 1) {
             toastr.error("格式不對");
             return;
-        } else if (checkbox.checked) {
-            if (password.value.length == 0) {
-                toastr.error("密碼欄位不得為空");
-                return;
-            }   
+        } else if (checkbox.checked == true && password.value.length == 0) {
+            toastr.error("密碼欄位不得為空");
+            return;
         } else {
             document.querySelector(".spinner-border-wrap").classList.remove("opacity");
             document.querySelectorAll(".button").forEach(x => {

@@ -25,7 +25,7 @@ namespace AspNetMVC.Models.Entity {
 
         public string Comment { get; set; }
 
-		public Guid? CouponID { get; set; }
+		public Guid? CouponId { get; set; }
 
 		[Required]
 		public byte PaymentMethod { get; set; }
@@ -44,7 +44,7 @@ namespace AspNetMVC.Models.Entity {
 		//已取消 2
 		Cancelled,
 	}
-	public enum PaymentMethod {
+	public enum PayMethod {
 		//信用卡 0
 		CreditCard,
 		//ATM 1
