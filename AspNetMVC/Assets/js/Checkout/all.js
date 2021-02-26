@@ -548,6 +548,7 @@ document.querySelector('#toECPay').addEventListener('click', function () {
     contentType: 'application/json',
     data: JSON.stringify({
       UserForm: {
+        FavoriteId: favoriteId,
         DateService: (() => {
           const d = $row_date.focusDate[0].obj_date;
           const t = $row_time.focusTime[0].workTime;

@@ -97,12 +97,8 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
-		public void GetTotalAmount(string accountName) {
-
-		}
-		public OperationResult AddOrder(Controllers.UserForm userForm, string accountName) {
-			//檢查帳號存在
-			_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+		public OperationResult AddOrder(Controllers.UserForm userForm, string accountName, Guid favoriteId, decimal total, ref DateTime now) {
+			//收藏Id與擁有者相符
 
 			var result = new OperationResult();
 			using (var transcation = _context.Database.BeginTransaction()) {
@@ -123,17 +119,23 @@ namespace AspNetMVC.Services {
 						PaymentMethod = (byte)PayMethod.ECPay,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
 						InvoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo),
+						CreateTime = now,
+						EditTime = now,
+						CreateUser = accountName,
+						EditUser = accountName,
 					};
 					_repository.Create<Order>(order);
 					_context.SaveChanges();
 					OrderDetail od = new OrderDetail {
 						OrderDetailId = Guid.NewGuid(),
 						OrderId = order.OrderId,
-						//UserDefinedId = ,
-						//PackageProductId = ,
+						//FavoriteId = ,
 						//ProductPrice = ,
 						//ProductName = ,
-						//IsPackage = ,
+						CreateTime = now,
+						EditTime = now,
+						CreateUser = accountName,
+						EditUser = accountName,
 					};
 					_repository.Create<OrderDetail>(od);
 					_context.SaveChanges();
@@ -148,6 +150,26 @@ namespace AspNetMVC.Services {
 				}
 			}
 			return result;
+		}
+		public decimal GetTotalAmount(Guid favoriteId) {
+			UserFavorite f = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
+			if (f.IsPackage) {
+				return _repository.GetAll<PackageProduct>()
+					.First(x => x.PackageProductId == f.PackageProductId)
+					.Price;
+			} else {
+				return _repository.GetAll<UserDefinedProduct>()
+					.Where(x => x.UserDefinedId == f.UserDefinedId)
+					.Sum(x => x.Price);
+			}
+		}
+		public void CheckAccountExist(string accountName) {
+			//帳號不存在拋例外
+			_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+		}
+		public void CheckFavoriteId(string accountName, Guid favoriteId) {
+			//收藏Id與帳號不符拋例外
+			_repository.GetAll<UserFavorite>().First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
 		}
 	}
 	public class CouponJson {
