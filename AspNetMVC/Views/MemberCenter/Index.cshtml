@@ -549,7 +549,7 @@
                                                 <td class="prod-detail-table_prod_price"><p>{{i.Price}}</p></td>
                                                 <td class="prod-detail-table_remove">
                                                     <button class="btn btn-main btn-fav" id="remove" onclick=""><p>{{button1}}</p></button>
-                                                    <button  v-if="ispackage" class="btn btn-main btn-fav" id="modify" onclick=""><p>{{button2}}</p></button>
+                                                    <button v-if="i.isPackage==fasle" class="btn btn-main btn-fav" id="modify" onclick=""><p>{{button2}}</p></button>
                                                     <button class="btn btn-main btn-fav" id="buying" onclick=""><p>{{button}}</p></button>
                                                 </td>
                                             </tr v-for="i>
