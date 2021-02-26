@@ -33,7 +33,6 @@
 	width: 1rem;
 	height: 1rem;
 	border: .2em solid currentColor;
-	margin-right: 10px;
 	border-right-color: transparent;
 	transition: .4s ease-in;
 }
@@ -126,10 +125,7 @@
 .login-modal .form .website-login{
 	min-width: 100%;
 }
-.login-modal .form .social-login,
-.login-modal .form .website-login {
-	transform: translateX(-50%);
-}
+
 
 .login-modal .form .warn {
 	font-size: 14px;
@@ -286,21 +282,58 @@ flex-direction: column;
 	margin-top: 50px;
 	width: 80%;
 }
+.login-modal .form .social-btn-grouping {
+	display: flex;
+	align-items: center;
+}
+.login-modal .form .social-btn-grouping button {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	line-height: 45px;
+	margin-bottom: 15px;
+	margin-right: 5px;
+	letter-spacing: 1px;
+	color: var(--light);
+	overflow: hidden;
+	width: 80%;
+	position: relative;
+	font-size: 12px;
+	text-align: left;
+	padding: 0 10px 0 40px;
+	box-shadow: 1px 1px 10px #adadad80;
+	transition: .2s ease-in-out;
+}
 
-.login-modal .form .social-login .social-btn-grouping #btnGoogleSignIn {
+.login-modal .form .social-btn-grouping #btnGoogleSignIn {
 	background: #CE4535;
 }
 
-.login-modal .form .social-login .social-btn-grouping #btnFacebookSignIn {
+.login-modal .form .social-btn-grouping #btnFacebookSignIn {
 	background: #1778F2;
 }
 
-.login-modal .form .social-login .social-btn-grouping #btnLineSignIn {
+.login-modal .form .social-btn-grouping #btnLineSignIn {
 	background: #1ACA4D;
 }
+.login-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
+	background: #a04d44;
+}
 
-.login-modal .form .social-login .social-btn-grouping img {
-	width: 50px;
+.login-modal .form .social-btn-grouping #btnFacebookSignIn:hover {
+	background: #1f5292;
+}
+
+.login-modal .form .social-btn-grouping #btnLineSignIn:hover {
+	background: #31ab54;
+}
+.login-modal .form .social-btn-grouping button.disabled {
+	opacity: .7;
+}
+
+
+.login-modal .form .social-btn-grouping img {
+	width: 30px;
 	background: var(--light);
 	object-fit: contain;
 	padding: 3px;
@@ -349,4 +382,32 @@ flex-direction: column;
 
 .login-modal .other .form-group a {
 	display: block
+}
+.login-modal .form .text-region {
+	text-align: center;
+	margin: 10px 0;
+}
+.login-modal .form .text-region:after,
+.login-modal .form .text-region:before {
+	content: "";
+	width: 20%;
+	display: inline-block;
+	vertical-align: middle;
+	height: 1px;
+	background: rgba(161, 146, 146, 0.50);
+	margin: 0 10px;
+}
+
+
+@media screen and (min-width:768px) {
+	.login-modal .form .social-btn-grouping button {
+		width: 75%;
+		font-size: 16px;
+	}
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn{
+		font-size: 14px;
+	}
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap {
+		width: 15%;
+	}
 }

@@ -55,7 +55,7 @@ namespace AspNetMVC.Services
                         Address = account.Address,
                         Password = Helpers.ToMD5(account.Password),
                         Email = account.Email,
-                        EmailVerification = account.EmailVerification,
+                        EmailStatus = JsonConvert.SerializeObject(new { EmailVerification = account.EmailVerification , IsProvidedByThirdParty = account.IsProvidedByThirdParty, IsProvidedByUser =  account.IsProvidedByUser}),
                         Gender = account.Gender, // 1 男 2 女 3 其他
                         Phone = account.Phone,
                         Authority = 3, //預設 3 : 一般會員
@@ -149,7 +149,7 @@ namespace AspNetMVC.Services
             }
             else
             {
-                return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName).EmailVerification;
+                return JsonConvert.DeserializeObject<EmailStatus>(user.EmailStatus).EmailVerification;
             }
         }
         
@@ -167,9 +167,12 @@ namespace AspNetMVC.Services
 
                 if(user != null)
                 {
-                    if(user.EmailVerification == false)
+                    if(JsonConvert.DeserializeObject<EmailStatus>(user.EmailStatus).EmailVerification == false)
                     {
-                        user.EmailVerification = true;
+                        var emailStatus = JsonConvert.DeserializeObject<EmailStatus>(user.EmailStatus);
+                        emailStatus.EmailVerification = true;
+
+                        user.EmailStatus = JsonConvert.SerializeObject(emailStatus);
                         user.EditTime = DateTime.UtcNow.AddHours(8);
                         user.EditUser = user.AccountName;
                         _repository.Update<Account>(user);
@@ -249,32 +252,19 @@ namespace AspNetMVC.Services
             {
                 if (IsLoginValid(model.AccountName, model.Password))
                 {
-                    var account = new RegisterViewModel
-                    {
-                        Email = model.Email,
-                        Address = null,
-                        Gender = 3,
-                        EmailVerification = true,
-                        Name = model.AccountName,
-                        ConfirmPassword = model.Password,
-                        Password = model.Password,
-                        SocialPatform = model.SocialPlatform,
-                        Phone = null,
-                        IsIntegrated = true,
-                        IsThirdParty = true,
-                    };
-                    var result = CreateAccount(account);
+                    var user = GetUser(model.AccountName, Helpers.ToMD5(model.Password));
 
-                    if (result.IsSuccessful)
-                    {
-                        op.IsSuccessful = result.IsSuccessful;
-                        op.MessageInfo = "註冊成功";
-                    }
-                    else
-                    {
-                        op.IsSuccessful = result.IsSuccessful;
-                        op.MessageInfo = "註冊失敗";
-                    }
+                    user.IsIntegrated = true;
+                    user.IsThirdParty = true;
+                    user.SocialPlatform = model.SocialPlatform;
+                    user.EditTime = DateTime.UtcNow.AddHours(8);
+                    user.AccountName = model.AccountName;
+
+                    _repository.Update<Account>(user);
+                    _context.SaveChanges();
+
+                    op.IsSuccessful = true;
+                    op.MessageInfo = "註冊成功";
                 }
                 else
                 {
@@ -297,7 +287,13 @@ namespace AspNetMVC.Services
                     Phone = null,
                     IsIntegrated = false,
                     IsThirdParty = true,
+                    IsProvidedByThirdParty = model.IsIsProvidedByThirdParty
+                    
                 };
+
+                if (model.IsIsProvidedByThirdParty) account.IsProvidedByUser = model.IsIsProvidedByThirdParty;
+                else account.IsProvidedByUser = string.IsNullOrEmpty(model.Email);
+
                 var result = CreateAccount(account);
 
                 if (result.IsSuccessful)
@@ -464,6 +460,11 @@ namespace AspNetMVC.Services
         public Account GetUser(string email)
         {
             return _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email);
+        }
+
+        public Account GetUser(string accountName,string password)
+        {
+           return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
         }
 
         public HttpCookie SetCookie(string accountName,bool rememberMe)

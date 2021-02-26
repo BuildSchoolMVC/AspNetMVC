@@ -99,6 +99,8 @@ namespace AspNetMVC.Controllers
                     model.IsIntegrated = false;
                     model.IsThirdParty = false;
                     model.SocialPatform = "None";
+                    model.IsProvidedByThirdParty = false;
+                    model.IsProvidedByUser = true;
                     _accountService.CreateAccount(model);
 
                     Dictionary<string, string> kvp = new Dictionary<string, string>
@@ -384,6 +386,7 @@ namespace AspNetMVC.Controllers
             ViewBag.Email = email;
             ViewBag.Photo = photo;
             ViewBag.Social = social;
+            ViewBag.IsProvidedByThirdParty = string.IsNullOrEmpty(email);
             return View();
         }
 
@@ -391,6 +394,11 @@ namespace AspNetMVC.Controllers
         public ActionResult SocialRegister(SocialRegisterViewModel model)
         {
             var result = _accountService.RegisterByThirdParty(model);
+            if (result.IsSuccessful)
+            {
+                var cookie = _accountService.SetCookie(model.AccountName, false);
+                Response.Cookies.Add(cookie);
+            }
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
         }
     }

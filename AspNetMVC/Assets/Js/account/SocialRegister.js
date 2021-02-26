@@ -7,6 +7,14 @@
         document.querySelector(".form-header h3 img").src = `/Assets/images/${userInfo.SocialPlatform.toLowerCase()}.png`;
         localStorage.removeItem("social");
     }
+    if (document.querySelector(".form-header .social-platform").textContent.length == 0) {
+        window.location.href = "/Home/Index";
+    }
+    if (document.querySelector(".form-body .social-email").value.length == 0) {
+        document.querySelector(".form-body .social-email").removeAttribute("readonly");
+    }
+
+    document.querySelector("#Password").setAttribute("type", "password");
 }
 
 const registerForm = () => {
@@ -22,12 +30,17 @@ const registerForm = () => {
         } else if (!judgeCharacter(account.value, "english") || account.value.length < 6 && account.value.length >= 1) {
             toastr.error("格式不對");
             return;
-        } else if (checkbox.checked) {
-            if (password.value.length == 0) {
-                toastr.error("密碼欄位不得為空");
-                return;
-            }   
-        }else {
+        } else if (checkbox.checked == true && password.value.length == 0) {
+            toastr.error("密碼欄位不得為空");
+            return;
+        } else {
+            document.querySelector(".spinner-border-wrap").classList.remove("opacity");
+            document.querySelectorAll(".button").forEach(x => {
+                x.classList.add("disabled");
+                x.setAttribute("disabled", "disabled");
+            });
+            document.querySelector(".cancel").removeAttribute("href");
+
             data = {
                 AccountName: account.value,
                 Email: email.value,
@@ -47,11 +60,22 @@ const registerForm = () => {
             .then(res => res.json())
             .then(result => {
                 if (result.status) {
-                    toastr.success(`${result.response}`)
+                    toastr.success(`${result.response}`);
+                    setTimeout(() => {
+                        window.location.href = "/home";
+                    }, 1500);
                 } else {
                     toastr.error(`${result.response}`)
+                    document.querySelector(".spinner-border-wrap").classList.add("opacity");
+                    document.querySelectorAll(".button").forEach(x => {
+                        x.classList.remove("disabled");
+                        x.removeAttribute("disabled");
+                    });
+                    document.querySelector(".cancel").setAttribute("href","/Account/Register");
                 }
 
+            }).catch(err => {
+                toastr.error(`${err}`);
             })
         }
     })
