@@ -48,13 +48,11 @@ namespace AspNetMVC.ViewModels
         [Display(Name = "電話")]
         public string Phone { get; set; }
         public string ValidationMessage { get; set; }
-
         public bool EmailVerification { get; set; }
-
+        public bool IsProvidedByThirdParty { get; set; }
+        public bool IsProvidedByUser { get; set; }
         public bool IsThirdParty { get; set; }
-
         public bool IsIntegrated { get; set; }
-
         public string SocialPatform { get; set; }
 
     }
@@ -137,6 +135,7 @@ namespace AspNetMVC.ViewModels
         public string SocialPlatform { get; set; }
         public bool IsIntegrated { get; set; }
         public string Email { get; set; }
+        public bool IsIsProvidedByThirdParty { get; set; }
     }
 
     public class SocialInfo
@@ -145,4 +144,10 @@ namespace AspNetMVC.ViewModels
         public string SocialPlatform { get; set; }
         public string ImgUrl { get; set; }
     }
+
+    public class EmailStatus
+    {
+        public bool EmailVerification { get; set; }
+        public bool IsProvidedByThirdParty { get; set; } 
+        public bool IsProvidedByUser { get; set; }
 }
