@@ -26,7 +26,7 @@ namespace AspNetMVC.Models.Entity
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public bool EmailVerification { get; set; }
+        public string EmailStatus { get; set; }
 
         [StringLength(30)]
         public string Phone { get; set; }

@@ -363,14 +363,14 @@
     <Content Include="Assets\Images\wall.jpg" />
     <Content Include="Assets\Images\wash machine.jpg" />
     <Content Include="Assets\Images\water pip.jpg" />
-    <Content Include="Assets\Js\Account\forgotPassword.js" />
-    <Content Include="Assets\Js\Account\register.js" />
-    <Content Include="Assets\Js\Account\resetPassword.js" />
+    <Content Include="Assets\Js\Account\ForgotPassword.js" />
+    <Content Include="Assets\Js\Account\Register.js" />
+    <Content Include="Assets\Js\Account\ResetPassword.js" />
     <Content Include="Assets\Js\Account\SocialRegister.js" />
     <Content Include="Assets\Js\Detail\detail.js" />
     <Content Include="Assets\Js\Home\index.js" />
-    <Content Include="Assets\Js\Layout\layout.js" />
-    <Content Include="Assets\Js\Account\login.js" />
+    <Content Include="Assets\Js\Layout\Layout.js" />
+    <Content Include="Assets\Js\Account\Login.js" />
     <Content Include="Assets\Js\MemberCenter\MemberCenter.js" />
     <Content Include="Assets\Js\ProductPage\ProductPage.js" />
     <Content Include="Assets\Images\visa.png" />
@@ -546,11 +546,6 @@
     <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
-    <Content Include="Views\MemberCRUD\Create.cshtml" />
-    <Content Include="Views\MemberCRUD\Delete.cshtml" />
-    <Content Include="Views\MemberCRUD\Details.cshtml" />
-    <Content Include="Views\MemberCRUD\Edit.cshtml" />
-    <Content Include="Views\MemberCRUD\Index.cshtml" />
     <Content Include="Views\Account\SocialRegister.cshtml" />
     <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
   </ItemGroup>
