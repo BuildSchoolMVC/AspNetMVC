@@ -7,9 +7,9 @@
         document.querySelector(".form-header h3 img").src = `/Assets/images/${userInfo.SocialPlatform.toLowerCase()}.png`;
         localStorage.removeItem("social");
     }
-    if (document.querySelector(".form-header .social-platform").textContent.length == 0) {
-        window.location.href = "/Home/Index";
-    }
+    //if (document.querySelector(".form-header .social-platform").textContent.length == 0) {
+    //    window.location.href = "/Home/Index";
+    //}
     if (document.querySelector(".form-body .social-email").value.length == 0) {
         document.querySelector(".form-body .social-email").removeAttribute("readonly");
     }

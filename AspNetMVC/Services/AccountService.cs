@@ -292,7 +292,7 @@ namespace AspNetMVC.Services
                 };
 
                 if (model.IsIsProvidedByThirdParty) account.IsProvidedByUser = model.IsIsProvidedByThirdParty;
-                else account.IsProvidedByUser = string.IsNullOrEmpty(model.Email);
+                else account.IsProvidedByUser = !string.IsNullOrEmpty(model.Email);
 
                 var result = CreateAccount(account);
 
