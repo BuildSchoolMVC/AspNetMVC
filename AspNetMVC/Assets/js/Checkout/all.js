@@ -257,14 +257,14 @@ let workTime = new Date();
 workTime.setHours(8);
 workTime.setMinutes(0);
 for (let i = 0; i < 4; i++) {
-  ele = createTime(workTime);
+  let ele = createTime(workTime);
   $('#row_time').append(ele);
   workTime.setMinutes(workTime.getMinutes() + 30);
 }
 workTime.setHours(13);
 workTime.setMinutes(0);
 for (let i = 0; i < 12; i++) {
-  ele = createTime(workTime);
+  let ele = createTime(workTime);
   $('#row_time').append(ele);
   workTime.setMinutes(workTime.getMinutes() + 30);
 }
@@ -581,6 +581,20 @@ document.querySelector('#toECPay').addEventListener('click', function() {
   //   },
   // });
 });
+// 傳回後端 UserForm
+const UserForm = {
+  DateTime: function() {
+    const d = $row_date.focusDate[0].obj_date;
+    const t = $row_time.focusTime[0].workTime;
+    const yyyy = d.getFullYear();
+    const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+    const dd = d.getDate().toString().padStart(2, '0');
+    const HH = t.getHours().toString().padStart(2, '0');
+    const mm = t.getMinutes().toString().padStart(2, '0');
+    const ss = '00';
+    return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+  },
+}
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {
   const $checkbox = $(e.target).children('[type=checkbox]')[0];

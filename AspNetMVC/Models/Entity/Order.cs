@@ -25,7 +25,7 @@ namespace AspNetMVC.Models.Entity {
 
         public string Comment { get; set; }
 
-		public Guid? CouponID { get; set; }
+		public Guid? CouponId { get; set; }
 
 		[Required]
 		public byte PaymentMethod { get; set; }

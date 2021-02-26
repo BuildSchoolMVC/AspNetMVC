@@ -79,14 +79,13 @@ namespace AspNetMVC.Controllers {
 			try {
 				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
 				//從資料庫依據accountName取得價格
-				Debug.WriteLine(post.user.)
 				//favoriteId = Guid.Parse(id);
-				 //= _checkoutService.GetTotalAmount(favoriteId, accountName);
+				//= _checkoutService.GetTotalAmount(favoriteId, accountName);
 			} catch (Exception) {
 				return View("Error");
 			}
-			
 			//建立訂單
+			
 
 
 			post.ChoosePayment = "ALL";
@@ -168,7 +167,7 @@ namespace AspNetMVC.Controllers {
 			}
 		}
 		public ActionResult TestNgrok() {
-
+			
 			return null;
 		}
 		public ActionResult TestResponse() {
@@ -226,7 +225,10 @@ namespace AspNetMVC.Controllers {
 		public string TotalAmount { get; set; }
 		public string TradeDesc { get; set; }
 	}
-	public class UserForm { 
+	public class UserForm {
+		public string FullName { get; set; }
+		public string Address { get; set; }
+		public string ServiceDate { get; set; }
 
 	}
 }
