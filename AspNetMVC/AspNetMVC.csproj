@@ -185,6 +185,10 @@
     <Compile Include="Controllers\MemberCenterController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
+    <Compile Include="Migrations\202102261149001_v14.cs" />
+    <Compile Include="Migrations\202102261149001_v14.Designer.cs">
+      <DependentUpon>202102261149001_v14.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToECPay.aspx.cs">
       <DependentUpon>ToECPay.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -624,6 +628,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102260312460_add_EmailStatus_Column.resx">
       <DependentUpon>202102260312460_add_EmailStatus_Column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261149001_v14.resx">
+      <DependentUpon>202102261149001_v14.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
