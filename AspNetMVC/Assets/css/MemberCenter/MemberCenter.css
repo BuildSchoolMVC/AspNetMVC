@@ -652,21 +652,39 @@ h5 {
         padding:0px 40px;
     }
 
+    
+    
+    .card {
+        width: 100%;
+        height: 100%;
+        padding-top: 10px;
+    }
 
-    .couponwrap {
-       /* border: 1px solid #ccc;
-        border-radius: 2px;*/
+    .page-title {
+        text-align: center;
+        margin: 50px;
+        padding: 10px;
+    }
+
+        .page-title h2 {
+            padding: 20px;
+        }
+
+    .favorite-body {
+        width: 60%;
         margin: auto;
-        /*width: 550px;*/
-        display: flex;
     }
 
-    .couponcontainer {
-        display: flex;
-        margin:auto;
+    .prod-form {
+        margin: 2px;
     }
 
-    .coupontitle {
+    .item {
+        display: flex;
+        justify-content: center;
+    }
+
+    .title {
         font-family: "Sriracha", cursive;
         writing-mode: vertical-lr;
         background: aqua;
@@ -678,6 +696,9 @@ h5 {
         color: white;
         transform: rotate(180deg);
         width: 60px;
+        margin: 10px;
+        border: 1px solid aqua;
+        border-radius: 10px;
     }
 
     .coupon {
@@ -686,13 +707,12 @@ h5 {
         border-bottom: 5px dashed rgb(31, 30, 30);
         border-radius: 10px;
         padding: 10px;
-        margin: 10px 10px 10px 0px;
-        width: 430px;
+        margin: 10px 10px 10px -15px;
+        width: 700px;
     }
 
-    .couponpic {
+    .text {
         display: flex;
-        background-color:white;
     }
 
     .coupon h2 {
@@ -701,8 +721,48 @@ h5 {
         text-align: center;
     }
 
-    .coupon h3 {
-        font-size: 20px;
+    .prod-form-body {
+        height: 400px;
+        box-shadow: 0px 1px 2px #a4a4a4;
+        border: 1px solid #e6e6e6;
+        background-color: white;
+        margin-top: -1px;
+        overflow: auto;
     }
 
+    .coupon h3 {
+        font-size: 30px;
+    }
+
+    .page-title-btn-block .nav {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .page-body {
+        width: 40%;
+        background-color: gray;
+        margin: auto;
+        margin-bottom: 30px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 10px;
+    }
+
+    .page-body-text p {
+        text-align: center;
+        font-size: 30px;
+        color: white;
+    }
+
+    .page-body-img img {
+        width: 100%;
+    }
+
+    .item img {
+        padding: 30px;
+    }
 }
