@@ -148,6 +148,7 @@ namespace AspNetMVC.ViewModels
     public class EmailStatus
     {
         public bool EmailVerification { get; set; }
-        public bool IsProvidedByThirdParty { get; set; } 
+        public bool IsProvidedByThirdParty { get; set; }
         public bool IsProvidedByUser { get; set; }
+    }
 }

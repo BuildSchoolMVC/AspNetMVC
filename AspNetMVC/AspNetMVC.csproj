@@ -241,6 +241,10 @@
     <Compile Include="Migrations\202102250408454_CreditCard.Designer.cs">
       <DependentUpon>202102250408454_CreditCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102260312460_add_EmailStatus_Column.cs" />
+    <Compile Include="Migrations\202102260312460_add_EmailStatus_Column.Designer.cs">
+      <DependentUpon>202102260312460_add_EmailStatus_Column.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\Coupon.cs" />
     <Compile Include="Models\Entity\CouponDetail.cs" />
@@ -603,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102250408454_CreditCard.resx">
       <DependentUpon>202102250408454_CreditCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102260312460_add_EmailStatus_Column.resx">
+      <DependentUpon>202102260312460_add_EmailStatus_Column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
