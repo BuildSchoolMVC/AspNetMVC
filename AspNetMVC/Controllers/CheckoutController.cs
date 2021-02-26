@@ -78,25 +78,20 @@ namespace AspNetMVC.Controllers {
 			string accountName;
 			Guid favoriteId;
 			DateTime now = DateTime.Now;
-			Decimal totalAmount;
+			decimal totalAmount;
 			try {
 				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
 				favoriteId = Guid.Parse(post.UserForm.FavoriteId);
 				_checkoutService.CheckAccountExist(accountName);
 				_checkoutService.CheckFavoriteId(accountName, favoriteId);
-
 				totalAmount = _checkoutService.GetTotalAmount(favoriteId);
 				
-
-				//從資料庫依據accountName取得價格
-				//= _checkoutService.GetTotalAmount(favoriteId, accountName);
-				//建立訂單
 				var result = _checkoutService.AddOrder(post.UserForm, accountName, favoriteId, totalAmount, ref now);
 				if (!result.IsSuccessful) {
 					throw new Exception("訂單建立失敗");
 				}
-			} catch (Exception) {
-				return View("Error");
+			} catch (Exception ex) {
+				return Json(ex.Message);
 			}
 
 			post.ChoosePayment = "ALL";
@@ -178,7 +173,7 @@ namespace AspNetMVC.Controllers {
 			}
 		}
 		public ActionResult TestNgrok() {
-			
+
 			return null;
 		}
 		public ActionResult TestResponse() {

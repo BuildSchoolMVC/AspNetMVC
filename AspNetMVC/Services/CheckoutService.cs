@@ -101,6 +101,18 @@ namespace AspNetMVC.Services {
 			//收藏Id與擁有者相符
 
 			var result = new OperationResult();
+			Guid? couponId; 
+			if (userForm.CouponId == null) {
+				couponId = null;
+			} else {
+				couponId = Guid.Parse(userForm.CouponId);
+			}
+			byte? invoiceDonateTo;
+			if (userForm.InvoiceDonateTo == null) {
+				invoiceDonateTo = null;
+			} else {
+				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
+			}
 			using (var transcation = _context.Database.BeginTransaction()) {
 				try {
 					Order order = new Order {
@@ -115,10 +127,10 @@ namespace AspNetMVC.Services {
 						OrderState = (byte)OrderState.PendingPayment,
 						Rate = null,
 						Comment = string.Empty,
-						CouponId = Guid.Parse(userForm.CouponId),
+						CouponId = couponId,
 						PaymentMethod = (byte)PayMethod.ECPay,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
-						InvoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo),
+						InvoiceDonateTo = invoiceDonateTo,
 						CreateTime = now,
 						EditTime = now,
 						CreateUser = accountName,
@@ -126,12 +138,26 @@ namespace AspNetMVC.Services {
 					};
 					_repository.Create<Order>(order);
 					_context.SaveChanges();
+
+					UserFavorite favorite = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
+					string productName;
+					if (favorite.IsPackage) {
+						productName = _repository
+							.GetAll<PackageProduct>()
+							.First(x => x.PackageProductId == favorite.PackageProductId)
+							.Name;
+					} else {
+						productName = _repository
+							.GetAll<UserDefinedProduct>()
+							.First(x => x.UserDefinedId == favorite.UserDefinedId)
+							.Name;
+					}
 					OrderDetail od = new OrderDetail {
 						OrderDetailId = Guid.NewGuid(),
 						OrderId = order.OrderId,
-						//FavoriteId = ,
-						//ProductPrice = ,
-						//ProductName = ,
+						FavoriteId = favoriteId,
+						ProductPrice = total,
+						ProductName = productName,
 						CreateTime = now,
 						EditTime = now,
 						CreateUser = accountName,

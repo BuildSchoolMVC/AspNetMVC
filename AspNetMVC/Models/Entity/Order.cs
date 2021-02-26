@@ -45,7 +45,7 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public byte InvoiceType { get; set; }
 
-		public byte InvoiceDonateTo { get; set; }
+		public byte? InvoiceDonateTo { get; set; }
 
 	}
 	public enum OrderState {

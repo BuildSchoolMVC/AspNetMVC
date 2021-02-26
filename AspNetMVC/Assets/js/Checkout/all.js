@@ -606,13 +606,18 @@ toastr.options = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
-// 初始化
+//#region 初始化
+// 儲存url
+const favoriteId = new URL(location.href).searchParams.get('id');
+// 信用卡下拉選單
 let year = obj_now.getFullYear().toString().substring(2);
 const endYear = parseInt(year) + 25;
 for (; year < endYear; year++) {
   $('#input_expireY').append(`<option>${year}</option>`);
 }
-$("[data-toggle=tooltip").tooltip();
+// bootstrap tooltip提示
+$("[data-toggle=tooltip]").tooltip();
+//#endregion 初始化
 // main
 makeMonth(obj_thisStart, obj_thisEnd.getDate());
 // })();
