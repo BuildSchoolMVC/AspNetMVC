@@ -100,6 +100,55 @@ namespace AspNetMVC.Services {
 		public void GetTotalAmount(string accountName) {
 
 		}
+		public OperationResult AddOrder(Controllers.UserForm userForm, string accountName) {
+			//檢查帳號存在
+			_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+
+			var result = new OperationResult();
+			using (var transcation = _context.Database.BeginTransaction()) {
+				try {
+					Order order = new Order {
+						OrderId = Guid.NewGuid(),
+						AccountName = accountName,
+						FullName = userForm.FullName,
+						Email = userForm.Email,
+						Phone = userForm.Phone,
+						DateService = DateTime.Parse(userForm.DateService),
+						Address = $"{userForm.County}{userForm.District}{userForm.Address}",
+						Remark = userForm.Remark,
+						OrderState = (byte)OrderState.PendingPayment,
+						Rate = null,
+						Comment = string.Empty,
+						CouponId = Guid.Parse(userForm.CouponId),
+						PaymentMethod = (byte)PayMethod.ECPay,
+						InvoiceType = byte.Parse(userForm.InvoiceType),
+						InvoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo),
+					};
+					_repository.Create<Order>(order);
+					_context.SaveChanges();
+					OrderDetail od = new OrderDetail {
+						OrderDetailId = Guid.NewGuid(),
+						OrderId = order.OrderId,
+						//UserDefinedId = ,
+						//PackageProductId = ,
+						//ProductPrice = ,
+						//ProductName = ,
+						//IsPackage = ,
+					};
+					_repository.Create<OrderDetail>(od);
+					_context.SaveChanges();
+					
+					result.IsSuccessful = true;
+					transcation.Commit();
+
+				} catch (Exception ex) {
+					result.IsSuccessful = false;
+					result.Exception = ex;
+					transcation.Rollback();
+				}
+			}
+			return result;
+		}
 	}
 	public class CouponJson {
 		public Guid CouponDetailId { get; set; }

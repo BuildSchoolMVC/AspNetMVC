@@ -498,32 +498,30 @@ $('#modal_coupon .clear').on('click', () => {
   $('.coupon .money').text(0);
   $couponBox.children().removeClass('selected');
 });
-// invoice
-const invoiceData = {
-  // 傳回後端用
-  invoiceI: 0,
-  foundationI: 0
-};
 const $invoiceCheck = $('#invoice-check');
 const $foundationCheck = $('#foundation-check');
 const $caption = $('.form_invoice .caption');
 const $component = $('#component > *');
 const $donateSelect = $('.form_invoice #donate-select');
+const invoiceData = {
+  InvoiceType: '0',
+  InvoiceDonateTo: null,
+};
 $('#invoice-select .option').on('click', (e) => {
   $invoiceCheck.click();
-  invoiceData.invoiceI = e.target.getAttribute('data-index');
+  invoiceData.InvoiceType = e.target.getAttribute('data-index');
   // update內容
   let content;
-  switch (invoiceData.invoiceI) {
+  switch (invoiceData.InvoiceType) {
     case '0':
+      invoiceData.InvoiceDonateTo = null;
       content = `<p>由uCleaner自動為您兌獎，中獎後將主動通知您並掛號寄出紙本發票</p>
         <p>提醒您，個人電子發票一旦開立，不得任意更改或改開三聯式發票(統編)</p>`;
       $component.removeClass('show');
       break;
     case '1':
-      content = `
-          <p>提醒您，捐贈發票後無法變更成開立或索取紙本發票</p>
-        `;
+      invoiceData.InvoiceDonateTo = '0';
+      content = `<p>提醒您，捐贈發票後無法變更成開立或索取紙本發票</p>`;
       $donateSelect.addClass('show');
       break;
   }
@@ -531,10 +529,10 @@ $('#invoice-select .option').on('click', (e) => {
 });
 $('#donate-select .option').on('click', (e) => {
   $foundationCheck.click();
-  invoiceData.foundationI = e.target.getAttribute('data-index');
+  invoiceData.InvoiceDonateTo = e.target.getAttribute('data-index');
 });
 // ECPay
-Date.prototype.toFormat = function() {
+Date.prototype.toFormat = function () {
   let yyyy = this.getFullYear();
   let MM = this.getMonth() + 1;
   let dd = this.getDate();
@@ -543,58 +541,45 @@ Date.prototype.toFormat = function() {
   let ss = this.getSeconds();
   return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
 };
-document.querySelector('#toECPay').addEventListener('click', function() {
-
+document.querySelector('#toECPay').addEventListener('click', function () {
   $.ajax({
     method: 'POST',
     url: '/Checkout/ToECPay',
     contentType: 'application/json',
     data: JSON.stringify({
+      UserForm: {
+        DateService: (() => {
+          const d = $row_date.focusDate[0].obj_date;
+          const t = $row_time.focusTime[0].workTime;
+          const yyyy = d.getFullYear();
+          const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+          const dd = d.getDate().toString().padStart(2, '0');
+          const HH = t.getHours().toString().padStart(2, '0');
+          const mm = t.getMinutes().toString().padStart(2, '0');
+          const ss = '00';
+          return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+        })(),
+        FullName: document.querySelector('#fill-info #input_name').value,
+        Phone: document.querySelector('#fill-info #input_phone').value,
+        Email: document.querySelector('#fill-info #input_email').value,
+        County: document.querySelector('#fill-info #county-list').value,
+        District: document.querySelector('#fill-info #district-list').value,
+        Address: document.querySelector('#fill-info #input_address').value,
+        Remark: document.querySelector('#fill-info #remark').value,
+        InvoiceType: invoiceData.InvoiceType,
+        InvoiceDonateTo: invoiceData.InvoiceDonateTo,
+        CouponId: $couponBox[0].selectedGuid,
+      },
       ItemName: 'uCleaner',
       ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
       ChoosePayment: 'ALL',
       EncryptType: 111,
     }),
-    success: function() {
+    success: function () {
       console.log('yes');
     },
   });
-  // $.ajax({
-  //   method: 'POST',
-  //   url: 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5',
-  //   contentType: 'application/x-www-form-urlencoded',
-  //   data: {
-  //     MerchantID: '2000132',
-  //     MerchantTradeNo: 'A0000000000000000001',
-  //     MerchantTradeDate: new Date().toFormat(),
-  //     PaymentType: 'aio',
-  //     TotalAmount: 1000,
-  //     TradeDesc: encodeURIComponent('testTradeDesc'),
-  //     ItemName: 'TestItemName',
-  //     ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
-  //     ChoosePayment: 'ALL',
-  //     EncryptType: 1,
-  //     CheckMacValue: hash,
-  //   },
-  //   success: function() {
-  //     console.log('yes');
-  //   },
-  // });
 });
-// 傳回後端 UserForm
-const UserForm = {
-  DateTime: function() {
-    const d = $row_date.focusDate[0].obj_date;
-    const t = $row_time.focusTime[0].workTime;
-    const yyyy = d.getFullYear();
-    const MM = (d.getMonth() + 1).toString().padStart(2, '0');
-    const dd = d.getDate().toString().padStart(2, '0');
-    const HH = t.getHours().toString().padStart(2, '0');
-    const mm = t.getMinutes().toString().padStart(2, '0');
-    const ss = '00';
-    return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
-  },
-}
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {
   const $checkbox = $(e.target).children('[type=checkbox]')[0];

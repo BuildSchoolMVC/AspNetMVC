@@ -85,8 +85,14 @@ namespace AspNetMVC.Controllers {
 				return View("Error");
 			}
 			//建立訂單
-			
-
+			try {
+				var result = _checkoutService.AddOrder(post.UserForm, accountName);
+				if (!result.IsSuccessful) {
+					throw new Exception("訂單建立失敗");
+				}
+			} catch (Exception) {
+				return View("Error");
+			}
 
 			post.ChoosePayment = "ALL";
 			post.EncryptType = "1";
@@ -191,9 +197,9 @@ namespace AspNetMVC.Controllers {
 			_checkoutService.CreateCoupon(3);
 			return null;
 		}
-		public ActionResult AddCouponDetail() {
+		public ActionResult AddCouponDetail(int couponId) {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			_checkoutService.CreateCouponDetail(accountName, 2);
+			_checkoutService.CreateCouponDetail(accountName, couponId);
 			return null;
 		}
 		[HttpGet]
@@ -212,7 +218,7 @@ namespace AspNetMVC.Controllers {
 		}
 	}
 	public class AllForm {
-		public UserForm userForm { get; set; }
+		public UserForm UserForm { get; set; }
 		public string CheckMacValue { get; set; }
 		public string ChoosePayment { get; set; }
 		public string EncryptType { get; set; }
@@ -226,9 +232,16 @@ namespace AspNetMVC.Controllers {
 		public string TradeDesc { get; set; }
 	}
 	public class UserForm {
+		public string DateService { get; set; }
 		public string FullName { get; set; }
+		public string Phone { get; set; }
+		public string Email { get; set; }
+		public string County { get; set; }
+		public string District { get; set; }
 		public string Address { get; set; }
-		public string ServiceDate { get; set; }
-
+		public string Remark { get; set; }
+		public string InvoiceType { get; set; }
+		public string InvoiceDonateTo { get; set; }
+		public string CouponId { get; set; }
 	}
 }
