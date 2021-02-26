@@ -225,7 +225,7 @@ p {
 }
 
 .register-modal .form .form-group {
-    margin-bottom: 10px
+    margin-bottom: 0
 }
 .register-modal .form .form-group .label-group {
     position: absolute;
@@ -396,7 +396,7 @@ p {
 
 @media screen and (min-width:768px) {
     .register-modal {
-        padding: 100px 0;
+        padding: 80px 0;
     }
     .register-modal .form .social-btn-grouping button {
         width: 75%;

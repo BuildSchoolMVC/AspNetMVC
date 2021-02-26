@@ -261,7 +261,7 @@ const createPackageCard = (datas) => {
     cardBody.className = "card-body py-2 px-3 d-flex flex-column";
 
     let h3 = document.createElement("h3");
-    h3.classList.add("card-title","package","py-1");
+    h3.classList.add("card-title", "package", "py-1", "text-truncate","pl-2");
     h3.textContent = data.Title;
 
     let ul = document.createElement("ul");
@@ -283,6 +283,7 @@ const createPackageCard = (datas) => {
     ul.append(li1, li2);
 
     let small = document.createElement("small");
+    small.className = " text-truncate";
     small.textContent = "超值優惠服務!我們服務，你可放心";
 
     p3.append(small);
@@ -297,11 +298,11 @@ const createPackageCard = (datas) => {
     detail.className = "btns detail";
     detail.textContent = "查看";
 
-    let btnGroups = document.querySelector("div");
-    btnGroups.className = "btns-grouping";
-    btnGroups.append(checkout, detail);
+    let groups = document.createElement("div");
+    groups.className = "grouping";
+    groups.append(checkout, detail);
 
-    cardBody.append(h3, ul, p3, btnGroups);
+    cardBody.append(h3, ul, p3, groups);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -339,7 +340,7 @@ const createUserDefinedCard = (datas) => {
     cardBody.className = "card-body py-2 px-3 d-flex flex-column";
 
     let h3 = document.createElement("h3");
-    h3.classList.add("card-title","py-1");
+    h3.classList.add("card-title", "py-1", "text-truncate", "pl-2");
 
     let tip = document.createElement("span");
     tip.classList.add("tip");
@@ -356,9 +357,9 @@ const createUserDefinedCard = (datas) => {
     detail.className = "btns detail";
     detail.textContent = "查看";
 
-    let btnGroups = document.querySelector("div");
-    btnGroups.className = "btns-grouping";
-    btnGroups.append(checkout, detail);
+    let groups = document.createElement("div");
+    groups.className = "grouping";
+    groups.append(checkout, detail);
 
     if (datas.Data.length < 2) {
         let roomType1 = roomTypeSwitch(+data1.RoomType);
@@ -384,7 +385,7 @@ const createUserDefinedCard = (datas) => {
 
         ul.append(li1, li2);
 
-        cardBody.append(h3, tip, ul, btnGroups);
+        cardBody.append(h3, tip, ul, groups);
     } else {
         let data2 = datas.Data[1];
         let roomType1 = roomTypeSwitch(+data1.RoomType);
@@ -413,32 +414,32 @@ const createUserDefinedCard = (datas) => {
         div.className = "d-flex justify-content-evenly py-2";
 
         let ul1 = document.createElement("ul");
-        ul1.className = "pl-3 mb-0 pr-md-3 border-right";
+        ul1.className = "pl-0 pr-2 mb-0 pr-md-3 border-right w-50";
         let ul2 = document.createElement("ul");
-        ul2.className = "pl-4 pl-md-5 mb-0";
+        ul2.className = "pl-2 w-50";
 
         let li1 = document.createElement("li");
-        li1.className = "card-text";
+        li1.className = "card-text text-truncate";
         li1.textContent = combinedString1;
 
         let li2 = document.createElement("li");
-        li2.className = "card-text";
+        li2.className = "card-text text-truncate";
         li2.textContent = data1.ServiceItem.split(",").join("、");
 
         ul1.append(li1, li2);
 
         let li3 = document.createElement("li");
-        li3.className = "card-text";
+        li3.className = "card-text text-truncate";
         li3.textContent = combinedString2;
 
         let li4 = document.createElement("li");
-        li4.className = "card-text";
+        li4.className = "card-text text-truncate";
         li4.textContent = data2.ServiceItem.split(",").join("、");
 
         ul2.append(li3, li4);
         div.append(ul1, ul2);
 
-        cardBody.append(h3, tip, div, btnGroups);
+        cardBody.append(h3, tip, div, groups);
     }
    
     col8.append(cardBody);

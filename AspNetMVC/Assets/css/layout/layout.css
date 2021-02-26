@@ -1023,7 +1023,6 @@ h-auto{
 .card-body .tip {
     color: var(--color-warn);
     font-size : 12px;
-    text-align: right;
 }
 
 .section_favorites-side-menu .container-fluid .row .col-12 {
@@ -1840,13 +1839,14 @@ h-auto{
     .section_nav .logo {
         width: 150px
     }
-    .section_favorites-side-menu .container-fluid .row {
-        height: 180px
-    }
+
     .section_favorites-side-menu .favorites .favorites-body .favorites-product-item .detail,
     .section_favorites-side-menu .favorites .favorites-body .favorites-product-item .checkout {
-        width: 20%;
+        width: 25%;
         font-size: 14px;
+    }
+    .section_favorites-side-menu .favorites .favorites-body .card-body h3{
+        width: 60%;
     }
 }
 
@@ -1939,6 +1939,10 @@ h-auto{
     .section_footer .contact-us button.rounded-pill {
         display: block;
     }
+    .section_favorites-side-menu .favorites .favorites-body .card-body h3 {
+        width: 100%;
+    }
+
 }
 
 

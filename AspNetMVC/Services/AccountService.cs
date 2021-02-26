@@ -39,7 +39,6 @@ namespace AspNetMVC.Services
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
         }
-
         public OperationResult CreateAccount(RegisterViewModel account)
         {
             var result = new OperationResult();
@@ -292,7 +291,7 @@ namespace AspNetMVC.Services
                 };
 
                 if (model.IsIsProvidedByThirdParty) account.IsProvidedByUser = model.IsIsProvidedByThirdParty;
-                else account.IsProvidedByUser = string.IsNullOrEmpty(model.Email);
+                else account.IsProvidedByUser = !string.IsNullOrEmpty(model.Email);
 
                 var result = CreateAccount(account);
 

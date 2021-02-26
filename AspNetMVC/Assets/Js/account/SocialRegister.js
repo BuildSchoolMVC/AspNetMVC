@@ -8,13 +8,13 @@
         localStorage.removeItem("social");
     }
     if (document.querySelector(".form-header .social-platform").textContent.length == 0) {
-        window.location.href = "/Home/Index";
+        window.location.href = "/Home";
     }
     if (document.querySelector(".form-body .social-email").value.length == 0) {
         document.querySelector(".form-body .social-email").removeAttribute("readonly");
     }
+    document.querySelector("label[for='Email']")
 
-    document.querySelector("#Password").setAttribute("type", "password");
 }
 
 const registerForm = () => {

@@ -47,8 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ECPay.Payment.Integration, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ECPay.Payment.Integration">
       <HintPath>..\packages\ECPay.Payment.Integration\ECPay.Payment.Integration.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -318,6 +317,7 @@
     <Content Include="Assets\Css\Home\fonts\icofont.svg" />
     <Content Include="Assets\Css\Account\Login.css" />
     <Content Include="Assets\Css\MemberCenter\MemberCenter.css" />
+    <Content Include="Assets\Js\MemberCenter\UserFavorite.js" />
     <Content Include="Assets\Css\ProductPage\ProductPage.css" />
     <Content Include="Assets\Css\Checkout\Checkout.min.css" />
     <Content Include="Assets\Css\Home\AllServiceView.css" />
