@@ -238,7 +238,6 @@ window.addEventListener("load", () => {
     hoverStar();
     selectStar();
     commentForm();
-    getFavorites();
     getPicUrl();
 })
 
