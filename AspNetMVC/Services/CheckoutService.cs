@@ -39,18 +39,18 @@ namespace AspNetMVC.Services {
 		public IEnumerable<SquareFeet> GetSquareFeetList() {
 			return _repository.GetAll<SquareFeet>();
 		}
-		public void CreateCoupon(string accountName, int couponId) {
+		public void CreateCoupon(int couponId) {
 			DateTime now = DateTime.Now;
 			_repository.Create<Coupon>(new Coupon {
 				CouponId = couponId,
-				CouponName = "uCleaner一週年",
-				DiscountAmount = 50,
-				DateStart = new DateTime(2021, 1, 1),
-				DateEnd = new DateTime(2021, 12, 31),
+				CouponName = "母親節優惠券",
+				DiscountAmount = 150,
+				DateStart = new DateTime(2021, 5, 1),
+				DateEnd = new DateTime(2021, 5, 31),
 				CreateTime = now,
 				EditTime = now,
-				CreateUser = accountName,
-				EditUser = accountName,
+				CreateUser = "blender222",
+				EditUser = "blender222",
 			});
 			_context.SaveChanges();
 		}
@@ -96,6 +96,9 @@ namespace AspNetMVC.Services {
 				});
 			}
 			return list;
+		}
+		public void GetTotalAmount(string accountName) {
+
 		}
 	}
 	public class CouponJson {

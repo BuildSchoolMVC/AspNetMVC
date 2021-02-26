@@ -47,6 +47,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ECPay.Payment.Integration, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ECPay.Payment.Integration\ECPay.Payment.Integration.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -182,6 +186,13 @@
     <Compile Include="Controllers\MemberCenterController.cs" />
     <Compile Include="Controllers\ProductPageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
+    <Compile Include="Views\ToECPay.aspx.cs">
+      <DependentUpon>ToECPay.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ToECPay.aspx.designer.cs">
+      <DependentUpon>ToECPay.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -307,6 +318,7 @@
     <Content Include="Assets\Css\Home\fonts\icofont.svg" />
     <Content Include="Assets\Css\Account\Login.css" />
     <Content Include="Assets\Css\MemberCenter\MemberCenter.css" />
+    <Content Include="Assets\Js\MemberCenter\UserFavorite.js" />
     <Content Include="Assets\Css\ProductPage\ProductPage.css" />
     <Content Include="Assets\Css\Checkout\Checkout.min.css" />
     <Content Include="Assets\Css\Home\AllServiceView.css" />
@@ -389,6 +401,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Views\ToECPay.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -551,9 +564,11 @@
     <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
     <Content Include="Views\Account\SocialRegister.cshtml" />
+    <Content Include="Views\Checkout\ToECPay.cshtml" />
     <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="Assets\Js\QA\" />
   </ItemGroup>
   <ItemGroup>
@@ -631,7 +646,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58765</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44308/</IISUrl>
+          <IISUrl>http://localhost:44308/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

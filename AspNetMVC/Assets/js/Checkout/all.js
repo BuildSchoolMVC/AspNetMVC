@@ -170,9 +170,15 @@ const makeMonth = (obj_startDate, count) => {
     );
     const $ele_date = $(`
       <div class="date">
-        <div class="text">${d.getMonth() + 1}/${d.getDate()}</div>
+        <div class="text">${d.getDate()}</div>
       </div>
     `);
+    // 過去禁止選取(包含今天)，未來可選取(明天過後)
+    if (d <= obj_now) {
+      $ele_date.addClass('past');
+    } else {
+      $ele_date.addClass('future');
+    }
     $ele_date[0].obj_date = d;
     $ele_date.on('click', function () {
       if ($row_date.focusDate) {
@@ -202,6 +208,12 @@ const $btn_nextM = $('#next-month');
 const thisY = obj_now.getFullYear();
 const thisM = obj_now.getMonth();
 const thisD = obj_now.getDate();
+const obj_thisStart = new Date(
+  thisY, thisM, 1
+);
+const obj_thisEnd = new Date(
+  thisY, thisM + 1, 0
+);
 const obj_tomorrow = new Date(
   thisY, thisM, thisD + 1
 );
@@ -211,7 +223,7 @@ const obj_nextMonthEnd = new Date(
 $btn_lastM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_nextM);
-  makeMonth(obj_tomorrow, generateCount);
+  makeMonth(obj_thisStart, obj_thisEnd.getDate());
 });
 $btn_nextM.on('click', function () {
   disableBtn($(this));
@@ -245,14 +257,14 @@ let workTime = new Date();
 workTime.setHours(8);
 workTime.setMinutes(0);
 for (let i = 0; i < 4; i++) {
-  ele = createTime(workTime);
+  let ele = createTime(workTime);
   $('#row_time').append(ele);
   workTime.setMinutes(workTime.getMinutes() + 30);
 }
 workTime.setHours(13);
 workTime.setMinutes(0);
 for (let i = 0; i < 12; i++) {
-  ele = createTime(workTime);
+  let ele = createTime(workTime);
   $('#row_time').append(ele);
   workTime.setMinutes(workTime.getMinutes() + 30);
 }
@@ -364,7 +376,7 @@ $nextStep.on('click', function () {
         type: 'POST',
         url: '/Checkout/AddOrder',
         data: {
-          
+
         },
         // success: (message) => {
         //   $('#done .pic').html(`
@@ -448,6 +460,13 @@ $('.coupon button').on('click', function () {
     dataType: 'json',
     success: (data) => {
       $couponBox.empty();
+      if (data.length == 0) {
+        let $centerBox = $(`<div class="text-center"></div>`);
+        $(`<img src="/Assets/images/empty.png">`).appendTo($centerBox);
+        $(`<h4 class="empty-info">目前沒有可用的優惠券</h4>`).appendTo($centerBox);
+        $couponBox.append($centerBox);
+        return;
+      }
       data.forEach((obj) => {
         let $item = $(`
           <div class="coupon-item">
@@ -514,6 +533,68 @@ $('#donate-select .option').on('click', (e) => {
   $foundationCheck.click();
   invoiceData.foundationI = e.target.getAttribute('data-index');
 });
+// ECPay
+Date.prototype.toFormat = function() {
+  let yyyy = this.getFullYear();
+  let MM = this.getMonth() + 1;
+  let dd = this.getDate();
+  let HH = this.getHours();
+  let mm = this.getMinutes();
+  let ss = this.getSeconds();
+  return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+};
+document.querySelector('#toECPay').addEventListener('click', function() {
+
+  $.ajax({
+    method: 'POST',
+    url: '/Checkout/ToECPay',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      ItemName: 'uCleaner',
+      ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
+      ChoosePayment: 'ALL',
+      EncryptType: 111,
+    }),
+    success: function() {
+      console.log('yes');
+    },
+  });
+  // $.ajax({
+  //   method: 'POST',
+  //   url: 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5',
+  //   contentType: 'application/x-www-form-urlencoded',
+  //   data: {
+  //     MerchantID: '2000132',
+  //     MerchantTradeNo: 'A0000000000000000001',
+  //     MerchantTradeDate: new Date().toFormat(),
+  //     PaymentType: 'aio',
+  //     TotalAmount: 1000,
+  //     TradeDesc: encodeURIComponent('testTradeDesc'),
+  //     ItemName: 'TestItemName',
+  //     ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
+  //     ChoosePayment: 'ALL',
+  //     EncryptType: 1,
+  //     CheckMacValue: hash,
+  //   },
+  //   success: function() {
+  //     console.log('yes');
+  //   },
+  // });
+});
+// 傳回後端 UserForm
+const UserForm = {
+  DateTime: function() {
+    const d = $row_date.focusDate[0].obj_date;
+    const t = $row_time.focusTime[0].workTime;
+    const yyyy = d.getFullYear();
+    const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+    const dd = d.getDate().toString().padStart(2, '0');
+    const HH = t.getHours().toString().padStart(2, '0');
+    const mm = t.getMinutes().toString().padStart(2, '0');
+    const ss = '00';
+    return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+  },
+}
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {
   const $checkbox = $(e.target).children('[type=checkbox]')[0];
@@ -547,5 +628,5 @@ for (; year < endYear; year++) {
 }
 $("[data-toggle=tooltip").tooltip();
 // main
-makeMonth(obj_tomorrow, generateCount);
+makeMonth(obj_thisStart, obj_thisEnd.getDate());
 // })();
