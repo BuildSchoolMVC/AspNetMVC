@@ -74,12 +74,13 @@ namespace AspNetMVC.Controllers {
 		}
 		[HttpPost]
 		public ActionResult ToECPay(AllForm post) {
-			//檢查
 			DateTime now = DateTime.Now;
 			string accountName;
+			string productName;
 			Guid favoriteId;
 			decimal totalAmount;
 			Guid? couponDetailId;
+
 			if (post.UserForm.CouponDetailId == null) {
 				couponDetailId = null;
 			} else {
@@ -96,7 +97,7 @@ namespace AspNetMVC.Controllers {
 					totalAmount -= _checkoutService.GetDiscountAmount(couponDetailId);
 				}
 
-				var result = _checkoutService.CreateOrder(post.UserForm, accountName, favoriteId, couponDetailId, totalAmount, ref now);
+				var result = _checkoutService.CreateOrder(post.UserForm, accountName, favoriteId, couponDetailId, totalAmount, ref now, out productName);
 				if (!result.IsSuccessful) {
 					throw new Exception("訂單建立失敗");
 				}
@@ -109,12 +110,12 @@ namespace AspNetMVC.Controllers {
 			post.ECPayForm.ItemName = HttpUtility.UrlEncode("打掃服務");
 			post.ECPayForm.MerchantID = "2000132";
 			post.ECPayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
-			post.ECPayForm.MerchantTradeNo = Guid.NewGuid().ToString().Substring(0, 20);
+			post.ECPayForm.MerchantTradeNo = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
 			post.ECPayForm.PaymentType = "aio";
 			post.ECPayForm.ReturnURL = "https://872599f54008.ngrok.io" + "/Checkout/TestResponse";//todo
 			post.ECPayForm.TotalAmount = totalAmount.ToString();
-			post.ECPayForm.TradeDesc = HttpUtility.UrlEncode("打掃服務");
-
+			post.ECPayForm.TradeDesc = HttpUtility.UrlEncode(productName);
+			
 			string HashKey = "5294y06JbISpM5x9";
 			string HashIV = "v77hoKGq4kWxNNIS";
 			string Parameters = string.Format("ChoosePayment={0}&EncryptType={1}&ItemName={2}&MerchantID={3}&MerchantTradeDate={4}&MerchantTradeNo={5}&PaymentType={6}&ReturnURL={7}&TotalAmount={8}&TradeDesc={9}",
@@ -132,7 +133,7 @@ namespace AspNetMVC.Controllers {
 
 			post.ECPayForm.CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
 
-			return Json(post);
+			return Json(post.ECPayForm);
 		}
 		private string GetCheckMacValue(string HashKey, string parameters, string HashIV) {
 			string CheckMacValue = $"HashKey={HashKey}&{parameters}&HashIV={HashIV}";
@@ -194,10 +195,6 @@ namespace AspNetMVC.Controllers {
 			//return Content(streamReader.ReadToEnd());
 			return null;
 		}
-		//public ActionResult TestNgrok() {
-
-		//	return null;
-		//}
 		public ActionResult TestResponse() {
 			Debug.WriteLine("1231");
 			return null;

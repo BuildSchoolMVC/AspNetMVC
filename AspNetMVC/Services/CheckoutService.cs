@@ -106,10 +106,10 @@ namespace AspNetMVC.Services {
 				.First(x => x.CouponId == couponId)
 				.DiscountAmount;
 		}
-		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now) {
+		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now, out string productName) {
 
 			var result = new OperationResult();
-			
+
 			CouponDetail cd = CheckCoupon(accountName, couponDetailId);
 			if (cd == null) {
 				couponDetailId = null;
@@ -121,6 +121,17 @@ namespace AspNetMVC.Services {
 				invoiceDonateTo = null;
 			} else {
 				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
+			}
+			UserFavorite favorite = _repository.GetAll<UserFavorite>()
+										.First(x => x.FavoriteId == favoriteId);
+			if (favorite.IsPackage) {
+				productName = _repository.GetAll<PackageProduct>()
+					.First(x => x.PackageProductId == favorite.PackageProductId)
+					.Name;
+			} else {
+				productName = _repository.GetAll<UserDefinedProduct>()
+					.First(x => x.UserDefinedId == favorite.UserDefinedId)
+					.Name;
 			}
 			using (var transcation = _context.Database.BeginTransaction()) {
 				try {
@@ -148,19 +159,6 @@ namespace AspNetMVC.Services {
 					_repository.Create<Order>(order);
 					_context.SaveChanges();
 
-					UserFavorite favorite = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
-					string productName;
-					if (favorite.IsPackage) {
-						productName = _repository
-							.GetAll<PackageProduct>()
-							.First(x => x.PackageProductId == favorite.PackageProductId)
-							.Name;
-					} else {
-						productName = _repository
-							.GetAll<UserDefinedProduct>()
-							.First(x => x.UserDefinedId == favorite.UserDefinedId)
-							.Name;
-					}
 					OrderDetail od = new OrderDetail {
 						OrderDetailId = Guid.NewGuid(),
 						OrderId = order.OrderId,

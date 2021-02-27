@@ -572,14 +572,24 @@ document.querySelector('#toECPay').addEventListener('click', function () {
         CouponDetailId: $couponBox[0].selectedGuid,
       },
       ECPayForm: {
-        ItemName: 'uCleaner',
-        ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
-        ChoosePayment: 'ALL',
-        EncryptType: 111,
+        NoData: {}
       },
     }),
-    success: function () {
-      console.log('yes');
+    success: function (data) {
+      console.log(data);
+      const ECPayFrom = document.querySelector('#ECPayForm');
+      ECPayFrom.querySelector('[name="CheckMacValue"]').value = data.CheckMacValue;
+      ECPayFrom.querySelector('[name="ChoosePayment"]').value = data.ChoosePayment;
+      ECPayFrom.querySelector('[name="EncryptType"]').value = data.EncryptType;
+      ECPayFrom.querySelector('[name="ItemName"]').value = data.ItemName;
+      ECPayFrom.querySelector('[name="MerchantID"]').value = data.MerchantID;
+      ECPayFrom.querySelector('[name="MerchantTradeDate"]').value = data.MerchantTradeDate;
+      ECPayFrom.querySelector('[name="MerchantTradeNo"]').value = data.MerchantTradeNo;
+      ECPayFrom.querySelector('[name="PaymentType"]').value = data.PaymentType;
+      ECPayFrom.querySelector('[name="ReturnURL"]').value = data.ReturnURL;
+      ECPayFrom.querySelector('[name="TotalAmount"]').value = data.TotalAmount;
+      ECPayFrom.querySelector('[name="TradeDesc"]').value = data.TradeDesc;
+      
     },
   });
 });
