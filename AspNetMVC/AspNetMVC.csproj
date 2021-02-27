@@ -325,7 +325,6 @@
     <Content Include="Assets\Css\Home\fonts\icofont.svg" />
     <Content Include="Assets\Css\Account\Login.css" />
     <Content Include="Assets\Css\MemberCenter\MemberCenter.css" />
-    <Content Include="Assets\Images\microsoft.png" />
     <Content Include="Assets\Js\MemberCenter\UserFavorite.js" />
     <Content Include="Assets\Css\ProductPage\ProductPage.css" />
     <Content Include="Assets\Css\Checkout\Checkout.min.css" />

@@ -376,41 +376,6 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        public ActionResult MicrosoftLogin(string code,int? state)
-        {
-            var result = _accountService.GetMicrosoftInfo(code);
-
-            if (result.IsSuccessful)
-            {
-                var user = JsonConvert.DeserializeObject<LineUserProfile>(result.MessageInfo);
-
-                if (_accountService.IsSocialAccountRegister(user.Email, "Microsoft"))
-                {
-                    var cookie = Helpers.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
-                    Response.Cookies.Add(cookie);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    if (state == 0)
-                    {
-                        return RedirectToAction("SocialRegister", "Account", new { email = user.Email, photo = user.PictureUrl, social = "Line" });
-                    }
-                    else
-                    {
-                        ViewBag.Error = true;
-                        return View("Login");
-                    }
-
-                }
-            }
-            else
-            {
-                return Json(new { response = result.MessageInfo, status = 0 }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public ActionResult SocialRegister(string email, string photo, string social)
         {
             ViewBag.Email = email;

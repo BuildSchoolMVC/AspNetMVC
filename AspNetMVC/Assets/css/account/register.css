@@ -181,10 +181,6 @@ p {
     background: #1ACA4D;
 }
 
-.register-modal .form .social-btn-grouping #btnMicrosoftSignIn {
-    background: #8a15c8;
-}
-
 .register-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
     background: #a04d44;
 }
@@ -196,9 +192,6 @@ p {
     background: #31ab54;
 }
 
-.register-modal .form .social-btn-grouping #btnMicrosoftSignIn:hover {
-    background: #57177c;
-}
 
 
 .register-modal .form .social-btn-grouping img {
@@ -409,11 +402,10 @@ p {
         padding: 80px 0;
     }
     .register-modal .form .social-btn-grouping button {
-        width: 45%;
+        width: 30%;
         font-size: 16px;
     }
-    .register-modal .form .social-btn-grouping button#btnFacebookSignIn,
-    .register-modal .form .social-btn-grouping button#btnMicrosfotSignIn {
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn{
         font-size: 14px;
     }
     .register-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap{

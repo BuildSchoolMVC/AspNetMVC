@@ -319,9 +319,6 @@ flex-direction: column;
 	background: #1ACA4D;
 }
 
-.login-modal .form .social-btn-grouping #btnMicrosoftSignIn {
-	background: #8a15c8;
-}
 
 .login-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
 	background: #a04d44;
@@ -335,9 +332,6 @@ flex-direction: column;
 	background: #31ab54;
 }
 
-.login-modal .form .social-btn-grouping #btnMicrosoftSignIn:hover {
-	background: #57177c;
-}
 
 .login-modal .form .social-btn-grouping button.disabled {
 	opacity: .7;
@@ -413,11 +407,10 @@ flex-direction: column;
 
 @media screen and (min-width:768px) {
 	.login-modal .form .social-btn-grouping button {
-		width: 45%;
+		width: 30%;
 		font-size: 16px;
 	}
-	.login-modal .form .social-btn-grouping button#btnFacebookSignIn,
-	.login-modal .form .social-btn-grouping button#btnMicrosfotSignIn {
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn {
 		font-size: 14px;
 	}
 	.login-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap {
