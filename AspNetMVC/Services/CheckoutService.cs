@@ -106,7 +106,7 @@ namespace AspNetMVC.Services {
 				.First(x => x.CouponId == couponId)
 				.DiscountAmount;
 		}
-		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now, out string productName) {
+		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, string merchantTradeNo, ref DateTime now, out string productName) {//TODO 轉成字典
 
 			var result = new OperationResult();
 
@@ -125,13 +125,11 @@ namespace AspNetMVC.Services {
 			UserFavorite favorite = _repository.GetAll<UserFavorite>()
 											.First(x => x.FavoriteId == favoriteId);
 			if (favorite.IsPackage) {
-				productName = _repository
-					.GetAll<PackageProduct>()
+				productName = _repository.GetAll<PackageProduct>()
 					.First(x => x.PackageProductId == favorite.PackageProductId)
 					.Name;
 			} else {
-				productName = _repository
-					.GetAll<UserDefinedProduct>()
+				productName = _repository.GetAll<UserDefinedProduct>()
 					.First(x => x.UserDefinedId == favorite.UserDefinedId)
 					.Name;
 			}
@@ -153,6 +151,8 @@ namespace AspNetMVC.Services {
 						PaymentType = string.Empty,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
 						InvoiceDonateTo = invoiceDonateTo,
+						MerchantTradeNo = merchantTradeNo,
+						TradeNo = string.Empty,
 						CreateTime = now,
 						EditTime = now,
 						CreateUser = accountName,

@@ -26,12 +26,11 @@ namespace AspNetMVC.Models.Entity {
         public byte? Rate { get; set; }
         public string Comment { get; set; }
 		public Guid? CouponDetailId { get; set; }
-		[Required]
 		public string PaymentType { get; set; }
 		[Required]
 		public byte InvoiceType { get; set; }
 		public byte? InvoiceDonateTo { get; set; }
-		public string MerchantTradeNo { get; set; }
+		public string MerchantTradeNo { get; set; }//TODO MerchantTradeNo Required
 		public string TradeNo { get; set; }
 	}
 	public enum OrderState {

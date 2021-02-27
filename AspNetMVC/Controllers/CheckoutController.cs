@@ -77,6 +77,7 @@ namespace AspNetMVC.Controllers {
 			DateTime now = DateTime.Now;
 			string accountName;
 			string productName;
+			string merchantTradeNo = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
 			Guid favoriteId;
 			decimal totalAmount;
 			Guid? couponDetailId;
@@ -97,8 +98,11 @@ namespace AspNetMVC.Controllers {
 					totalAmount -= _checkoutService.GetDiscountAmount(couponDetailId);
 				}
 
-				var result = _checkoutService.CreateOrder(post.UserForm, accountName, favoriteId, couponDetailId, totalAmount, ref now, out productName);
-				if (!result.IsSuccessful) {
+				var result = _checkoutService.CreateOrder(post.UserForm, accountName, favoriteId, couponDetailId, totalAmount, merchantTradeNo, ref now, out productName);
+				if (result.IsSuccessful) {
+					//TODO 儲存最後一個訂單編號
+
+				} else {
 					throw new Exception("訂單建立失敗");
 				}
 			} catch (Exception ex) {
@@ -110,7 +114,7 @@ namespace AspNetMVC.Controllers {
 			post.ECPayForm.ItemName = "uCleaner打掃服務";
 			post.ECPayForm.MerchantID = "2000132";
 			post.ECPayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
-			post.ECPayForm.MerchantTradeNo = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
+			post.ECPayForm.MerchantTradeNo = merchantTradeNo;
 			post.ECPayForm.OrderResultURL = "https://402f14af8bb4.ngrok.io" + "/Checkout/SuccessView";
 			//TODO OrderResultURL
 			post.ECPayForm.PaymentType = "aio";
@@ -169,12 +173,12 @@ namespace AspNetMVC.Controllers {
 			string TradeDate = Request.Form["TradeDate"];
 			string SimulatePaid = Request.Form["SimulatePaid"];
 			string CheckMacValue = Request.Form["CheckMacValue"];
-			//付款成功or失敗
+			
 			bool isSuccess = RtnCode == "1" && SimulatePaid == "0";
 			_checkoutService.UpdateOrder(MerchantTradeNo, TradeNo, PaymentType, isSuccess);
 
 			Debug.WriteLine($"MerchantID: {MerchantID}");
-			Debug.WriteLine($"MerchantTradeNo2: {MerchantTradeNo}");
+			Debug.WriteLine($"MerchantTradeNo: {MerchantTradeNo}");
 			Debug.WriteLine($"StoreID: {StoreID}");
 			Debug.WriteLine($"RtnCode: {RtnCode}");
 			Debug.WriteLine($"RtnMsg: {RtnMsg}");
@@ -252,3 +256,4 @@ namespace AspNetMVC.Controllers {
 //TODO 分離AllForm
 //TODO Request.Form大改
 //TODO 付款成功頁面
+//TODO 訂單編號A00000001
