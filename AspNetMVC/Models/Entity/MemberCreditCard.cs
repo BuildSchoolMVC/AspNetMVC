@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class MemberCreditCard
+    public class MemberCreditCard : BaseEntity
     {
         [Key]
         public string AccountName { get; set; }

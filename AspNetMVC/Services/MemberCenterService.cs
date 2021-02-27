@@ -47,7 +47,7 @@ namespace AspNetMVC.Services
             _context.SaveChanges();
             return source;
         }
-        public OperationResult EditPassword(Guid accountId,MemberCenterPassword password)
+        public OperationResult EditPassword(Guid accountId,MemberCenterPasswordVM password)
         {
             var result = new OperationResult();
             var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
@@ -68,6 +68,28 @@ namespace AspNetMVC.Services
             {
                 result.IsSuccessful = false;
             }
+            return result;
+        }
+        public OperationResult NewCredit(Guid accountId, MemberCenterCreditVM credit)
+        {
+            var account = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
+            var accountName = account.AccountName;
+            var result = new OperationResult();
+
+            var newCard = new MemberCreditCard
+            {
+                AccountName = accountName,
+                CreateTime = DateTime.UtcNow.AddHours(8),
+                CreateUser = account.AccountName,
+                EditTime = DateTime.UtcNow.AddHours(8),
+                EditUser = account.AccountName,
+                CreditNumber = credit.CreditNumber,
+                ExpiryDate = credit.ExpiryDate
+            };
+
+            _repository.Create<MemberCreditCard>(newCard);
+            _context.SaveChanges();
+            result.IsSuccessful = true;
             return result;
         }
     }
