@@ -13,11 +13,8 @@ namespace AspNetMVC.Models.Entity {
 		public int State { get; set; }
 	}
 	public enum UseState {
-		Unused,
-		Used,
-		Expired,
-		//0 未使用
-		//1 已使用
-		//2 已過期
+		Unused,//0 未使用
+		Used,//1 已使用
+		Expired,//2 已過期
 	}
 }

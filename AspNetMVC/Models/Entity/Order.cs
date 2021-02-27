@@ -36,7 +36,7 @@ namespace AspNetMVC.Models.Entity {
 
         public string Comment { get; set; }
 
-		public Guid? CouponId { get; set; }
+		public Guid? CouponId { get; set; }//改CouponDetailId
 
 		[Required]
 		public byte PaymentMethod { get; set; }

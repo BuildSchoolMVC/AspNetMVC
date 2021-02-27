@@ -13,15 +13,9 @@ namespace AspNetMVC.Models.Entity {
 		public Guid OrderId { get; set; }
 		[Required]
 		public Guid FavoriteId { get; set; }
-
-		//public Guid? UserDefinedId { get; set; }
-
-		//public int? PackageProductId { get; set; }
 		[Required]
-		public decimal ProductPrice { get; set; }
+		public decimal ProductPrice { get; set; } //改FinalPrice
 		[Required]
 		public string ProductName { get; set; }
-		//[Required]
-		//public bool IsPackage { get; set; }
 	}
 }
