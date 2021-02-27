@@ -51,7 +51,7 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public ActionResult Password(string Password, string NewPassword,string ConfirmPassword)
         {
-            var password = new MemberCenterPassword();
+            var password = new MemberCenterPasswordVM();
             password.Password = Password;
             password.NewPassword = NewPassword;
             password.ConfirmPassword = ConfirmPassword;
@@ -64,6 +64,22 @@ namespace AspNetMVC.Controllers
              {
                  return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
              }
+        }
+        [HttpPost]
+        public ActionResult CreditCard(string CreditNumber, int ExpiryDate)
+        {
+            var credit = new MemberCenterCreditVM();
+            credit.CreditNumber = CreditNumber;
+            credit.ExpiryDate = ExpiryDate;
+            var result = _MemberCenterService.NewCredit(MemberHelper(), credit);
+            if(result.IsSuccessful)
+            {
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);    
+            }
+            else
+            {
+                return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
