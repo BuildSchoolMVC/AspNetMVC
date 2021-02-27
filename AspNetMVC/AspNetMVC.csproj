@@ -205,6 +205,10 @@
     <Compile Include="Migrations\202102271033165_MemberCreditCard.Designer.cs">
       <DependentUpon>202102271033165_MemberCreditCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102271303059_v18.cs" />
+    <Compile Include="Migrations\202102271303059_v18.Designer.cs">
+      <DependentUpon>202102271303059_v18.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToECPay.aspx.cs">
       <DependentUpon>ToECPay.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -639,6 +643,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102271033165_MemberCreditCard.resx">
       <DependentUpon>202102271033165_MemberCreditCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271303059_v18.resx">
+      <DependentUpon>202102271303059_v18.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
