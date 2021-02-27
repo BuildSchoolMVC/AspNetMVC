@@ -429,12 +429,12 @@
         $('#btnMicrosoftSignIn').on('click', function (e) {
             let link = "https://login.microsoftonline.com/@WebConfigurationManager.AppSettings["Microsoft_tenant_id"]/oauth2/v2.0/authorize?";
             link += 'client_id=@WebConfigurationManager.AppSettings["Microsoft_client_id"]';
-            link += '&response_type=id_token';
+            link += '&response_type=code';
             link += '&redirect_uri=https://localhost:44308/Account/MicrosoftLogin';
             link += `&state=${this.dataset.type}`;
-            link += '&scope=openid%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read';
-            link += '&response_mode=fragment';
+            link += '&scope=openid%20offline_access%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read';
             window.location.href = link;
+            console.log(link)
 
             document.querySelectorAll("button").forEach(x => {
                 x.setAttribute("disabled", "disabled");

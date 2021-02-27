@@ -463,7 +463,7 @@ namespace AspNetMVC.Services
                         { "client_secret",$"{WebConfigurationManager.AppSettings["Microsoft_client_secret"]}"},
                         { "code",code},
                         { "scope","&scope=openid%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read"},
-                        { "redirect_uri","https://localhost:44308/Account/MicrosoftLogin"}
+                        { "redirect_uri",@HttpUtility.UrlEncode("https://localhost:44308/Account/MicrosoftLogin")}
                     };
                 foreach (var kvp in values)
                 {
@@ -506,7 +506,7 @@ namespace AspNetMVC.Services
             {
                 or.IsSuccessful = false;
                 or.Exception = ex;
-                or.MessageInfo = "發生錯誤";
+                or.MessageInfo = ex.ToString();
             }
             return or;
         }

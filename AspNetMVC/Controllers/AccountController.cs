@@ -376,7 +376,7 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        public ActionResult MicrosoftLogin(string code,int state)
+        public ActionResult MicrosoftLogin(string code,int? state)
         {
             var result = _accountService.GetMicrosoftInfo(code);
 
@@ -384,7 +384,7 @@ namespace AspNetMVC.Controllers
             {
                 var user = JsonConvert.DeserializeObject<LineUserProfile>(result.MessageInfo);
 
-                if (_accountService.IsSocialAccountRegister(user.Email, "Line"))
+                if (_accountService.IsSocialAccountRegister(user.Email, "Microsoft"))
                 {
                     var cookie = Helpers.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
                     Response.Cookies.Add(cookie);
@@ -407,7 +407,7 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
+                return Json(new { response = result.MessageInfo, status = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
 
