@@ -1,0 +1,44 @@
+﻿@model UserFavoriteViewModel
+
+@if (Model.IsPackage)
+{
+    foreach (var item in Model.Data)
+    {
+        <tr id="prod1">
+            <td class="prod-detail-table_prod_img"><img src="@item.PhotoUrl"></td>
+            <td class="prod-detail-table_prod_dt">
+                <div class="prod_dt_title">
+                    <h5>@item.Title</h5>
+                </div>
+                <p>@item.ServiceItem</p>
+                <p>@item.RoomType</p>
+                <p>@item.Squarefeet</p>
+            </td>
+            <td class="prod-detail-table_prod_price"><p>@item.Price</p></td>
+            <td class="prod-detail-table_remove">
+                <button class="btn btn-main btn-fav" id="remove1" onclick="remove(event)"><p>刪除</p></button>
+                <button class="btn btn-main btn-fav" id="buying1" onclick="buying(event)"><p>結帳</p></button>
+            </td>
+        </tr>
+
+    }
+
+}
+
+<tr id="prod2">
+
+    <td class="prod-detail-table_prod_img"><img src="https://fakeimg.pl/128x128/#ffffff"></td>
+    <td class="prod-detail-table_prod_dt">
+        <div class="prod_dt_title">
+            <h5>辦公室打掃服務</h5>
+            <div class="customer">客製化</div>
+        </div>
+        <p>一張網頁出版社，作出總統只好這就是權利這一如何應該複雜至今職務，大賽總是本科打算，為此精采比例情緒儘管暫無大小是不是能量我把階段懂得紡織從來沒，造型影片國人解放天天，認真進口管理系統保障鈴聲下載一定要聯合物理通過禮物空中，當前位置是由健康在那裡，環節有的。</p>
+    </td>
+    <td class="prod-detail-table_prod_price"><p>2000</p></td>
+    <td class="prod-detail-table_remove">
+        <button class="btn btn-main btn-fav" id="remove2" onclick="remove(event)"><p>刪除</p></button>
+        <button class="btn btn-main btn-fav" id="change2" onclick="modify(event)"><p>修改</p></button>
+        <button class="btn btn-main btn-fav" id="buying2" onclick="buying(event)"><p>結帳</p></button>
+    </td>
+</tr>

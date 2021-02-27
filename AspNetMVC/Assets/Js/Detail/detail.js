@@ -26,7 +26,7 @@ const switchTabs = () => {
 }
 const addFavorites = () => {
     document.querySelector(".content-footer .add-favorites").addEventListener("click", function () {
-        if (getCookieName("user")==undefined) {
+        if (getCookieName("user") == undefined) {
             toastr.warning("請先註冊或登入!!!");
             return;
         }
@@ -49,7 +49,7 @@ const addFavorites = () => {
                     getFavorites();
                 }
             })
-             .catch(err=>console.log(err))
+            .catch(err => console.log(err))
     })
 }
 
@@ -70,7 +70,7 @@ const hoverStar = () => {
 }
 const selectStar = () => {
     let stars = document.querySelectorAll(".star-grouping i");
-    stars.forEach((x,y) => {
+    stars.forEach((x, y) => {
         x.addEventListener("click", function () {
             stars.forEach(z => {
                 if (z.classList.contains("selected")) z.classList.remove("selected");
@@ -84,49 +84,54 @@ const selectStar = () => {
     })
 }
 const commentForm = () => {
-    comment.addEventListener("change", function () {
-        if (comment.value.length > 0) {
-            commentBtn.removeAttribute("disabled");
-        } else {
-            commentBtn.setAttribute("disabled","disabled");
-        }
-    })
-    commentBtn.addEventListener("click", function () {
-        if (star == 0) {
-            toastr.warning("請填選星數!");
-            return;
-        } else if(star > 5) {
-            toastr.warning("👿別亂搞👿");
-            return;
-        }
-        $(".spinner-border-wrap").removeClass("opacity");
-
-        let value = comment.value;
-        let url = "/Detail/AddComment";
-        let data = {
-            PackageProductId: document.querySelector("h1").dataset.id,
-            StarCount : star,
-            Comment : value
-        }
-
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            })
+    if (comment) {
+        comment.addEventListener("change", function () {
+            if (comment.value.length > 0) {
+                commentBtn.removeAttribute("disabled");
+            } else {
+                commentBtn.setAttribute("disabled", "disabled");
+            }
         })
-            .then(res => res.json())
-            .then(result => {
-                if (result.response) {
-                    getLatestComment();
-                    resetCommentInput();
-                    $(".spinner-border-wrap").addClass("opacity");
-                }
+    }
+    if (commentBtn) {
+        commentBtn.addEventListener("click", function () {
+            if (star == 0) {
+                toastr.warning("請填選星數!");
+                return;
+            } else if (star > 5) {
+                toastr.warning("👿別亂搞👿");
+                return;
+            }
+            $(".spinner-border-wrap").removeClass("opacity");
+
+            let value = comment.value;
+            let url = "/Detail/AddComment";
+            let data = {
+                PackageProductId: document.querySelector("h1").dataset.id,
+                StarCount: star,
+                Comment: value
+            }
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                })
             })
-            .catch(err => console.log(err))
-    })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.response) {
+                        getLatestComment();
+                        resetCommentInput();
+                        $(".spinner-border-wrap").addClass("opacity");
+                    }
+                })
+                .catch(err => console.log(err))
+        })
+    }
+    
 }
 const getLatestComment = () => {
     let id = document.querySelector("h1").dataset.id;
@@ -156,7 +161,7 @@ const refreshComment = () => {
 
     let date = new Date(+commentData.CreateTime.replace("/Date(", "").replace(")/", ""));
 
-    let dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours() > 12 ? "下午" : "上午"} ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2,"0")}`
+    let dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours() > 12 ? "下午" : "上午"} ${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`
 
     commentItem.className = "comment-item";
     row.className = "row";
@@ -239,9 +244,11 @@ window.addEventListener("load", () => {
 
 //抓到單一商品頁圖片的Url
 function getPicUrl() {
+
     var temp = this.document.getElementsByClassName("product-pic mb-2")
     if (temp == null) {
         return;
+        
     }
     else {
         var viewedsrc = $(".product-pic.mb-2").children()[0].src;
@@ -264,12 +271,33 @@ function savePicData(src) {
         localStorage.setItem("key", JSON.stringify(viewArray))
     }
     else {
-        let temp = {
-            Id: src,
-            Url: tempURL
+        let viewArray = JSON.parse(localStorage.getItem("key"))
+        viewArray.forEach(x => {
+            if (viewArray.map(x=>x.Id).includes(src)) {
+                return;
+            }
+            else {
+
+                if (viewArray.length < 5) {
+                    let temp = {
+                        Id: src,
+                        Url: tempURL
+                    }
+                    viewArray.push(temp)
+                }
+                else {
+                    let temp = {
+                        Id: src,
+                        Url: tempURL
+                    }
+                    viewArray.splice(0,1)
+                    viewArray.push(temp)
+                }
+                localStorage.setItem("key", JSON.stringify(viewArray))
+            }
         }
-        localData.push(temp)
-        localStorage.setItem("key", JSON.stringify(localData))
+        )
+
 
     }
 }

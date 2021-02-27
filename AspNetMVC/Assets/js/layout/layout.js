@@ -1,5 +1,4 @@
-﻿
-let favorites = []
+﻿let favorites = []
 toastr.options = {
     "closeButton": true,
     "positionClass": "toast-top-center",
@@ -12,8 +11,6 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
-
-
 
 const openHamburger = () => {
     document.querySelector(".hamburger").addEventListener("click", () => {
@@ -75,7 +72,6 @@ const toggleSideMenuAllService = () => {
             }
         })
     })
-
 }
 const toggleSideMenuSubItem = (target, event) => {
     event.preventDefault();
@@ -113,7 +109,6 @@ const openBottomCustomerService = () => {
         document.querySelector(".contact-us-form").classList.toggle("active");
     })
 }
-
 const toggleContact = () => {
     document.querySelector(".contact-us button").addEventListener("click", function () {
         this.classList.add("active");
@@ -213,7 +208,6 @@ async function deleteFavorite(target){
             toastr.error("發生錯誤")
         })
 } 
-
 const countFavoritesAmount = (count) => {
     if (document.querySelector(".nav-bottom-item .red-dot")) {
         document.querySelector(".nav-bottom-item .red-dot").remove();
@@ -228,15 +222,6 @@ const countFavoritesAmount = (count) => {
         document.querySelector(".favorites-body").style.overflowY = "auto";
     } else document.querySelector(".favorites-body").style.overflowY = "scroll";
 }
-const favoriteSelectEffect = (target) => {
-    if (target.checked) {
-        target.parentNode.parentNode.parentNode.parentNode.classList.add("selected");
-        document.querySelector(".checkout").href += `?id=${target.dataset.id}`
-    } else {
-        target.parentNode.parentNode.parentNode.parentNode.classList.remove("selected");
-        document.querySelector(".checkout").href = document.querySelector(".checkout").href.split("?")[0]
-    }
-}
 
 const createFavoritesCard = (datas) => {
     if (datas.IsPackage) {
@@ -245,7 +230,6 @@ const createFavoritesCard = (datas) => {
         createUserDefinedCard(datas)
     }
 }
-
 const createPackageCard = (datas) => {
     let data = datas.Data[0];
     let roomTypes = data.RoomType.split(",").filter(x => x != "-");
@@ -277,39 +261,48 @@ const createPackageCard = (datas) => {
     cardBody.className = "card-body py-2 px-3 d-flex flex-column";
 
     let h3 = document.createElement("h3");
-    h3.classList.add("card-title");
+    h3.classList.add("card-title", "package", "py-1", "text-truncate","pl-2");
     h3.textContent = data.Title;
 
-    let p1 = document.createElement("p");
-    p1.className = "card-text";
+    let ul = document.createElement("ul");
+    ul.className = "pl-3 mb-0";
 
-    let p2 = document.createElement("p");
-    p2.className = "card-text";
+    let li1 = document.createElement("li");
+    li1.className = "card-text";
+
+    let li2 = document.createElement("li");
+    li2.className = "card-text";
 
     let p3 = document.createElement("p");
     p3.className = "card-text mt-1";
 
-    p1.textContent = combinedString;
+    li1.textContent = combinedString;
 
-    p2.textContent = data.ServiceItem.split("+").join("、");
+    li2.textContent = data.ServiceItem.split("+").join("、");
+
+    ul.append(li1, li2);
 
     let small = document.createElement("small");
-    small.classList.add("color-muted");
+    small.className = " text-truncate";
     small.textContent = "超值優惠服務!我們服務，你可放心";
 
     p3.append(small);
 
-    let a = document.createElement("a");
-    a.setAttribute("href", `/Detail/Index/${data.PackageProductId}`);
-    a.className = "btns detail";
-    a.textContent = "詳情";
+    let checkout = document.createElement("a");
+    checkout.setAttribute("href", `/Checkout/?id=${datas.FavoriteId}`);
+    checkout.className = "btns checkout";
+    checkout.textContent = "結帳去";
 
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "checkbox";
-    checkbox.setAttribute("data-id", datas.FavoriteId);
+    let detail = document.createElement("a");
+    detail.setAttribute("href", `/Detail/Index/${data.PackageProductId}`);
+    detail.className = "btns detail";
+    detail.textContent = "查看";
 
-    cardBody.append(h3, p1, p2, p3, a, checkbox);
+    let groups = document.createElement("div");
+    groups.className = "grouping";
+    groups.append(checkout, detail);
+
+    cardBody.append(h3, ul, p3, groups);
     col8.append(cardBody);
 
     let btnGroup = document.createElement("div");
@@ -328,14 +321,14 @@ const createPackageCard = (datas) => {
 
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(card);
 }
-
 const createUserDefinedCard = (datas) => {
+    let data1 = datas.Data[0];
     let card = document.createElement("div");
     card.className = "favorites-product-item mb-3 mx-2";
     card.setAttribute("data-id", datas.FavoriteId);
 
     let row = document.createElement("div");
-    row.className = "row no-gutters w-100";
+    row.className = "row no-gutters w-100 h-auto";
 
     let col4 = document.createElement("div");
     col4.classList.add("col-4", "position-relative", "h-100");
@@ -345,8 +338,30 @@ const createUserDefinedCard = (datas) => {
 
     let cardBody = document.createElement("div");
     cardBody.className = "card-body py-2 px-3 d-flex flex-column";
+
+    let h3 = document.createElement("h3");
+    h3.classList.add("card-title", "py-1", "text-truncate", "pl-2");
+
+    let tip = document.createElement("span");
+    tip.classList.add("tip");
+    tip.textContent = " (僅顯示此組合前兩筆)";
+    h3.append(data1.Title);
+
+    let checkout = document.createElement("a");
+    checkout.setAttribute("href", `/Checkout/?id=${datas.FavoriteId}`);
+    checkout.className = "btns checkout";
+    checkout.textContent = "結帳去";
+
+    let detail = document.createElement("a");
+    detail.setAttribute("href", `/MemberCenter`);
+    detail.className = "btns detail";
+    detail.textContent = "查看";
+
+    let groups = document.createElement("div");
+    groups.className = "grouping";
+    groups.append(checkout, detail);
+
     if (datas.Data.length < 2) {
-        let data1 = datas.Data[0];
         let roomType1 = roomTypeSwitch(+data1.RoomType);
         let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
         let combinedString1 = `${roomType1} - ${squrefeet1}`
@@ -357,34 +372,22 @@ const createUserDefinedCard = (datas) => {
 
         col4.append(img1);
 
-        let h3 = document.createElement("h3");
-        h3.classList.add("card-title");
-        let tip = document.createElement("span");
-        tip.classList.add("tip");
-        tip.textContent = " (僅顯示此組合前兩筆)";
-        h3.append(data1.Title);
+        let ul = document.createElement("ul");
+        ul.className = "pl-3 mb-0";
 
-        let p1 = document.createElement("p");
-        p1.className = "card-text";
-        p1.textContent = combinedString1;
+        let li1 = document.createElement("li");
+        li1.className = "card-text";
+        li1.textContent = combinedString1;
 
-        let p2 = document.createElement("p");
-        p2.className = "card-text";
-        p2.textContent = data1.ServiceItem.split(",").join("、");
+        let li2 = document.createElement("li2");
+        li2.className = "card-text";
+        li2.textContent = data1.ServiceItem.split(",").join("、");
 
-        let a = document.createElement("a");
-        a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
-        a.className = "btns detail";
-        a.textContent = "查看收藏詳情";
+        ul.append(li1, li2);
 
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "checkbox";
-        checkbox.setAttribute("data-id", datas.FavoriteId);
-
-        cardBody.append(h3, tip, p1, p2, a, checkbox);
+        cardBody.append(h3, tip, ul, groups);
     } else {
-        let data1 = datas.Data[0], data2 = datas.Data[1];
+        let data2 = datas.Data[1];
         let roomType1 = roomTypeSwitch(+data1.RoomType);
         let squrefeet1 = squarefeetSwitch(+data1.Squarefeet);
         let combinedString1 = `${roomType1} - ${squrefeet1}`
@@ -393,13 +396,9 @@ const createUserDefinedCard = (datas) => {
         let squrefeet2 = squarefeetSwitch(+data2.Squarefeet);
         let combinedString2 = `${roomType2} - ${squrefeet2}`
 
-
         let card = document.createElement("div");
         card.className = "favorites-product-item mb-3 mx-2";
         card.setAttribute("data-id", datas.FavoriteId);
-
-        let row = document.createElement("div");
-        row.className = "row no-gutters w-100";
 
         let img1 = document.createElement("img");
         img1.src = `https://i.imgur.com/${data1.PhotoUrl}`;
@@ -411,43 +410,36 @@ const createUserDefinedCard = (datas) => {
 
         col4.append(img1, img2);
 
-        let h3 = document.createElement("h3");
-        h3.classList.add("card-title");
-        let tip = document.createElement("span");
-        tip.classList.add("tip");
-        tip.textContent = " (僅顯示此組合前兩筆)";
-        h3.append(data1.Title);
+        let div = document.createElement("div");
+        div.className = "d-flex justify-content-evenly py-2";
 
-        let p1 = document.createElement("p");
-        p1.className = "card-text";
-        p1.textContent = combinedString1;
+        let ul1 = document.createElement("ul");
+        ul1.className = "pl-0 pr-2 mb-0 pr-md-3 border-right w-50";
+        let ul2 = document.createElement("ul");
+        ul2.className = "pl-2 w-50";
 
-        let p2 = document.createElement("p");
-        p2.className = "card-text";
-        p2.textContent = data1.ServiceItem.split(",").join("、");
+        let li1 = document.createElement("li");
+        li1.className = "card-text text-truncate";
+        li1.textContent = combinedString1;
 
-        let hr = document.createElement("hr");
+        let li2 = document.createElement("li");
+        li2.className = "card-text text-truncate";
+        li2.textContent = data1.ServiceItem.split(",").join("、");
 
+        ul1.append(li1, li2);
 
-        let p3 = document.createElement("p");
-        p3.className = "card-text";
-        p3.textContent = combinedString2;
+        let li3 = document.createElement("li");
+        li3.className = "card-text text-truncate";
+        li3.textContent = combinedString2;
 
-        let p4 = document.createElement("p");
-        p4.className = "card-text";
-        p4.textContent = data2.ServiceItem.split(",").join("、");
+        let li4 = document.createElement("li");
+        li4.className = "card-text text-truncate";
+        li4.textContent = data2.ServiceItem.split(",").join("、");
 
-        let a = document.createElement("a");
-        a.setAttribute("href", `/MemberCenter#v-pills-favorites`);
-        a.className = "btns detail";
-        a.textContent = "查看收藏詳情";
+        ul2.append(li3, li4);
+        div.append(ul1, ul2);
 
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.className = "checkbox";
-        checkbox.setAttribute("data-id", datas.FavoriteId);
-
-        cardBody.append(h3, tip, p1, p2, hr, p3, p4, a, checkbox);
+        cardBody.append(h3, tip, div, groups);
     }
    
     col8.append(cardBody);
@@ -480,13 +472,6 @@ const showFavorites = () => {
     }
 
     swipeDeleteEffect();
-
-    document.querySelectorAll("input[type='checkbox']").forEach(x => {
-        x.addEventListener("click", function () {
-            favoriteSelectEffect(x);
-        })
-    })
-
 }
 const favoritesStatus = (words) => {
     document.querySelector(".section_favorites-side-menu .favorites-body").innerHTML = "";
@@ -506,15 +491,6 @@ const favoritesStatus = (words) => {
     div.classList.add("wrap");
     div.append(pic, word);
     document.querySelector(".section_favorites-side-menu .favorites-body").appendChild(div);
-}
-const checkoutBtnControl = () => {
-    if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
-        document.querySelector(".favorites-footer .checkout").classList.add("disabled");
-        document.querySelector(".favorites-footer .checkout").removeAttribute("href");
-    } else {
-        document.querySelector(".favorites-footer .checkout").classList.remove("disabled");
-        document.querySelector(".favorites-footer .checkout").setAttribute("href", "/Checkout");
-    }
 }
 const toggleTip = () => {
     if (!getCookieValue || document.querySelectorAll(".favorites-product-item").length == 0) {
@@ -604,7 +580,6 @@ const judgeCharacter = (str, judge) => {
     return result == null ? false : true;
 }
 
-
 async function getFavorites(){
     url = "/ProductPage/SearchForFavorite";
     await fetch(url)
@@ -613,7 +588,6 @@ async function getFavorites(){
             favorites = result;
             countFavoritesAmount(favorites.length);
             showFavorites();
-            checkoutBtnControl();
             toggleTip();
         })
         .catch(err => console.log(err))
@@ -649,8 +623,117 @@ const roomTypeSwitch = value =>
     value == 3 ? "浴廁" :
     value == 4 ? "陽台" : "-";
 
+function googleSigninInit() {
+    gapi.load('auth2', function () {
+        gapi.auth2.init({
+            client_id: GoolgeApp_Cient_Id
+        })
+    })
+}
 
+function googleLogin(target) {
+    let auth2 = gapi.auth2.getAuthInstance();
+    let url = "/Account/GoogleLogin"
 
+    auth2.signIn().then(function (GoogleUser) {
+        let AuthResponse = GoogleUser.getAuthResponse(true);
+        let id_token = AuthResponse.id_token;
+        $.ajax({
+            url: url,
+            method: "post",
+            data: { token: id_token, type: target.dataset.type },
+            success: function (result) {
+                if (result.status == 1 && result.response == "第三方登入") {
+                    setTimeout(() => {
+                        window.location.replace(`${window.location.origin}/Home/Index`);
+                    }, 1500)
+                }
+                else if (result.status == 1) {
+                    setTimeout(() => {
+                        localStorage.setItem("social", result.response)
+                        window.location.replace(`${window.location.origin}/Account/SocialRegister`);
+                    }, 1500)
+                } else if (result.status == 0) {
+                    setTimeout(() => {
+                        toastr.warning(`${result.response}`);
+                        document.querySelectorAll("button").forEach(x => {
+                            x.removeAttribute("disabled");
+                            x.classList.remove("disabled");
+                        })
+                        target.querySelector(".spinner-border-wrap").classList.add("opacity");
+                    }, 1500)
+                }
+            }
+        });
+    },
+        function (error) {
+            toastr.error("Google登入失敗")
+            document.querySelectorAll("button").forEach(x => {
+                x.removeAttribute("disabled");
+                x.classList.remove("disabled");
+            })
+            document.querySelectorAll(".spinner-border-wrap").forEach(x => {
+                if (!x.classList.contains("opacity")) x.classList.add("opacity");
+            })
+        });
+}
+
+function facebookLogin(response, target) {
+    FB.login(function (response) {
+        getProfile(target)
+    }, { scope: 'email' });
+}
+function checkLoginState(target) {
+    FB.getLoginStatus(function (response) {
+        facebookLogin(response, target);
+    });
+}
+function getProfile(target) {
+    FB.api('/me', "GET", { fields: 'name,email,id,picture' }, function (response) {
+        fetchData(response, target)
+    })
+}
+function fetchData(response, target) {
+    let url = "/Account/FacebookLogin"
+    let data = {
+        email: response.email,
+        socialPlatform: "Facebook",
+        imgUrl: response.picture.data.url,
+        type: target.dataset.type
+    }
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(result => {
+            if (result.status == 1 && result.response == "第三方登入") {
+                setTimeout(() => {
+                    window.location.replace(`${window.location.origin}/Home/Index`);
+                }, 1500)
+            }
+            else if (result.status == 1) {
+                setTimeout(() => {
+                    localStorage.setItem("social", result.response)
+                    window.location.replace(`${window.location.origin}/Account/SocialRegister`);
+                }, 1500)
+            } else if (result.status == 0) {
+                setTimeout(() => {
+                    toastr.warning(`${result.response}`);
+                    document.querySelectorAll("button").forEach(x => {
+                        x.removeAttribute("disabled");
+                        x.classList.remove("disabled");
+                    })
+                    target.querySelector(".spinner-border-wrap").classList.add("opacity");
+                }, 1500)
+            }
+        })
+        .catch(err => console.log(err))
+}
 
 
 window.addEventListener("load", () => {
@@ -671,7 +754,6 @@ window.addEventListener("load", () => {
         favoritesStatus("請先註冊/登入!");
         createLoginRegister();
         countFavoritesAmount(0);
-        checkoutBtnControl();
         toggleTip();
     } else {
         getFavorites();
@@ -685,8 +767,6 @@ window.addEventListener("load", () => {
     })
     document.querySelector(".finish-view .box").classList.add("hide");
 })
-
-
 
 window.addEventListener("resize", () => {
     if (window.innerWidth > 1024 && document.querySelector(".side-menu").classList.contains("show")) {
@@ -718,7 +798,6 @@ document.querySelector(".finish-view .finishBtn").addEventListener("click", func
 
 document.querySelectorAll(".contact-us .question").forEach(x => {
     x.addEventListener("change", function () {
-        console.log(x)
         clearWarn(x);
         if (x.value.length == 0) {
             x.classList.add("input-warn");
@@ -727,13 +806,3 @@ document.querySelectorAll(".contact-us .question").forEach(x => {
         }
     })
 });
-
-document.querySelector(".checkout").addEventListener("click", function (e) {
-    if (this.classList.contains("disabled")) return;
-    if (Array.from(document.querySelectorAll("input[type='checkbox']")).every(x => x.checked == false)) {
-        toastr.warning("必須要選一項，才能前往結帳");
-        e.preventDefault();
-        return;
-    }
-})
-

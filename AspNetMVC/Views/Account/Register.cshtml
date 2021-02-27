@@ -17,38 +17,9 @@
             <div class="register-block">
                 @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form", role = "form" }))
                 {
-                    <div class="social-login-step">
-                        <h2>使用社群帳號快速註冊</h2>
-                        <div class="social-btn-grouping">
-                            <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative">
-                                <img src="~/Assets/Images/google.png" />
-                                Google
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                            <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative">
-                                <img src="~/Assets/Images/facebook.png" />
-                                Facebook
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                            <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative">
-                                <img src="~/Assets/Images/line2.png" />
-                                Line
-                                <div class="spinner-border-wrap opacity">
-                                    <span class="spinner-border"></span>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="float-right w-60">
-                            <button type="button" class="button btn_website-login">回去使用本站註冊</button>
-                        </div>
-                    </div>
                     <div class="step1">
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.TextBoxFor(m => m.Name, new { @class = "input register-name", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">名稱</label><i class="fas fa-exclamation-circle" title="必填，需包含至少1位英文字母且長度起碼6個字元"></i>
@@ -57,7 +28,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.TextBoxFor(m => m.Email, new { @class = "input register-email", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">信箱</label><i class="fas fa-exclamation-circle" title="必填"></i>
@@ -66,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.PasswordFor(m => m.Password, new { @class = "input register-password", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     <label class="label" for="Name">密碼</label><i class="fas fa-exclamation-circle" title="必填，英文大小寫各1個、至少6位不包含特殊符號之字元"></i>
@@ -75,7 +46,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input register-password-check", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.ConfirmPassword, new { @class = "label" })
@@ -83,21 +54,43 @@
                                 <p class="warn register-confirm-password"> </p>
                             </div>
                         </div>
-                        <div class="form-group my-2">
+                        <div class="form-group my-1">
                             <div class="w-100">
                                 <button type="button" class="button btn_next">下一步</button>
                             </div>
-                            <div>
-                                <p class="text-region">或是</p>
+                            <div class="my-4">
+                                <p class="text-region">或是 社群帳號登入</p>
                             </div>
-                            <div class="w-100">
-                                <button type="button" class="button btn_social-login">使用社群註冊</button>
+                        </div>
+                        <div class="form-group my-1">
+                            <div class="social-btn-grouping">
+                                <button type="button" id="btnGoogleSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/google.png" />
+                                    Google
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnFacebookSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/facebook.png" />
+                                    Facebook
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
+                                <button type="button" id="btnLineSignIn" class="d-flex justify-content-around position-relative" data-type="0">
+                                    <img src="~/Assets/Images/line.png" />
+                                    Line
+                                    <div class="spinner-border-wrap opacity">
+                                        <span class="spinner-border"></span>
+                                    </div>
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="step2 d-flex flex-column justify-content-center">
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.TextBoxFor(m => m.Address, new { @class = "input register-address", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.Address, new { @class = "label" })
@@ -106,7 +99,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 @Html.TextBoxFor(m => m.Phone, new { @class = "input register-phone", autocomplete = "off" })
                                 <div class="row align-items-center flex-nowrap label-group active">
                                     @Html.LabelFor(m => m.Phone, new { @class = "label" })
@@ -115,7 +108,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 <div class="row align-items-center">
                                     <label class="label pl-3" for="Name">性別</label><i class="fas fa-exclamation-circle" title="必填"></i>
                                 </div>
@@ -128,7 +121,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-12 my-2 p-0">
+                            <div class="col-12 my-1 p-0">
                                 <div class="g-recaptcha" data-sitekey="6LeLVlMaAAAAADkkfAMP4arVnv7UaucyZNIHf2I8"></div>
                             </div>
                         </div>
@@ -151,57 +144,8 @@
 </section>
 
 @section JS {
-    <script src="~/Assets/js/account/register.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script>
-        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
-    </script>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '@WebConfigurationManager.AppSettings["Facebok_appId"]',
-                cookie: true,
-                xfbml: true,
-                version: 'v9.0'
-            });
-        };
-        (function (d, s, id) {
-            var js,
-                fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        })(document, "script", "facebook-jssdk");
-    </script>
-    <script>
-        $('#btnLineSignIn').on('click', function (e) {
-            let link = 'https://access.line.me/oauth2/v2.1/authorize?';
-            link += 'response_type=code';
-            link += '&client_id=' + @WebConfigurationManager.AppSettings["Line_client_id"];
-            link += '&redirect_uri=https://localhost:44308/Account/RegisterByLineLogin';
-            link += '&state=uCleaner';
-            link += '&scope=profile%20openid%20email';
-            @*window.open(link, "uCleaner - 打掃服務", config = 'height=600,width=600,top=240,left=600,toolbar=no,resizable = no;location = no 是否顯示位址列, yes為允許;status = no');*@
-            window.location.href = link;
-            document.querySelectorAll("button").forEach(x => {
-                x.setAttribute("disabled", "disabled");
-                x.classList.add("disabled");
-            })
-            this.querySelector(".spinner-border-wrap").classList.remove("opacity");
-
-            setTimeout(function(){
-                document.querySelectorAll("button").forEach(x => {
-                    x.removeAttribute("disabled");  
-                    x.classList.remove("disabled");
-                })
-                document.querySelector("#btnLineSignIn .spinner-border-wrap").classList.add("opacity");
-            },6000)
-        });
-    </script>
+    <script src="~/Assets/js/account/register.js"></script>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=GoogleSigninInit" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=googleSigninInit" async defer></script>
 }

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.ViewModel;
+using Newtonsoft.Json;
 using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Controllers
@@ -19,7 +20,6 @@ namespace AspNetMVC.Controllers
     {
         
         private MemberMd db = new MemberMd();
-        // GET: MemberCenter
         private readonly MemberCenterService _MemberCenterService;
         private readonly AccountService _AccountService;
         public MemberCenterController()
@@ -58,9 +58,26 @@ namespace AspNetMVC.Controllers
         public ActionResult Index([Bind(Include = "Name,Phone,Mail,Address")] MemberCenterViewModels memberVm)
         {
             MemberMd memberMd = _MemberCenterService.SaveModel(MemberHelper(),memberVm);
+
             
             return View(memberVm);
         }
-        
+        [HttpPost]
+        public ActionResult Password(string Password, string NewPassword,string ConfirmPassword)
+        {
+            var password = new MemberCenterPassword();
+            password.Password = Password;
+            password.NewPassword = NewPassword;
+            password.ConfirmPassword = ConfirmPassword;
+             var result = _MemberCenterService.EditPassword(MemberHelper(),password);
+             if (result.IsSuccessful)
+             {
+                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
+             }
+             else
+             {
+                 return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+             }
+        }
     }
 }

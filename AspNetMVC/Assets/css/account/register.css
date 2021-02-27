@@ -40,6 +40,11 @@ p {
     border-right-color: transparent;
     transition: .4s ease-in;
 }
+.social-btn-grouping .spinner-border {
+    margin-right: 0;
+    width: 1rem!important;
+    height: 1rem!important;
+}
 
 @media screen and (min-width: 500px) {
     .register-modal .container-main {
@@ -85,12 +90,6 @@ p {
     position: relative
 }
 
-.register-modal .form {
-    display: flex;
-    overflow: hidden;
-}
-
-.register-modal .form .social-login-step,
 .register-modal .form .step1,
 .register-modal .form .step2 {
     width: 100%;
@@ -98,93 +97,102 @@ p {
     transition: .4s ease-in;
 }
 
-.register-modal .form .social-login-step,
 .register-modal .form .step2 {
     opacity: 0;
 }
 
-.register-modal .form .social-login-step,
 .register-modal .form .step1,
 .register-modal .form .step2 {
-    transform: translateX(-100%);
+    transform: translateX(50%);
 }
 
-.register-modal .form .social-login-step.pre,
 .register-modal .form .step1.pre,
 .register-modal .form .step2.pre {
     transform: translateX(0%);
 }
 
-.register-modal .form .social-login-step.pre {
-    opacity: 1;
-}
 
-.register-modal .form .social-login-step {
+.register-modal .form {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    overflow:hidden;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping .spinner-border-wrap {
+.register-modal .form .social-btn-grouping .spinner-border-wrap {
     right: 0;
     width: 20%;
     background: transparent;
     left : inherit;
 }
 
-.register-modal .form .social-login-step h2 {
+.register-modal .form h2 {
     margin-bottom: 50px;
     text-align: center;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping {
+.register-modal .form .social-btn-grouping {
     display: flex;
     align-items: center;
-    flex-direction:column;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping .spinner-border {
+.register-modal .form .social-btn-grouping .spinner-border {
     width:30px;
     height: 30px;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping button {
+.register-modal .form .social-btn-grouping button {
     outline: none;
     border: none;
     border-radius: 5px;
     line-height: 45px;
     margin-bottom: 15px;
+    margin-right: 5px;
     letter-spacing: 1px;
     color: var(--light);
     overflow: hidden;
     width: 80%;
     position: relative;
-    font-size: 24px;
+    font-size: 12px;
     text-align: left;
-    padding: 0 10px 0 60px;
+    padding: 0 10px 0 40px;
     box-shadow: 1px 1px 10px #adadad80;
+    transition: .2s ease-in-out;
 }
-.register-modal .form .social-login-step .social-btn-grouping button.disabled{
+
+
+.register-modal .form .social-btn-grouping button.disabled{
     opacity:.7;
 }
-.register-modal .form .social-login-step btn_website-login {
+.register-modal .form btn_website-login {
     margin-top: 50px;
     width: 80%;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping #btnGoogleSignIn {
+.register-modal .form .social-btn-grouping #btnGoogleSignIn {
     background: #CE4535;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping #btnFacebookSignIn {
+.register-modal .form .social-btn-grouping #btnFacebookSignIn {
     background: #1778F2;
 }
-.register-modal .form .social-login-step .social-btn-grouping #btnLineSignIn {
+.register-modal .form .social-btn-grouping #btnLineSignIn {
     background: #1ACA4D;
 }
 
-.register-modal .form .social-login-step .social-btn-grouping img {
-    width: 50px;
+.register-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
+    background: #a04d44;
+}
+
+.register-modal .form .social-btn-grouping #btnFacebookSignIn:hover {
+    background: #1f5292;
+}
+.register-modal .form .social-btn-grouping #btnLineSignIn:hover {
+    background: #31ab54;
+}
+
+
+.register-modal .form .social-btn-grouping img {
+    width: 30px;
     background: var(--light);
     object-fit: contain;
     padding: 3px;
@@ -195,19 +203,14 @@ p {
     height: 100%;
 }
 
-.register-modal .form .step1.next,
-.register-modal .form .step2.next {
-    transform: translateX(-100%);
-}
-
 .register-modal .form .step1.next {
     opacity: 0;
-    transform: translateX(-200%);
+    transform: translateX(-100%);
 }
 
 .register-modal .form .step2.next {
     opacity: 1;
-    transform: translateX(-200%);
+    transform: translateX(-50%);
 }
 .register-modal .form .step2 .btn_submit{
     padding-right: 10px;
@@ -222,7 +225,7 @@ p {
 }
 
 .register-modal .form .form-group {
-    margin-bottom: 10px
+    margin-bottom: 0
 }
 .register-modal .form .form-group .label-group {
     position: absolute;
@@ -286,7 +289,7 @@ p {
 .register-modal .form .text-region:after,
 .register-modal .form .text-region:before{
     content:"";
-    width : 35%;
+    width : 20%;
     display: inline-block;
     vertical-align:middle;
     height:1px;
@@ -393,6 +396,16 @@ p {
 
 @media screen and (min-width:768px) {
     .register-modal {
-        padding: 100px 0;
+        padding: 80px 0;
+    }
+    .register-modal .form .social-btn-grouping button {
+        width: 75%;
+        font-size: 16px;
+    }
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn {
+        font-size: 14px;
+    }
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap{
+        width: 15%;
     }
 }
