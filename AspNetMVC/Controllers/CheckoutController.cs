@@ -30,25 +30,6 @@ namespace AspNetMVC.Controllers {
 			string accountName;
 			Guid favoriteId;
 			UserFavorite userFavorite;
-			//id = "1a648031-ac16-45db-bbf2-2b6c168f000a";
-			//id = "2ca80158-498c-43ff-81bb-d2870776bdb3";
-			//假資料
-			//UserFavorite userFavorite = new UserFavorite {
-			//	FavoriteId = favoriteId,
-			//	AccountName = "blender222",
-			//	UserDefinedId = null,
-			//	PackageProductId = 3,
-			//	IsPackage = true,
-			//	IsDelete = false,
-			//};
-			//DataViewModel dataViewModel = new DataViewModel {
-			//	IsPackage = userFavorite.IsPackage,
-			//	Package = null,
-			//	UserDefinedList = null,
-			//	RoomTypeList = _checkoutService.GetRoomTypeList(),
-			//	SquareFeetList = _checkoutService.GetSquareFeetList()
-			//};
-			//================================================
 
 			try {
 				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
@@ -73,35 +54,48 @@ namespace AspNetMVC.Controllers {
 			return View(dataViewModel);
 		}
 		[HttpPost]
-		public ActionResult AddOrder(AllForm post) {
+		public ActionResult AddOrder(UserForm post) {
 			DateTime now = DateTime.Now;
 			string accountName;
 			string productName;
-			string merchantTradeNo = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
+			string url;
+			string merchantTradeNo /*= Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20)*/;
 			Guid favoriteId;
-			decimal totalAmount;
+			decimal finalAmount;
 			Guid? couponDetailId;
+			using (var sr = new StreamReader("/Models/Config/url.txt")) {
+				url = sr.ReadToEnd();
+			}
 
-			if (post.UserForm.CouponDetailId == null) {
+			if (post.CouponDetailId == null) {
 				couponDetailId = null;
 			} else {
-				couponDetailId = Guid.Parse(post.UserForm.CouponDetailId);
+				couponDetailId = Guid.Parse(post.CouponDetailId);
 			}
 			try {
 				accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-				favoriteId = Guid.Parse(post.UserForm.FavoriteId);
+				favoriteId = Guid.Parse(post.FavoriteId);
 				_checkoutService.CheckAccountExist(accountName);
 				_checkoutService.CheckFavoriteId(accountName, favoriteId);
-				totalAmount = _checkoutService.GetTotalAmount(favoriteId);
+				finalAmount = _checkoutService.GetTotalPrice(favoriteId);
 
 				if (couponDetailId != null) {
-					totalAmount -= _checkoutService.GetDiscountAmount(couponDetailId);
+					finalAmount -= _checkoutService.GetDiscountAmount(couponDetailId);
 				}
 
-				var result = _checkoutService.CreateOrder(post.UserForm, accountName, favoriteId, couponDetailId, totalAmount, merchantTradeNo, ref now, out productName);
-				if (result.IsSuccessful) {
-					//TODO 儲存最後一個訂單編號
+				merchantTradeNo = _checkoutService.GetNextMerchantTradeNo();
+				OrderData orderData = new OrderData {
+					AccountName = accountName,
+					FavoriteId = favoriteId,
+					CouponDetailId = couponDetailId,
+					FinalPrice = finalAmount,
+					MerchantTradeNo = merchantTradeNo,
+					Now = now,
+				};
+				var result = _checkoutService.CreateOrder(post, orderData, out productName);
 
+				if (result.IsSuccessful) {
+					_checkoutService.SaveMerchantTradeNo(merchantTradeNo);
 				} else {
 					throw new Exception("訂單建立失敗");
 				}
@@ -109,40 +103,39 @@ namespace AspNetMVC.Controllers {
 				return Json(ex.Message);
 			}
 
-			post.ECPayForm.ChoosePayment = "ALL";
-			post.ECPayForm.EncryptType = "1";
-			post.ECPayForm.ItemName = "uCleaner打掃服務";
-			post.ECPayForm.MerchantID = "2000132";
-			post.ECPayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
-			post.ECPayForm.MerchantTradeNo = merchantTradeNo;
-			post.ECPayForm.OrderResultURL = "https://402f14af8bb4.ngrok.io" + "/Checkout/SuccessView";
-			//TODO OrderResultURL
-			post.ECPayForm.PaymentType = "aio";
-			//TODO url文件化
-			post.ECPayForm.ReturnURL = "https://fb6edfcb4a90.ngrok.io" + "/Checkout/ECPayReturn";
-			post.ECPayForm.TotalAmount = Math.Round(totalAmount).ToString();
-			post.ECPayForm.TradeDesc = HttpUtility.UrlEncode(productName);
+			ECPayForm ecpayForm = new ECPayForm();
+			ecpayForm.ChoosePayment = "ALL";
+			ecpayForm.EncryptType = "1";
+			ecpayForm.ItemName = "uCleaner打掃服務";
+			ecpayForm.MerchantID = "2000132";
+			ecpayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
+			ecpayForm.MerchantTradeNo = merchantTradeNo;
+			ecpayForm.OrderResultURL = url + "/Checkout/SuccessView";
+			ecpayForm.PaymentType = "aio";
+			ecpayForm.ReturnURL = url + "/Checkout/ECPayReturn";
+			ecpayForm.TotalAmount = Math.Round(finalAmount).ToString();
+			ecpayForm.TradeDesc = HttpUtility.UrlEncode(productName);
 
 			string HashKey = "5294y06JbISpM5x9";
 			string HashIV = "v77hoKGq4kWxNNIS";
 			string Parameters = string.Format("ChoosePayment={0}&EncryptType={1}&ItemName={2}&MerchantID={3}&MerchantTradeDate={4}&MerchantTradeNo={5}&OrderResultURL={6}&PaymentType={7}&ReturnURL={8}&TotalAmount={9}&TradeDesc={10}",
-				post.ECPayForm.ChoosePayment,
-				post.ECPayForm.EncryptType,
-				post.ECPayForm.ItemName,
-				post.ECPayForm.MerchantID,
-				post.ECPayForm.MerchantTradeDate,
-				post.ECPayForm.MerchantTradeNo,
-				post.ECPayForm.OrderResultURL,
-				post.ECPayForm.PaymentType,
-				post.ECPayForm.ReturnURL,
-				post.ECPayForm.TotalAmount,
-				post.ECPayForm.TradeDesc
+				ecpayForm.ChoosePayment,
+				ecpayForm.EncryptType,
+				ecpayForm.ItemName,
+				ecpayForm.MerchantID,
+				ecpayForm.MerchantTradeDate,
+				ecpayForm.MerchantTradeNo,
+				ecpayForm.OrderResultURL,
+				ecpayForm.PaymentType,
+				ecpayForm.ReturnURL,
+				ecpayForm.TotalAmount,
+				ecpayForm.TradeDesc
 			);
 
-			post.ECPayForm.CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
-			Debug.WriteLine($"MerchantTradeNo1: {post.ECPayForm.MerchantTradeNo}");
+			ecpayForm.CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
+			Debug.WriteLine($"MerchantTradeNo1: {ecpayForm.MerchantTradeNo}");
 
-			return Json(post.ECPayForm);
+			return Json(ecpayForm);
 		}
 		private string GetCheckMacValue(string HashKey, string parameters, string HashIV) {
 			string CheckMacValue = $"HashKey={HashKey}&{parameters}&HashIV={HashIV}";
@@ -196,8 +189,8 @@ namespace AspNetMVC.Controllers {
 		public ActionResult SuccessView() {
 			return View();
 		}
-		public ActionResult AddCoupon() {
-			_checkoutService.CreateCoupon(3);
+		public ActionResult AddCoupon(int id = 1) {
+			_checkoutService.CreateCoupon(id);
 			return null;
 		}
 		public ActionResult AddCouponDetail(int couponId) {
@@ -220,10 +213,6 @@ namespace AspNetMVC.Controllers {
 			return Json(CountyModels.County, JsonRequestBehavior.AllowGet);
 		}
 	}
-	public class AllForm {
-		public UserForm UserForm { get; set; }
-		public ToECPayForm ECPayForm { get; set; }
-	}
 	public class UserForm {
 		public string FavoriteId { get; set; }
 		public string DateService { get; set; }
@@ -238,7 +227,7 @@ namespace AspNetMVC.Controllers {
 		public string InvoiceDonateTo { get; set; }
 		public string CouponDetailId { get; set; }
 	}
-	public class ToECPayForm {
+	public class ECPayForm {
 		public string CheckMacValue { get; set; }
 		public string ChoosePayment { get; set; }
 		public string EncryptType { get; set; }
@@ -252,8 +241,13 @@ namespace AspNetMVC.Controllers {
 		public string TotalAmount { get; set; }
 		public string TradeDesc { get; set; }
 	}
+	public class OrderData {
+		public string AccountName;
+		public Guid FavoriteId;
+		public Guid? CouponDetailId;
+		public decimal FinalPrice;
+		public string MerchantTradeNo;
+		public DateTime Now;
+	}
 }
-//TODO 分離AllForm
-//TODO Request.Form大改
 //TODO 付款成功頁面
-//TODO 訂單編號A00000001

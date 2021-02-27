@@ -532,33 +532,28 @@ const addOrder = function () {
     url: '/Checkout/AddOrder',
     contentType: 'application/json',
     data: JSON.stringify({
-      UserForm: {
-        FavoriteId: favoriteId,
-        DateService: (() => {
-          const d = $row_date.focusDate[0].obj_date;
-          const t = $row_time.focusTime[0].workTime;
-          const yyyy = d.getFullYear();
-          const MM = (d.getMonth() + 1).toString().padStart(2, '0');
-          const dd = d.getDate().toString().padStart(2, '0');
-          const HH = t.getHours().toString().padStart(2, '0');
-          const mm = t.getMinutes().toString().padStart(2, '0');
-          const ss = '00';
-          return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
-        })(),
-        FullName: document.querySelector('#fill-info #input_name').value,
-        Phone: document.querySelector('#fill-info #input_phone').value,
-        Email: document.querySelector('#fill-info #input_email').value,
-        County: document.querySelector('#fill-info #county-list').value,
-        District: document.querySelector('#fill-info #district-list').value,
-        Address: document.querySelector('#fill-info #input_address').value,
-        Remark: document.querySelector('#fill-info #remark').value,
-        InvoiceType: invoiceData.InvoiceType,
-        InvoiceDonateTo: invoiceData.InvoiceDonateTo,
-        CouponDetailId: $couponBox[0].selectedGuid,
-      },
-      ECPayForm: {
-        NoData: 0,
-      },
+      FavoriteId: favoriteId,
+      DateService: (() => {
+        const d = $row_date.focusDate[0].obj_date;
+        const t = $row_time.focusTime[0].workTime;
+        const yyyy = d.getFullYear();
+        const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+        const dd = d.getDate().toString().padStart(2, '0');
+        const HH = t.getHours().toString().padStart(2, '0');
+        const mm = t.getMinutes().toString().padStart(2, '0');
+        const ss = '00';
+        return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+      })(),
+      FullName: document.querySelector('#fill-info #input_name').value,
+      Phone: document.querySelector('#fill-info #input_phone').value,
+      Email: document.querySelector('#fill-info #input_email').value,
+      County: document.querySelector('#fill-info #county-list').value,
+      District: document.querySelector('#fill-info #district-list').value,
+      Address: document.querySelector('#fill-info #input_address').value,
+      Remark: document.querySelector('#fill-info #remark').value,
+      InvoiceType: invoiceData.InvoiceType,
+      InvoiceDonateTo: invoiceData.InvoiceDonateTo,
+      CouponDetailId: $couponBox[0].selectedGuid,
     }),
     success: function (data) {
       console.log(data);

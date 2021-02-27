@@ -30,7 +30,8 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public byte InvoiceType { get; set; }
 		public byte? InvoiceDonateTo { get; set; }
-		public string MerchantTradeNo { get; set; }//TODO MerchantTradeNo Required
+		[Required]
+		public string MerchantTradeNo { get; set; }
 		public string TradeNo { get; set; }
 	}
 	public enum OrderState {
