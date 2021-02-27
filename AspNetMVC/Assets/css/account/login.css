@@ -285,6 +285,8 @@ flex-direction: column;
 .login-modal .form .social-btn-grouping {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 .login-modal .form .social-btn-grouping button {
 	outline: none;
@@ -292,7 +294,7 @@ flex-direction: column;
 	border-radius: 5px;
 	line-height: 45px;
 	margin-bottom: 15px;
-	margin-right: 5px;
+	margin-right: 10px;
 	letter-spacing: 1px;
 	color: var(--light);
 	overflow: hidden;
@@ -316,6 +318,11 @@ flex-direction: column;
 .login-modal .form .social-btn-grouping #btnLineSignIn {
 	background: #1ACA4D;
 }
+
+.login-modal .form .social-btn-grouping #btnMicrosoftSignIn {
+	background: #8a15c8;
+}
+
 .login-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
 	background: #a04d44;
 }
@@ -327,6 +334,11 @@ flex-direction: column;
 .login-modal .form .social-btn-grouping #btnLineSignIn:hover {
 	background: #31ab54;
 }
+
+.login-modal .form .social-btn-grouping #btnMicrosoftSignIn:hover {
+	background: #57177c;
+}
+
 .login-modal .form .social-btn-grouping button.disabled {
 	opacity: .7;
 }
@@ -401,10 +413,11 @@ flex-direction: column;
 
 @media screen and (min-width:768px) {
 	.login-modal .form .social-btn-grouping button {
-		width: 75%;
+		width: 45%;
 		font-size: 16px;
 	}
-	.login-modal .form .social-btn-grouping button#btnFacebookSignIn{
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn,
+	.login-modal .form .social-btn-grouping button#btnMicrosfotSignIn {
 		font-size: 14px;
 	}
 	.login-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap {

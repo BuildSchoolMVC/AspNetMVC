@@ -444,6 +444,73 @@ namespace AspNetMVC.Services
             return or;
         }
 
+        public OperationResult GetMicrosoftInfo(string code)
+        {
+            var or = new OperationResult();
+
+            try
+            {
+                var url = $"https://login.microsoftonline.com/common/oauth2/v2.0/token";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                NameValueCollection postParams = HttpUtility.ParseQueryString(string.Empty);
+
+                var values = new Dictionary<string, string>{
+                        { "grant_type", "authorization_code" },
+                        { "client_id", $"{WebConfigurationManager.AppSettings["Microsoft_client_id"]}" },
+                        { "client_secret",$"{WebConfigurationManager.AppSettings["Microsoft_client_secret"]}"},
+                        { "code",code},
+                        { "scope","&scope=openid%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read"},
+                        { "redirect_uri","https://localhost:44308/Account/MicrosoftLogin"}
+                    };
+                foreach (var kvp in values)
+                {
+                    postParams.Add(kvp.Key, kvp.Value);
+                }
+
+                byte[] byteArray = Encoding.UTF8.GetBytes(postParams.ToString());
+                using (Stream reqStream = request.GetRequestStream())
+                {
+                    reqStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+                string responseStr = "";
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        responseStr = sr.ReadToEnd();
+                    }
+                }
+
+                LineLoginToken tokenObj = JsonConvert.DeserializeObject<LineLoginToken>(responseStr);
+                string id_token = tokenObj.Id_token;
+
+                var jst = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(id_token);
+                LineUserProfile user = new LineUserProfile();
+                user.UserId = jst.Payload.Sub;
+                user.DisplayName = jst.Payload["name"].ToString();
+                user.PictureUrl = jst.Payload["picture"].ToString();
+                if (jst.Payload.ContainsKey("email") && !string.IsNullOrEmpty(Convert.ToString(jst.Payload["email"])))
+                {
+                    user.Email = jst.Payload["email"].ToString();
+                }
+
+                or.IsSuccessful = true;
+                or.MessageInfo = JsonConvert.SerializeObject(user);
+            }
+            catch (Exception ex)
+            {
+                or.IsSuccessful = false;
+                or.Exception = ex;
+                or.MessageInfo = "發生錯誤";
+            }
+            return or;
+        }
+
         public bool IsSocialAccountRegister(string email,string socailPlatform) => _repository.GetAll<Account>().FirstOrDefault(x => x.Email == email && x.SocialPlatform == socailPlatform) != null;
 
         public Guid GetAccountId(string accountName)
@@ -464,31 +531,6 @@ namespace AspNetMVC.Services
         public Account GetUser(string accountName,string password)
         {
            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
-        }
-
-        public HttpCookie SetCookie(string accountName,bool rememberMe)
-        {
-            HttpCookie cookie_user = new HttpCookie("user");
-            var cookieText = Encoding.UTF8.GetBytes(accountName);
-            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-            cookie_user.Values["user_accountname"] = encryptedValue;
-
-            if (rememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
-
-            return cookie_user;
-        }
-
-        public void SendMail(string title,string email, Dictionary<string, string> kvp)
-        {
-            Email objEmail = new Email
-            {
-                RecipientAddress = email,
-                Subject = $"{title} - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-            };
-
-            objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp);
-
-            objEmail.SendEmailFromGmail();
         }
     }
     

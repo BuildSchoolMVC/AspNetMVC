@@ -53,7 +53,7 @@ namespace AspNetMVC.Controllers
                     if (_accountService.IsActivatedEmail(model.AccountName)) {
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
-                            var cookie = _accountService.SetCookie(model.AccountName,model.RememberMe);
+                            var cookie = Helpers.SetCookie(model.AccountName,model.RememberMe);
 
                             Response.Cookies.Add(cookie);
 
@@ -113,7 +113,7 @@ namespace AspNetMVC.Controllers
                         { "isSocialActivation","false"}
                     };
 
-                    _accountService.SendMail("會員驗證信",model.Email, kvp);
+                    Email.SendMail("會員驗證信 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.EmailActivation,kvp);
 
                     return Json(new { response = "操作成立", status = 1 });
                 }
@@ -211,7 +211,7 @@ namespace AspNetMVC.Controllers
                         { "datetime",DateTime.Now.ToString()}
                     };
 
-                    _accountService.SendMail("密碼重置", model.Email,kvp);
+                    Email.SendMail("密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.ForgotPassword, kvp); 
 
                     return Json(new { response = "操作完成", status = 1 }, JsonRequestBehavior.AllowGet);
                 }
@@ -250,19 +250,14 @@ namespace AspNetMVC.Controllers
 
                 if (result.Status == 0) 
                 {
-                    Email objEmail = new Email
-                    {
-                        RecipientAddress = _accountService.GetUser(model.AccountId).Email,
-                        Subject = "你的【uCleaner - 打掃服務】會員密碼已重置"
-                    };
+                    var userEmail = _accountService.GetUser(model.AccountId).Email;
+
                     Dictionary<string, string> kvp = new Dictionary<string, string>
                     {
                         { "accountname", _accountService.GetUser(model.AccountId).AccountName},
                     };
 
-                    objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.SuccessResetPassword), kvp);
-
-                    objEmail.SendEmailFromGmail();
+                    Email.SendMail("你的【uCleaner - 打掃服務】會員密碼已重置", userEmail, Email.Template.SuccessResetPassword, kvp);
 
                     return Json(new { response = result.Status, status = 1 });
                 }
@@ -278,7 +273,7 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GoogleLogin(string token,int type)
+        public async Task<ActionResult> GoogleLogin(string token, int type)
         {
             var result = await _accountService.GetGoogleInfo(token);
 
@@ -288,7 +283,7 @@ namespace AspNetMVC.Controllers
 
                 if (_accountService.IsSocialAccountRegister(googleTokenInfo.Email, "Google")) //檢查此帳戶是否存在並註冊
                 {
-                    var cookie = _accountService.SetCookie(_accountService.GetUser(googleTokenInfo.Email).AccountName, false);
+                    var cookie = Helpers.SetCookie(_accountService.GetUser(googleTokenInfo.Email).AccountName, false);
                     Response.Cookies.Add(cookie);
                     return Json(new { response = "第三方登入", status = 1 });
                 }
@@ -323,7 +318,7 @@ namespace AspNetMVC.Controllers
         {
             if (_accountService.IsSocialAccountRegister(email, socialPlatform))
             {
-                var cookie = _accountService.SetCookie(_accountService.GetUser(email).AccountName, false);
+                var cookie = Helpers.SetCookie(_accountService.GetUser(email).AccountName, false);
                 Response.Cookies.Add(cookie);
                 return Json(new { response = "第三方登入", status = 1 }, JsonRequestBehavior.AllowGet);
             }
@@ -346,7 +341,7 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        public ActionResult LineLogin(string code,int state)
+        public ActionResult LineLogin(string code, int state)
         {
             var result = _accountService.GetLineInfo(code);
 
@@ -356,7 +351,7 @@ namespace AspNetMVC.Controllers
 
                 if (_accountService.IsSocialAccountRegister(user.Email, "Line"))
                 {
-                    var cookie = _accountService.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
+                    var cookie = Helpers.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
                     Response.Cookies.Add(cookie);
 
                     return RedirectToAction("Index", "Home");
@@ -381,7 +376,42 @@ namespace AspNetMVC.Controllers
             }
         }
 
-        public ActionResult SocialRegister(string email,string photo,string social)
+        public ActionResult MicrosoftLogin(string code,int state)
+        {
+            var result = _accountService.GetMicrosoftInfo(code);
+
+            if (result.IsSuccessful)
+            {
+                var user = JsonConvert.DeserializeObject<LineUserProfile>(result.MessageInfo);
+
+                if (_accountService.IsSocialAccountRegister(user.Email, "Line"))
+                {
+                    var cookie = Helpers.SetCookie(_accountService.GetUser(user.Email).AccountName, false);
+                    Response.Cookies.Add(cookie);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    if (state == 0)
+                    {
+                        return RedirectToAction("SocialRegister", "Account", new { email = user.Email, photo = user.PictureUrl, social = "Line" });
+                    }
+                    else
+                    {
+                        ViewBag.Error = true;
+                        return View("Login");
+                    }
+
+                }
+            }
+            else
+            {
+                return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult SocialRegister(string email, string photo, string social)
         {
             ViewBag.Email = email;
             ViewBag.Photo = photo;
@@ -396,7 +426,7 @@ namespace AspNetMVC.Controllers
             var result = _accountService.RegisterByThirdParty(model);
             if (result.IsSuccessful)
             {
-                var cookie = _accountService.SetCookie(model.AccountName, false);
+                var cookie = Helpers.SetCookie(model.AccountName, false);
                 Response.Cookies.Add(cookie);
             }
             return Json(new { response = result.MessageInfo, status = result.IsSuccessful});

@@ -42,7 +42,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link color-gray" href="@Url.Action("Index","ProductPage")">
+                            <a class="nav-link color-gray" href="@Url.Action("Index", "ProductPage")">
                                 <i class="fas fa-home ml-4 mr-2"></i>找打掃
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                     <div class="side-menu_body">
                         <ul class="side-menu-nav">
                             <li class="nav-item py-2">
-                                <a class="nav-link color-gray" href="@Url.Action("Index","ProductPage")">
+                                <a class="nav-link color-gray" href="@Url.Action("Index", "ProductPage")">
                                     <i class="fas fa-home ml-4 mr-2"></i>找打掃
                                 </a>
                             </li>
@@ -216,10 +216,8 @@
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">清潔收納</h5>
                             <a class="dropdown-item color-gray" href="/ProductPage"
-                            <a class="dropdown-item color-gray" href="/ProductPage"
                                data-imgSrc="/Assets/images/water pip.jpg">收納整理</a>
-                            <a class="dropdown-item color-gray" href="/ProductPage"
-                               data-imgSrc="/Assets/images/air condtioner.jpg">裝潢清潔</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage" data-imgSrc="/Assets/images/air condtioner.jpg">裝潢清潔</a>
                         </div>
                     </div>
                     <div class="col-3 d-flex">
@@ -232,7 +230,6 @@
                         </div>
                         <div class="collapse_section px-2">
                             <h5 class="white-space pl-3 pt-4">企業服務</h5>
-                            <a class="dropdown-item color-gray" href="/ProductPage"
                             <a class="dropdown-item color-gray" href="/ProductPage"
                                data-imgSrc="/Assets/images/office1.jpg">辦公室定期</a>
                             <a class="dropdown-item color-gray" href="/ProductPage"
@@ -284,9 +281,9 @@
             <div class="row">
                 <div class="col-12 col-lg-4">
                     <ul class="list-unstyled">
-                        <li><a href="@Url.Action("Index","ProductPage")">找打掃</a></li>
-                        <li><a href="@Url.Action("AllServiceView","Home")">全部服務</a></li>
-                        <li><a href="@Url.Action("Index","QA")">常見問題 / 關於我們</a></li>
+                        <li><a href="@Url.Action("Index", "ProductPage")">找打掃</a></li>
+                        <li><a href="@Url.Action("AllServiceView", "Home")">全部服務</a></li>
+                        <li><a href="@Url.Action("Index", "QA")">常見問題 / 關於我們</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -411,6 +408,32 @@
             link += '&redirect_uri=https://localhost:44308/Account/LineLogin';
             link += `&state=${this.dataset.type}`;
             link += '&scope=profile%20openid%20email';
+            window.location.href = link;
+
+            document.querySelectorAll("button").forEach(x => {
+                x.setAttribute("disabled", "disabled");
+                x.classList.add("disabled");
+            })
+            this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+
+            setTimeout(function(){
+                document.querySelectorAll("button").forEach(x => {
+                    x.removeAttribute("disabled");
+                    x.classList.remove("disabled");
+                })
+                document.querySelector("#btnLineSignIn .spinner-border-wrap").classList.add("opacity");
+            },6000)
+        });
+    </script>
+    <script>
+        $('#btnMicrosoftSignIn').on('click', function (e) {
+            let link = "https://login.microsoftonline.com/@WebConfigurationManager.AppSettings["Microsoft_tenant_id"]/oauth2/v2.0/authorize?";
+            link += 'client_id=@WebConfigurationManager.AppSettings["Microsoft_client_id"]';
+            link += '&response_type=id_token';
+            link += '&redirect_uri=https://localhost:44308/Account/MicrosoftLogin';
+            link += `&state=${this.dataset.type}`;
+            link += '&scope=openid%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read';
+            link += '&response_mode=fragment';
             window.location.href = link;
 
             document.querySelectorAll("button").forEach(x => {
