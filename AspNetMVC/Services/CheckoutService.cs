@@ -123,13 +123,15 @@ namespace AspNetMVC.Services {
 				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
 			}
 			UserFavorite favorite = _repository.GetAll<UserFavorite>()
-										.First(x => x.FavoriteId == favoriteId);
+											.First(x => x.FavoriteId == favoriteId);
 			if (favorite.IsPackage) {
-				productName = _repository.GetAll<PackageProduct>()
+				productName = _repository
+					.GetAll<PackageProduct>()
 					.First(x => x.PackageProductId == favorite.PackageProductId)
 					.Name;
 			} else {
-				productName = _repository.GetAll<UserDefinedProduct>()
+				productName = _repository
+					.GetAll<UserDefinedProduct>()
 					.First(x => x.UserDefinedId == favorite.UserDefinedId)
 					.Name;
 			}
@@ -144,11 +146,11 @@ namespace AspNetMVC.Services {
 						DateService = DateTime.Parse(userForm.DateService),
 						Address = $"{userForm.County}{userForm.District}{userForm.Address}",
 						Remark = userForm.Remark == null ? string.Empty : userForm.Remark,
-						OrderState = (byte)OrderState.PendingPayment,
+						OrderState = (byte)OrderState.Unpaid,
 						Rate = null,
 						Comment = string.Empty,
-						CouponId = couponDetailId,
-						PaymentMethod = (byte)PayMethod.ECPay,
+						CouponDetailId = couponDetailId,
+						PaymentType = string.Empty,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
 						InvoiceDonateTo = invoiceDonateTo,
 						CreateTime = now,
@@ -163,7 +165,7 @@ namespace AspNetMVC.Services {
 						OrderDetailId = Guid.NewGuid(),
 						OrderId = order.OrderId,
 						FavoriteId = favoriteId,
-						ProductPrice = total,
+						FinalPrice = total,
 						ProductName = productName,
 						CreateTime = now,
 						EditTime = now,
@@ -192,14 +194,26 @@ namespace AspNetMVC.Services {
 		public decimal GetTotalAmount(Guid favoriteId) {
 			UserFavorite f = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
 			if (f.IsPackage) {
-				return _repository.GetAll<PackageProduct>()
+				return _repository
+					.GetAll<PackageProduct>()
 					.First(x => x.PackageProductId == f.PackageProductId)
 					.Price;
 			} else {
-				return _repository.GetAll<UserDefinedProduct>()
+				return _repository
+					.GetAll<UserDefinedProduct>()
 					.Where(x => x.UserDefinedId == f.UserDefinedId)
 					.Sum(x => x.Price);
 			}
+		}
+		public void UpdateOrder(string merchantTradeNo, string tradeNo, string paymentType, bool isOK) {
+			Order o = _repository.GetAll<Order>().First(x => x.MerchantTradeNo == merchantTradeNo);
+			if (isOK) {
+				o.OrderState = (byte)OrderState.Paid;
+				o.PaymentType = paymentType;
+			}
+			o.TradeNo = tradeNo;
+
+			_context.SaveChanges();
 		}
 		public void CheckAccountExist(string accountName) {
 			//帳號不存在拋例外
@@ -213,7 +227,7 @@ namespace AspNetMVC.Services {
 			//收藏Id與帳號不符拋例外
 			try {
 				_repository.GetAll<UserFavorite>()
-				.First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
+					.First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
 			} catch (Exception) {
 				throw new Exception("收藏不存在");
 			}

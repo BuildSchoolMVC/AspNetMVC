@@ -73,7 +73,7 @@ namespace AspNetMVC.Controllers {
 			return View(dataViewModel);
 		}
 		[HttpPost]
-		public ActionResult ToECPay(AllForm post) {
+		public ActionResult AddOrder(AllForm post) {
 			DateTime now = DateTime.Now;
 			string accountName;
 			string productName;
@@ -107,24 +107,28 @@ namespace AspNetMVC.Controllers {
 
 			post.ECPayForm.ChoosePayment = "ALL";
 			post.ECPayForm.EncryptType = "1";
-			post.ECPayForm.ItemName = HttpUtility.UrlEncode("打掃服務");
+			post.ECPayForm.ItemName = "uCleaner打掃服務";
 			post.ECPayForm.MerchantID = "2000132";
 			post.ECPayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
 			post.ECPayForm.MerchantTradeNo = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
+			post.ECPayForm.OrderResultURL = "https://402f14af8bb4.ngrok.io" + "/Checkout/SuccessView";
+			//TODO OrderResultURL
 			post.ECPayForm.PaymentType = "aio";
-			post.ECPayForm.ReturnURL = "https://872599f54008.ngrok.io" + "/Checkout/TestResponse";//todo
-			post.ECPayForm.TotalAmount = totalAmount.ToString();
+			//TODO url文件化
+			post.ECPayForm.ReturnURL = "https://fb6edfcb4a90.ngrok.io" + "/Checkout/ECPayReturn";
+			post.ECPayForm.TotalAmount = Math.Round(totalAmount).ToString();
 			post.ECPayForm.TradeDesc = HttpUtility.UrlEncode(productName);
-			
+
 			string HashKey = "5294y06JbISpM5x9";
 			string HashIV = "v77hoKGq4kWxNNIS";
-			string Parameters = string.Format("ChoosePayment={0}&EncryptType={1}&ItemName={2}&MerchantID={3}&MerchantTradeDate={4}&MerchantTradeNo={5}&PaymentType={6}&ReturnURL={7}&TotalAmount={8}&TradeDesc={9}",
+			string Parameters = string.Format("ChoosePayment={0}&EncryptType={1}&ItemName={2}&MerchantID={3}&MerchantTradeDate={4}&MerchantTradeNo={5}&OrderResultURL={6}&PaymentType={7}&ReturnURL={8}&TotalAmount={9}&TradeDesc={10}",
 				post.ECPayForm.ChoosePayment,
 				post.ECPayForm.EncryptType,
 				post.ECPayForm.ItemName,
 				post.ECPayForm.MerchantID,
 				post.ECPayForm.MerchantTradeDate,
 				post.ECPayForm.MerchantTradeNo,
+				post.ECPayForm.OrderResultURL,
 				post.ECPayForm.PaymentType,
 				post.ECPayForm.ReturnURL,
 				post.ECPayForm.TotalAmount,
@@ -132,6 +136,7 @@ namespace AspNetMVC.Controllers {
 			);
 
 			post.ECPayForm.CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
+			Debug.WriteLine($"MerchantTradeNo1: {post.ECPayForm.MerchantTradeNo}");
 
 			return Json(post.ECPayForm);
 		}
@@ -145,64 +150,47 @@ namespace AspNetMVC.Controllers {
 				byte[] crypto = sha256Hash.ComputeHash(source);//加密
 				StringBuilder builder = new StringBuilder();
 				for (int i = 0; i < crypto.Length; i++) {
-					builder.Append(crypto[i].ToString("x2"));
+					builder.Append(crypto[i].ToString("X2"));
 				}
-				string result = builder.ToString().ToUpper();
-				return result;
+				return builder.ToString();
 			}
 		}
-		private string NoUse() {
-			string urlString = "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5";
+		public string ECPayReturn() {
+			string MerchantID = Request.Form["MerchantID"];
+			string MerchantTradeNo = Request.Form["MerchantTradeNo"];
+			string StoreID = Request.Form["StoreID"];
+			string RtnCode = Request.Form["RtnCode"];
+			string RtnMsg = Request.Form["RtnMsg"];
+			string TradeNo = Request.Form["TradeNo"];
+			string TradeAmt = Request.Form["TradeAmt"];
+			string PaymentDate = Request.Form["PaymentDate"];
+			string PaymentType = Request.Form["PaymentType"];
+			string PaymentTypeChargeFee = Request.Form["PaymentTypeChargeFee"];
+			string TradeDate = Request.Form["TradeDate"];
+			string SimulatePaid = Request.Form["SimulatePaid"];
+			string CheckMacValue = Request.Form["CheckMacValue"];
+			//付款成功or失敗
+			bool isSuccess = RtnCode == "1" && SimulatePaid == "0";
+			_checkoutService.UpdateOrder(MerchantTradeNo, TradeNo, PaymentType, isSuccess);
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlString);
-			request.ContentType = "application/x-www-form-urlencoded";
-			request.Method = "POST";
+			Debug.WriteLine($"MerchantID: {MerchantID}");
+			Debug.WriteLine($"MerchantTradeNo2: {MerchantTradeNo}");
+			Debug.WriteLine($"StoreID: {StoreID}");
+			Debug.WriteLine($"RtnCode: {RtnCode}");
+			Debug.WriteLine($"RtnMsg: {RtnMsg}");
+			Debug.WriteLine($"TradeNo: {TradeNo}");
+			Debug.WriteLine($"TradeAmt: {TradeAmt}");
+			Debug.WriteLine($"PaymentDate: {PaymentDate}");
+			Debug.WriteLine($"PaymentType: {PaymentType}");
+			Debug.WriteLine($"PaymentTypeChargeFee: {PaymentTypeChargeFee}");
+			Debug.WriteLine($"TradeDate: {TradeDate}");
+			Debug.WriteLine($"SimulatePaid: {SimulatePaid}");
+			Debug.WriteLine($"CheckMacValue: {CheckMacValue}");
 
-			string ChoosePayment = "ALL";
-			string EncryptType = "1";
-			string ItemName = HttpUtility.UrlEncode("uCleaner");
-			string MerchantID = "2000132";
-			string MerchantTradeDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-			string MerchantTradeNo = "durkzodkfjafdaf00009";
-			string PaymentType = "aio";
-			string ReturnURL = "https://872599f54008.ngrok.io" + "/Checkout/TestResponse";
-			string TotalAmount = "1200";
-			string TradeDesc = HttpUtility.UrlEncode("desc");
-
-			string HashKey = "5294y06JbISpM5x9";
-			string HashIV = "v77hoKGq4kWxNNIS";
-			string Parameters = $"ChoosePayment={ChoosePayment}&EncryptType={EncryptType}&ItemName={ItemName}&MerchantID={MerchantID}&MerchantTradeDate={MerchantTradeDate}&MerchantTradeNo={MerchantTradeNo}&PaymentType={PaymentType}&ReturnURL={ReturnURL}&TotalAmount={TotalAmount}&TradeDesc={TradeDesc}";
-			string CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
-
-			//var postData = $"CheckMacValue={CheckMacValue}&ChoosePayment={ChoosePayment}&EncryptType={EncryptType}&ItemName={ItemName}&MerchantID={MerchantID}&MerchantTradeDate={MerchantTradeDate}&MerchantTradeNo={MerchantTradeNo}&PaymentType={PaymentType}&ReturnURL={ReturnURL}&TotalAmount={TotalAmount}&TradeDesc={TradeDesc}";
-
-			//byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-			//request.ContentLength = byteArray.Length;
-
-			//Stream dataStream = request.GetRequestStream();
-			//dataStream.Write(byteArray, 0, byteArray.Length);
-			//dataStream.Close();
-
-			//WebResponse response = request.GetResponse();
-
-
-			//Debug.WriteLine(((HttpWebResponse)response).StatusDescription);
-			//StreamReader streamReader = new StreamReader(response.GetResponseStream());
-			//Debug.WriteLine(response.ContentType);
-			//Debug.WriteLine(response.Headers);
-			//Debug.WriteLine(response.ResponseUri);
-
-			//return Content(streamReader.ReadToEnd());
-			return null;
+			return "1|OK";
 		}
-		public ActionResult TestResponse() {
-			Debug.WriteLine("1231");
-			return null;
-		}
-		[HttpPost]
-		public ActionResult AddOrder(FormCollection submit) {
-			//todo 可刪
-			return Json(new { title = "預約成功", content = "服務人員將在預約時間前1小時內與您聯繫" });
+		public ActionResult SuccessView() {
+			return View();
 		}
 		public ActionResult AddCoupon() {
 			_checkoutService.CreateCoupon(3);
@@ -230,7 +218,7 @@ namespace AspNetMVC.Controllers {
 	}
 	public class AllForm {
 		public UserForm UserForm { get; set; }
-		public ECPayForm ECPayForm { get; set; }
+		public ToECPayForm ECPayForm { get; set; }
 	}
 	public class UserForm {
 		public string FavoriteId { get; set; }
@@ -246,7 +234,7 @@ namespace AspNetMVC.Controllers {
 		public string InvoiceDonateTo { get; set; }
 		public string CouponDetailId { get; set; }
 	}
-	public class ECPayForm {
+	public class ToECPayForm {
 		public string CheckMacValue { get; set; }
 		public string ChoosePayment { get; set; }
 		public string EncryptType { get; set; }
@@ -254,9 +242,13 @@ namespace AspNetMVC.Controllers {
 		public string MerchantID { get; set; }
 		public string MerchantTradeDate { get; set; }
 		public string MerchantTradeNo { get; set; }
+		public string OrderResultURL { get; set; }
 		public string PaymentType { get; set; }
 		public string ReturnURL { get; set; }
 		public string TotalAmount { get; set; }
 		public string TradeDesc { get; set; }
 	}
 }
+//TODO 分離AllForm
+//TODO Request.Form大改
+//TODO 付款成功頁面

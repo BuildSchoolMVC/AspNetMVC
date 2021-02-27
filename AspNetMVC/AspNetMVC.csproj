@@ -571,8 +571,8 @@
     <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
     <Content Include="Views\Account\SocialRegister.cshtml" />
-    <Content Include="Views\Checkout\ToECPay.cshtml" />
     <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
+    <Content Include="Views\Checkout\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

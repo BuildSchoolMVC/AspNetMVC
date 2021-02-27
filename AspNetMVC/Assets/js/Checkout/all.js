@@ -372,22 +372,7 @@ $nextStep.on('click', function () {
       disableBtn($lastStep);
       disableBtn($nextStep);
       $('.coupon button').replaceWith($('<span>優惠券</span>'));
-      $.ajax({
-        type: 'POST',
-        url: '/Checkout/AddOrder',
-        data: {
-
-        },
-        // success: (message) => {
-        //   $('#done .pic').html(`
-        //     <svg id="tick" viewBox="0 0 32 32">
-        //       <path d="M27,9 l-15,15 -7,-7"></path>
-        //     </svg>
-        //   `);
-        //   $('#done .title').text(message.title);
-        //   $('#done .content').text(message.content);
-        // },
-      });
+      addOrder();
       break;
   }
   $barFront.css('width', `${33.333 * state}%`);
@@ -541,10 +526,10 @@ Date.prototype.toFormat = function () {
   let ss = this.getSeconds();
   return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
 };
-document.querySelector('#toECPay').addEventListener('click', function () {
+const addOrder = function () {
   $.ajax({
     method: 'POST',
-    url: '/Checkout/ToECPay',
+    url: '/Checkout/AddOrder',
     contentType: 'application/json',
     data: JSON.stringify({
       UserForm: {
@@ -572,7 +557,7 @@ document.querySelector('#toECPay').addEventListener('click', function () {
         CouponDetailId: $couponBox[0].selectedGuid,
       },
       ECPayForm: {
-        NoData: {}
+        NoData: 0,
       },
     }),
     success: function (data) {
@@ -585,14 +570,15 @@ document.querySelector('#toECPay').addEventListener('click', function () {
       ECPayFrom.querySelector('[name="MerchantID"]').value = data.MerchantID;
       ECPayFrom.querySelector('[name="MerchantTradeDate"]').value = data.MerchantTradeDate;
       ECPayFrom.querySelector('[name="MerchantTradeNo"]').value = data.MerchantTradeNo;
+      ECPayFrom.querySelector('[name="OrderResultURL"]').value = data.OrderResultURL;
       ECPayFrom.querySelector('[name="PaymentType"]').value = data.PaymentType;
       ECPayFrom.querySelector('[name="ReturnURL"]').value = data.ReturnURL;
       ECPayFrom.querySelector('[name="TotalAmount"]').value = data.TotalAmount;
       ECPayFrom.querySelector('[name="TradeDesc"]').value = data.TradeDesc;
-      
+      ECPayFrom.submit();
     },
   });
-});
+};
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {
   const $checkbox = $(e.target).children('[type=checkbox]')[0];
