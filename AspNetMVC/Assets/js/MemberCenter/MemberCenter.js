@@ -138,7 +138,7 @@ saveCredit.onclick = function () {
         .then(result => {
             if (result.response == "success") {
                 toastr.success("信用卡儲存成功!!");
-                $('#exampleModal').modal('hide');
+                $('#creditModal').modal('hide');
             }
             else {
                 

@@ -2,11 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
-    var account = Model.account;
-    var order = Model.order;
-    var credit = Model.credit;
-    var fav = Model.favorites;
-    var password = Model.password;
+    var account = Model.Account;
+    var order = Model.Order;
+    var credit = Model.Credit;
+    var fav = Model.Favorites;
+    var password = Model.Password;
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
@@ -463,7 +463,7 @@
                             <p>請輸入到期日</p>
                             <input type="number" id="expiry_date">
                             
-                            <p>到期日格式為mm+YY 例如:到期日為2024年7月 則輸入0724
+                            <p>到期日格式為YY+mm 例如:到期日為2024年7月 則輸入2407
                             <span class="error"></span>
                             <span class="success"></span>
                         </div>
@@ -480,17 +480,33 @@
                     <div class="page-title">
                         <h2>我的信用卡</h2>
                     </div>
-
-                    <div class="page-body null-page">
-                        <button class="btn newCredit" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
-                            新增信用卡
-                            <div class="radius">
-                                <div>
-                                    <p>+</p>
+                    @if (credit.Count == 0)
+                    {
+                        <div class="page-body null-page">
+                            <button class="btn newCredit" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
+                                新增信用卡
+                                <div class="radius">
+                                    <div>
+                                        <p>+</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </button>
-                    </div>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="page-body">
+                            <button class="btn btn-main" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
+                                新增信用卡
+                            </button>
+                            @foreach (var item in credit)
+                            {
+                                @Html.Partial("~/Views/Shared/PartialView/_CreditPartial.cshtml", item)
+                            }
+
+                        </div>
+                    }
+
                 </div>
             </div>
 
