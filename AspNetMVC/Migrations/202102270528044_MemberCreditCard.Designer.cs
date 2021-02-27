@@ -13,7 +13,7 @@ namespace AspNetMVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202102200523500_MemberCreditCard"; }
+            get { return "202102270528044_MemberCreditCard"; }
         }
         
         string IMigrationMetadata.Source
