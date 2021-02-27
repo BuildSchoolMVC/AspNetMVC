@@ -19,6 +19,5 @@ namespace AspNetMVC.Models.Entity {
 		public bool IsPackage { get; set; }
 		[Required]
 		public bool IsDelete { get; set; }
-
     }
 }

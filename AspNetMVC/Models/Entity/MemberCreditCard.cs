@@ -16,7 +16,5 @@ namespace AspNetMVC.Models.Entity
         public string CreditNumber { get; set; }
         [Required]
         public int ExpiryDate { get; set; }
-        [Required]
-        public int SafeNum { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AspNetMVC.Models;
+﻿using AspNetMVC.Controllers;
+using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Repository;
 using System;
@@ -97,15 +98,23 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
-		public OperationResult AddOrder(Controllers.UserForm userForm, string accountName, Guid favoriteId, decimal total, ref DateTime now) {
-			//收藏Id與擁有者相符
+		public decimal GetDiscountAmount(Guid? couponDetailId) {
+			int couponId = _repository.GetAll<CouponDetail>()
+				.First(x => x.CouponDetailId == couponDetailId)
+				.CouponId;
+			return _repository.GetAll<Coupon>()
+				.First(x => x.CouponId == couponId)
+				.DiscountAmount;
+		}
+		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now) {
 
 			var result = new OperationResult();
-			Guid? couponId; 
-			if (userForm.CouponId == null) {
-				couponId = null;
+			
+			CouponDetail cd = CheckCoupon(accountName, couponDetailId);
+			if (cd == null) {
+				couponDetailId = null;
 			} else {
-				couponId = Guid.Parse(userForm.CouponId);
+				couponDetailId = cd.CouponDetailId;
 			}
 			byte? invoiceDonateTo;
 			if (userForm.InvoiceDonateTo == null) {
@@ -123,11 +132,11 @@ namespace AspNetMVC.Services {
 						Phone = userForm.Phone,
 						DateService = DateTime.Parse(userForm.DateService),
 						Address = $"{userForm.County}{userForm.District}{userForm.Address}",
-						Remark = userForm.Remark,
+						Remark = userForm.Remark == null ? string.Empty : userForm.Remark,
 						OrderState = (byte)OrderState.PendingPayment,
 						Rate = null,
 						Comment = string.Empty,
-						CouponId = couponId,
+						CouponId = couponDetailId,
 						PaymentMethod = (byte)PayMethod.ECPay,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
 						InvoiceDonateTo = invoiceDonateTo,
@@ -165,7 +174,12 @@ namespace AspNetMVC.Services {
 					};
 					_repository.Create<OrderDetail>(od);
 					_context.SaveChanges();
-					
+
+					if (cd != null) {
+						cd.State = (int)UseState.Used;
+						_context.SaveChanges();
+					}
+
 					result.IsSuccessful = true;
 					transcation.Commit();
 
@@ -191,11 +205,24 @@ namespace AspNetMVC.Services {
 		}
 		public void CheckAccountExist(string accountName) {
 			//帳號不存在拋例外
-			_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+			try {
+				_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+			} catch (Exception) {
+				throw new Exception("帳號不存在");
+			}
 		}
 		public void CheckFavoriteId(string accountName, Guid favoriteId) {
 			//收藏Id與帳號不符拋例外
-			_repository.GetAll<UserFavorite>().First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
+			try {
+				_repository.GetAll<UserFavorite>()
+				.First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
+			} catch (Exception) {
+				throw new Exception("收藏不存在");
+			}
+		}
+		public CouponDetail CheckCoupon(string accountName, Guid? couponDetailId) {
+			return _repository.GetAll<CouponDetail>()
+				.FirstOrDefault(x => x.AccountName == accountName && x.CouponDetailId == couponDetailId && x.State == (int)UseState.Unused);
 		}
 	}
 	public class CouponJson {
