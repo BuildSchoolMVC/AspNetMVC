@@ -569,12 +569,14 @@ document.querySelector('#toECPay').addEventListener('click', function () {
         Remark: document.querySelector('#fill-info #remark').value,
         InvoiceType: invoiceData.InvoiceType,
         InvoiceDonateTo: invoiceData.InvoiceDonateTo,
-        CouponId: $couponBox[0].selectedGuid,
+        CouponDetailId: $couponBox[0].selectedGuid,
       },
-      ItemName: 'uCleaner',
-      ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
-      ChoosePayment: 'ALL',
-      EncryptType: 111,
+      ECPayForm: {
+        ItemName: 'uCleaner',
+        ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
+        ChoosePayment: 'ALL',
+        EncryptType: 111,
+      },
     }),
     success: function () {
       console.log('yes');
