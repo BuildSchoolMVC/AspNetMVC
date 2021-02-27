@@ -34,6 +34,7 @@ namespace AspNetMVC.Controllers
         
         public ActionResult Index()
         {
+
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             
             return View(memberVm);
