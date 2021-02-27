@@ -32,7 +32,7 @@ namespace AspNetMVC.Services
             SuccessResetPassword
         }
 
-        public Email()
+        public Email(string subject,string body,string recipientAddress)
         {
             Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"];
             Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"];
@@ -40,6 +40,9 @@ namespace AspNetMVC.Services
             Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"];
             SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com";
             SenderName = "系統管理者";
+            Body = body;
+            Subject = subject;
+            RecipientAddress = recipientAddress;
         }
 
         public void SendEmailFromGmail()
@@ -73,7 +76,7 @@ namespace AspNetMVC.Services
             }
         }
 
-        public string GetEmailString(Template template)
+        public static string GetTemplateEmailString(Template template)
         {
             string returnString = "";
             string path = AppDomain.CurrentDomain.BaseDirectory + $@"\Assets\template\{template}Template.html"; // 取得該專案當前路徑 + 樣板檔名
@@ -87,7 +90,7 @@ namespace AspNetMVC.Services
             return returnString;
         }
 
-        public string ReplaceString(string strings,Dictionary<string,string> dic)
+        public static string ReplaceString(string strings,Dictionary<string,string> dic)
         {
             string result = strings;
 
@@ -96,6 +99,22 @@ namespace AspNetMVC.Services
                 result = Regex.Replace(result, $"#{item.Key}#", item.Value);
             }
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title">信件主旨</param>
+        /// <param name="email">寄送信箱</param>
+        /// <param name="template">使用到的模板</param>
+        /// <param name="kvp">模板內文替代文字</param>
+        public static void SendMail(string title, string email, Email.Template template, Dictionary<string, string> kvp)
+        {
+            var body = ReplaceString(GetTemplateEmailString(template), kvp);
+
+            Email objEmail = new Email(title, body, email);
+
+            objEmail.SendEmailFromGmail();
         }
     }
 }
