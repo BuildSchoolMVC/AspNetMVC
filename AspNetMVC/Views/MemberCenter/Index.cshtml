@@ -345,7 +345,7 @@
                                         <p>您還沒有已完成的訂單唷</p>
                                     </div>
                                     <div class="page-body-btn">
-                                        <button class="btn btn-model-space" id="">
+                                        <button class="btn btn-model-space">
                                             查看全部服務
                                         </button>
                                     </div>
@@ -456,22 +456,20 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" id="password_body">
+                        <div class="modal-body" id="credit_body">
                             <p>請輸入信用卡卡號</p>
-                            <input type="password" id="origin_password">
+                            <input type="text" id="credit_number">
 
                             <p>請輸入到期日</p>
-                            <input type="password" id="new_password">
-
-                            <p>請輸入安全碼</p>
-                            <input type="password" id="confirm_password">
-
+                            <input type="number" id="expiry_date">
+                            
+                            <p>到期日格式為mm+YY 例如:到期日為2024年7月 則輸入0724
                             <span class="error"></span>
                             <span class="success"></span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-password btn-model-space" id="" data-dismiss="modal">關閉</button>
-                            <button type="button" class="btn btn-main" value="" id="">儲存密碼</button>
+                            <button type="button" class="btn btn-main" value="" id="saveCreditcard">儲存信用卡</button>
                         </div>
                     </div>
                 </div>
