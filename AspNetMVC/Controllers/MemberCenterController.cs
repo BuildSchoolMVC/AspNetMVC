@@ -44,11 +44,26 @@ namespace AspNetMVC.Controllers
 
             List<CouponViewModel> coupons = new List<CouponViewModel>()
             {
-                new CouponViewModel(){CouponId=1,CouponName="2021Xmas"},
+               new CouponViewModel{CouponName="Anderson",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2021,12,31)},
+               new CouponViewModel{CouponName="peter",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2022,12,31)},
+               new CouponViewModel{CouponName="kevin",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2023,12,31)},
             };
 
-            ViewBag.coupondata = coupons;
+            var unusedcoupons = coupons.Where(x => x.Status == 0).ToList();
 
+            var usedcoupons = coupons.Where(x => x.Status == 1).ToList(); ;
+
+            var expiredcoupons = coupons.Where(x => x.Status == 2).ToList();
+
+
+            
+            ViewBag.unusedcoupondata = unusedcoupons;
+
+           
+            ViewBag.usedcoupondata = usedcoupons;
+
+          
+            ViewBag.expiredcoupondata = expiredcoupons;
             
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             return View(memberVm);

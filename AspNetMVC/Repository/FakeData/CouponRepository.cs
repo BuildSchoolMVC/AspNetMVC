@@ -13,8 +13,8 @@ namespace AspNetMVC.Repository
             return new List<CouponViewModel>
             {
                new CouponViewModel{CouponName="Anderson",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2021,12,31)},
-               new CouponViewModel{CouponName="Anderson",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2022,12,31)},
-               new CouponViewModel{CouponName="Anderson",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2023,12,31)},
+               new CouponViewModel{CouponName="peter",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2022,12,31)},
+               new CouponViewModel{CouponName="kevin",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2023,12,31)},
             };
         }
 

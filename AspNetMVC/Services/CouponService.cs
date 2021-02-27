@@ -16,6 +16,21 @@ namespace AspNetMVC.Services
         {
             CouponData = new CouponRepository().CreateCouponList();
         }
+
+        //public List<CouponViewModel> GetAll()
+        //{
+        //    return new List<CouponViewModel>
+        //    {
+        //        coupons = coupons.Where(x => x.Status == 0).ToList();
+        //        ViewBag.coupondata = coupons;
+
+        //        coupons = coupons.Where(x => x.Status == 1).ToList();
+        //        ViewBag.coupondata = coupons;
+
+        //        coupons = coupons.Where(x => x.Status == 2).ToList();
+        //        ViewBag.coupondata = coupons;
+        //};
+        
     }
 
 }

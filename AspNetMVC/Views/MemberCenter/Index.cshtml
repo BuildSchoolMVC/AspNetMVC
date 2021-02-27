@@ -7,6 +7,8 @@
     var credit = Model.credit;
     var fav = Model.favorites;
     var password = Model.password;
+
+
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
@@ -491,11 +493,11 @@
                                     <div class="favorite-body">
                                         <ul class="prod-form-body">
                                             <li>
-                                                @if (CouponData.Any(x => x.Status == 0))
+                                                @if (unused.Any(x=>x.Status == 0))
                                                 {
-                                                    foreach (var item in CouponData.Where(x => x.Status == 0))
+                                                    foreach (var item in unused)
                                                     {
-                                                        @Html.Partial("PartialView/_CouponPartial", CouponData)
+                                                        @Html.Partial("PartialView/_CouponPartial", item)
                                                     }
                                                 }
                                                 else
@@ -512,92 +514,12 @@
                                                     </div>
                                                 }
                                             </li>
-
-                                            @*@else if(coupon=1)
-                                                {
-                                                <div class="page-body order-body">
-                                                    <div class="null-page">
-                                                        <div class="page-body-img">
-                                                            <img src="coupon.png" alt="">
-                                                        </div>
-                                                        <div class="page-body-text">
-                                                            <p>您還沒有已過期的優惠卷</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                }*@
-
-                                            @*@else (coupon = 2)
-                                                {
-                                                <div class="page-body order-body">
-                                                    <div class="null-page">
-                                                        <div class="page-body-img">
-                                                            <img src="coupon.png" alt="">
-                                                        </div>
-                                                        <div class="page-body-text">
-                                                            <p>您還沒有已過期的優惠卷</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                }*@
-
-
-                                            <!--<div class="item">-->
-                                            <!--<div class="title">
-                                                        <h2>UCleaner</h2>
-                                                    </div>
-                                                    <div class="pic">
-                                                        <div class="coupon">
-                                                            <h2>Coupon</h2>
-                                                            <h3></h3>
-                                                            <h3></h3>
-                                                            <h3></h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>-->
-                                            @*<li>
-
-                                                    @foreach (var item in List<CouponViewModel>) ViewBag.coupondata);
-                                                    <div class="item">
-
-                                                        <div class="title">
-                                                            <h2>UCleaner</h2>
-                                                        </div>
-                                                        <div class="text">
-                                                            <div class="coupon">
-                                                                <h2>Coupon</h2>
-                                                                <h3></h3>
-                                                                <h3></h3>
-                                                                <h3></h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </*@li>
-
-                                            @*<li>
-                                                @foreach (var item in List<CouponViewModel>) ViewBag.coupondata);
-                                                    <div class="item">
-
-                                                        <div class="title">
-                                                            <h2>UCleaner</h2>
-                                                        </div>
-                                                        <div class="text">
-                                                            <div class="coupon">
-                                                                <h2>Coupon</h2>
-                                                                <h3></h3>
-                                                                <h3></h3>
-                                                                <h3></h3>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>*@
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    @if (CouponData.Any(x => x.Status == 1))
+                                    @if (coupons.Any(x => x.Status == 1))
                                     {
                                         <div class="page-body order-body">
                                             <div class="null-page">
@@ -612,18 +534,15 @@
                                     }
                                     else
                                     {
-                                        foreach (var item in CouponData.Where(x => x.Status == 0))
+                                        foreach (var item in unused(x => x.Status == 0).ToList())
                                         {
-                                            @Html.Partial("PartialView/_CouponPartial", CouponData)
+                                            @Html.Partial("PartialView/_CouponPartial", item)
                                         }
                                     }
                                 </div>
 
-
-
-
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                    @if (CouponData.Any(x => x.Status == 2))
+                                    @if (coupons.Any(x => x.Status == 2))
                                     {
                                         <div class="page-body order-body">
                                             <div class="null-page">
@@ -638,33 +557,12 @@
                                     }
                                     else
                                     {
-                                        foreach (var item in CouponData.Where(x => x.Status == 0))
+                                        foreach (var item in unusedcoupons.Where(x => x.Status == 0).ToList())
                                         {
-                                            @Html.Partial("PartialView/_CouponPartial", CouponData)
+                                            @Html.Partial("PartialView/_CouponPartial",item)
                                         }
                                     }
                                 </div>
-
-
-                                @*@if (coupon >= 1)
-                                    {
-                                        foreach (var coupons in (List<CouponViewModel>)ViewBag.coupondata)
-                                        {
-                                            @Html.Partial("PartialView/_CouponPartial", coupons)
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        <div class="page-body discount-body">
-                                            <div class="page-body-text discount-txt">
-                                                <p>您目前尚無優惠卷!</p>
-                                            </div>
-                                        </div>
-                                    }*@
-
-
-
                                 @*@foreach (var coupon in (List<CouponViewModel>)ViewBag.coupondata)
                                     {
                                         @Html.Partial("PartialView/_CouponPartial", coupon)
@@ -793,6 +691,7 @@
         </div>
     </div>
 </div>
+    </div>
 }
 
 @section JS{
