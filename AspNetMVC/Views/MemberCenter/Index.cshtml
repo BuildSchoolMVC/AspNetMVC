@@ -7,7 +7,9 @@
     var credit = Model.credit;
     var fav = Model.favorites;
     var password = Model.password;
-
+    var unusedcoupons = ViewBag.unusedcoupondata;
+    var usedcoupons = ViewBag.usedcoupondata;
+    var expiredcoupons = ViewBag.usedcoupondata;
 
 }
 @section CSS{
@@ -493,11 +495,11 @@
                                     <div class="favorite-body">
                                         <ul class="prod-form-body">
                                             <li>
-                                                @if (unused.Any(x=>x.Status == 0))
+                                                @if (unusedcoupons.Any())
                                                 {
-                                                    foreach (var item in unused)
+                                                    foreach (var item in unusedcoupons)
                                                     {
-                                                        @Html.Partial("PartialView/_CouponPartial", item)
+                                                        @Html.Partial("partialView", (object)item)
                                                     }
                                                 }
                                                 else
@@ -519,7 +521,7 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    @if (coupons.Any(x => x.Status == 1))
+                                    @if (usedcoupons.Any())
                                     {
                                         <div class="page-body order-body">
                                             <div class="null-page">
@@ -534,15 +536,15 @@
                                     }
                                     else
                                     {
-                                        foreach (var item in unused(x => x.Status == 0).ToList())
+                                        foreach (var item in unusedcoupons().ToList())
                                         {
-                                            @Html.Partial("PartialView/_CouponPartial", item)
+                                            @Html.Partial("partialView", (object)item)
                                         }
                                     }
                                 </div>
 
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                    @if (coupons.Any(x => x.Status == 2))
+                                    @if (expiredcoupons.Any())
                                     {
                                         <div class="page-body order-body">
                                             <div class="null-page">
@@ -557,9 +559,9 @@
                                     }
                                     else
                                     {
-                                        foreach (var item in unusedcoupons.Where(x => x.Status == 0).ToList())
+                                        foreach (var item in unusedcoupons.Where().ToList())
                                         {
-                                            @Html.Partial("PartialView/_CouponPartial",item)
+                                            @Html.Partial("partialView", (object)item)
                                         }
                                     }
                                 </div>

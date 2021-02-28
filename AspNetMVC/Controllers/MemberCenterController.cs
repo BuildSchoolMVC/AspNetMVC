@@ -55,14 +55,10 @@ namespace AspNetMVC.Controllers
 
             var expiredcoupons = coupons.Where(x => x.Status == 2).ToList();
 
-
-            
             ViewBag.unusedcoupondata = unusedcoupons;
 
-           
             ViewBag.usedcoupondata = usedcoupons;
 
-          
             ViewBag.expiredcoupondata = expiredcoupons;
             
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
