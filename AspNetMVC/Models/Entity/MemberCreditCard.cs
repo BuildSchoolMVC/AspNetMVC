@@ -6,17 +6,16 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class MemberCreditCard
+    public class MemberCreditCard : BaseEntity
     {
-        [Key]
-        public string AccountName { get; set; }
+        
         [MinLength(16)]
         [MaxLength(16)]
         [Required]
+        [Key]
         public string CreditNumber { get; set; }
+        public string AccountName { get; set; }
         [Required]
         public int ExpiryDate { get; set; }
-        [Required]
-        public int SafeNum { get; set; }
     }
 }

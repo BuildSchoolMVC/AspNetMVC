@@ -11,15 +11,11 @@ namespace AspNetMVC.Models.Entity {
 		public Guid OrderDetailId { get; set; }
 		[Required]
 		public Guid OrderId { get; set; }
-
-		public Guid? UserDefinedId { get; set; }
-
-		public int? PackageProductId { get; set; }
 		[Required]
-		public decimal ProductPrice { get; set; }
+		public Guid FavoriteId { get; set; }
+		[Required]
+		public decimal FinalPrice { get; set; }
 		[Required]
 		public string ProductName { get; set; }
-		[Required]
-		public bool IsPackage { get; set; }
 	}
 }

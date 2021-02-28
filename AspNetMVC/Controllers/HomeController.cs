@@ -58,21 +58,7 @@ namespace AspNetMVC.Controllers
                     { "content", customerService.Content}
                 };
 
-                Email objEmail = new Email
-                {
-                    Server_UserName = ConfigurationManager.AppSettings["GmailServer_UserName"],
-                    Server_Password = ConfigurationManager.AppSettings["GmailServer_Password"],
-                    Server_SmtpClient = ConfigurationManager.AppSettings["GmailServer_SmtpClient"],
-                    Server_SmtpClientPort = ConfigurationManager.AppSettings["GmailServer_SmtpClientPort"],
-                    RecipientAddress = customerService.Email,
-                    SenderName = "系統管理者",
-                    SenderAddress = ConfigurationManager.AppSettings["GmailServer_UserName"] + "@gmail.com",
-                    Subject = $"[{category}] - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-                };
-
-                objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.SystemReply), kvp); // 取得回覆HTML模板，並且指定字串插入模板裡，最後指派給此信的內容
-
-                objEmail.SendEmailFromGmail();
+                Email.SendMail("密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", customerService.Email, Email.Template.ForgotPassword, kvp);
 
                  return Json(new { response = "success" });
             }
@@ -81,13 +67,14 @@ namespace AspNetMVC.Controllers
 
         public ActionResult ShowList()
         {
-            var customerData = _customerServiceService.ShowData();
+            var customerData = _customerServiceService.ShowAllData();
             return View(customerData);
         }
 
         public ActionResult ShowDetail(Guid? id)
         {
-            var customer = _customerServiceService.ReadContent(id,"");
+            var user = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
+            var customer = _customerServiceService.ShowSingleData(id, user);
             return View(customer);
         }
     }

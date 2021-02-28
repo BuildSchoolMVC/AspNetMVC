@@ -9,6 +9,7 @@ var savePassword = document.getElementById("savePassword");
 var ps_edit = document.getElementById("ps_edit");
 var error = document.querySelector(".error");
 var success = document.querySelector(".success");
+var saveCredit = document.getElementById("saveCreditcard");
 
 
 window.onload = NotFoundId();
@@ -116,5 +117,33 @@ ps_edit.onclick = function () {
     error.innerHTML = ``;
     success.innerHTML = ``;
     console.log("123");
+}
+saveCredit.onclick = function () {
+    console.log("123");
+    let creditNumber = document.getElementById("credit_number").value;
+    let expiryDate = document.getElementById("expiry_date").value;
+    let url = "/MemberCenter/CreditCard";
+    let data = {
+        CreditNumber: creditNumber,
+        ExpiryDate: expiryDate
+    };
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+    }).then(res => res.json())
+        .then(result => {
+            if (result.response == "success") {
+                toastr.success("信用卡儲存成功!!");
+                $('#creditModal').modal('hide');
+            }
+            else {
+                
+            }
+        })
+
 }
 

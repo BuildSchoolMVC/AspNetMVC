@@ -34,6 +34,7 @@ namespace AspNetMVC.Controllers
         
         public ActionResult Index()
         {
+
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             
             return View(memberVm);
@@ -63,6 +64,22 @@ namespace AspNetMVC.Controllers
              {
                  return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
              }
+        }
+        [HttpPost]
+        public ActionResult CreditCard(string CreditNumber, int ExpiryDate)
+        {
+            var credit = new MemberCenterCredit();
+            credit.CreditNumber = CreditNumber;
+            credit.ExpiryDate = ExpiryDate;
+            var result = _MemberCenterService.NewCredit(MemberHelper(), credit);
+            if(result.IsSuccessful)
+            {
+                return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);    
+            }
+            else
+            {
+                return Json(new { response = "error" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

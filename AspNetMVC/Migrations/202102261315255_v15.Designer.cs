@@ -7,13 +7,13 @@ namespace AspNetMVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class MemberCreditCard : IMigrationMetadata
+    public sealed partial class v15 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MemberCreditCard));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(v15));
         
         string IMigrationMetadata.Id
         {
-            get { return "202102200523500_MemberCreditCard"; }
+            get { return "202102261315255_v15"; }
         }
         
         string IMigrationMetadata.Source

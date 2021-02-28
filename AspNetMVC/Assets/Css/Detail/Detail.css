@@ -259,7 +259,6 @@
     }
     .section_product .product-content .content-footer .btn-group button,
     .section_product .product-content .content-footer .btn-group .checkout{
-        width : 32%;
         margin-right: 1%;
     }
 }

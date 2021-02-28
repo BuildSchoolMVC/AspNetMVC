@@ -133,6 +133,8 @@ p {
 .register-modal .form .social-btn-grouping {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content:center;
 }
 
 .register-modal .form .social-btn-grouping .spinner-border {
@@ -146,7 +148,7 @@ p {
     border-radius: 5px;
     line-height: 45px;
     margin-bottom: 15px;
-    margin-right: 5px;
+    margin-right: 10px;
     letter-spacing: 1px;
     color: var(--light);
     overflow: hidden;
@@ -189,6 +191,7 @@ p {
 .register-modal .form .social-btn-grouping #btnLineSignIn:hover {
     background: #31ab54;
 }
+
 
 
 .register-modal .form .social-btn-grouping img {
@@ -399,10 +402,10 @@ p {
         padding: 80px 0;
     }
     .register-modal .form .social-btn-grouping button {
-        width: 75%;
+        width: 30%;
         font-size: 16px;
     }
-    .register-modal .form .social-btn-grouping button#btnFacebookSignIn {
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn{
         font-size: 14px;
     }
     .register-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap{

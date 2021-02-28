@@ -238,9 +238,9 @@ window.addEventListener("load", () => {
     hoverStar();
     selectStar();
     commentForm();
-    getFavorites();
     getPicUrl();
 })
+
 
 //抓到單一商品頁圖片的Url
 function getPicUrl() {

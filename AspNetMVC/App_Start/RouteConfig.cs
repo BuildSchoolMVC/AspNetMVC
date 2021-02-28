@@ -13,6 +13,12 @@ namespace AspNetMVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+                routes.MapRoute(
+                name: "Detail",
+                url: "Detail/{id}",
+                defaults: new { controller = "Detail", action = "Index", id = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

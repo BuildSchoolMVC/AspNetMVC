@@ -1,0 +1,14 @@
+﻿@model AspNetMVC.ViewModel.MemberCenterCredit
+@{
+    ViewBag.Title = "_CreditPartial";
+    var creditNumber = Model.CreditNumber;
+   
+}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">信用卡卡號:@creditNumber.Replace(creditNumber.Substring(5,9),"****-****")</h5>
+        <p class="card-text">到期日:@Model.ExpiryDate</p>
+    </div>
+</div>
+

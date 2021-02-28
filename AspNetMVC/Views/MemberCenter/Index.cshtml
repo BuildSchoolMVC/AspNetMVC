@@ -2,11 +2,11 @@
 
 @{
     ViewBag.Title = "Index";
-    var account = Model.account;
-    var order = Model.order;
-    var credit = Model.credit;
-    var fav = Model.favorites;
-    var password = Model.password;
+    var account = Model.Account;
+    var order = Model.Order;
+    var credit = Model.Credit;
+    var fav = Model.Favorites;
+    var password = Model.Password;
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
@@ -345,7 +345,7 @@
                                         <p>您還沒有已完成的訂單唷</p>
                                     </div>
                                     <div class="page-body-btn">
-                                        <button class="btn btn-model-space" id="">
+                                        <button class="btn btn-model-space">
                                             查看全部服務
                                         </button>
                                     </div>
@@ -456,22 +456,20 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" id="password_body">
+                        <div class="modal-body" id="credit_body">
                             <p>請輸入信用卡卡號</p>
-                            <input type="password" id="origin_password">
+                            <input type="text" id="credit_number">
 
                             <p>請輸入到期日</p>
-                            <input type="password" id="new_password">
-
-                            <p>請輸入安全碼</p>
-                            <input type="password" id="confirm_password">
-
+                            <input type="number" id="expiry_date">
+                            
+                            <p>到期日格式為YY+mm 例如:到期日為2024年7月 則輸入2407
                             <span class="error"></span>
                             <span class="success"></span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-password btn-model-space" id="" data-dismiss="modal">關閉</button>
-                            <button type="button" class="btn btn-main" value="" id="">儲存密碼</button>
+                            <button type="button" class="btn btn-main" value="" id="saveCreditcard">儲存信用卡</button>
                         </div>
                     </div>
                 </div>
@@ -482,17 +480,33 @@
                     <div class="page-title">
                         <h2>我的信用卡</h2>
                     </div>
-
-                    <div class="page-body null-page">
-                        <button class="btn newCredit" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
-                            新增信用卡
-                            <div class="radius">
-                                <div>
-                                    <p>+</p>
+                    @if (credit.Count == 0)
+                    {
+                        <div class="page-body null-page">
+                            <button class="btn newCredit" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
+                                新增信用卡
+                                <div class="radius">
+                                    <div>
+                                        <p>+</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </button>
-                    </div>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="page-body">
+                            <button class="btn btn-main" id="createcard-btn" data-target="#creditModal" type="button" data-toggle="modal">
+                                新增信用卡
+                            </button>
+                            @foreach (var item in credit)
+                            {
+                                @Html.Partial("~/Views/Shared/PartialView/_CreditPartial.cshtml", item)
+                            }
+
+                        </div>
+                    }
+
                 </div>
             </div>
 
