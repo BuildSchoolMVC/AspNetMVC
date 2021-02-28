@@ -4,7 +4,7 @@
     var comments = (List<CommentViewModel>)ViewBag.Comments;
 }
 @section CSS{
- <link href="~/Assets/css/Detail/detail.css" rel="stylesheet">    
+    <link href="~/Assets/css/Detail/detail.css" rel="stylesheet">
 }
 
 <section class="section_product">
@@ -70,7 +70,7 @@
                     <div class="content-footer">
                         <p>價格 : <span class="price">@Model.Price</span></p>
                         <div class="btn-group">
-                            @if(Request.Cookies["user"] != null)
+                            @if (Request.Cookies["user"] != null)
                             {
                                 <a href="@Url.Action("DirectToCheckout","Detail",new { id = @Model.Id })" class="btns checkout">直接結帳</a>
                             }
@@ -126,41 +126,7 @@
                         @Html.Partial("PartialView/_PackageProductCommentPartial", item)
                     }
                 </div>
-                <div class="comment-area">
-                    <textarea placeholder="新增評論...."></textarea>
-                    <div class="grouping d-flex justify-content-around">
-                        <div class="star-grouping pl-3 pt-2">
-                            <i class="fas fa-star pr-1 color-gray"></i>
-                            <i class="fas fa-star pr-1 color-gray"></i>
-                            <i class="fas fa-star pr-1 color-gray"></i>
-                            <i class="fas fa-star pr-1 color-gray"></i>
-                            <i class="fas fa-star pr-1 color-gray"></i>
-                            <span class="starcount">0</span>
-                        </div>
-                        <button type="button" id="commentBtn" disabled="disabled">送出
-                            <div class="spinner-border-wrap opacity">
-                                <span class="spinner-border"></span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            }
-            else if (comments.Count() > 0 && Request.Cookies["user"] == null)
-            {
-                <div class="comment">
-                    @foreach (var item in comments)
-                    {
-                        @Html.Partial("PartialView/_PackageProductCommentPartial", item)
-                    }
-                </div>
                 <div class="no-comment">
-                    <p>只有註冊過會員的用戶才能撰寫評價</p>
-                </div>
-            }
-            else if (comments.Count() == 0 && Request.Cookies["user"] != null)
-            {
-                <div class="no-comment">
-                    <p>目前沒有評論</p>
                 </div>
                 <div class="comment-area">
                     <textarea placeholder="新增評論...."></textarea>
@@ -181,18 +147,58 @@
                         </button>
                     </div>
                 </div>
+                }
+            else if (comments.Count() > 0 && Request.Cookies["user"] == null)
+            {
+            <div class="comment">
+                @foreach (var item in comments)
+                {
+                    @Html.Partial("PartialView/_PackageProductCommentPartial", item)
+                }
+            </div>
+            <div class="no-comment">
+                <p>只有註冊過會員的用戶才能撰寫評價</p>
+            </div>
+            }
+            else if (comments.Count() == 0 && Request.Cookies["user"] != null)
+            {
+            <div class="comment">
+            </div>
+            <div class="no-comment">
+                <p>目前沒有評論</p>
+            </div>
+            <div class="comment-area">
+                <textarea placeholder="新增評論...."></textarea>
+                <div class="grouping d-flex justify-content-around">
+                    <div class="star-grouping pl-3 pt-2">
+                        <i class="fas fa-star pr-1 color-gray"></i>
+                        <i class="fas fa-star pr-1 color-gray"></i>
+                        <i class="fas fa-star pr-1 color-gray"></i>
+                        <i class="fas fa-star pr-1 color-gray"></i>
+                        <i class="fas fa-star pr-1 color-gray"></i>
+                        <span class="starcount">0</span>
+                    </div>
+                    <button type="button" id="commentBtn" disabled="disabled">
+                        送出
+                        <div class="spinner-border-wrap opacity">
+                            <span class="spinner-border"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
             }
             else
             {
-                <div class="no-comment">
-                    <p>目前沒有評論</p>
-                    <p>只有註冊過會員的用戶才能撰寫評價</p>
-                </div>
+            <div class="comment"></div>
+            <div class="no-comment">
+                <p>目前沒有評論</p>
+                <p>只有註冊過會員的用戶才能撰寫評價</p>
+            </div>
             }
-         </div>
+        </div>
     </div>
 </section>
 
 @section JS{
-    <script src="~/Assets/js/Detail/detail.js"></script>      
+    <script src="~/Assets/js/Detail/detail.js"></script>
 }

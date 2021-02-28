@@ -27,7 +27,7 @@ namespace AspNetMVC.Controllers
 
         public ActionResult Login()
         {
-            if(Request.Cookies["user"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View("../Home/Index");
             }
@@ -50,10 +50,11 @@ namespace AspNetMVC.Controllers
 
                 if (isVerify)
                 {
-                    if (_accountService.IsActivatedEmail(model.AccountName)) {
+                    if (_accountService.IsActivatedEmail(model.AccountName))
+                    {
                         if (_accountService.IsLoginValid(model.AccountName, model.Password))
                         {
-                            var cookie = Helpers.SetCookie(model.AccountName,model.RememberMe);
+                            var cookie = Helpers.SetCookie(model.AccountName, model.RememberMe);
 
                             Response.Cookies.Add(cookie);
 
@@ -113,7 +114,7 @@ namespace AspNetMVC.Controllers
                         { "isSocialActivation","false"}
                     };
 
-                    Email.SendMail("會員驗證信 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.EmailActivation,kvp);
+                    Email.SendMail("會員驗證信 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.EmailActivation, kvp);
 
                     return Json(new { response = "操作成立", status = 1 });
                 }
@@ -135,7 +136,7 @@ namespace AspNetMVC.Controllers
                 if (_accountService.IsAccountExist(name))
                 {
                     return Json(new { response = "已存在", status = 1 });
-                    }
+                }
                 else
                 {
                     return Json(new { response = "不存在", status = 1 });
@@ -163,7 +164,7 @@ namespace AspNetMVC.Controllers
 
         public ActionResult RegisterEmailActivation(Guid? id)
         {
-            if(id != null)
+            if (id != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -200,7 +201,8 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public JsonResult ForgotPassword([Bind(Include = "Email,AccountName")] ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 if (_accountService.IsAccountMatch(model.AccountName, model.Email))
                 {
                     Dictionary<string, string> kvp = new Dictionary<string, string>
@@ -211,7 +213,7 @@ namespace AspNetMVC.Controllers
                         { "datetime",DateTime.Now.ToString()}
                     };
 
-                    Email.SendMail("密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.ForgotPassword, kvp); 
+                    Email.SendMail("密碼重置 - 此信件由系統自動發送，請勿直接回覆 from [Gmail]", model.Email, Email.Template.ForgotPassword, kvp);
 
                     return Json(new { response = "操作完成", status = 1 }, JsonRequestBehavior.AllowGet);
                 }
@@ -223,13 +225,13 @@ namespace AspNetMVC.Controllers
             return Json(new { response = "發生錯誤", status = 0 }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ResetPassword() 
+        public ActionResult ResetPassword()
         {
             string id = Request["id"];
             string applicationTime = Request["t"];
             string systemTime = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
 
-            var applicationTimeExpiredHour = int.Parse(applicationTime.Split('_')[3]) + 2 >= 24? int.Parse(applicationTime.Split('_')[3]) - 22 : int.Parse(applicationTime.Split('_')[3]) + 2;
+            var applicationTimeExpiredHour = int.Parse(applicationTime.Split('_')[3]) + 2 >= 24 ? int.Parse(applicationTime.Split('_')[3]) - 22 : int.Parse(applicationTime.Split('_')[3]) + 2;
 
             var systemTimeHour = int.Parse(systemTime.Split('_')[3]);
 
@@ -242,13 +244,13 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ResetPassword([Bind(Include = "AccountId,NewPassword")]NewPasswordViewModel model) 
+        public ActionResult ResetPassword([Bind(Include = "AccountId,NewPassword")] NewPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var result = _accountService.UpdatePassword(model.AccountId, model.NewPassword);
 
-                if (result.Status == 0) 
+                if (result.Status == 0)
                 {
                     var userEmail = _accountService.GetUser(model.AccountId).Email;
 
@@ -263,12 +265,12 @@ namespace AspNetMVC.Controllers
                 }
                 else
                 {
-                   return Json(new { response = OperationResultStatus.Fail, status = 0 });
+                    return Json(new { response = OperationResultStatus.Fail, status = 0 });
                 }
             }
             else
             {
-                return Json(new { response = OperationResultStatus.ErrorRequest , status = 0 });
+                return Json(new { response = OperationResultStatus.ErrorRequest, status = 0 });
             }
         }
 
@@ -289,7 +291,7 @@ namespace AspNetMVC.Controllers
                 }
                 else
                 {
-                    if(type == 0) //若不是，去判斷是進行註冊還是登入
+                    if (type == 0) //若不是，去判斷是進行註冊還是登入
                     {
                         var SocialInfo = new SocialInfo
                         {
@@ -304,7 +306,7 @@ namespace AspNetMVC.Controllers
                     {
                         return Json(new { response = "尚未註冊", status = 0 });
                     }
-                    
+
                 }
             }
             else
@@ -314,7 +316,7 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult FacebookLogin(string email,string socialPlatform,string imgUrl,int type)
+        public ActionResult FacebookLogin(string email, string socialPlatform, string imgUrl, int type)
         {
             if (_accountService.IsSocialAccountRegister(email, socialPlatform))
             {
@@ -324,7 +326,7 @@ namespace AspNetMVC.Controllers
             }
             else
             {
-                if(type == 0)
+                if (type == 0)
                 {
                     var info = new SocialInfo
                     {
@@ -345,7 +347,7 @@ namespace AspNetMVC.Controllers
         {
             var result = _accountService.GetLineInfo(code);
 
-            if(result.IsSuccessful)
+            if (result.IsSuccessful)
             {
                 var user = JsonConvert.DeserializeObject<LineUserProfile>(result.MessageInfo);
 
@@ -360,7 +362,7 @@ namespace AspNetMVC.Controllers
                 {
                     if (state == 0)
                     {
-                        return RedirectToAction("SocialRegister", "Account", new { email = user.Email,photo = user.PictureUrl,social="Line"});
+                        return RedirectToAction("SocialRegister", "Account", new { email = user.Email, photo = user.PictureUrl, social = "Line" });
                     }
                     else
                     {
@@ -394,7 +396,7 @@ namespace AspNetMVC.Controllers
                 var cookie = Helpers.SetCookie(model.AccountName, false);
                 Response.Cookies.Add(cookie);
             }
-            return Json(new { response = result.MessageInfo, status = result.IsSuccessful});
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
     }
 }

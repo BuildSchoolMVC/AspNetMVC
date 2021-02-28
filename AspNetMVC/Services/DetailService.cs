@@ -24,13 +24,14 @@ namespace AspNetMVC.Services
             _repository = new BaseRepository(_context);
         }
 
-        public DetailViewModel GetPackageProduct(int? id) 
+        public DetailViewModel GetPackageProduct(int? id)
         {
-            if(id != null)
+            if (id != null)
             {
-                var result = _repository.GetAll<PackageProduct>().FirstOrDefault(x=>x.PackageProductId == id);
+                var result = _repository.GetAll<PackageProduct>().FirstOrDefault(x => x.PackageProductId == id);
 
-                if (result != null) {
+                if (result != null)
+                {
                     var detailPageVM = new DetailViewModel
                     {
                         Id = result.PackageProductId,
@@ -39,7 +40,7 @@ namespace AspNetMVC.Services
                         Name = result.Name,
                         PhotoUrl = result.PhotoUrl,
                         Price = result.Price.ToString("###,###"),
-                        ServiceItem = result.ServiceItem.Replace("+","、"),
+                        ServiceItem = result.ServiceItem.Replace("+", "、"),
                         RoomName = RoomTypeSwitch(result.RoomType),
                         RoomName2 = RoomTypeSwitch(result.RoomType2),
                         RoomName3 = RoomTypeSwitch(result.RoomType3),
@@ -60,14 +61,14 @@ namespace AspNetMVC.Services
             }
         }
 
-        public void CreateComment(string account,int productId,int star,string comment) 
+        public OperationResult CreateComment(string account, int productId, int star, string comment)
         {
-            var result = new OperationResult(); 
+            var result = new OperationResult();
             Guid AccountId = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == account).AccountId;
 
             try
             {
-                if(AccountId != null)
+                if (AccountId != null)
                 {
                     _repository.Create<Comment>(new Comment
                     {
@@ -83,23 +84,26 @@ namespace AspNetMVC.Services
                     });
                     _context.SaveChanges();
                     result.IsSuccessful = true;
+                    result.MessageInfo = "成功新增評論";
                 }
                 else
                 {
                     result.IsSuccessful = false;
                     result.MessageInfo = "查無此人";
                 }
-               
+
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 result.IsSuccessful = false;
                 result.Exception = ex;
             }
+            return result;
         }
 
-        public List<CommentViewModel> GetComment(int? productId) 
+        public List<CommentViewModel> GetComment(int? productId)
         {
-            if(productId != null)
+            if (productId != null)
             {
                 var result = from comment in _context.Comments
                              where comment.PackageProductId == productId
@@ -120,7 +124,7 @@ namespace AspNetMVC.Services
                 return null;
             }
         }
-        public OperationResult DeleteComment(Guid? id,string accountName)
+        public OperationResult DeleteComment(Guid? id, string accountName)
         {
 
             var user = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName);
@@ -129,10 +133,11 @@ namespace AspNetMVC.Services
 
             var operationResult = new OperationResult();
 
-            if(id == null)
+            if (id == null)
             {
                 operationResult.IsSuccessful = false;
                 operationResult.Status = OperationResultStatus.ErrorRequest;
+                operationResult.MessageInfo = OperationResultStatus.ErrorRequest.ToString();
             }
 
             try
@@ -143,22 +148,26 @@ namespace AspNetMVC.Services
                     _context.SaveChanges();
                     operationResult.IsSuccessful = true;
                     operationResult.Status = OperationResultStatus.Success;
+                    operationResult.MessageInfo = OperationResultStatus.Success.ToString();
                 }
                 else
                 {
                     operationResult.IsSuccessful = false;
                     operationResult.Status = OperationResultStatus.NotFound;
+                    operationResult.MessageInfo = OperationResultStatus.NotFound.ToString();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 operationResult.IsSuccessful = false;
                 operationResult.Exception = ex;
                 operationResult.Status = OperationResultStatus.ErrorRequest;
+                operationResult.MessageInfo = OperationResultStatus.ErrorRequest.ToString();
             }
             return operationResult;
         }
 
-        public OperationResult AddFavoriteAndDirectToCheckout(int id,string cookieValue)
+        public OperationResult AddFavoriteAndDirectToCheckout(int id, string cookieValue)
         {
             var result = new OperationResult();
             try
@@ -197,11 +206,12 @@ namespace AspNetMVC.Services
                     }
                 }
 
-                var query = _repository.GetAll<UserFavorite>().OrderByDescending(x=>x.CreateTime).FirstOrDefault(x => x.PackageProductId == id && x.AccountName == username);
+                var query = _repository.GetAll<UserFavorite>().OrderByDescending(x => x.CreateTime).FirstOrDefault(x => x.PackageProductId == id && x.AccountName == username);
 
                 result.IsSuccessful = true;
                 result.MessageInfo = query.FavoriteId.ToString();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 result.IsSuccessful = false;
                 result.Exception = ex;
@@ -209,13 +219,14 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        private string RoomTypeSwitch(int? value) {
+        private string RoomTypeSwitch(int? value)
+        {
             return value == 0 ? "廚房" :
                    value == 1 ? "客廳" :
                    value == 2 ? "臥室" :
                    value == 3 ? "浴廁" :
                    value == 4 ? "陽台" : "-";
-            }
+        }
 
         private string SquarefeetSwitch(int? value)
         {

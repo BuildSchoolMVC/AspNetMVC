@@ -8,6 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using AspNetMVC.Services;
+using AspNetMVC.ViewModels;
 
 namespace AspNetMVC.Controllers
 {
@@ -24,39 +25,42 @@ namespace AspNetMVC.Controllers
         {
             var result = _detailService.GetPackageProduct(id);
 
-            if (result != null) 
+            if(result != null)
             {
                 ViewBag.Comments = _detailService.GetComment(id);
                 return View(result);
             }
-            else 
+            else
             {
                 return View("Error");
             }
+
+
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult AddComment(int PackageProductId,int StarCount,string Comment) {
-            _detailService.CreateComment(Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]), PackageProductId, StarCount, Comment);
+        public JsonResult AddComment(int PackageProductId,int StarCount,string Comment)
+        {
+            var result = _detailService.CreateComment(Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]),PackageProductId,StarCount,Comment);
 
-            return Json(new { response = "成功新增評論!"});
+            return Json(new { response = result.MessageInfo, status = result.IsSuccessful });
         }
 
-        public ActionResult GetLatestComment(int packageProductId)
+        public JsonResult GetLatestComment(int packageProductId)
         {
-            var result = _detailService.GetComment(packageProductId).OrderByDescending(x=>x.CreateTime).First();
+            var result = _detailService.GetComment(packageProductId).OrderByDescending(x => x.CreateTime).First();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult DeleteComment(Guid? id)
+        public JsonResult DeleteComment(Guid? id)
         {
             var accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
             var result = _detailService.DeleteComment(id, accountName);
 
-            return Json(new { response = result.Status });
+            return Json(new { status = result.IsSuccessful, response = result.MessageInfo });
         }
 
         public RedirectResult DirectToCheckout(int id)

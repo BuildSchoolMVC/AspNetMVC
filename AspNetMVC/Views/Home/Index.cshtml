@@ -13,14 +13,14 @@
           crossorigin="anonymous" />
 }
 <section class="section_carousel owl-carousel">
-    @foreach(var banner in Model.BannerData)
+    @foreach (var banner in Model.BannerData)
     {
-        @Html.Partial("PartialView/_BannerPartial",banner)
+        @Html.Partial("PartialView/_BannerPartial", banner)
     }
 </section>
 <section class="section_all-service py-5">
     <div class="container-xxl">
-        <div class="row">   
+        <div class="row">
             <div class="service-title">
                 <h2><i class="fas fa-home color-skyblue pl-2 pr-1"></i>我們提供以下服務</h2>
             </div>
@@ -43,9 +43,9 @@
                 </div>
             </div>
             <div class="service-items">
-                @foreach(var service in Model.ServicesData)
+                @foreach (var service in Model.ServicesData)
                 {
-                    @Html.Partial("PartialView/_ServiceItemPartial",service)
+                    @Html.Partial("PartialView/_ServiceItemPartial", service)
                 }
             </div>
         </div>
@@ -100,8 +100,9 @@
         </div>
         <div class="container-xxl p-0">
             <div class="row">
-                @foreach(var card in Model.ImageCardData){
-                    @Html.Partial("PartialView/_ImageCardPartial",card)
+                @foreach (var card in Model.ImageCardData)
+                {
+                    @Html.Partial("PartialView/_ImageCardPartial", card)
                 }
             </div>
         </div>
