@@ -1,4 +1,5 @@
-﻿using AspNetMVC.Models;
+﻿using AspNetMVC.Controllers;
+using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Repository;
 using System;
@@ -97,8 +98,131 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
-		public void GetTotalAmount(string accountName) {
+		public decimal GetDiscountAmount(Guid? couponDetailId) {
+			int couponId = _repository.GetAll<CouponDetail>()
+				.First(x => x.CouponDetailId == couponDetailId)
+				.CouponId;
+			return _repository.GetAll<Coupon>()
+				.First(x => x.CouponId == couponId)
+				.DiscountAmount;
+		}
+		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now) {
 
+			var result = new OperationResult();
+			
+			CouponDetail cd = CheckCoupon(accountName, couponDetailId);
+			if (cd == null) {
+				couponDetailId = null;
+			} else {
+				couponDetailId = cd.CouponDetailId;
+			}
+			byte? invoiceDonateTo;
+			if (userForm.InvoiceDonateTo == null) {
+				invoiceDonateTo = null;
+			} else {
+				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
+			}
+			using (var transcation = _context.Database.BeginTransaction()) {
+				try {
+					Order order = new Order {
+						OrderId = Guid.NewGuid(),
+						AccountName = accountName,
+						FullName = userForm.FullName,
+						Email = userForm.Email,
+						Phone = userForm.Phone,
+						DateService = DateTime.Parse(userForm.DateService),
+						Address = $"{userForm.County}{userForm.District}{userForm.Address}",
+						Remark = userForm.Remark == null ? string.Empty : userForm.Remark,
+						OrderState = (byte)OrderState.PendingPayment,
+						Rate = null,
+						Comment = string.Empty,
+						CouponId = couponDetailId,
+						PaymentMethod = (byte)PayMethod.ECPay,
+						InvoiceType = byte.Parse(userForm.InvoiceType),
+						InvoiceDonateTo = invoiceDonateTo,
+						CreateTime = now,
+						EditTime = now,
+						CreateUser = accountName,
+						EditUser = accountName,
+					};
+					_repository.Create<Order>(order);
+					_context.SaveChanges();
+
+					UserFavorite favorite = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
+					string productName;
+					if (favorite.IsPackage) {
+						productName = _repository
+							.GetAll<PackageProduct>()
+							.First(x => x.PackageProductId == favorite.PackageProductId)
+							.Name;
+					} else {
+						productName = _repository
+							.GetAll<UserDefinedProduct>()
+							.First(x => x.UserDefinedId == favorite.UserDefinedId)
+							.Name;
+					}
+					OrderDetail od = new OrderDetail {
+						OrderDetailId = Guid.NewGuid(),
+						OrderId = order.OrderId,
+						FavoriteId = favoriteId,
+						ProductPrice = total,
+						ProductName = productName,
+						CreateTime = now,
+						EditTime = now,
+						CreateUser = accountName,
+						EditUser = accountName,
+					};
+					_repository.Create<OrderDetail>(od);
+					_context.SaveChanges();
+
+					if (cd != null) {
+						cd.State = (int)UseState.Used;
+						_context.SaveChanges();
+					}
+
+					result.IsSuccessful = true;
+					transcation.Commit();
+
+				} catch (Exception ex) {
+					result.IsSuccessful = false;
+					result.Exception = ex;
+					transcation.Rollback();
+				}
+			}
+			return result;
+		}
+		public decimal GetTotalAmount(Guid favoriteId) {
+			UserFavorite f = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
+			if (f.IsPackage) {
+				return _repository.GetAll<PackageProduct>()
+					.First(x => x.PackageProductId == f.PackageProductId)
+					.Price;
+			} else {
+				return _repository.GetAll<UserDefinedProduct>()
+					.Where(x => x.UserDefinedId == f.UserDefinedId)
+					.Sum(x => x.Price);
+			}
+		}
+		public void CheckAccountExist(string accountName) {
+			//帳號不存在拋例外
+			try {
+				_repository.GetAll<Account>().First(x => x.AccountName == accountName);
+			} catch (Exception) {
+				throw new Exception("帳號不存在");
+			}
+		}
+		public void CheckFavoriteId(string accountName, Guid favoriteId) {
+			//收藏Id與帳號不符拋例外
+			try {
+				_repository.GetAll<UserFavorite>()
+				.First(x => x.AccountName == accountName && x.FavoriteId == favoriteId);
+			} catch (Exception) {
+				throw new Exception("收藏不存在");
+			}
+		}
+		public CouponDetail CheckCoupon(string accountName, Guid? couponDetailId) {
+			return _repository.GetAll<CouponDetail>()
+				.FirstOrDefault(x => x.AccountName == accountName && x.CouponDetailId == couponDetailId && x.State == (int)UseState.Unused);
 		}
 	}
 	public class CouponJson {

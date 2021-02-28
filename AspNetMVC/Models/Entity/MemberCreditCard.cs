@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AspNetMVC.Models.Entity
 {
-    public class MemberCreditCard
+    public class MemberCreditCard : BaseEntity
     {
         [Key]
         public string AccountName { get; set; }
@@ -16,7 +16,5 @@ namespace AspNetMVC.Models.Entity
         public string CreditNumber { get; set; }
         [Required]
         public int ExpiryDate { get; set; }
-        [Required]
-        public int SafeNum { get; set; }
     }
 }

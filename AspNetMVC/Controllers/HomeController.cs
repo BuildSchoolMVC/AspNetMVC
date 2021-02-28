@@ -81,13 +81,13 @@ namespace AspNetMVC.Controllers
 
         public ActionResult ShowList()
         {
-            var customerData = _customerServiceService.ShowData();
+            var customerData = _customerServiceService.ShowAllData();
             return View(customerData);
         }
 
         public ActionResult ShowDetail(Guid? id)
         {
-            var customer = _customerServiceService.ReadContent(id,"");
+            var customer = _customerServiceService.ShowSingleData(id,"");
             return View(customer);
         }
     }

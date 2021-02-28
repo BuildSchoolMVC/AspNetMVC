@@ -154,7 +154,7 @@
 							<h5 class="sub-title">
 								<i class="icon fas fa-comment-dots"></i>訂單備註
 							</h5>
-							<input class="value" type="text" name="remark" placeholder="(非必填) 如有需要可留下備註、注意事項">
+							<input class="value" id="remark" type="text" name="remark" placeholder="(非必填) 如有需要可留下備註、注意事項">
 						</div>
 					</form>
 				</div>
@@ -395,6 +395,7 @@
 		</div>
 	</div>
 </div>
+
 @* hide form *@
 <form action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" id="ECPayForm" method="post" ref="form">
 	<input type="hidden" name="CheckMacValue" id="CheckMacValue" value="8C58542F3B269D331AD3195B02857C60FF0A45726D4156C965362EB90D6AFC15" />

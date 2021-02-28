@@ -13,10 +13,21 @@ namespace AspNetMVC.Models.Entity {
         public string AccountName { get; set; }
 
 		[Required]
+		public string FullName { get; set; }
+
+		[Required]
+		public string Email { get; set; }
+
+		[Required]
+		public string Phone { get; set; }
+
+		[Required]
 		public DateTime DateService { get; set; }
 
 		[Required]
 		public string Address { get; set; }
+
+		public string Remark { get; set; }
 
 		[Required]
 		public byte OrderState { get; set; }
@@ -25,7 +36,7 @@ namespace AspNetMVC.Models.Entity {
 
         public string Comment { get; set; }
 
-		public Guid? CouponId { get; set; }
+		public Guid? CouponId { get; set; }//改CouponDetailId
 
 		[Required]
 		public byte PaymentMethod { get; set; }
@@ -33,7 +44,7 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public byte InvoiceType { get; set; }
 
-		public byte InvoiceDonateTo { get; set; }
+		public byte? InvoiceDonateTo { get; set; }
 
 	}
 	public enum OrderState {
@@ -45,10 +56,12 @@ namespace AspNetMVC.Models.Entity {
 		Cancelled,
 	}
 	public enum PayMethod {
-		//信用卡 0
-		CreditCard,
-		//ATM 1
-		ATM,
+		//綠界支付 0
+		ECPay,
+		////信用卡 0
+		//CreditCard,
+		////ATM 1
+		//ATM,
 	}
 	public enum InvoiceType {
 		//個人電子發票 0
