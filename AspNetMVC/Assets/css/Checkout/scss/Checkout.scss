@@ -458,6 +458,9 @@
   .method {
     margin-bottom: 10px;
   }
+  .pic {
+    max-width: 550px;
+  }
   .credit-method {
     padding: 15px 20px;
     border-radius: 4px;
@@ -703,7 +706,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        box-shadow: 0 0 5px 1px rgba(0, 0, 0, .3);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
         z-index: -2;
       }
       &.num::after {
@@ -712,7 +715,7 @@
       &.on {
         background-color: var(--color-primary);
         &::after {
-          box-shadow: 0 0 5px 1px var(--color-primary);
+          box-shadow: 0 0 5px 0 var(--color-primary);
         }
         &.num {
           z-index: 1;
@@ -738,7 +741,7 @@
       background-color: var(--color-primary);
       transition: width 1s;
       &::after {
-        box-shadow: 0 0 5px 1px var(--color-primary);
+        box-shadow: 0 0 5px 0 var(--color-primary);
       }
     }
   }

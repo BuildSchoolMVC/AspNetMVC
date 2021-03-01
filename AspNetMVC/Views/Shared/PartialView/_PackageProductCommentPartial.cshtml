@@ -1,4 +1,9 @@
 ﻿@model CommentViewModel
+@{ 
+    var userName = $"{Model.AccountName.Substring(0,1).PadRight(9, '*')}{Model.AccountName.Substring(Model.AccountName.Length - 1)}";
+    var randomImgNo = new Random().Next(1,6);
+}
+
 <div class="comment-item">
     @if (Request.Cookies["user"] != null)
     {
@@ -9,10 +14,10 @@
     }
     <div class="row">
         <div class="col-2 pr-0 pl-4 d-flex justify-content-center align-items-center">
-            <img src="~/Assets/images/p1.jpg" alt="人物" class="user rounded-circle d-block">
+            <img src="~/Assets/images/p@(randomImgNo).jpg" alt="人物" class="user rounded-circle d-block">
         </div>
         <div class="col-6 pl-4">
-            <p class="comment-user"><span class="user">@Model.AccountName</span> 用戶於 <br><span>@Model.CreateTime</span></p>
+            <p class="comment-user"><span class="user">@userName</span> 用戶於 <br><span>@Model.CreateTime</span></p>
             <p>@Model.Content</p>
         </div>
         <div class="col-4 pr-4 d-flex align-items-center justify-content-center">

@@ -421,7 +421,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Models\Config\url.txt" />
+    <Content Include="App_Data\Config\url.txt" />
     <Content Include="Views\ToECPay.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -586,8 +586,9 @@
     <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
     <Content Include="Views\Account\SocialRegister.cshtml" />
     <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
-    <Content Include="Views\Checkout\View.cshtml" />
+    <Content Include="Views\Checkout\SuccessView.cshtml" />
     <Content Include="Views\Shared\PartialView\_CreditPartial.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

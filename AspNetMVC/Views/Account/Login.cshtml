@@ -102,12 +102,12 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=googleSigninInit" async defer></script>
 
-    @if (ViewBag.Error==true)
+    @if (ViewBag.Error == true)
     {
         <script>
-            setTimeout(()=> {
+            setTimeout(() => {
                 toastr.warning("尚未註冊");
-            },1500)
+            }, 1500)
         </script>
     }
 }

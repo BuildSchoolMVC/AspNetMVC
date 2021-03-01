@@ -39,7 +39,7 @@ const resetPassword = () => {
                         toastr.error("發生錯誤!!");
                         setTimeout(() => {
                             document.querySelector(".spinner-border-wrap").classList.add("opacity");
-                        },1000)
+                        }, 1000)
                     } else if (result.response == "success") {
                         toastr.success("密碼修改成功!!!")
                         setTimeout(() => {
