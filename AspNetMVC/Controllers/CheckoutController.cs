@@ -2,7 +2,6 @@
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Services;
 using AspNetMVC.ViewModels;
-using ECPay.Payment.Integration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -58,14 +57,11 @@ namespace AspNetMVC.Controllers {
 			DateTime now = DateTime.Now;
 			string accountName;
 			string productName;
-			string url;
-			string merchantTradeNo /*= Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20)*/;
+			string url = System.IO.File.ReadAllText(Server.MapPath(@"~/App_data/Config/url.txt")); ;
+			string merchantTradeNo;
 			Guid favoriteId;
 			decimal finalAmount;
 			Guid? couponDetailId;
-			using (var sr = new StreamReader("/Models/Config/url.txt")) {
-				url = sr.ReadToEnd();
-			}
 
 			if (post.CouponDetailId == null) {
 				couponDetailId = null;
@@ -110,7 +106,7 @@ namespace AspNetMVC.Controllers {
 			ecpayForm.MerchantID = "2000132";
 			ecpayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
 			ecpayForm.MerchantTradeNo = merchantTradeNo;
-			ecpayForm.OrderResultURL = url + "/Checkout/SuccessView";
+			ecpayForm.OrderResultURL = "https://localhost:44308" + "/Checkout/SuccessView";
 			ecpayForm.PaymentType = "aio";
 			ecpayForm.ReturnURL = url + "/Checkout/ECPayReturn";
 			ecpayForm.TotalAmount = Math.Round(finalAmount).ToString();
@@ -118,22 +114,38 @@ namespace AspNetMVC.Controllers {
 
 			string HashKey = "5294y06JbISpM5x9";
 			string HashIV = "v77hoKGq4kWxNNIS";
-			string Parameters = string.Format("ChoosePayment={0}&EncryptType={1}&ItemName={2}&MerchantID={3}&MerchantTradeDate={4}&MerchantTradeNo={5}&OrderResultURL={6}&PaymentType={7}&ReturnURL={8}&TotalAmount={9}&TradeDesc={10}",
-				ecpayForm.ChoosePayment,
-				ecpayForm.EncryptType,
-				ecpayForm.ItemName,
-				ecpayForm.MerchantID,
-				ecpayForm.MerchantTradeDate,
-				ecpayForm.MerchantTradeNo,
-				ecpayForm.OrderResultURL,
-				ecpayForm.PaymentType,
-				ecpayForm.ReturnURL,
-				ecpayForm.TotalAmount,
-				ecpayForm.TradeDesc
-			);
+			Dictionary<string, string> paramList = new Dictionary<string, string> {
+				{ "ChoosePayment", ecpayForm.ChoosePayment },
+				//{ "ClientBackURL", ecpayForm.ClientBackURL },
+				{ "EncryptType", ecpayForm.EncryptType },
+				{ "ItemName", ecpayForm.ItemName },
+				{ "MerchantID", ecpayForm.MerchantID },
+				{ "MerchantTradeDate", ecpayForm.MerchantTradeDate },
+				{ "MerchantTradeNo", ecpayForm.MerchantTradeNo },
+				{ "OrderResultURL", ecpayForm.OrderResultURL },
+				{ "PaymentType", ecpayForm.PaymentType },
+				{ "ReturnURL", ecpayForm.ReturnURL },
+				{ "TotalAmount", ecpayForm.TotalAmount },
+				{ "TradeDesc", ecpayForm.TradeDesc },
+			};
+			string Parameters = string.Join("&", paramList.Select(x => $"{x.Key}={x.Value}").OrderBy(x => x));
+
+			//string Parameters = string.Format("ChoosePayment={0}&ClientBackURL={1}&EncryptType={2}&ItemName={3}&MerchantID={4}&MerchantTradeDate={5}&MerchantTradeNo={6}&PaymentType={7}&ReturnURL={8}&TotalAmount={9}&TradeDesc={10}",
+			//	ecpayForm.ChoosePayment,
+			//	ecpayForm.ClientBackURL,
+			//	ecpayForm.EncryptType,
+			//	ecpayForm.ItemName,
+			//	ecpayForm.MerchantID,
+			//	ecpayForm.MerchantTradeDate,
+			//	ecpayForm.MerchantTradeNo,
+			//	//ecpayForm.OrderResultURL,
+			//	ecpayForm.PaymentType,
+			//	ecpayForm.ReturnURL,
+			//	ecpayForm.TotalAmount,
+			//	ecpayForm.TradeDesc
+			//);
 
 			ecpayForm.CheckMacValue = GetCheckMacValue(HashKey, Parameters, HashIV);
-			Debug.WriteLine($"MerchantTradeNo1: {ecpayForm.MerchantTradeNo}");
 
 			return Json(ecpayForm);
 		}
@@ -153,41 +165,70 @@ namespace AspNetMVC.Controllers {
 			}
 		}
 		public string ECPayReturn() {
-			string MerchantID = Request.Form["MerchantID"];
 			string MerchantTradeNo = Request.Form["MerchantTradeNo"];
-			string StoreID = Request.Form["StoreID"];
 			string RtnCode = Request.Form["RtnCode"];
-			string RtnMsg = Request.Form["RtnMsg"];
 			string TradeNo = Request.Form["TradeNo"];
-			string TradeAmt = Request.Form["TradeAmt"];
-			string PaymentDate = Request.Form["PaymentDate"];
 			string PaymentType = Request.Form["PaymentType"];
-			string PaymentTypeChargeFee = Request.Form["PaymentTypeChargeFee"];
-			string TradeDate = Request.Form["TradeDate"];
 			string SimulatePaid = Request.Form["SimulatePaid"];
 			string CheckMacValue = Request.Form["CheckMacValue"];
-			
+			//string MerchantID = Request.Form["MerchantID"];
+			//string StoreID = Request.Form["StoreID"];
+			//string RtnMsg = Request.Form["RtnMsg"];
+			//string TradeAmt = Request.Form["TradeAmt"];
+			//string PaymentDate = Request.Form["PaymentDate"];
+			//string PaymentTypeChargeFee = Request.Form["PaymentTypeChargeFee"];
+			//string TradeDate = Request.Form["TradeDate"];
+
 			bool isSuccess = RtnCode == "1" && SimulatePaid == "0";
 			_checkoutService.UpdateOrder(MerchantTradeNo, TradeNo, PaymentType, isSuccess);
 
-			Debug.WriteLine($"MerchantID: {MerchantID}");
-			Debug.WriteLine($"MerchantTradeNo: {MerchantTradeNo}");
-			Debug.WriteLine($"StoreID: {StoreID}");
-			Debug.WriteLine($"RtnCode: {RtnCode}");
-			Debug.WriteLine($"RtnMsg: {RtnMsg}");
-			Debug.WriteLine($"TradeNo: {TradeNo}");
-			Debug.WriteLine($"TradeAmt: {TradeAmt}");
-			Debug.WriteLine($"PaymentDate: {PaymentDate}");
-			Debug.WriteLine($"PaymentType: {PaymentType}");
-			Debug.WriteLine($"PaymentTypeChargeFee: {PaymentTypeChargeFee}");
-			Debug.WriteLine($"TradeDate: {TradeDate}");
-			Debug.WriteLine($"SimulatePaid: {SimulatePaid}");
-			Debug.WriteLine($"CheckMacValue: {CheckMacValue}");
-
+			foreach (var key in Request.Form.AllKeys) {
+				Debug.WriteLine($"foreach: {key}, {Request.Form[key]}");
+			}
 			return "1|OK";
 		}
 		public ActionResult SuccessView() {
-			return View();
+			string MerchantTradeNo = Request.Form["MerchantTradeNo"] ?? "";
+			string TradeNo = Request.Form["TradeNo"] ?? "";
+			//string RtnCode = Request.Form["RtnCode"];
+			//string PaymentType = Request.Form["PaymentType"];
+			//string SimulatePaid = Request.Form["SimulatePaid"];
+			//string CheckMacValue = Request.Form["CheckMacValue"];
+			//string MerchantID = Request.Form["MerchantID"];
+			//string StoreID = Request.Form["StoreID"];
+			//string RtnMsg = Request.Form["RtnMsg"];
+			//string TradeAmt = Request.Form["TradeAmt"];
+			//string PaymentDate = Request.Form["PaymentDate"];
+			//string PaymentTypeChargeFee = Request.Form["PaymentTypeChargeFee"];
+			//string TradeDate = Request.Form["TradeDate"];
+
+			foreach (var key in Request.Form.AllKeys) {
+				Debug.WriteLine($"success: {key}, {Request.Form[key]}");
+			}
+
+			Order order = _checkoutService.GetOrder(MerchantTradeNo, TradeNo);
+			OrderDetail od = _checkoutService.GetOrderDetail(order);
+			UserFavorite userF = _checkoutService.GetFavorite(od);
+
+			SuccessViewModel viewModel = new SuccessViewModel {
+				FavoriteId = userF.FavoriteId,
+				IsPackage = userF.IsPackage,
+				Package = null,
+				UserDefinedList = null,
+				RoomTypeList = _checkoutService.GetRoomTypeList(),
+				SquareFeetList = _checkoutService.GetSquareFeetList(),
+				DateService = order.DateService,
+				Address = order.Address,
+				DiscountAmount = _checkoutService.GetCouponAmount(order.CouponDetailId),
+				FinalPrice = od.FinalPrice,
+			};
+			if (userF.IsPackage) {
+				viewModel.Package = _checkoutService.GetPackage(userF);
+			} else {
+				viewModel.UserDefinedList = _checkoutService.GetUserDefinedList(userF);
+			}
+
+			return View(viewModel);
 		}
 		public ActionResult AddCoupon(int id = 1) {
 			_checkoutService.CreateCoupon(id);
@@ -230,6 +271,7 @@ namespace AspNetMVC.Controllers {
 	public class ECPayForm {
 		public string CheckMacValue { get; set; }
 		public string ChoosePayment { get; set; }
+		public string ClientBackURL { get; set; }
 		public string EncryptType { get; set; }
 		public string ItemName { get; set; }
 		public string MerchantID { get; set; }
@@ -250,4 +292,4 @@ namespace AspNetMVC.Controllers {
 		public DateTime Now;
 	}
 }
-//TODO 付款成功頁面
+//TODO 服務條款

@@ -59,7 +59,7 @@ const dateService = {
       let pickD = this.obj.getDate().toString().padStart(2, '0');
       let pickHour = this.obj.getHours().toString().padStart(2, '0');
       let pickMin = this.obj.getMinutes().toString().padStart(2, '0');
-      ele_date.textContent = `${pickY}-${pickM}-${pickD}`;
+      ele_date.textContent = `${pickY}/${pickM}/${pickD}`;
       ele_time.textContent = `${pickHour}:${pickMin}`;
       const $serviceDate = $('#service-date');
       const $value = $('#service-date .value');
@@ -119,6 +119,7 @@ const steps = [{
     warn: '請輸入正確的地址',
   }],
 }, {
+  ecpayInputs: [],
   creditInputs: [{
     ele: document.querySelector('#pay #input_credit'),
     check: (ele) => ele.value.length == 19,
@@ -228,15 +229,13 @@ $btn_lastM.on('click', function () {
 $btn_nextM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_lastM);
-  const tomorrowY = obj_tomorrow.getFullYear();
-  const tomorrowNextM = obj_tomorrow.getMonth() + 1;
-  const obj_tomorrowNextM = new Date(
-    tomorrowY, tomorrowNextM, 1
+  const obj_nextMonthStart = new Date(
+    thisY, thisM + 1, 1
   );
-  const obj_nextMonthEnd = (new Date(
-    tomorrowY, tomorrowNextM + 1, 0
-  )).getDate();
-  makeMonth(obj_tomorrowNextM, obj_nextMonthEnd);
+  const obj_nextMonthEnd = new Date(
+    thisY, thisM + 2, 0
+  );
+  makeMonth(obj_nextMonthStart, obj_nextMonthEnd.getDate());
 });
 let generateCount = ((obj_nextMonthEnd - obj_tomorrow) / 86400000) + 1;
 generateCount = Math.min(generateCount, 31);
@@ -560,6 +559,7 @@ const addOrder = function () {
       const ECPayFrom = document.querySelector('#ECPayForm');
       ECPayFrom.querySelector('[name="CheckMacValue"]').value = data.CheckMacValue;
       ECPayFrom.querySelector('[name="ChoosePayment"]').value = data.ChoosePayment;
+      // ECPayFrom.querySelector('[name="ClientBackURL"]').value = data.ClientBackURL;
       ECPayFrom.querySelector('[name="EncryptType"]').value = data.EncryptType;
       ECPayFrom.querySelector('[name="ItemName"]').value = data.ItemName;
       ECPayFrom.querySelector('[name="MerchantID"]').value = data.MerchantID;

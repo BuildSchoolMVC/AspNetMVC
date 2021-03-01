@@ -166,16 +166,21 @@
 							</h5>
 							<div class="content">
 								<div class="method-box">
-									<input id="credit" type="radio" name="pay-method" data-i="0" data-inputs="creditInputs" checked>
+									<input id="credit" type="radio" name="pay-method" data-i="0" data-inputs="ecpayInputs" checked>
 									<label class="label" for="credit">
 										<span class="type">
-											線上刷卡
+											綠界科技ECPay
 											<span class="remind">
-												(可接受VISA, Master Card, JCB)
+												(支援多種付款方式，稍後導向付款頁面)
 											</span>
 										</span>
 									</label>
-									<div class="method credit-method">
+									<div class="pic">
+										<svg viewBox="0 0 946.189 287.884">
+											<use xlink:href="/Assets/images/ecpay.svg#ecpay_logo"></use>
+										</svg>
+									</div>
+									@* <div class="method credit-method">
 										<div class="prompt">
 											填寫信用卡資訊
 											<span class="tip" data-toggle="tooltip" data-placement="top" title data-original-title="本公司採用喬睿科技TapPay金流交易系統，消費者刷卡時直接在銀行端系統中交易，本公司不會留下您的信用卡資料，以保障你的權益，資料傳輸過程採用嚴密的SSL 2048bit加密技術保護。"></span>
@@ -224,9 +229,9 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> *@
 								</div>
-								<div class="method-box">
+								@* <div class="method-box">
 									<input id="atm" type="radio" name="pay-method" data-i="1" data-inputs="atmInputs">
 									<label class="label" for="atm">
 										<span class="type">
@@ -236,7 +241,7 @@
 											</span>
 										</span>
 									</label>
-								</div>
+								</div> *@
 							</div>
 						</div>
 						<div class="form_invoice">
@@ -293,7 +298,7 @@
 								我已閱讀
 								<a data-toggle="modal" data-target="#no-service-range">未清潔範圍</a> 、
 								<a data-toggle="modal" data-target="#change-policy">取消或更改服務政策</a> 、
-								<a href="#">服務條款</a>
+								<a data-toggle="modal" data-target="">服務條款</a>
 								@* <a href="#">隱私權政策</a> *@
 							</span>
 							<div class="warn"></div>
@@ -399,6 +404,7 @@
 <form action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" id="ECPayForm" method="post" ref="form">
 	<input type="hidden" name="CheckMacValue" value="" />
 	<input type="hidden" name="ChoosePayment" value="" />
+	@* <input type="hidden" name="ClientBackURL" value="" /> *@
 	<input type="hidden" name="EncryptType" value="" />
 	<input type="hidden" name="ItemName" value="" />
 	<input type="hidden" name="MerchantID" value="" />

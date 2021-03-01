@@ -21,4 +21,5 @@ namespace AspNetMVC.Models.Entity
         [Display(Name = "編輯者")]
         public string EditUser { get; set; }
     }
+    public interface IProduct { }
 }
