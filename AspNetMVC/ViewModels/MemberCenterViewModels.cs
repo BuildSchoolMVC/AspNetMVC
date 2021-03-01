@@ -14,13 +14,13 @@ namespace AspNetMVC.ViewModel
         public string Phone { get; set; }
         public string Mail { get; set; }
         public string Address { get; set; }
-        public MemberCenterOrder order { get; set; }
-        public MemberCenterCreditVM credit { get; set; }
-        public Favorites favorites { get; set; }
-        public Account account { get; set; }
-        public MemberCenterPasswordVM password { get; set; }
+        public MemberCenterOrder Order { get; set; }
+        public List<MemberCenterCredit> Credit { get; set; }
+        public Favorites Favorites { get; set; }
+        public Account Account { get; set; }
+        public MemberCenterPassword Password { get; set; }
     }
-    public class MemberCenterPasswordVM
+    public class MemberCenterPassword
     {
         public string Password { get; set; }
         public string NewPassword { get; set; }
@@ -33,7 +33,7 @@ namespace AspNetMVC.ViewModel
         public Array FinishOrder { get; set; }
     }
 
-    public class MemberCenterCreditVM
+    public class MemberCenterCredit
     { 
         public string CreditNumber { get; set; }
         public int ExpiryDate { get; set; }

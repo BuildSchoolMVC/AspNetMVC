@@ -4,27 +4,33 @@
     Layout = null;
 }
 <style>
-    table{
-        text-align:center;
+    table {
+        text-align: center;
     }
+
     a {
         color: #fff !important;
     }
-    a:hover {
-        text-decoration: none !important;
-    }
+
+        a:hover {
+            text-decoration: none !important;
+        }
+
     .read {
         background: #279a34;
     }
-    .read:hover {
-        background: #1a6723;
-    }
+
+        .read:hover {
+            background: #1a6723;
+        }
+
     .unread {
         background: #ff0000;
     }
-    .unread:hover {
-        background: #9b0909;
-    }
+
+        .unread:hover {
+            background: #9b0909;
+        }
 </style>
 @Styles.Render("~/Content/css")
 
@@ -61,28 +67,28 @@
                 </th>
             </tr>
             @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerServiceId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            @DisplayCategory(item.Category)
-            @DisplayReadState(item.IsRead, item.CustomerServiceId)
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-        </tr>
-        }
-    </table>
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerServiceId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    @DisplayCategory(item.Category)
+                    @DisplayReadState(item.IsRead, item.CustomerServiceId)
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateTime)
+                    </td>
+                </tr>
+            }
+        </table>
     }
 </section>
 @Scripts.Render("~/bundles/jquery")

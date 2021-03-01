@@ -30,6 +30,7 @@ namespace AspNetMVC.Models
         public virtual DbSet<MemberCreditCard> MemberCreditCards { get; set; }
 		public virtual DbSet<Coupon> Coupons { get; set; }
 		public virtual DbSet<CouponDetail> CouponDetails { get; set; }
+		public virtual DbSet<ECPayParam> ECPayParams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

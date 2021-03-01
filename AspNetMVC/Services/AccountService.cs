@@ -465,31 +465,6 @@ namespace AspNetMVC.Services
         {
            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountName == accountName && x.Password == password);
         }
-
-        public HttpCookie SetCookie(string accountName,bool rememberMe)
-        {
-            HttpCookie cookie_user = new HttpCookie("user");
-            var cookieText = Encoding.UTF8.GetBytes(accountName);
-            var encryptedValue = Convert.ToBase64String(MachineKey.Protect(cookieText, "protectedCookie"));
-            cookie_user.Values["user_accountname"] = encryptedValue;
-
-            if (rememberMe == true) cookie_user.Expires = DateTime.Now.AddDays(7);
-
-            return cookie_user;
-        }
-
-        public void SendMail(string title,string email, Dictionary<string, string> kvp)
-        {
-            Email objEmail = new Email
-            {
-                RecipientAddress = email,
-                Subject = $"{title} - 此信件由系統自動發送，請勿直接回覆 from [Gmail]"
-            };
-
-            objEmail.Body = objEmail.ReplaceString(objEmail.GetEmailString(Email.Template.EmailActivation), kvp);
-
-            objEmail.SendEmailFromGmail();
-        }
     }
     
 }

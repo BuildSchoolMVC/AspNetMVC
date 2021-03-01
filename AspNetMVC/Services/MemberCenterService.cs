@@ -22,13 +22,22 @@ namespace AspNetMVC.Services
         }
         public MemberCenterViewModels GetMember(Guid accountId) {
             var source = _repository.GetAll<MemberMd>().FirstOrDefault(x => x.AccountId == accountId);
+            var account = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
+            var accountName = account.AccountName;
+            var creditMd = _repository.GetAll<MemberCreditCard>().Where(x => x.AccountName == accountName).Select(x => new MemberCenterCredit
+            {
+                CreditNumber = x.CreditNumber.Insert(4,"-").Insert(9,"-").Insert(14,"-"),
+                ExpiryDate = x.ExpiryDate
+            }).ToList();
             var result = new MemberCenterViewModels()
             {
                 Name = source.Name,
                 Phone = source.Phone,
                 Mail = source.Mail,
-                Address = source.Address
+                Address = source.Address,
+                Credit = creditMd,
             };
+            
             return result;
         }
         public Account GetAll(Guid accountId)
@@ -47,7 +56,7 @@ namespace AspNetMVC.Services
             _context.SaveChanges();
             return source;
         }
-        public OperationResult EditPassword(Guid accountId,MemberCenterPasswordVM password)
+        public OperationResult EditPassword(Guid accountId,MemberCenterPassword password)
         {
             var result = new OperationResult();
             var source = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
@@ -70,7 +79,7 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        public OperationResult NewCredit(Guid accountId, MemberCenterCreditVM credit)
+        public OperationResult NewCredit(Guid accountId, MemberCenterCredit credit)
         {
             var account = _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == accountId);
             var accountName = account.AccountName;

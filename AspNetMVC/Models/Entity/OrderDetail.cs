@@ -14,7 +14,7 @@ namespace AspNetMVC.Models.Entity {
 		[Required]
 		public Guid FavoriteId { get; set; }
 		[Required]
-		public decimal ProductPrice { get; set; } //改FinalPrice
+		public decimal FinalPrice { get; set; }
 		[Required]
 		public string ProductName { get; set; }
 	}

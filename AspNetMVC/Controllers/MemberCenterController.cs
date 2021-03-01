@@ -76,7 +76,7 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public ActionResult Password(string Password, string NewPassword,string ConfirmPassword)
         {
-            var password = new MemberCenterPasswordVM();
+            var password = new MemberCenterPassword();
             password.Password = Password;
             password.NewPassword = NewPassword;
             password.ConfirmPassword = ConfirmPassword;
@@ -93,7 +93,7 @@ namespace AspNetMVC.Controllers
         [HttpPost]
         public ActionResult CreditCard(string CreditNumber, int ExpiryDate)
         {
-            var credit = new MemberCenterCreditVM();
+            var credit = new MemberCenterCredit();
             credit.CreditNumber = CreditNumber;
             credit.ExpiryDate = ExpiryDate;
             var result = _MemberCenterService.NewCredit(MemberHelper(), credit);

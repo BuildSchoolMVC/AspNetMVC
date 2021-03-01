@@ -372,22 +372,7 @@ $nextStep.on('click', function () {
       disableBtn($lastStep);
       disableBtn($nextStep);
       $('.coupon button').replaceWith($('<span>優惠券</span>'));
-      $.ajax({
-        type: 'POST',
-        url: '/Checkout/AddOrder',
-        data: {
-
-        },
-        // success: (message) => {
-        //   $('#done .pic').html(`
-        //     <svg id="tick" viewBox="0 0 32 32">
-        //       <path d="M27,9 l-15,15 -7,-7"></path>
-        //     </svg>
-        //   `);
-        //   $('#done .title').text(message.title);
-        //   $('#done .content').text(message.content);
-        // },
-      });
+      addOrder();
       break;
   }
   $barFront.css('width', `${33.333 * state}%`);
@@ -541,48 +526,54 @@ Date.prototype.toFormat = function () {
   let ss = this.getSeconds();
   return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
 };
-document.querySelector('#toECPay').addEventListener('click', function () {
+const addOrder = function () {
   $.ajax({
     method: 'POST',
-    url: '/Checkout/ToECPay',
+    url: '/Checkout/AddOrder',
     contentType: 'application/json',
     data: JSON.stringify({
-      UserForm: {
-        FavoriteId: favoriteId,
-        DateService: (() => {
-          const d = $row_date.focusDate[0].obj_date;
-          const t = $row_time.focusTime[0].workTime;
-          const yyyy = d.getFullYear();
-          const MM = (d.getMonth() + 1).toString().padStart(2, '0');
-          const dd = d.getDate().toString().padStart(2, '0');
-          const HH = t.getHours().toString().padStart(2, '0');
-          const mm = t.getMinutes().toString().padStart(2, '0');
-          const ss = '00';
-          return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
-        })(),
-        FullName: document.querySelector('#fill-info #input_name').value,
-        Phone: document.querySelector('#fill-info #input_phone').value,
-        Email: document.querySelector('#fill-info #input_email').value,
-        County: document.querySelector('#fill-info #county-list').value,
-        District: document.querySelector('#fill-info #district-list').value,
-        Address: document.querySelector('#fill-info #input_address').value,
-        Remark: document.querySelector('#fill-info #remark').value,
-        InvoiceType: invoiceData.InvoiceType,
-        InvoiceDonateTo: invoiceData.InvoiceDonateTo,
-        CouponDetailId: $couponBox[0].selectedGuid,
-      },
-      ECPayForm: {
-        ItemName: 'uCleaner',
-        ReturnURL: 'https://localhost:44308/Checkout/FromECPay',
-        ChoosePayment: 'ALL',
-        EncryptType: 111,
-      },
+      FavoriteId: favoriteId,
+      DateService: (() => {
+        const d = $row_date.focusDate[0].obj_date;
+        const t = $row_time.focusTime[0].workTime;
+        const yyyy = d.getFullYear();
+        const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+        const dd = d.getDate().toString().padStart(2, '0');
+        const HH = t.getHours().toString().padStart(2, '0');
+        const mm = t.getMinutes().toString().padStart(2, '0');
+        const ss = '00';
+        return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+      })(),
+      FullName: document.querySelector('#fill-info #input_name').value,
+      Phone: document.querySelector('#fill-info #input_phone').value,
+      Email: document.querySelector('#fill-info #input_email').value,
+      County: document.querySelector('#fill-info #county-list').value,
+      District: document.querySelector('#fill-info #district-list').value,
+      Address: document.querySelector('#fill-info #input_address').value,
+      Remark: document.querySelector('#fill-info #remark').value,
+      InvoiceType: invoiceData.InvoiceType,
+      InvoiceDonateTo: invoiceData.InvoiceDonateTo,
+      CouponDetailId: $couponBox[0].selectedGuid,
     }),
-    success: function () {
-      console.log('yes');
+    success: function (data) {
+      console.log(data);
+      const ECPayFrom = document.querySelector('#ECPayForm');
+      ECPayFrom.querySelector('[name="CheckMacValue"]').value = data.CheckMacValue;
+      ECPayFrom.querySelector('[name="ChoosePayment"]').value = data.ChoosePayment;
+      ECPayFrom.querySelector('[name="EncryptType"]').value = data.EncryptType;
+      ECPayFrom.querySelector('[name="ItemName"]').value = data.ItemName;
+      ECPayFrom.querySelector('[name="MerchantID"]').value = data.MerchantID;
+      ECPayFrom.querySelector('[name="MerchantTradeDate"]').value = data.MerchantTradeDate;
+      ECPayFrom.querySelector('[name="MerchantTradeNo"]').value = data.MerchantTradeNo;
+      ECPayFrom.querySelector('[name="OrderResultURL"]').value = data.OrderResultURL;
+      ECPayFrom.querySelector('[name="PaymentType"]').value = data.PaymentType;
+      ECPayFrom.querySelector('[name="ReturnURL"]').value = data.ReturnURL;
+      ECPayFrom.querySelector('[name="TotalAmount"]').value = data.TotalAmount;
+      ECPayFrom.querySelector('[name="TradeDesc"]').value = data.TradeDesc;
+      ECPayFrom.submit();
     },
   });
-});
+};
 // 關閉各自的下拉選單
 $('.my-dropdown .head-list').on('blur', (e) => {
   const $checkbox = $(e.target).children('[type=checkbox]')[0];
