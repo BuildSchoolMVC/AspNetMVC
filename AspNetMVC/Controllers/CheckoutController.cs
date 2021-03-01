@@ -190,7 +190,7 @@ namespace AspNetMVC.Controllers {
 		public ActionResult SuccessView() {
 			string MerchantTradeNo = Request.Form["MerchantTradeNo"] ?? "";
 			string TradeNo = Request.Form["TradeNo"] ?? "";
-			//string RtnCode = Request.Form["RtnCode"];
+			string RtnCode = Request.Form["RtnCode"];
 			//string PaymentType = Request.Form["PaymentType"];
 			//string SimulatePaid = Request.Form["SimulatePaid"];
 			//string CheckMacValue = Request.Form["CheckMacValue"];
@@ -205,7 +205,11 @@ namespace AspNetMVC.Controllers {
 			foreach (var key in Request.Form.AllKeys) {
 				Debug.WriteLine($"success: {key}, {Request.Form[key]}");
 			}
-
+			if (RtnCode != "1") {
+				ViewData["Title"] = "付款失敗";
+				ViewData["Content"] = "付款失敗，請前往會員中心，並重新付款";
+				return View("Message");
+			}
 			Order order = _checkoutService.GetOrder(MerchantTradeNo, TradeNo);
 			OrderDetail od = _checkoutService.GetOrderDetail(order);
 			UserFavorite userF = _checkoutService.GetFavorite(od);
@@ -234,9 +238,9 @@ namespace AspNetMVC.Controllers {
 			_checkoutService.CreateCoupon(id);
 			return null;
 		}
-		public ActionResult AddCouponDetail(int couponId) {
+		public ActionResult AddCouponDetail(int id = 1) {
 			string accountName = Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]);
-			_checkoutService.CreateCouponDetail(accountName, couponId);
+			_checkoutService.CreateCouponDetail(accountName, id);
 			return null;
 		}
 		[HttpGet]
@@ -292,4 +296,3 @@ namespace AspNetMVC.Controllers {
 		public DateTime Now;
 	}
 }
-//TODO 服務條款
