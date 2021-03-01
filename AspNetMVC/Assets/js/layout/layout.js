@@ -614,14 +614,14 @@ const squarefeetSwitch = value =>
        value == 0 ? "5坪以下" :
        value == 1 ? "6-10坪" :
        value == 2 ? "11-15坪" :
-       value == 3 ? "16坪以上" : "-";
+       value == 3 ? "16坪以上" : "";
 
 const roomTypeSwitch = value =>
     value == 0 ? "廚房" :
     value == 1 ? "客廳" :
     value == 2 ? "臥室" :
     value == 3 ? "浴廁" :
-    value == 4 ? "陽台" : "-";
+    value == 4 ? "陽台" : "";
 
 function googleSigninInit() {
     gapi.load('auth2', function () {

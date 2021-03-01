@@ -13,13 +13,12 @@ namespace AspNetMVC.Services
     {
         private readonly UCleanerDBContext _context;
         private readonly BaseRepository _repository;
-        private readonly AccountService _account;
+
 
         public ProductPageService()
         {
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
-            _account = new AccountService();
         }
         public List<ProductPageViewModel> GetData()
         {
@@ -44,7 +43,7 @@ namespace AspNetMVC.Services
 
         public void CreateUserDefinedDataInFavorite(IEnumerable<UserDefinedAll> model, string name, Guid TempGuid)
         {
-
+            var index = 0;
             var result = new OperationResult();
             using (var transcation = _context.Database.BeginTransaction())
             {
@@ -68,7 +67,9 @@ namespace AspNetMVC.Services
                             CreateUser = name,
                             EditTime = DateTime.UtcNow.AddHours(8),
                             EditUser = name,
+                            Index = index
                         };
+                        index++;
                         _repository.Create<UserDefinedProduct>(product);
                     }
                     _context.SaveChanges();
@@ -156,10 +157,6 @@ namespace AspNetMVC.Services
                 result.Exception = ex;
             }
             return result;
-        }
-        public Account GetUser(Guid id)
-        {
-            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
         }
 
         public List<UserFavoriteViewModel> GetFavoriteUserFavoriteData(string username)

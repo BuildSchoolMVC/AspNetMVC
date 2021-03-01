@@ -18,5 +18,6 @@ namespace AspNetMVC.Models.Entity
         public int Squarefeet { get; set; }
         public float Hour { get; set; }
         public decimal Price { get; set; }
+        public int Index { get; set; }
     }
 }
