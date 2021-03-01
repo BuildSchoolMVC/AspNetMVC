@@ -217,6 +217,10 @@
     <Compile Include="Migrations\202102271754291_v20.Designer.cs">
       <DependentUpon>202102271754291_v20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.cs" />
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.Designer.cs">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\ECPayParam.cs" />
     <Compile Include="Views\ToECPay.aspx.cs">
       <DependentUpon>ToECPay.aspx</DependentUpon>
@@ -663,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102271754291_v20.resx">
       <DependentUpon>202102271754291_v20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.resx">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
