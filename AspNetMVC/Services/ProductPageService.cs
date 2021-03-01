@@ -43,7 +43,7 @@ namespace AspNetMVC.Services
 
         public void CreateUserDefinedDataInFavorite(IEnumerable<UserDefinedAll> model, string name, Guid TempGuid)
         {
-
+            var index = 0;
             var result = new OperationResult();
             using (var transcation = _context.Database.BeginTransaction())
             {
@@ -67,7 +67,9 @@ namespace AspNetMVC.Services
                             CreateUser = name,
                             EditTime = DateTime.UtcNow.AddHours(8),
                             EditUser = name,
+                            Index = index
                         };
+                        index++;
                         _repository.Create<UserDefinedProduct>(product);
                     }
                     _context.SaveChanges();
