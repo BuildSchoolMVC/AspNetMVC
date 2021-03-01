@@ -1,18 +1,20 @@
 ﻿@model SuccessViewModel
 @{
-    ViewBag.Title = "預約完成";
+	ViewBag.Title = "預約完成";
 }
 
 @section CSS {
 	<link rel="stylesheet" href="~/Assets/css/Checkout/Checkout.min.css">
-    <style>
-        #done {
-            min-height: 525px;
-        }
-        .block_progress .barGroup .barFront {
-            width: 100%;
-        }
-    </style>
+	<style>
+		@@media screen and (min-height: 768px) {
+			#done {
+				min-height: 525px;
+			}
+		}
+		.block_progress .barGroup .barFront {
+			width: 100%;
+		}
+	</style>
 }
 
 <div class="container-all">
@@ -60,12 +62,16 @@
 				</div>
 				@if (Model.IsPackage) {
 					<div id="favorite-name">@Model.Package.Name</div>
-					@PackageProduct()
+					<div class="item-box">
+						@PackageProduct()
+					</div>
 				} else {
 					<div id="favorite-name">@Model.UserDefinedList[0].Name</div>
-					foreach (var item in Model.UserDefinedList) {
-						@UserDefinedItem(item)
-					}
+					<div class="item-box">
+						@foreach (var item in Model.UserDefinedList) {
+							@UserDefinedItem(item)
+						}
+					</div>
 				}
 				<div class="coupon">
 					<span>折扣</span>
@@ -90,9 +96,9 @@
 							<div class="title">預約成功</div>
 							<p class="content">如需修改或取消訂單，請洽客服人員</p>
 						</div>
-                        <div class="step-buttons">
-                            <button class="button">回首頁</button>
-                        </div>
+						<div class="step-buttons">
+							<button class="button">回首頁</button>
+						</div>
 					</div>
 				</div>
 			</main>
@@ -181,12 +187,12 @@
 
 @section JS{
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
-    <script>
-        setTimeout(() => {
-            $('#done').fadeIn(300);
-        }, 700);
-        document.querySelector('#done .button').addEventListener('click', () => {
-            window.location = '/';
-        });
-    </script>
+	<script>
+		setTimeout(() => {
+			$('#done').fadeIn(300);
+		}, 700);
+		document.querySelector('#done .button').addEventListener('click', () => {
+			window.location = '/';
+		});
+	</script>
 }
