@@ -14,4 +14,11 @@ namespace AspNetMVC.ViewModels {
 		public IEnumerable<RoomType> RoomTypeList { get; set; }
 		public IEnumerable<SquareFeet> SquareFeetList { get; set; }
 	}
+	public class SuccessViewModel : DataViewModel {
+		public DateTime DateService { get; set; }
+		public string Address { get; set; }
+		public decimal DiscountAmount { get; set; }
+		public decimal FinalPrice { get; set; }
+		public int MyProperty { get; set; }
+	}
 }

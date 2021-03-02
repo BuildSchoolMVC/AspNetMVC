@@ -221,14 +221,11 @@
     <Compile Include="Migrations\202102271754291_v20.Designer.cs">
       <DependentUpon>202102271754291_v20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.cs" />
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.Designer.cs">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\ECPayParam.cs" />
-    <Compile Include="Views\ToECPay.aspx.cs">
-      <DependentUpon>ToECPay.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ToECPay.aspx.designer.cs">
-      <DependentUpon>ToECPay.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -346,6 +343,7 @@
     <Content Include="Assets\Css\Home\fonts\icofont.svg" />
     <Content Include="Assets\Css\Account\Login.css" />
     <Content Include="Assets\Css\MemberCenter\MemberCenter.css" />
+    <Content Include="Assets\Images\ecpay.svg" />
     <Content Include="Assets\Js\MemberCenter\UserFavorite.js" />
     <Content Include="Assets\Css\ProductPage\ProductPage.css" />
     <Content Include="Assets\Css\Checkout\Checkout.min.css" />
@@ -411,7 +409,7 @@
     <Content Include="Assets\Js\Account\Register.js" />
     <Content Include="Assets\Js\Account\ResetPassword.js" />
     <Content Include="Assets\Js\Account\SocialRegister.js" />
-    <Content Include="Assets\Js\Detail\detail.js" />
+    <Content Include="Assets\Js\Detail\Detail.js" />
     <Content Include="Assets\Js\Home\index.js" />
     <Content Include="Assets\Js\Layout\Layout.js" />
     <Content Include="Assets\Js\Account\Login.js" />
@@ -419,18 +417,17 @@
     <Content Include="Assets\Js\ProductPage\ProductPage.js" />
     <Content Include="Assets\Images\visa.png" />
     <Content Include="Assets\Js\Checkout\all.js" />
-    <Content Include="Assets\Template\EmailActivationTemplate.html" />
-    <Content Include="Assets\Template\ForgotPasswordTemplate.html" />
-    <Content Include="Assets\Template\SuccessResetPasswordTemplate.html" />
-    <Content Include="Assets\Template\SystemReplyTemplate.html" />
+    <None Include="Assets\Template\EmailActivationTemplate.cshtml" />
+    <None Include="Assets\Template\ForgotPasswordTemplate.cshtml" />
+    <None Include="Assets\Template\SuccessResetPasswordTemplate.cshtml" />
+    <None Include="Assets\Template\SystemReplyTemplate.cshtml" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Models\Config\url.txt" />
-    <Content Include="Views\ToECPay.aspx" />
+    <Content Include="App_Data\Config\url.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -596,8 +593,9 @@
     <Content Include="Views\Shared\PartialView\_CouponPartial.cshtml" />
     <Content Include="Views\Checkout\ToECPay.cshtml" />
     <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
-    <Content Include="Views\Checkout\View.cshtml" />
+    <Content Include="Views\Checkout\SuccessView.cshtml" />
     <Content Include="Views\Shared\PartialView\_CreditPartial.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -673,6 +671,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102271754291_v20.resx">
       <DependentUpon>202102271754291_v20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.resx">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

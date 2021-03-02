@@ -16,6 +16,21 @@ namespace AspNetMVC.Services {
 			_context = new UCleanerDBContext();
 			_repository = new BaseRepository(_context);
 		}
+		public Order GetOrder(string merchantTradeNo, string tradeNo) {
+			Order order = _repository.GetAll<Order>()
+				.First(x => x.MerchantTradeNo == merchantTradeNo && x.TradeNo == tradeNo);
+			return order;
+		}
+		public OrderDetail GetOrderDetail(Order order) {
+			OrderDetail od = _repository.GetAll<OrderDetail>()
+				.First(x => x.OrderId == order.OrderId);
+			return od;
+		}
+		public UserFavorite GetFavorite(OrderDetail od) {
+			UserFavorite favorite = _repository.GetAll<UserFavorite>()
+				.First(x => x.FavoriteId == od.FavoriteId);
+			return favorite;
+		}
 		public UserFavorite GetFavorite(Guid favoriteId, string accountName) {
 			UserFavorite favorite = _repository
 				.GetAll<UserFavorite>()
@@ -68,6 +83,16 @@ namespace AspNetMVC.Services {
 				EditUser = accountName,
 			});
 			_context.SaveChanges();
+		}
+		public decimal GetCouponAmount(Guid? couponDetailId) {
+			if (couponDetailId == null) {
+				return 0;
+			}
+			var couponDetail = _repository.GetAll<CouponDetail>()
+				.First(x => x.CouponDetailId == couponDetailId);
+			var coupon = _repository.GetAll<Coupon>()
+				.First(x => x.CouponId == couponDetail.CouponId);
+			return coupon.DiscountAmount;
 		}
 		public List<CouponJson> GetCouponList(string accountName) {
 			var allCouponDetail = _repository

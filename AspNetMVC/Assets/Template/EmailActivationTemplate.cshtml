@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿@using System.Web.Configuration
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
@@ -61,7 +62,7 @@
     <style type="text/css"> li { text-indent: -1em; } table td { border-collapse: collapse; } </style>
     <![endif]-->
     <style>
-        @media only screen and (max-width:600px) {
+        @*@media only screen and (max-width:600px) {
             .cBlock--spacingLR {
                 padding-left: 8px !important;
                 padding-right: 8px !important;
@@ -70,7 +71,7 @@
             .img_block {
                 width: 100% !important;
             }
-        }
+        }*@
     </style>
 </head>
 <body>
@@ -104,7 +105,7 @@
                                 <h1 style="color:#fff;">會員帳號啟動通知信</h1>
                             </td>
                             <td>
-                                <a href="https://localhost:44308/" style="display:inline-block;padding:15px 10px;text-decoration:none;color:#000;background:#eee;border-radius:3px;">回到官網</a>
+                                <a href="@WebConfigurationManager.AppSettings["WebsiteUrl"]" style="display:inline-block;padding:15px 10px;text-decoration:none;color:#000;background:#eee;border-radius:3px;">回到官網</a>
                             </td>
                         </tr>
                     </table>

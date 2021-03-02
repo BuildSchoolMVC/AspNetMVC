@@ -346,7 +346,7 @@ namespace AspNetMVC.Services
                 {
                     var getAccessTokenUrl = "https://graph.facebook.com/v9.0/oauth/access_token?";
                     getAccessTokenUrl += $"client_id={WebConfigurationManager.AppSettings["Facebook_id"]}";
-                    getAccessTokenUrl += $"&redirect_uri=https://localhost:44308/Account/RegisterByFacebookLogin";
+                    getAccessTokenUrl += $"&redirect_uri={WebConfigurationManager.AppSettings["WebsiteUrl"]}/Account/RegisterByFacebookLogin";
                     getAccessTokenUrl += $"&client_secret={WebConfigurationManager.AppSettings["Facebook_secret"]}";
                     getAccessTokenUrl += $"&code={code}";
 
@@ -396,7 +396,7 @@ namespace AspNetMVC.Services
                         { "client_id", $"{WebConfigurationManager.AppSettings["Line_client_id"]}" },
                         { "client_secret",$"{WebConfigurationManager.AppSettings["Line_client_secret"]}"},
                         { "code",code},
-                        { "redirect_uri","https://localhost:44308/Account/LineLogin"}
+                        { "redirect_uri",$"{WebConfigurationManager.AppSettings["WebsiteUrl"]}/Account/LineLogin"}
                     };
                 foreach (var kvp in values)
                 {

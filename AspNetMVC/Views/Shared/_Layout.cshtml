@@ -376,6 +376,10 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous"></script>
     <script>
         let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
     </script>
@@ -405,7 +409,7 @@
             let link = 'https://access.line.me/oauth2/v2.1/authorize?';
             link += 'response_type=code';
             link += '&client_id=' + @WebConfigurationManager.AppSettings["Line_client_id"];
-            link += '&redirect_uri=https://localhost:44308/Account/LineLogin';
+            link += '&redirect_uri=@WebConfigurationManager.AppSettings["WebsiteUrl"]/Account/LineLogin';
             link += `&state=${this.dataset.type}`;
             link += '&scope=profile%20openid%20email';
             window.location.href = link;
