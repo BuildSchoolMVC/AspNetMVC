@@ -172,7 +172,7 @@ namespace AspNetMVC.Services
             var result = new OperationResult();
             try
             {
-                var url = $"https://localhost:44308/ProductPage/CreateFavoriteData";
+                var url = $"{WebConfig}/ProductPage/CreateFavoriteData";
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 var cookies = new CookieContainer();
                 var cookie = new Cookie();
