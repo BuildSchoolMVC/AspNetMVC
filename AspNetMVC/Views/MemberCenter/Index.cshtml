@@ -7,10 +7,10 @@
     var credit = Model.Credit;
     var fav = Model.Favorites;
     var password = Model.Password;
-    var unusedcoupons = ViewBag.unusedcoupondata;
-    var usedcoupons = ViewBag.usedcoupondata;
-    var expiredcoupons = ViewBag.usedcoupondata;
-
+    List<CouponViewModel> unusedcoupons = ViewBag.unusedcoupons as List<CouponViewModel>;
+    List<CouponViewModel> usedcoupons = ViewBag.usedcoupons as List<CouponViewModel>;
+    List<CouponViewModel> expiredcoupons = ViewBag.expiredcoupons as List<CouponViewModel>;
+    List<CouponViewModel> coupons = ViewBag.coupons as List<CouponViewModel>;
 }
 @section CSS{
     <link rel="stylesheet" href="~/Assets/css/MemberCenter/MemberCenter.css" />
@@ -20,7 +20,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+}
     <div class="wrap">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <!-- 會員中心切換功能欄 -->
@@ -495,11 +495,11 @@
                                     <div class="favorite-body">
                                         <ul class="prod-form-body">
                                             <li>
-                                                @if (unusedcoupons.Any())
+                                                @if (coupons.Count == 0)
                                                 {
                                                     foreach (var item in unusedcoupons)
                                                     {
-                                                        @Html.Partial("partialView", (object)item)
+                                                        @Html.Partial("PartialView/_CouponPartial",item)
                                                     }
                                                 }
                                                 else
@@ -521,8 +521,16 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                    @if (usedcoupons.Any())
-                                    {
+                                    <div class="page-body order-body">
+                                        @if (coupons.Count == 1)
+                                        {
+                                            foreach (var item in usedcoupons)
+                                            {
+                                              @Html.Partial("PartialView/_CouponPartial", item)
+                                            }
+                                        }
+                                        else
+                                        {
                                         <div class="page-body order-body">
                                             <div class="null-page">
                                                 <div class="page-body-img">
@@ -533,43 +541,32 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    }
-                                    else
-                                    {
-                                        foreach (var item in unusedcoupons().ToList())
-                                        {
-                                            @Html.Partial("partialView", (object)item)
                                         }
-                                    }
-                                </div>
+                                    </div>
 
-                                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                    @if (expiredcoupons.Any())
-                                    {
-                                        <div class="page-body order-body">
-                                            <div class="null-page">
-                                                <div class="page-body-img">
-                                                    <img src="coupon.png" alt="">
-                                                </div>
-                                                <div class="page-body-text">
-                                                    <p>您還沒有已過期的優惠卷</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        foreach (var item in unusedcoupons.Where().ToList())
+                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                        @if (coupons.Count == 2)
                                         {
-                                            @Html.Partial("partialView", (object)item)
+                                            foreach (var item in expiredcoupons)
+                                            {
+                                                @Html.Partial("PartialView/_CouponPartial", item)
+                                            }
                                         }
-                                    }
+                                        else
+                                        {
+                                            <div class="page-body order-body">
+                                                <div class="null-page">
+                                                    <div class="page-body-img">
+                                                        <img src="coupon.png" alt="">
+                                                    </div>
+                                                    <div class="page-body-text">
+                                                        <p>您還沒有已過期的優惠卷</p>
+                                                    </div>
+                                                </div>
+                                            </div>     
+                                        }
+                                    </div>
                                 </div>
-                                @*@foreach (var coupon in (List<CouponViewModel>)ViewBag.coupondata)
-                                    {
-                                        @Html.Partial("PartialView/_CouponPartial", coupon)
-                                    }*@
-                            </div>
 
                         </div>
                     </div>
@@ -692,7 +689,7 @@
             </div>
         </div>
     </div>
-</div>
+   
     </div>
 }
 

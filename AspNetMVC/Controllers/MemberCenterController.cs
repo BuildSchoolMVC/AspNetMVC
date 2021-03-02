@@ -13,6 +13,7 @@ using AspNetMVC.ViewModel;
 using Newtonsoft.Json;
 using AspNetMVC.ViewModels;
 
+
 namespace AspNetMVC.Controllers
 {
     public class MemberCenterController : Controller
@@ -42,11 +43,11 @@ namespace AspNetMVC.Controllers
                 return RedirectToAction("Login","Account");
             }
 
-            List<CouponViewModel> coupons = new List<CouponViewModel>()
+            List<CouponViewModel>coupons = new List<CouponViewModel>();
             {
-               new CouponViewModel{CouponName="Anderson",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2021,12,31)},
-               new CouponViewModel{CouponName="peter",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2022,12,31)},
-               new CouponViewModel{CouponName="kevin",DiscountAmount=100m, DateStart=new DateTime(2021,01,01),DateEnd=new DateTime(2023,12,31)},
+                new CouponViewModel { Status = 0,CouponName = "Anderson", DiscountAmount = 100m, DateStart = new DateTime(2021, 01, 01), DateEnd = new DateTime(2021, 12, 31) };
+                new CouponViewModel { Status = 1,CouponName = "peter", DiscountAmount = 100m, DateStart = new DateTime(2021, 01, 01), DateEnd = new DateTime(2022, 12, 31) };
+                new CouponViewModel { Status = 2,CouponName = "kevin", DiscountAmount = 100m, DateStart = new DateTime(2021, 01, 01), DateEnd = new DateTime(2023, 12, 31) };
             };
 
             var unusedcoupons = coupons.Where(x => x.Status == 0).ToList();
@@ -64,6 +65,12 @@ namespace AspNetMVC.Controllers
             MemberCenterViewModels memberVm = _MemberCenterService.GetMember(MemberHelper());
             return View(memberVm);
         }
+
+        private void where()
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "Name,Phone,Mail,Address")] MemberCenterViewModels memberVm)
