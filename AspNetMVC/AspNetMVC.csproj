@@ -408,10 +408,10 @@
     <Content Include="Assets\Js\ProductPage\ProductPage.js" />
     <Content Include="Assets\Images\visa.png" />
     <Content Include="Assets\Js\Checkout\all.js" />
-    <Content Include="Assets\Template\EmailActivationTemplate.html" />
-    <Content Include="Assets\Template\ForgotPasswordTemplate.html" />
-    <Content Include="Assets\Template\SuccessResetPasswordTemplate.html" />
-    <Content Include="Assets\Template\SystemReplyTemplate.html" />
+    <None Include="Assets\Template\EmailActivationTemplate.cshtml" />
+    <None Include="Assets\Template\ForgotPasswordTemplate.cshtml" />
+    <None Include="Assets\Template\SuccessResetPasswordTemplate.cshtml" />
+    <None Include="Assets\Template\SystemReplyTemplate.cshtml" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
