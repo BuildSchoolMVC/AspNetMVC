@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Configuration;
 using AspNetMVC.Models;
 using AspNetMVC.Models.Entity;
 using AspNetMVC.Repository;
@@ -172,7 +173,7 @@ namespace AspNetMVC.Services
             var result = new OperationResult();
             try
             {
-                var url = $"{WebConfig}/ProductPage/CreateFavoriteData";
+                var url = $"{WebConfigurationManager.AppSettings["WebsiteUrl"]}/ProductPage/CreateFavoriteData";
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 var cookies = new CookieContainer();
                 var cookie = new Cookie();
