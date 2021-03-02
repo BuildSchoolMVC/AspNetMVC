@@ -49,6 +49,7 @@ namespace AspNetMVC.ViewModels
         public int RoomType { get; set; }
         public string ServiceItem { get; set; }
         public int Squarefeet { get; set; }
+        public int Index { get; set; }
 
     }
 
