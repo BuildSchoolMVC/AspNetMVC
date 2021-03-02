@@ -222,13 +222,6 @@
       <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\ECPayParam.cs" />
-    <Compile Include="Views\ToECPay.aspx.cs">
-      <DependentUpon>ToECPay.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\ToECPay.aspx.designer.cs">
-      <DependentUpon>ToECPay.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -407,7 +400,7 @@
     <Content Include="Assets\Js\Account\Register.js" />
     <Content Include="Assets\Js\Account\ResetPassword.js" />
     <Content Include="Assets\Js\Account\SocialRegister.js" />
-    <Content Include="Assets\Js\Detail\detail.js" />
+    <Content Include="Assets\Js\Detail\Detail.js" />
     <Content Include="Assets\Js\Home\index.js" />
     <Content Include="Assets\Js\Layout\Layout.js" />
     <Content Include="Assets\Js\Account\Login.js" />
@@ -426,7 +419,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="App_Data\Config\url.txt" />
-    <Content Include="Views\ToECPay.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
