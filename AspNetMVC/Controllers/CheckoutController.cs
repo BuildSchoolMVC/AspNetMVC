@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace AspNetMVC.Controllers {
@@ -57,7 +58,7 @@ namespace AspNetMVC.Controllers {
 			DateTime now = DateTime.Now;
 			string accountName;
 			string productName;
-			string url = System.IO.File.ReadAllText(Server.MapPath(@"~/App_data/Config/url.txt")); ;
+			string url = WebConfigurationManager.AppSettings["WebsiteUrl"];
 			string merchantTradeNo;
 			Guid favoriteId;
 			decimal finalAmount;
@@ -106,7 +107,7 @@ namespace AspNetMVC.Controllers {
 			ecpayForm.MerchantID = "2000132";
 			ecpayForm.MerchantTradeDate = now.ToString("yyyy/MM/dd HH:mm:ss");
 			ecpayForm.MerchantTradeNo = merchantTradeNo;
-			ecpayForm.OrderResultURL = "https://localhost:44308" + "/Checkout/SuccessView";
+			ecpayForm.OrderResultURL = url + "/Checkout/SuccessView";
 			ecpayForm.PaymentType = "aio";
 			ecpayForm.ReturnURL = url + "/Checkout/ECPayReturn";
 			ecpayForm.TotalAmount = Math.Round(finalAmount).ToString();
