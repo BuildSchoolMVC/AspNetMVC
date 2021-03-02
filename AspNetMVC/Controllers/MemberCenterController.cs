@@ -56,11 +56,11 @@ namespace AspNetMVC.Controllers
 
             var expiredcoupons = coupons.Where(x => x.Status == 2).ToList();
 
-            ViewBag.unusedcoupondata = unusedcoupons;
+            ViewBag.unusedcoupons = unusedcoupons;
 
-            ViewBag.usedcoupondata = usedcoupons;
+            ViewBag.usedcoupons = usedcoupons;
 
-            ViewBag.expiredcoupondata = expiredcoupons;
+            ViewBag.expiredcoupons = expiredcoupons;
 
             ViewBag.coupons = coupons;
 
