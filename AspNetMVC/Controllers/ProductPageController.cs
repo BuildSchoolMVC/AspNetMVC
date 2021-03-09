@@ -76,6 +76,15 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
+        public JsonResult SearchAllUserDefinedByFavoriteId(string favoriteid)
+        {
+
+            var Data = _productPageService.SearchAllUserDefined(Guid.Parse(favoriteid));
+
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult DeleteFavorite(string favoriteid)
         {
 
@@ -89,12 +98,12 @@ namespace AspNetMVC.Controllers
         }
 
         [HttpPost]
-        public JsonResult ModifyUserDefinedByUserDefindId(Guid userDefinedId, UserDefinedAll userDefinedall)
+        public JsonResult ModifyUserDefinedByUserDefindId(Guid userDefinedId,int index, UserDefinedAll userDefinedall)
         {
 
             if (ModelState.IsValid)
             {
-                _productPageService.modifyUserDefined(userDefinedId,userDefinedall);
+                _productPageService.modifyUserDefined(userDefinedId,index,userDefinedall);
 
                 return Json(new { response = "success" }, JsonRequestBehavior.AllowGet);
             }

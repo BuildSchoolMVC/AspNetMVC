@@ -26,11 +26,11 @@ namespace AspNetMVC.Models.Entity {
         public byte? Rate { get; set; }
         public string Comment { get; set; }
 		public Guid? CouponDetailId { get; set; }
-		[Required]
 		public string PaymentType { get; set; }
 		[Required]
 		public byte InvoiceType { get; set; }
 		public byte? InvoiceDonateTo { get; set; }
+		[Required]
 		public string MerchantTradeNo { get; set; }
 		public string TradeNo { get; set; }
 	}
@@ -42,14 +42,7 @@ namespace AspNetMVC.Models.Entity {
 		//已取消 2
 		Cancelled,
 	}
-	//public enum PaymentType {
-	//	//綠界支付 0
-	//	ECPay,
-	//	//信用卡 0
-	//	CreditCard,
-	//	//ATM 1
-	//	ATM,
-	//}
+
 	public enum InvoiceType {
 		//個人電子發票 0
 		Personal,

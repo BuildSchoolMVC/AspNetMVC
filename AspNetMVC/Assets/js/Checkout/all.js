@@ -59,7 +59,7 @@ const dateService = {
       let pickD = this.obj.getDate().toString().padStart(2, '0');
       let pickHour = this.obj.getHours().toString().padStart(2, '0');
       let pickMin = this.obj.getMinutes().toString().padStart(2, '0');
-      ele_date.textContent = `${pickY}-${pickM}-${pickD}`;
+      ele_date.textContent = `${pickY}/${pickM}/${pickD}`;
       ele_time.textContent = `${pickHour}:${pickMin}`;
       const $serviceDate = $('#service-date');
       const $value = $('#service-date .value');
@@ -119,6 +119,7 @@ const steps = [{
     warn: '請輸入正確的地址',
   }],
 }, {
+  ecpayInputs: [],
   creditInputs: [{
     ele: document.querySelector('#pay #input_credit'),
     check: (ele) => ele.value.length == 19,
@@ -228,15 +229,13 @@ $btn_lastM.on('click', function () {
 $btn_nextM.on('click', function () {
   disableBtn($(this));
   enableBtn($btn_lastM);
-  const tomorrowY = obj_tomorrow.getFullYear();
-  const tomorrowNextM = obj_tomorrow.getMonth() + 1;
-  const obj_tomorrowNextM = new Date(
-    tomorrowY, tomorrowNextM, 1
+  const obj_nextMonthStart = new Date(
+    thisY, thisM + 1, 1
   );
-  const obj_nextMonthEnd = (new Date(
-    tomorrowY, tomorrowNextM + 1, 0
-  )).getDate();
-  makeMonth(obj_tomorrowNextM, obj_nextMonthEnd);
+  const obj_nextMonthEnd = new Date(
+    thisY, thisM + 2, 0
+  );
+  makeMonth(obj_nextMonthStart, obj_nextMonthEnd.getDate());
 });
 let generateCount = ((obj_nextMonthEnd - obj_tomorrow) / 86400000) + 1;
 generateCount = Math.min(generateCount, 31);
@@ -532,39 +531,35 @@ const addOrder = function () {
     url: '/Checkout/AddOrder',
     contentType: 'application/json',
     data: JSON.stringify({
-      UserForm: {
-        FavoriteId: favoriteId,
-        DateService: (() => {
-          const d = $row_date.focusDate[0].obj_date;
-          const t = $row_time.focusTime[0].workTime;
-          const yyyy = d.getFullYear();
-          const MM = (d.getMonth() + 1).toString().padStart(2, '0');
-          const dd = d.getDate().toString().padStart(2, '0');
-          const HH = t.getHours().toString().padStart(2, '0');
-          const mm = t.getMinutes().toString().padStart(2, '0');
-          const ss = '00';
-          return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
-        })(),
-        FullName: document.querySelector('#fill-info #input_name').value,
-        Phone: document.querySelector('#fill-info #input_phone').value,
-        Email: document.querySelector('#fill-info #input_email').value,
-        County: document.querySelector('#fill-info #county-list').value,
-        District: document.querySelector('#fill-info #district-list').value,
-        Address: document.querySelector('#fill-info #input_address').value,
-        Remark: document.querySelector('#fill-info #remark').value,
-        InvoiceType: invoiceData.InvoiceType,
-        InvoiceDonateTo: invoiceData.InvoiceDonateTo,
-        CouponDetailId: $couponBox[0].selectedGuid,
-      },
-      ECPayForm: {
-        NoData: 0,
-      },
+      FavoriteId: favoriteId,
+      DateService: (() => {
+        const d = $row_date.focusDate[0].obj_date;
+        const t = $row_time.focusTime[0].workTime;
+        const yyyy = d.getFullYear();
+        const MM = (d.getMonth() + 1).toString().padStart(2, '0');
+        const dd = d.getDate().toString().padStart(2, '0');
+        const HH = t.getHours().toString().padStart(2, '0');
+        const mm = t.getMinutes().toString().padStart(2, '0');
+        const ss = '00';
+        return `${yyyy}/${MM}/${dd} ${HH}:${mm}:${ss}`;
+      })(),
+      FullName: document.querySelector('#fill-info #input_name').value,
+      Phone: document.querySelector('#fill-info #input_phone').value,
+      Email: document.querySelector('#fill-info #input_email').value,
+      County: document.querySelector('#fill-info #county-list').value,
+      District: document.querySelector('#fill-info #district-list').value,
+      Address: document.querySelector('#fill-info #input_address').value,
+      Remark: document.querySelector('#fill-info #remark').value,
+      InvoiceType: invoiceData.InvoiceType,
+      InvoiceDonateTo: invoiceData.InvoiceDonateTo,
+      CouponDetailId: $couponBox[0].selectedGuid,
     }),
     success: function (data) {
       console.log(data);
       const ECPayFrom = document.querySelector('#ECPayForm');
       ECPayFrom.querySelector('[name="CheckMacValue"]').value = data.CheckMacValue;
       ECPayFrom.querySelector('[name="ChoosePayment"]').value = data.ChoosePayment;
+      // ECPayFrom.querySelector('[name="ClientBackURL"]').value = data.ClientBackURL;
       ECPayFrom.querySelector('[name="EncryptType"]').value = data.EncryptType;
       ECPayFrom.querySelector('[name="ItemName"]').value = data.ItemName;
       ECPayFrom.querySelector('[name="MerchantID"]').value = data.MerchantID;

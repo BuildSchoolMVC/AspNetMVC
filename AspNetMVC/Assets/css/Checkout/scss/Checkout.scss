@@ -82,6 +82,20 @@
       font-size: 22px;
     }
   }
+  .item-box {
+    height: 340px;
+    overflow-y: scroll;
+    margin-right: -5px;
+    padding: 5px;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: none;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+    }
+  }
   .item {
     margin-bottom: 15px;
     padding: 5px 10px;
@@ -123,7 +137,7 @@
     margin-left: auto;
   }
   .coupon {
-    padding: 5px 10px;
+    padding: 5px 16px;
     display: flex;
     button {
       border: none;
@@ -135,7 +149,7 @@
     }
   }
   .total {
-    padding: 15px 10px 0;
+    padding: 15px 16px 0;
     display: flex;
     border-top: 2px solid #eee;
     .value {
@@ -458,6 +472,9 @@
   .method {
     margin-bottom: 10px;
   }
+  .pic {
+    max-width: 550px;
+  }
   .credit-method {
     padding: 15px 20px;
     border-radius: 4px;
@@ -703,7 +720,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        box-shadow: 0 0 5px 1px rgba(0, 0, 0, .3);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
         z-index: -2;
       }
       &.num::after {
@@ -712,7 +729,7 @@
       &.on {
         background-color: var(--color-primary);
         &::after {
-          box-shadow: 0 0 5px 1px var(--color-primary);
+          box-shadow: 0 0 5px 0 var(--color-primary);
         }
         &.num {
           z-index: 1;
@@ -738,7 +755,7 @@
       background-color: var(--color-primary);
       transition: width 1s;
       &::after {
-        box-shadow: 0 0 5px 1px var(--color-primary);
+        box-shadow: 0 0 5px 0 var(--color-primary);
       }
     }
   }
@@ -874,6 +891,9 @@
       margin-right: -8px;
       height: 400px;
       overflow-y: auto;
+      &::-webkit-scrollbar-track {
+        border-radius: 10px;
+      }
     }
   }
   .coupon-item {

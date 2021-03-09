@@ -13,13 +13,12 @@ namespace AspNetMVC.Services
     {
         private readonly UCleanerDBContext _context;
         private readonly BaseRepository _repository;
-        private readonly AccountService _account;
+
 
         public ProductPageService()
         {
             _context = new UCleanerDBContext();
             _repository = new BaseRepository(_context);
-            _account = new AccountService();
         }
         public List<ProductPageViewModel> GetData()
         {
@@ -44,7 +43,7 @@ namespace AspNetMVC.Services
 
         public void CreateUserDefinedDataInFavorite(IEnumerable<UserDefinedAll> model, string name, Guid TempGuid)
         {
-
+            var index = 0;
             var result = new OperationResult();
             using (var transcation = _context.Database.BeginTransaction())
             {
@@ -68,7 +67,9 @@ namespace AspNetMVC.Services
                             CreateUser = name,
                             EditTime = DateTime.UtcNow.AddHours(8),
                             EditUser = name,
+                            Index = index
                         };
+                        index++;
                         _repository.Create<UserDefinedProduct>(product);
                     }
                     _context.SaveChanges();
@@ -157,10 +158,6 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        public Account GetUser(Guid id)
-        {
-            return _repository.GetAll<Account>().FirstOrDefault(x => x.AccountId == id);
-        }
 
         public List<UserFavoriteViewModel> GetFavoriteUserFavoriteData(string username)
         {
@@ -242,7 +239,13 @@ namespace AspNetMVC.Services
                    value == 3 ? "浴廁" :
                    value == 4 ? "陽台" : "-";
         }
+        public List<UserDefinedAll> SearchAllUserDefined(Guid favoriteid)
+        {
+            var item = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteid);
+            var result = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == item.UserDefinedId);
 
+            return (List<UserDefinedAll>)result;
+        }
         public OperationResult DeleteFavoriteData(Guid favoriteId)
         {
             var result = new OperationResult();
@@ -263,23 +266,22 @@ namespace AspNetMVC.Services
             }
             return result;
         }
-        public OperationResult modifyUserDefined(Guid userDefinedId, UserDefinedAll userDefinedall)
+        public OperationResult modifyUserDefined(Guid userDefinedId,int index, UserDefinedAll userDefinedall)
         {
             var result = new OperationResult();
-            var itemarray = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == userDefinedId);
+            var singleitem = _repository.GetAll<UserDefinedProduct>().Where(x => x.UserDefinedId == userDefinedId).FirstOrDefault(x => x.Index == index);
             try
             {
-                foreach(var item in itemarray)
-                {
-                item.RoomType = userDefinedall.RoomType;
-                item.Squarefeet = userDefinedall.Squarefeet;
-                item.ServiceItems = userDefinedall.ServiceItem;
-                item.Hour = countHour(userDefinedall.RoomType, userDefinedall.Squarefeet);
-                item.Price = Convert.ToDecimal(countHour(userDefinedall.RoomType, userDefinedall.Squarefeet)) * 500;
-                item.EditTime = DateTime.UtcNow.AddHours(8);
-                item.EditUser = item.AccountName;
-                _repository.Update<UserDefinedProduct>(item);
-                }
+
+                singleitem.RoomType = userDefinedall.RoomType;
+                singleitem.Squarefeet = userDefinedall.Squarefeet;
+                singleitem.ServiceItems = userDefinedall.ServiceItem;
+                singleitem.Hour = countHour(userDefinedall.RoomType, userDefinedall.Squarefeet);
+                singleitem.Price = Convert.ToDecimal(countHour(userDefinedall.RoomType, userDefinedall.Squarefeet)) * 500;
+                singleitem.EditTime = DateTime.UtcNow.AddHours(8);
+                singleitem.EditUser = singleitem.AccountName;
+                _repository.Update<UserDefinedProduct>(singleitem);
+                
                 _context.SaveChanges();
                 result.IsSuccessful = true;
 

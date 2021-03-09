@@ -15,12 +15,13 @@
             </div>
         </div>
     </div>
-</section> 
+</section>
 <section class="section_all-service-view">
     <div class="container">
         <div class="row">
-            @foreach(var card in Model){
-                @Html.Partial("PartialView/_AllServiceViewPartial",card)
+            @foreach (var card in Model)
+            {
+                @Html.Partial("PartialView/_AllServiceViewPartial", card)
             }
         </div>
     </div>

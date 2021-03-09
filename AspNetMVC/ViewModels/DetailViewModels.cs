@@ -22,12 +22,19 @@ namespace AspNetMVC.ViewModels
         public string PhotoUrl { get; set; }
     }
 
-    public class CommentViewModel 
+    public class CommentViewModel
     {
         public Guid CommentId { get; set; }
         public string AccountName { get; set; }
         public int Star { get; set; }
         public string Content { get; set; }
         public DateTime CreateTime { get; set; }
+    }
+
+    public class CommentDataModel
+    {
+        public int PackageProductId { get; set; }
+        public int StarCount { get; set; }
+        public string Comment { get; set; }
     }
 }

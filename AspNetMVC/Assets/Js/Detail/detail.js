@@ -102,27 +102,27 @@ const commentForm = () => {
                 toastr.warning("👿別亂搞👿");
                 return;
             }
-            $(".spinner-border-wrap").removeClass("opacity");
+            $("#commentBtn .spinner-border-wrap").removeClass("opacity");
 
             let value = comment.value;
             let url = "/Detail/AddComment";
-            let data = {
-                PackageProductId: document.querySelector("h1").dataset.id,
-                StarCount: star,
-                Comment: value
-            }
+            let data = JSON.stringify({
+                "PackageProductId": +document.querySelector("h1").dataset.id,
+                "StarCount": star,
+                "Comment": value
+            })
+
 
             fetch(url, {
                 method: "POST",
-                body: JSON.stringify(data),
-                headers: new Headers({
-                    'Accept': 'application/json',
+                body: data,
+                headers: {
                     'Content-Type': 'application/json'
-                })
+                },
             })
                 .then(res => res.json())
                 .then(result => {
-                    if (result.response) {
+                    if (result.status) {
                         getLatestComment();
                         resetCommentInput();
                         $(".spinner-border-wrap").addClass("opacity");
@@ -131,7 +131,7 @@ const commentForm = () => {
                 .catch(err => console.log(err))
         })
     }
-    
+
 }
 const getLatestComment = () => {
     let id = document.querySelector("h1").dataset.id;
@@ -157,7 +157,10 @@ const refreshComment = () => {
     let p2 = document.createElement("p");
     let span1 = document.createElement("span");
     let span2 = document.createElement("span");
+    let span3 = document.createElement("span");
+    let i = document.createElement("i");
     let br = document.createElement("br");
+    let imgNo = Math.floor(Math.random() * 6) + 1;
 
     let date = new Date(+commentData.CreateTime.replace("/Date(", "").replace(")/", ""));
 
@@ -169,19 +172,25 @@ const refreshComment = () => {
     wrap1.className = "col-2 pr-0 pl-4 d-flex justify-content-center align-items-center";
     wrap2.className = "col-6 pl-4";
     wrap3.className = "col-4 pr-4 d-flex align-items-center justify-content-center";
-    img.src = "/Assets/images/p1.jpg";
+    img.src = `/Assets/images/p${imgNo}.jpg`;
     img.alt = "人物";
     img.className = "user rounded-circle d-block";
     wrap1.appendChild(img);
 
     p1.className = "comment-user";
     span1.className = "user";
-    span1.textContent = commentData.AccountName;
+    span1.textContent = `${commentData.AccountName.charAt(0)}${"*".repeat(8)}${commentData.AccountName.charAt(commentData.AccountName.length - 1)}`;
     span2.textContent = dateString;
 
     p1.append(span1, " 用戶於", br, span2);
     p2.textContent = commentData.Content;
     wrap2.append(p1, p2);
+
+    span3.className = "comment-delete";
+    span3.setAttribute("data-id", `${commentData.CommentId}`);
+    span3.setAttribute("onclick", "deleteComment(this)");
+    i.className = "fas fa-trash-alt";
+    span3.appendChild(i);
 
     for (let i = 1; i <= 5; i++) {
         let icon = document.createElement("i");
@@ -192,7 +201,11 @@ const refreshComment = () => {
         wrap3.appendChild(icon);
     }
     row.append(wrap1, wrap2, wrap3);
-    commentItem.append(row);
+    commentItem.append(span3, row);
+
+    if (!document.querySelector(".comment-item")) {
+        document.querySelector(".no-comment p").remove();
+    }
     comment.prepend(commentItem);
 
     let commentCount = document.querySelector(".commentCount").textContent;
@@ -222,9 +235,15 @@ const deleteComment = (target) => {
     })
         .then(res => res.json())
         .then(res => {
-            if (parseInt(res.response) == 0) {
+            if (res.status == 1) {
                 target.parentNode.remove();
                 document.querySelector(".commentCount").textContent = document.querySelectorAll(".comment-item").length;
+                if (document.querySelectorAll(".comment-item").length == 0) {                    
+                    let p = document.createElement("p");
+                    p.textContent = "目前沒有評論";
+
+                    document.querySelector(".no-comment").appendChild(p);
+                }
             } else {
                 toastr.error("發生錯誤!");
             }
@@ -248,7 +267,7 @@ function getPicUrl() {
     var temp = this.document.getElementsByClassName("product-pic mb-2")
     if (temp == null) {
         return;
-        
+
     }
     else {
         var viewedsrc = $(".product-pic.mb-2").children()[0].src;
@@ -273,11 +292,10 @@ function savePicData(src) {
     else {
         let viewArray = JSON.parse(localStorage.getItem("key"))
         viewArray.forEach(x => {
-            if (viewArray.map(x=>x.Id).includes(src)) {
+            if (viewArray.map(x => x.Id).includes(src)) {
                 return;
             }
             else {
-
                 if (viewArray.length < 5) {
                     let temp = {
                         Id: src,
@@ -290,14 +308,12 @@ function savePicData(src) {
                         Id: src,
                         Url: tempURL
                     }
-                    viewArray.splice(0,1)
+                    viewArray.splice(0, 1)
                     viewArray.push(temp)
                 }
                 localStorage.setItem("key", JSON.stringify(viewArray))
             }
         }
         )
-
-
     }
 }

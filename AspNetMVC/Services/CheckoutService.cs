@@ -16,6 +16,21 @@ namespace AspNetMVC.Services {
 			_context = new UCleanerDBContext();
 			_repository = new BaseRepository(_context);
 		}
+		public Order GetOrder(string merchantTradeNo, string tradeNo) {
+			Order order = _repository.GetAll<Order>()
+				.First(x => x.MerchantTradeNo == merchantTradeNo && x.TradeNo == tradeNo);
+			return order;
+		}
+		public OrderDetail GetOrderDetail(Order order) {
+			OrderDetail od = _repository.GetAll<OrderDetail>()
+				.First(x => x.OrderId == order.OrderId);
+			return od;
+		}
+		public UserFavorite GetFavorite(OrderDetail od) {
+			UserFavorite favorite = _repository.GetAll<UserFavorite>()
+				.First(x => x.FavoriteId == od.FavoriteId);
+			return favorite;
+		}
 		public UserFavorite GetFavorite(Guid favoriteId, string accountName) {
 			UserFavorite favorite = _repository
 				.GetAll<UserFavorite>()
@@ -69,6 +84,16 @@ namespace AspNetMVC.Services {
 			});
 			_context.SaveChanges();
 		}
+		public decimal GetCouponAmount(Guid? couponDetailId) {
+			if (couponDetailId == null) {
+				return 0;
+			}
+			var couponDetail = _repository.GetAll<CouponDetail>()
+				.First(x => x.CouponDetailId == couponDetailId);
+			var coupon = _repository.GetAll<Coupon>()
+				.First(x => x.CouponId == couponDetail.CouponId);
+			return coupon.DiscountAmount;
+		}
 		public List<CouponJson> GetCouponList(string accountName) {
 			var allCouponDetail = _repository
 				.GetAll<CouponDetail>()
@@ -98,6 +123,40 @@ namespace AspNetMVC.Services {
 			}
 			return list;
 		}
+		public void SaveMerchantTradeNo(string merchantTradeNo) {
+			_repository.GetAll<ECPayParam>().First().MerchantTradeNo = merchantTradeNo;
+			_context.SaveChanges();
+		}
+		public string GetNextMerchantTradeNo() {
+			//uCleanerA00000000000
+			string logoA = "uCleanerA";
+			ECPayParam ecpay = _repository.GetAll<ECPayParam>().First();
+			char splitChar = ecpay.MerchantTradeNo[8];
+			string[] logo_no = ecpay.MerchantTradeNo.Split(splitChar);
+
+			while (true) {
+				//上一次單號+1
+				decimal decLastNo = decimal.Parse(ecpay.MerchantTradeNo.Substring(logoA.Length)) + 1;
+				//破上限歸0
+				if (decLastNo > 99999999999) {
+					decLastNo = 0;
+					splitChar++;
+				}
+				logo_no[1] = decLastNo.ToString().PadLeft(11, '0');
+
+				string tempNo = $"{logo_no[0]}{splitChar}{logo_no[1]}";
+				//檢查是否存在重複
+				Order o = _repository.GetAll<Order>()
+							.FirstOrDefault(x => x.MerchantTradeNo == tempNo);
+				if (o == null) {
+					return tempNo;
+				} else if (tempNo == $"{logo_no[0]}A00000000000") {
+					throw new Exception("單號全部重複");
+				} else {
+					ecpay.MerchantTradeNo = tempNo;
+				}
+			}
+		}
 		public decimal GetDiscountAmount(Guid? couponDetailId) {
 			int couponId = _repository.GetAll<CouponDetail>()
 				.First(x => x.CouponDetailId == couponDetailId)
@@ -106,15 +165,15 @@ namespace AspNetMVC.Services {
 				.First(x => x.CouponId == couponId)
 				.DiscountAmount;
 		}
-		public OperationResult CreateOrder(UserForm userForm, string accountName, Guid favoriteId, Guid? couponDetailId, decimal total, ref DateTime now, out string productName) {
+		public OperationResult CreateOrder(UserForm userForm, OrderData data, out string productName) {
 
 			var result = new OperationResult();
-
-			CouponDetail cd = CheckCoupon(accountName, couponDetailId);
+			//尋找是否有可用Coupon
+			CouponDetail cd = CheckCoupon(data.AccountName, data.CouponDetailId);
 			if (cd == null) {
-				couponDetailId = null;
+				data.CouponDetailId = null;
 			} else {
-				couponDetailId = cd.CouponDetailId;
+				data.CouponDetailId = cd.CouponDetailId;
 			}
 			byte? invoiceDonateTo;
 			if (userForm.InvoiceDonateTo == null) {
@@ -123,15 +182,13 @@ namespace AspNetMVC.Services {
 				invoiceDonateTo = byte.Parse(userForm.InvoiceDonateTo);
 			}
 			UserFavorite favorite = _repository.GetAll<UserFavorite>()
-											.First(x => x.FavoriteId == favoriteId);
+											.First(x => x.FavoriteId == data.FavoriteId);
 			if (favorite.IsPackage) {
-				productName = _repository
-					.GetAll<PackageProduct>()
+				productName = _repository.GetAll<PackageProduct>()
 					.First(x => x.PackageProductId == favorite.PackageProductId)
 					.Name;
 			} else {
-				productName = _repository
-					.GetAll<UserDefinedProduct>()
+				productName = _repository.GetAll<UserDefinedProduct>()
 					.First(x => x.UserDefinedId == favorite.UserDefinedId)
 					.Name;
 			}
@@ -139,7 +196,7 @@ namespace AspNetMVC.Services {
 				try {
 					Order order = new Order {
 						OrderId = Guid.NewGuid(),
-						AccountName = accountName,
+						AccountName = data.AccountName,
 						FullName = userForm.FullName,
 						Email = userForm.Email,
 						Phone = userForm.Phone,
@@ -149,14 +206,16 @@ namespace AspNetMVC.Services {
 						OrderState = (byte)OrderState.Unpaid,
 						Rate = null,
 						Comment = string.Empty,
-						CouponDetailId = couponDetailId,
+						CouponDetailId = data.CouponDetailId,
 						PaymentType = string.Empty,
 						InvoiceType = byte.Parse(userForm.InvoiceType),
 						InvoiceDonateTo = invoiceDonateTo,
-						CreateTime = now,
-						EditTime = now,
-						CreateUser = accountName,
-						EditUser = accountName,
+						MerchantTradeNo = data.MerchantTradeNo,
+						TradeNo = string.Empty,
+						CreateTime = data.Now,
+						EditTime = data.Now,
+						CreateUser = data.AccountName,
+						EditUser = data.AccountName,
 					};
 					_repository.Create<Order>(order);
 					_context.SaveChanges();
@@ -164,13 +223,13 @@ namespace AspNetMVC.Services {
 					OrderDetail od = new OrderDetail {
 						OrderDetailId = Guid.NewGuid(),
 						OrderId = order.OrderId,
-						FavoriteId = favoriteId,
-						FinalPrice = total,
+						FavoriteId = data.FavoriteId,
+						FinalPrice = data.FinalPrice,
 						ProductName = productName,
-						CreateTime = now,
-						EditTime = now,
-						CreateUser = accountName,
-						EditUser = accountName,
+						CreateTime = data.Now,
+						EditTime = data.Now,
+						CreateUser = data.AccountName,
+						EditUser = data.AccountName,
 					};
 					_repository.Create<OrderDetail>(od);
 					_context.SaveChanges();
@@ -191,7 +250,7 @@ namespace AspNetMVC.Services {
 			}
 			return result;
 		}
-		public decimal GetTotalAmount(Guid favoriteId) {
+		public decimal GetTotalPrice(Guid favoriteId) {
 			UserFavorite f = _repository.GetAll<UserFavorite>().First(x => x.FavoriteId == favoriteId);
 			if (f.IsPackage) {
 				return _repository
