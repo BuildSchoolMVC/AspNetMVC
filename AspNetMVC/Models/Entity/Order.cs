@@ -42,7 +42,14 @@ namespace AspNetMVC.Models.Entity {
 		//已取消 2
 		Cancelled,
 	}
-
+	//public enum PaymentType {
+	//	//綠界支付 0
+	//	ECPay,
+	//	//信用卡 0
+	//	CreditCard,
+	//	//ATM 1
+	//	ATM,
+	//}
 	public enum InvoiceType {
 		//個人電子發票 0
 		Personal,
