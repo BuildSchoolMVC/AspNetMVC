@@ -1,0 +1,32 @@
+﻿@model IEnumerable<AllServiceCardViewModel>
+@{
+    ViewBag.Title = "所有服務";
+}
+@section CSS{
+    <link rel="stylesheet" href="~/Assets/css/home/allServiceView.css">
+    <link rel="stylesheet" href="~/Assets/css/home/icofont.min.css">
+}
+
+<section class="section_banner">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h2>各式專業服務</h2>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_all-service-view">
+    <div class="container">
+        <div class="col-12 pb-3">
+            <a href="@Url.Action("index","home")" class="links">首頁</a> > <a href="@Url.Action("allserviceview","home")" class="links">全部服務</a>
+        </div>
+        <div class="row">
+                @foreach (var card in Model)
+                {
+                    @Html.Partial("PartialView/_AllServiceViewPartial", card)
+                }
+        </div>
+    </div>
+</section>
+

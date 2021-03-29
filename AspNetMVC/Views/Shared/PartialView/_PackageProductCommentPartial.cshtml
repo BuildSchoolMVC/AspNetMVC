@@ -1,0 +1,37 @@
+﻿@model CommentViewModel
+@{ 
+    var userName = $"{Model.AccountName.Substring(0,1).PadRight(9, '*')}{Model.AccountName.Substring(Model.AccountName.Length - 1)}";
+    var randomImgNo = new Random().Next(1,6);
+}
+
+<div class="comment-item">
+    @if (Request.Cookies["user"] != null)
+    {
+        if (Helpers.DecodeCookie(Request.Cookies["user"]["user_accountname"]) == Model.AccountName)
+        {
+            <span class="comment-delete" data-id="@Model.CommentId" onclick="deleteComment(this)"><i class="fas fa-trash-alt"></i></span>
+        }
+    }
+    <div class="row">
+        <div class="col-2 pr-0 pl-4 d-flex justify-content-center align-items-center">
+            <img src="~/Assets/images/p@(randomImgNo).jpg" alt="人物" class="user rounded-circle d-block">
+        </div>
+        <div class="col-6 pl-3 pl-md-4 pr-1">
+            <p class="comment-user"><span class="user">@userName</span> 用戶於 <br><span>@Model.CreateTime</span></p>
+            <p>@Model.Content</p>
+        </div>
+        <div class="col-4 pr-4 d-flex align-items-center justify-content-center">
+            @for (var i = 1; i <= 5; i++)
+            {
+                if (Model.Star >= i)
+                {
+                    <i class="fas fa-star color-yellow pr-1"></i>
+                }
+                else
+                {
+                    <i class="fas fa-star color-gray pr-1"></i>
+                }
+            }
+        </div>
+    </div>
+</div>

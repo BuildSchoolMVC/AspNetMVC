@@ -1,0 +1,17 @@
+﻿@model NewsCardViewModel
+
+<div class="col-12 col-md-3 p-1">
+    <a href="@Model.Url" class="text-decoration-none card faded mb-3" style="--delay:@Model.Delay" target="_blank">
+        <div class="news-pic">
+            <img src="/Assets/images/loading.gif" data-src="/Assets/images/@(Model.ImgUrl).jpg"
+                 alt="@Model.Alt" class="w-100 lazyload">
+        </div>
+        <div class="news-content">
+            <span class="tag">@Model.Tag</span>
+            <h4>@Model.Content </h4>
+        </div>
+        <div class="news-button">
+            <button class="btns">看全文 ></button>
+        </div>
+    </a>
+</div>

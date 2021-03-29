@@ -1,0 +1,25 @@
+﻿@model ProductPageViewModel
+
+@{string[] RoomtypeArray = { "廚房", "客廳", "臥室", "浴廁", "陽台" };}
+@{string[] SquarefeetArray = { "5坪以下", "6-10坪", "11-15坪", "16坪以上"};}
+<div class="card" Name="card" data-RoomtypeValue="@Model.RoomType"data-RoomtypeValue2="@Model.RoomType2"data-RoomtypeValue3="@Model.RoomType3" data-SquareValue="@Model.Squarefeet" data-SquareValue2="@Model.Squarefeet2" data-SquareValue3="@Model.Squarefeet3"data-Serviceitem="@Model.ServiceItem">
+    <div class="btn">
+        <button  name="cartbtn" id="@Model.PackageProductId"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="pic">
+        <img src="https://i.imgur.com/@Model.PhotoUrl" alt="">
+    </div>
+    <div class="text">
+        <a href="/Detail/Index/@Model.PackageProductId" class="search"><i class="fas fa-search"></i></a>
+        <h2>@Model.Title<span>$:@Model.Price</span></h2>
+        <ul>
+            <li>@RoomtypeArray[@Model.RoomType]：@SquarefeetArray[@Model.Squarefeet]</li>
+            <li>@RoomtypeArray[@Model.RoomType2]：@SquarefeetArray[@Model.Squarefeet2]</li>
+            @if(Model.RoomType3!=-1)
+            { 
+        <li>@RoomtypeArray[Convert.ToInt32(@Model.RoomType3)]：@SquarefeetArray[Convert.ToInt32(@Model.Squarefeet3)]</li>
+            }
+            <li>服務內容：@Model.ServiceItem</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+﻿@model BannerViewModel
+
+<div class="carousel_item@(Model.Id)">
+    <div class="container ml-0">
+        <div class="row">
+            <div class="col-12">
+                <h2>@Model.Title</h2>
+                @foreach (var item in Model.Slogan)
+                {
+                    <p>@item</p>
+                }
+                <a href="/ProductPage">立刻預約</a>
+            </div>
+        </div>
+    </div>
+</div>

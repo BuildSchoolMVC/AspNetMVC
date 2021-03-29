@@ -1,0 +1,18 @@
+﻿@model AllServiceCardViewModel
+
+<div class="col-6 col-md-4 col-lg-3">
+    <div class="service-view-item">
+        <a href="@Model.Url">
+            <div class="view-item-title">
+                <h4>@Model.Title</h4>
+            </div>
+            <div class="view-item-content">
+                <p>@Model.Content</p>
+            </div>
+            <div class="view-item-hide">
+                <i class="icofont-@(Model.Icon)"></i>
+                <p>@Model.Title</p>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,100 @@
+﻿@using System.Web.Configuration
+@model LoginViewModel
+@{
+  ViewBag.Title = "註冊/登入";
+  var buttonList = (List<SocialButtonViewModel>)ViewBag.ButtonList;
+}
+@section CSS{
+  <link rel="stylesheet" href="~/Assets/css/account/login.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+}
+
+
+<section class="section_loginForm">
+  <div class="login-modal">
+    <div class="col-12 pb-3">
+      <a href="@Url.Action("index","home")" class="links">首頁</a> > <a href="@Url.Action("login","account")" class="links">登入</a>
+    </div>
+    <div class="container-main">
+      <div class="change-box">
+        <span class="title title-login selected" for="title-check">登入</span>
+        <a href="@Url.Action("Register","Account")" class="title title-register" for="title-check">註冊</a>
+      </div>
+      <div class="login-block">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+        {
+          <div class="website-login">
+            <div class="form-group">
+              <div class="col-12 my-2 p-0">
+                @Html.TextBoxFor(m => m.AccountName, new { @class = "input login-account", autocomplete = "off" })
+                <div class="row align-items-center flex-nowrap label-group active">
+                  <label class="label" for="Name">帳號名稱</label>
+                </div>
+                <p class="warn login-email"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-12 my-2 p-0">
+                @Html.PasswordFor(m => m.Password, new { @class = "input login-password", autocomplete = "off" })
+                <div class="row align-items-center flex-nowrap label-group active">
+                  <label class="label" for="Name">密碼</label>
+                </div>
+                <p class="warn login-password"></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-12 my-2 p-0">
+                <div class="g-recaptcha" data-sitekey="@WebConfigurationManager.AppSettings["recaptcha-siteKey"]"></div>
+              </div>
+            </div>
+            <button class="button btn_login" type="button">
+              <div class="spinner-border-wrap opacity">
+                <span class="spinner-border"></span>
+              </div>
+              登入
+            </button>
+            <div class="form-group d-flex justify-content-between pt-4 mb-0">
+              <div>
+                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "login-remember" })
+                @Html.LabelFor(m => m.RememberMe)
+              </div>
+              <a href="@Url.Action("ForgotPassword","Account")" class="forget color-gray" for="title-check">
+                忘記密碼?
+              </a>
+            </div>
+            <div class="form-group">
+              <div class="mt-2 mb-4">
+                <p class="text-region">或是 社群帳號登入</p>
+              </div>
+            </div>
+            <div class="form-group my-2">
+              <div class="social-btn-grouping">
+                @foreach (var item in buttonList)
+                {
+                  @Html.Partial("PartialView/_SocialButtonPartial", item)
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+
+@section JS {
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script src="~/Assets/js/account/login.js"></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="https://apis.google.com/js/platform.js?onload=googleSigninInit" async defer></script>
+
+  @if (ViewBag.Error == true)
+  {
+    <script>
+      setTimeout(() => {
+        toastr.warning("尚未註冊");
+      }, 1500)
+    </script>
+  }
+}

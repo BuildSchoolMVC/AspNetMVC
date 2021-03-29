@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +36,19 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,16 +60,75 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Imgur.API, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Imgur.API.5.0.0\lib\netstandard2.0\Imgur.API.dll</HintPath>
+    </Reference>
+    <Reference Include="isRock.Toolbox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\isRock.Toolbox.1.0.4\lib\net472\isRock.Toolbox.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.6.8.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.6.8.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.6.8.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.6.8.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -64,10 +138,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
@@ -120,34 +190,386 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DetailController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberCenterController.cs" />
+    <Compile Include="Controllers\ProductPageController.cs" />
+    <Compile Include="Controllers\QAController.cs" />
+    <Compile Include="Migrations\202102261149001_v14.cs" />
+    <Compile Include="Migrations\202102261149001_v14.Designer.cs">
+      <DependentUpon>202102261149001_v14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102261315255_v15.cs" />
+    <Compile Include="Migrations\202102261315255_v15.Designer.cs">
+      <DependentUpon>202102261315255_v15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102261556220_v16.cs" />
+    <Compile Include="Migrations\202102261556220_v16.Designer.cs">
+      <DependentUpon>202102261556220_v16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102261738362_v17.cs" />
+    <Compile Include="Migrations\202102261738362_v17.Designer.cs">
+      <DependentUpon>202102261738362_v17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271033165_MemberCreditCard.cs" />
+    <Compile Include="Migrations\202102271033165_MemberCreditCard.Designer.cs">
+      <DependentUpon>202102271033165_MemberCreditCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271303059_v18.cs" />
+    <Compile Include="Migrations\202102271303059_v18.Designer.cs">
+      <DependentUpon>202102271303059_v18.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271401200_v19.cs" />
+    <Compile Include="Migrations\202102271401200_v19.Designer.cs">
+      <DependentUpon>202102271401200_v19.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271754291_v20.cs" />
+    <Compile Include="Migrations\202102271754291_v20.Designer.cs">
+      <DependentUpon>202102271754291_v20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.cs" />
+    <Compile Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.Designer.cs">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103070522556_modifyUserDefinedProductTable.cs" />
+    <Compile Include="Migrations\202103070522556_modifyUserDefinedProductTable.Designer.cs">
+      <DependentUpon>202103070522556_modifyUserDefinedProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103101627163_Backstage.cs" />
+    <Compile Include="Migrations\202103101627163_Backstage.Designer.cs">
+      <DependentUpon>202103101627163_Backstage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103120648166_delete_membermd.cs" />
+    <Compile Include="Migrations\202103120648166_delete_membermd.Designer.cs">
+      <DependentUpon>202103120648166_delete_membermd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103120857577_customerService_addColumn.cs" />
+    <Compile Include="Migrations\202103120857577_customerService_addColumn.Designer.cs">
+      <DependentUpon>202103120857577_customerService_addColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103181123112_deleteSingleProductTable.cs" />
+    <Compile Include="Migrations\202103181123112_deleteSingleProductTable.Designer.cs">
+      <DependentUpon>202103181123112_deleteSingleProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103241013144_Coupon_IsActive.cs" />
+    <Compile Include="Migrations\202103241013144_Coupon_IsActive.Designer.cs">
+      <DependentUpon>202103241013144_Coupon_IsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\ECPayParam.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102181111024_init.cs" />
+    <Compile Include="Migrations\202102181111024_init.Designer.cs">
+      <DependentUpon>202102181111024_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102181124225_ADDSeed.cs" />
+    <Compile Include="Migrations\202102181124225_ADDSeed.Designer.cs">
+      <DependentUpon>202102181124225_ADDSeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102181216528_v1.cs" />
+    <Compile Include="Migrations\202102181216528_v1.Designer.cs">
+      <DependentUpon>202102181216528_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190722517_v2.cs" />
+    <Compile Include="Migrations\202102190722517_v2.Designer.cs">
+      <DependentUpon>202102190722517_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190815313_v3.cs" />
+    <Compile Include="Migrations\202102190815313_v3.Designer.cs">
+      <DependentUpon>202102190815313_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.cs" />
+    <Compile Include="Migrations\202102200848008_addCouponandCouponDetail.Designer.cs">
+      <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102201715180_modify-column.cs" />
+    <Compile Include="Migrations\202102201715180_modify-column.Designer.cs">
+      <DependentUpon>202102201715180_modify-column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102210359102_v8.cs" />
+    <Compile Include="Migrations\202102210359102_v8.Designer.cs">
+      <DependentUpon>202102210359102_v8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102210406369_v9.cs" />
+    <Compile Include="Migrations\202102210406369_v9.Designer.cs">
+      <DependentUpon>202102210406369_v9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102210718244_addPhotoUrl in Roomtype.cs" />
+    <Compile Include="Migrations\202102210718244_addPhotoUrl in Roomtype.Designer.cs">
+      <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102230704226_AddThirdPartyAccountColumn.cs" />
+    <Compile Include="Migrations\202102230704226_AddThirdPartyAccountColumn.Designer.cs">
+      <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102260312460_add_EmailStatus_Column.cs" />
+    <Compile Include="Migrations\202102260312460_add_EmailStatus_Column.Designer.cs">
+      <DependentUpon>202102260312460_add_EmailStatus_Column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entity\Coupon.cs" />
+    <Compile Include="Models\Entity\CouponDetail.cs" />
+    <Compile Include="Models\Entity\Account.cs" />
+    <Compile Include="Models\Entity\Comment.cs" />
+    <Compile Include="Models\Entity\Order.cs" />
+    <Compile Include="Models\Entity\OrderDetail.cs" />
+    <Compile Include="Models\Entity\OrderPackage.cs" />
+    <Compile Include="Models\Entity\OrderUserDefined.cs" />
+    <Compile Include="Models\Entity\PackageProduct.cs" />
+    <Compile Include="Models\Entity\RoomType.cs" />
+    <Compile Include="Models\Entity\ServiceItem.cs" />
+    <Compile Include="Models\Entity\SquareFeet.cs" />
+    <Compile Include="Models\Entity\UserDefinedProduct.cs" />
+    <Compile Include="Models\Entity\UserFavorite.cs" />
+    <Compile Include="Models\WeDefinedException\WeDefinedException.cs" />
+    <Compile Include="Repository\FakeData\SocialButtonRepository.cs" />
+    <Compile Include="Services\CheckoutService.cs" />
+    <Compile Include="Services\DetailService.cs" />
+    <Compile Include="Services\Helpers\Email.cs" />
+    <Compile Include="Services\Helpers\GoogleReCaptcha.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\Helpers\Helpers.cs" />
+    <Compile Include="Services\Helpers\OperationResult.cs" />
+    <Compile Include="Services\MemberCenterService.cs" />
+    <Compile Include="Services\ProductPageService.cs" />
+    <Compile Include="Services\UserFavoriteService.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\BaseEntity.cs" />
+    <Compile Include="Models\Entity\CustomerService.cs" />
+    <Compile Include="Models\UCleanerDBContext.cs" />
+    <Compile Include="Models\CountyModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\FakeData\AllServiceCardRepository.cs" />
+    <Compile Include="Repository\FakeData\BannerRepository.cs" />
+    <Compile Include="Repository\FakeData\ImageCardRepository.cs" />
+    <Compile Include="Repository\FakeData\NewsCardRepository.cs" />
+    <Compile Include="Repository\FakeData\ServiceItemRepository.cs" />
+    <Compile Include="Services\CustomerServiceService.cs" />
+    <Compile Include="ViewModels\CheckoutViewModel.cs" />
+    <Compile Include="Services\IndexService.cs" />
+    <Compile Include="ViewModels\DetailViewModels.cs" />
+    <Compile Include="ViewModels\IndexViewModels.cs" />
+    <Compile Include="ViewModels\AllProductViewModels.cs" />
+    <Compile Include="ViewModels\MemberCenterViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Assets\Css\Account\ForgotPassword.css" />
+    <Content Include="Assets\Css\Account\Register.css" />
+    <Content Include="Assets\Css\Account\RegisterEmailActivation.css" />
+    <Content Include="Assets\Css\Account\ResetPassword.css" />
+    <Content Include="Assets\Css\Account\SocialRegister.css" />
+    <Content Include="Assets\Css\Detail\Detail.css" />
+    <Content Include="Assets\Css\Home\fonts\icofont.eot" />
+    <Content Include="Assets\Css\Home\fonts\icofont.svg" />
+    <Content Include="Assets\Css\Account\Login.css" />
+    <Content Include="Assets\Css\MemberCenter\MemberCenter.min.css" />
+    <Content Include="Assets\Css\MemberCenter\UserFavorite.min.css" />
+    <Content Include="Assets\Images\ecpay.svg" />
+    <Content Include="Assets\Images\microsoft.png" />
+    <Content Include="Assets\Images\star.svg" />
+    <Content Include="Assets\Images\user-default.png" />
+    <Content Include="Assets\Js\MemberCenter\MemberCenter.js" />
+    <Content Include="Assets\Js\MemberCenter\UserFavorite.js" />
+    <Content Include="Assets\Css\ProductPage\ProductPage.css" />
+    <Content Include="Assets\Css\Checkout\Checkout.min.css" />
+    <Content Include="Assets\Css\Home\AllServiceView.css" />
+    <Content Include="Assets\Css\Home\fonts\icofont.svg" />
+    <Content Include="Assets\Css\Home\icofont.min.css" />
+    <Content Include="Assets\Css\Home\Index.css" />
+    <Content Include="Assets\Css\Layout\Layout.css" />
+    <Content Include="Assets\Css\QA\QA.css" />
+    <Content Include="Assets\Images\air condtioner.jpg" />
+    <Content Include="Assets\Images\balcony.png" />
+    <Content Include="Assets\Images\bathroom.png" />
+    <Content Include="Assets\Images\bed.jpg" />
+    <Content Include="Assets\Images\bedroom.png" />
+    <Content Include="Assets\Images\bg_banner1.jpg" />
+    <Content Include="Assets\Images\bg_banner2.jpg" />
+    <Content Include="Assets\Images\bg_banner3.jpg" />
+    <Content Include="Assets\Images\bg_banner4.jpg" />
+    <Content Include="Assets\Images\bg_banner5.jpg" />
+    <Content Include="Assets\Images\bg_banner6.jpg" />
+    <Content Include="Assets\Images\bg_banner7.jpg" />
+    <Content Include="Assets\Images\bg_clean.jpg" />
+    <Content Include="Assets\Images\c1.jpg" />
+    <Content Include="Assets\Images\c2.jpg" />
+    <Content Include="Assets\Images\c3.jpg" />
+    <Content Include="Assets\Images\cart.jpg" />
+    <Content Include="Assets\Images\clean.jpg" />
+    <Content Include="Assets\Images\facebook.png" />
+    <Content Include="Assets\Images\google.png" />
+    <Content Include="Assets\Images\hour-clean.png" />
+    <Content Include="Assets\Images\icon-4week.svg" />
+    <Content Include="Assets\Images\inviteicon.png" />
+    <Content Include="Assets\Images\email logo.png" />
+    <Content Include="Assets\Images\empty.jpg" />
+    <Content Include="Assets\Images\empty.png" />
+    <Content Include="Assets\Images\kitchen.jpg" />
+    <Content Include="Assets\Images\jcb.png" />
+    <Content Include="Assets\Images\kitchen.png" />
+    <Content Include="Assets\Images\line.png" />
+    <Content Include="Assets\Images\line2.png" />
+    <Content Include="Assets\Images\livingroom.png" />
+    <Content Include="Assets\Images\loading.gif" />
+    <Content Include="Assets\Images\logo.png" />
+    <Content Include="Assets\Images\master.png" />
+    <Content Include="Assets\Images\n1.jpg" />
+    <Content Include="Assets\Images\n2.jpg" />
+    <Content Include="Assets\Images\n3.jpg" />
+    <Content Include="Assets\Images\n4.jpg" />
+    <Content Include="Assets\Images\office1.jpg" />
+    <Content Include="Assets\Images\office2.jpg" />
+    <Content Include="Assets\Images\office3.jpg" />
+    <Content Include="Assets\Images\p1.jpg" />
+    <Content Include="Assets\Images\p2.jpg" />
+    <Content Include="Assets\Images\p3.jpg" />
+    <Content Include="Assets\Images\p4.jpg" />
+    <Content Include="Assets\Images\p5.jpg" />
+    <Content Include="Assets\Images\p6.jpg" />
+    <Content Include="Assets\Images\QAbanner.png" />
+    <Content Include="Assets\Images\wall.jpg" />
+    <Content Include="Assets\Images\wash machine.jpg" />
+    <Content Include="Assets\Images\water pip.jpg" />
+    <Content Include="Assets\Js\Account\ForgotPassword.js" />
+    <Content Include="Assets\Js\Account\Register.js" />
+    <Content Include="Assets\Js\Account\ResetPassword.js" />
+    <Content Include="Assets\Js\Account\SocialRegister.js" />
+    <Content Include="Assets\Js\Detail\Detail.js" />
+    <Content Include="Assets\Js\Home\index.js" />
+    <Content Include="Assets\Js\Layout\Layout.js" />
+    <Content Include="Assets\Js\Account\Login.js" />
+    <Content Include="Assets\Js\ProductPage\ProductPage.js" />
+    <Content Include="Assets\Images\visa.png" />
+    <Content Include="Assets\Js\Checkout\all.js" />
+    <Content Include="Assets\Template\EmailActivationTemplate.html" />
+    <Content Include="Assets\Template\ForgotPasswordTemplate.html" />
+    <Content Include="Assets\Template\SuccessResetPasswordTemplate.html" />
+    <Content Include="Assets\Template\SystemReplyTemplate.html" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Assets\Css\Home\fonts\icofont.ttf" />
+    <Content Include="Assets\Css\Home\fonts\icofont.woff" />
+    <Content Include="Assets\Css\Home\fonts\icofont.woff2" />
+    <Content Include="Assets\Js\Checkout\districts.json" />
+    <None Include="Properties\PublishProfiles\ucleanerservice - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -159,32 +581,149 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\AllServiceView.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\PartialView\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_SideMenuLoginPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_ImageCardPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_AllServiceViewPartial.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\PartialView\_NewsCardPartial.cshtml" />
+    <Content Include="Views\ProductPage\Index.cshtml" />
+    <Content Include="Views\QA\Index.cshtml" />
+    <Content Include="Views\Shared\PartialView\_BannerPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_ServiceItemPartial.cshtml" />
+    <Content Include="Views\Detail\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Shared\PartialView\_ProductPageGridCardPartial.cshtml" />
+    <Content Include="Views\Account\RegisterEmailActivation.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\PartialView\_ProductPageListCardPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_PackageProductCommentPartial.cshtml" />
+    <Content Include="Views\Shared\PartialView\_LoadingPartial.cshtml" />
+    <Content Include="Views\Account\SocialRegister.cshtml" />
+    <Content Include="Views\Shared\PartialView\_UserFavoritePartial.cshtml" />
+    <Content Include="Views\Checkout\SuccessView.cshtml" />
+    <Content Include="Views\Shared\PartialView\_CreditPartial.cshtml" />
+    <Content Include="Views\Shared\Message.cshtml" />
+    <Content Include="Views\MemberCenter\Index.cshtml" />
+    <Content Include="Views\Shared\PartialView\_SocialButtonPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Assets\Js\QA\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202102181111024_init.resx">
+      <DependentUpon>202102181111024_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102181124225_ADDSeed.resx">
+      <DependentUpon>202102181124225_ADDSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102181216528_v1.resx">
+      <DependentUpon>202102181216528_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190722517_v2.resx">
+      <DependentUpon>202102190722517_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190815313_v3.resx">
+      <DependentUpon>202102190815313_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102200848008_addCouponandCouponDetail.resx">
+      <DependentUpon>202102200848008_addCouponandCouponDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102201715180_modify-column.resx">
+      <DependentUpon>202102201715180_modify-column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210359102_v8.resx">
+      <DependentUpon>202102210359102_v8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210406369_v9.resx">
+      <DependentUpon>202102210406369_v9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102210718244_addPhotoUrl in Roomtype.resx">
+      <DependentUpon>202102210718244_addPhotoUrl in Roomtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102230704226_AddThirdPartyAccountColumn.resx">
+      <DependentUpon>202102230704226_AddThirdPartyAccountColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102260312460_add_EmailStatus_Column.resx">
+      <DependentUpon>202102260312460_add_EmailStatus_Column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261149001_v14.resx">
+      <DependentUpon>202102261149001_v14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261315255_v15.resx">
+      <DependentUpon>202102261315255_v15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261556220_v16.resx">
+      <DependentUpon>202102261556220_v16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261738362_v17.resx">
+      <DependentUpon>202102261738362_v17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271033165_MemberCreditCard.resx">
+      <DependentUpon>202102271033165_MemberCreditCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271303059_v18.resx">
+      <DependentUpon>202102271303059_v18.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271401200_v19.resx">
+      <DependentUpon>202102271401200_v19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271754291_v20.resx">
+      <DependentUpon>202102271754291_v20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011458073_NewAttrforUserDefinedProductTable.resx">
+      <DependentUpon>202103011458073_NewAttrforUserDefinedProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103070522556_modifyUserDefinedProductTable.resx">
+      <DependentUpon>202103070522556_modifyUserDefinedProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103101627163_Backstage.resx">
+      <DependentUpon>202103101627163_Backstage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103120648166_delete_membermd.resx">
+      <DependentUpon>202103120648166_delete_membermd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103120857577_customerService_addColumn.resx">
+      <DependentUpon>202103120857577_customerService_addColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103181123112_deleteSingleProductTable.resx">
+      <DependentUpon>202103181123112_deleteSingleProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103241013144_Coupon_IsActive.resx">
+      <DependentUpon>202103241013144_Coupon_IsActive.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

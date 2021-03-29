@@ -1,0 +1,402 @@
+﻿section[class$='Form'] {
+	background: var(--color-primary-Light);
+}
+.w-60 {
+	width: 60%;
+	margin: 30px auto 0;
+}
+.toast-top-center .toast-message {
+	font-size: 16px;
+	letter-spacing: 1px
+}
+
+.login-modal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	padding: 110px 0;
+	max-width: 1200px;
+	margin: auto
+}
+
+.login-modal .container-main {
+	padding: 30px;
+	width: 100%;
+	box-shadow: 1px 1px 5px #00000080;
+	background: #e8f0fe;
+	border-radius: 10px;
+}
+
+.spinner-border {
+	width: 1rem;
+	height: 1rem;
+	border: .2em solid currentColor;
+	border-right-color: transparent;
+	transition: .4s ease-in;
+}
+
+@media screen and (min-width: 500px) {
+	.login-modal .container-main {
+		max-width: 500px
+	}
+}
+
+.login-modal .change-box {
+	display: flex;
+	margin-bottom: 20px
+}
+
+.login-modal .change-box .title {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 0;
+	padding: 5px 0;
+	font-size: 20px;
+	font-weight: 400;
+	color: var(--color-primary);
+	background-color: #ffffff;
+	border: 1px solid var(--color-primary);
+	transition: color .2s, background-color .3s;
+	--brs: 6px
+}
+
+.login-modal .change-box .title-login {
+	border-radius: var(--brs) 0 0 var(--brs)
+}
+
+.login-modal .change-box .title-register {
+	border-radius: 0 var(--brs) var(--brs) 0
+}
+
+.login-modal .change-box .selected {
+	color: #ffffff;
+	background-color: var(--color-primary)
+}
+
+.login-modal .login-block {
+	position: relative
+}
+
+.login-modal .form {
+	display: flex;
+	overflow: hidden;
+	justify-content:center;
+}
+
+.login-modal .form .form-group {
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.login-modal .form .input,
+.login-modal .form .button {
+	padding: 10px;
+	border-radius: 2px;
+	font-size: 16px;
+	outline: none;
+	width: 100%
+}
+
+.login-modal .form .button[disabled] {
+	opacity: .6;
+}
+
+.login-modal .form .input {
+	width: 100%;
+	font-weight: 400;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background: var(--color-primary-solight);
+}
+
+
+.login-modal .form .input:focus {
+	border-color: var(--color-primary);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
+}
+
+
+.login-modal .form .warn {
+	font-size: 14px;
+	max-height: 20px;
+	color: var(--color-warn);
+	border: none;
+	padding: 5px 0;
+	letter-spacing: 1px;
+	margin: 0;
+}
+
+.login-modal .form .form-group .label-group {
+	position: absolute;
+	top: 10px;
+	left: 25px;
+	pointer-events: none;
+	background: #e8f0fe;
+	transition: .25s ease-in-out;
+}
+.login-modal .form .social-btn-grouping button.disabled {
+	opacity: .7;
+}
+
+.login-modal .form .social-btn-grouping .spinner-border-wrap {
+	right: 0;
+	width: 20%;
+	background: transparent;
+	left: inherit;
+}
+
+
+.login-modal .form .form-group .label-group i {
+	display: none;
+}
+
+.login-modal .form .form-group .label {
+	color: var(--color-primary-dark);
+	font-size: 18px;
+	padding: 0 10px;
+	white-space: nowrap;
+	margin: 0;
+	transition: .2s ease;
+}
+
+.login-modal .form .form-group .label.label-warn {
+	color: var(--color-warn);
+	font-weight: 700
+}
+
+.login-modal .form .input:focus + .label-group,
+.login-modal .form .label-group.active {
+	top: -15px;
+	width: 70px;
+	overflow: hidden;
+	height: 25px;
+	background: #e8f0fe;
+}
+
+.login-modal .form .form-group .input:focus+.label-group i,
+.login-modal .form .label-group.active i {
+	display: block;
+	pointer-events: auto;
+}
+
+.login-modal .form .label-group i.i-warn {
+	color: var(--red) !important;
+}
+
+.login-modal .form .form-group .input:focus+.label-group .label,
+.login-modal .form .label-group.active .label {
+	font-size: 14px;
+}
+
+.login-modal .form .input.input-warn {
+	border-color: var(--color-warn);
+	color: var(--color-warn);
+}
+
+.login-modal .form .button {
+	margin-top: 10px;
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 1px;
+	background-color: var(--color-primary);
+	border: none;
+	color: #ffffff;
+	position: relative
+}
+.login-modal .form .social-login,
+.login-modal .form .website-login {
+	width: 100%;
+	flex-shrink: 0;
+	transition: .4s ease-in;
+	min-width: 100%;
+}
+
+.login-modal .form .social-login.pre {
+	transform: translateX(50%);
+	opacity: 1;
+}
+
+.login-modal .form .website-login.pre {
+	transform: translateX(50%);
+	opacity: 0;
+}
+
+.login-modal .form .social-login {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	opacity: 0;
+}
+
+.login-modal .form .social-login h2 {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.login-modal .form .social-login .social-btn-grouping {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.login-modal .form .social-login .social-btn-grouping button {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	line-height: 45px;
+	margin-bottom: 15px;
+	letter-spacing: 1px;
+	color: var(--light);
+	overflow: hidden;
+	width: 80%;
+	position: relative;
+	font-size: 24px;
+	text-align: left;
+	padding: 0 10px 0 60px;
+	box-shadow: 1px 1px 10px #adadad80;
+}
+
+.login-modal .form .social-login .btn_website-login {
+	margin-top: 50px;
+	width: 80%;
+}
+.login-modal .form .social-btn-grouping {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.login-modal .form .social-btn-grouping button {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	line-height: 45px;
+	margin-bottom: 15px;
+	margin-right: 20px;
+	letter-spacing: 1px;
+	color: var(--light);
+	overflow: hidden;
+	width: 80%;
+	position: relative;
+	font-size: 12px;
+	text-align: left;
+	padding: 0 10px 0 40px;
+	box-shadow: 1px 1px 10px #adadad80;
+	transition: .2s ease-in-out;
+}
+
+.login-modal .form .social-btn-grouping #btnGoogleSignIn {
+	background: #CE4535;
+}
+
+.login-modal .form .social-btn-grouping #btnFacebookSignIn {
+	background: #1778F2;
+}
+
+.login-modal .form .social-btn-grouping #btnLineSignIn {
+	background: #1ACA4D;
+}
+.login-modal .form .social-btn-grouping #btnMicrosoftSignIn {
+	background: #9125e3;
+}
+
+
+.login-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
+	background: #a04d44;
+}
+
+.login-modal .form .social-btn-grouping #btnFacebookSignIn:hover {
+	background: #1f5292;
+}
+
+.login-modal .form .social-btn-grouping #btnLineSignIn:hover {
+	background: #31ab54;
+}
+login-modal .form .social-btn-grouping #btnMicrosoftSignIn:hover {
+	background: #6c14af;
+}
+
+
+
+.login-modal .form .social-btn-grouping img {
+	width: 30px;
+	background: var(--light);
+	object-fit: contain;
+	padding: 3px;
+	margin-right: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+}
+
+.login-modal .form .btn_loginBySocial {
+	background-color: var(--color-primary-dark);
+}
+
+.login-modal .spinner-border-wrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--color-primary);
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-modal .form .button:hover {
+	filter: brightness(1.1)
+}
+
+.login-modal .form .button[disabled='disabled']:hover {
+	filter: brightness(1)
+}
+
+.login-modal .other {
+	margin-top: 20px;
+	display: flex
+}
+
+.login-modal .other .form-group {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.login-modal .other .form-group a {
+	display: block
+}
+.login-modal .form .text-region {
+	text-align: center;
+	margin: 10px 0;
+}
+.login-modal .form .text-region:after,
+.login-modal .form .text-region:before {
+	content: "";
+	width: 20%;
+	display: inline-block;
+	vertical-align: middle;
+	height: 1px;
+	background: rgba(161, 146, 146, 0.50);
+	margin: 0 10px;
+}
+
+
+@media screen and (min-width:768px) {
+	.login-modal .form .social-btn-grouping button {
+		width: 40%;
+		font-size: 16px;
+	}
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn {
+		font-size: 14px;
+	}
+	.login-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap {
+		width: 15%;
+	}
+}

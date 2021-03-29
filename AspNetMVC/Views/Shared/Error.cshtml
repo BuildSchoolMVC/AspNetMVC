@@ -1,14 +1,19 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>錯誤</title>
-</head>
-<body>
-    <hgroup>
-        <h1>錯誤。</h1>
-        <h2>處理您的要求時發生錯誤。</h2>
-    </hgroup>
-</body>
-</html>
+﻿@{
+  ViewBag.Title = "404發生錯誤";
+
+  string[] words = new string[] { "Oops! 處理你的要求時發生錯誤", "Wow! 鯊魚正在偷咬電纜，請稍後再作嘗試", "Error,發生錯誤!" };
+  var random = new Random().Next(0, 3);
+  var result = words[random];
+  if (!string.IsNullOrEmpty(ViewBag.Error))
+  {
+    result = ViewBag.Error;
+  }
+}
+<section style="height: 70vh;padding:100px 0 100px;">
+    <div style="text-align:center">
+        <span style="font-size:200px">4</span>
+        <span style="font-size: 180px;padding:0 30px;">0</span>
+        <span style="font-size: 200px">4</span>
+    </div>
+    <h2 style="text-align:center;">@result</h2>
+</section>

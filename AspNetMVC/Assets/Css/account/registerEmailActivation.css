@@ -1,0 +1,51 @@
+﻿.section_register-email-activation {
+    padding: 150px 0 200px;
+}
+.section_register-email-activation .wrap{
+    max-width: 40%;
+    border: 2px solid rgba(138, 127, 127, 0.50);
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 100px 0;
+    background: 10px;
+}
+
+.section_register-email-activation h1,
+.section_register-email-activation p {
+    text-align: center;
+}
+
+.section_register-email-activation p {
+    padding: 10px 0;
+}
+.section_register-email-activation .btns-group {
+    padding: 70px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.section_register-email-activation .btns {
+    display: inline-block;
+    font-weight: 400;
+    color: var(--white);
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: .375rem .75rem;
+    margin: 0 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out
+}
+    .section_register-email-activation .btns:hover {
+        color: #212529;
+    }

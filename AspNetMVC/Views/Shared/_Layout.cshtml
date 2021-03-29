@@ -1,43 +1,450 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using System.Web.Configuration
+<!DOCTYPE html>
+<html lang="zh-hant">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    <meta name="description" content="ucleaner - 打掃服務，在此為您服務，為您創造舒適宜人的居住空間。">
+    <meta name="title" content="@ViewBag.Title - uCleaner打掃服務">
+    <title>@ViewBag.Title - uCleaner打掃服務</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Assets/css/layout/layout.css")
+    @RenderSection("CSS", false)
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <section class="section_loading">
+        <div class='broom'>
+            <div class='broom-handle'></div>
+            <div class='brushes'>
+                <div class='string'></div>
+                <div class='string string-2'></div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("首頁", "Index", "Home")</li>
-                    <li>@Html.ActionLink("關於", "About", "Home")</li>
-                    <li>@Html.ActionLink("連絡人", "Contact", "Home")</li>
-                </ul>
+            <div class='line'></div>
+            <div class='line line-2'></div>
+            <div class='line line-3'></div>
+            <div class='line line-4'></div>
+            <div class='line line-5'></div>
+            <div class='line line-6'></div>
+            <div class='line line-7'></div>
+        </div>
+        <div class="ash"></div>
+        <div class="ash ash-right"></div>
+    </section>
+    <section class="section_nav">
+        <div class="container-xxl p-0">
+            <nav class="navbar navbar-expand-lg navbar-light position-static">
+                <a class="logo" href="/">
+                    <img src="/Assets/images/logo.png" alt="Logo" class="w-100">
+                </a>
+                <button class="hamburger" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link color-gray" href="@Url.Action("Index", "ProductPage")">
+                                <i class="fas fa-home ml-4 mr-2"></i>找打掃
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btns nav-link color-gray all-service" type="button" data-toggle="collapse"
+                                    data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                                <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="nav_btn-group d-flex align-items-center">
+                        @Html.Partial("PartialView/_LoginPartial")
+                        <button class="btns" id="favorites">
+                            <i class="fas fa-heart pr-1" id="hearticon"></i>(<span class="count">0</span>)
+                        </button>
+                    </div>
+                </div>
+                <div class="side-menu">
+                    <div class="side-menu_header">
+                        <i class="fas fa-times float-right"></i>
+                    </div>
+                    <div class="side-menu_body">
+                        <ul class="side-menu-nav">
+                            <li class="nav-item py-2">
+                                <a class="nav-link color-gray" href="@Url.Action("Index", "ProductPage")">
+                                    <i class="fas fa-home ml-4 mr-2"></i>找打掃
+                                </a>
+                            </li>
+                            <li class="nav-item py-2">
+                                <a class="btns nav-link color-gray all-service" href="javascript:;">
+                                    <i class="fas fa-ellipsis-h ml-4 mr-2"></i>全部服務<i class="fas fa-chevron-right ml-2"></i>
+                                </a>
+                                @Html.Partial("PartialView/_SideMenuLoginPartial")
+                                <div class="side-menu_all-service">
+                                    <a class="btns nav-link color-gray all-service" href="javascript:;">
+                                        <i class="fas fa-chevron-left mr-2"></i>全部服務
+                                    </a>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <div class="subItem py-2">
+                                                <span class="dropdown-item color-gray pl-3">
+                                                    熱門常用<i class="fas fa-chevron-right ml-3"></i>
+                                                </span>
+                                                <div class="subSubItem">
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.1s">鐘點清潔</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.2s">冷氣機清洗</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.3s">洗衣機清洗</a>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="subItem py-2">
+                                                <span class="dropdown-item color-gray pl-3">
+                                                    清潔收納<i class="fas fa-chevron-right ml-3"></i>
+                                                </span>
+                                                <div class="subSubItem">
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.1s">鐘點清潔</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.2s">收納整理</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.3s">裝潢清潔</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="subItem py-2">
+                                                <span class="dropdown-item color-gray pl-3">
+                                                    清除塵蟎<i class="fas fa-chevron-right ml-3"></i>
+                                                </span>
+                                                <div class="subSubItem">
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.1s">除塵蟎</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.2s">清毒除蟲</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="subItem py-2">
+                                                <span class="dropdown-item color-gray pl-3">
+                                                    企業服務<i class="fas fa-chevron-right ml-3"></i>
+                                                </span>
+                                                <div class="subSubItem">
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.1s">鐘點清潔</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.2s">辦公室定期</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.3s">冷氣機清洗</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="subItem py-2">
+                                                <span class="dropdown-item color-gray pl-3">
+                                                    其他服務<i class="fas fa-chevron-right ml-3"></i>
+                                                </span>
+                                                <div class="subSubItem">
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.1s">洗衣服務</a>
+                                                    <a class="dropdown-item color-gray pl-5" href="/ProductPage"
+                                                       style="--delay:.2s">地板保養</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+        <div class="nav-bottom">
+            <div class="row">
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="/">
+                            <i class="fas fa-home"></i>
+                            <span>首頁</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="javascript:;">
+                            <i class="fas fa-heart"></i>
+                            <span>收藏</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="/MemberCenter/Index">
+                            <i class="fas fa-user"></i>
+                            <span>會員</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="nav-bottom-item">
+                        <a href="javascript:;">
+                            <i class="fas fa-question"></i>
+                            <span>客服</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
-        </footer>
-    </div>
+    </section>
+    <section class="section_collapse-zone">
+        <div class="collapse mt-5 pt-5 pb-3 bg-white" id="collapse">
+            <div class="container">
+                <div class="row py-4">
+                    <div class="col-3 d-flex">
+                        <div class="collapse_section px-2">
+                            <h5 class="white-space pl-3 pt-4">熱門常用</h5>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/kitchen.jpg">鐘點清潔</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/clean.jpg">冷氣機清洗</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/wall.jpg">洗衣機清洗</a>
+                        </div>
+                        <div class="collapse_section px-2">
+                            <h5 class="white-space pl-3 pt-4">清潔收納</h5>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/water pip.jpg">收納整理</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage" data-imgSrc="/Assets/images/air condtioner.jpg">裝潢清潔</a>
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex">
+                        <div class="collapse_section px-2">
+                            <h5 class="white-space pl-3 pt-4">清除塵蟎</h5>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/office3.jpg">除塵蟎</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/kitchen.jpg">清毒除蟲</a>
+                        </div>
+                        <div class="collapse_section px-2">
+                            <h5 class="white-space pl-3 pt-4">企業服務</h5>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/office1.jpg">辦公室定期</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/office2.jpg">冷氣機清洗</a>
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex">
+                        <div class="collapse_section px-2">
+                            <h5 class="white-space pl-3 pt-4">其他服務</h5>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/kitchen.jpg">洗衣服務</a>
+                            <a class="dropdown-item color-gray" href="/ProductPage"
+                               data-imgSrc="/Assets/images/wall.jpg">地板保養</a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="collapse_section">
+                            <img src="/Assets/images/loading.gif" data-src="https://picsum.photos/300/150/?random=1"
+                                 class="d-block rounded mt-4 lazyload" style="width: 300px;height:150px;" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </section>
+    <section class="section_favorites-side-menu favorites-side-menu position-fixed">
+        <div class="container-fluid">
+            <div class="row justify-content-end">
+                <div class="col-12 col-lg-5 col-xl-4">
+                    <div class="favorites">
+                        <div class="favorites-header pb-2 mb-5">
+                            <div class="favorites-title">
+                                <i class="fas fa-times float-right" id="favorites-close"></i>
+                                <h2>你的收藏(<span class="count"></span>)</h2>
+                            </div>
+                            <span class="tip">※向左滑動以便進行刪除</span>
+                        </div>
+                        <div class="favorites-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @RenderBody()
+    <footer class="section_footer">
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <ul class="list-unstyled">
+                        <li><a href="@Url.Action("Index", "ProductPage")">找打掃</a></li>
+                        <li><a href="@Url.Action("AllServiceView", "Home")">全部服務</a></li>
+                        <li><a href="@Url.Action("Index", "QA")">常見問題 / 關於我們</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <ul class="list-unstyled">
+                        <li><a href="javascript:;">02-6605-7606</a></li>
+                        <li><a href="javascript:;">service@uCleaner.com</a></li>
+                        <li>
+                            平日 09:00 - 18:00 ． 例假日 9:00 - 12:30 ， 13:30 - 18:00
+                        </li>
+                        <li>台北市大安區忠孝東路三段96號11號樓之1</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-4 d-flex align-items-center">
+                    <a href="https://lin.ee/moQ62hM" target="_blank"><img height="36" border="0" src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt=""></a>
+                    <div class="logo pl-4">
+                        <img src="/Assets/images/logo.png" alt="Logo" class="w-100">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <p>
+                        &copy; uCleaner - 打掃服務 @DateTime.Now.Year All Right Reserved
+                    </p>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <p>
+                        建議使用 Google Chrome 瀏覽器訪問本站
+                    </p>
+                </div>
+            </div>
+            <div class="contact-us">
+                <button class="btns rounded-pill"><i class="far fa-question-circle"></i><span>聯絡我們</span></button>
+                <div class="contact-us-form">
+                    <form action="">
+                        @Html.AntiForgeryToken()
+                        <div class="form-header">
+                            <h5>客服支援</h5>
+                            <i class="fas fa-minus position-absolute" id="contact-close"></i>
+                        </div>
+                        <div class="form-body">
+                            <p class="warn">* 為必填欄位</p>
+                            <div class="input-groupings">
+                                <label for="contact_name">姓名<span class="warn pl-2">*</span></label>
+                                <input type="text" name="Name" id="contact_name" class="question">
+                            </div>
+                            <div class="input-groupings">
+                                <label for="contact_email">電子郵件<span class="warn pl-2">*</span></label>
+                                <input type="email" name="Email" id="contact_email" class="question">
+                            </div>
+                            <div class="input-groupings">
+                                <label for="contact_phone">電話<span class="warn pl-2">*</span></label>
+                                <input type="tel" name="Phone" id="contact_phone" class="question">
+                            </div>
+                            <div class="input-groupings">
+                                <label for="contact_category">問題分類<span class="warn pl-2">*</span></label>
+                                <select name="Category" id="contact_category" class="question">
+                                    <option value="-1"> 請選擇 </option>
+                                    <option value="1"> 儲值問題 </option>
+                                    <option value="2"> 諮詢問題 </option>
+                                    <option value="3"> 客訴問題 </option>
+                                </select>
+                            </div>
+                            <div class="input-groupings">
+                                <label for="contact_content">訊息<span class="warn pl-2">*</span></label>
+                                <textarea id="contact_content" cols="30" rows="5" name="Content" class="question"></textarea>
+                            </div>
+                            <div class="finish-view">
+                                <div class="box">
+                                    @Html.Partial("PartialView/_LoadingPartial")
+                                </div>
+                                <div class="finished hide">
+                                    <img src="/Assets/images/email logo.png" alt="信圖示">
+                                    <p>已收到你的來信</p>
+                                    <p>將會派人盡快與你聯絡</p>
+                                    <button class="btns finishBtn">完成</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <input class="btns" type="submit" value="傳送訊息">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+            integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+            crossorigin="anonymous"></script>
+    <script>
+        let GoolgeApp_Cient_Id = "@WebConfigurationManager.AppSettings["Google_clientId"]";
+    </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@WebConfigurationManager.AppSettings["Facebook_id"]',
+                cookie: true,
+                xfbml: true,
+                version: 'v9.0'
+            });
+        };
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+    </script>
+    <script>
+        $('#btnLineSignIn').on('click', function (e) {
+            let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+            link += 'response_type=code';
+            link += '&client_id=' + @WebConfigurationManager.AppSettings["Line_client_id"];
+            link += '&redirect_uri=@WebConfigurationManager.AppSettings["WebsiteUrl"]Account/LineLogin';
+            link += `&state=${this.dataset.type}`;
+            link += '&scope=profile%20openid%20email';
+            window.location.href = link;
+
+            document.querySelectorAll("button").forEach(x => {
+                x.setAttribute("disabled", "disabled");
+                x.classList.add("disabled");
+            })
+            this.querySelector(".spinner-border-wrap").classList.remove("opacity");
+
+            setTimeout(function(){
+                document.querySelectorAll("button").forEach(x => {
+                    x.removeAttribute("disabled");
+                    x.classList.remove("disabled");
+                })
+                document.querySelector("#btnLineSignIn .spinner-border-wrap").classList.add("opacity");
+            },6000)
+        });
+    </script>
+    <script>
+      $('#btnMicrosoftSignIn').on('click', function () {
+        var url = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?";
+        url += "scope=openid%20offline_access%20https%3A%2F%2Fgraph.microsoft.com%2Fmail.read&";
+        url += "redirect_uri=@WebConfigurationManager.AppSettings["WebsiteUrl"]Account/MicrosoftLogin&";
+        url += "response_type=code&";
+        url += "client_id=@WebConfigurationManager.AppSettings["Microsoft_client_id"]&";
+        url += "response_mode=query&";
+        url += "state=ucleaner-service&";
+        url += "prompt=consent&";
+        window.location.href = url;
+      })
+    </script>
+    @Scripts.Render("~/Assets/js/layout/layout.js")
+    @RenderSection("JS", false)
 </body>
 </html>

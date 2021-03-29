@@ -1,0 +1,9 @@
+﻿@model SocialButtonViewModel
+
+<button type="button" id="btn@(Model.Platform)SignIn" class="d-flex justify-content-around position-relative" data-type="@Model.Type">
+  <img src="~/Assets/Images/@(Model.Platform).png" alt="社群" />
+  @Model.Platform
+  <div class="spinner-border-wrap opacity">
+    <span class="spinner-border"></span>
+  </div>
+</button>

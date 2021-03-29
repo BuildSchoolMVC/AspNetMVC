@@ -1,0 +1,193 @@
+﻿@model SuccessViewModel
+@{
+	ViewBag.Title = "預約完成";
+}
+
+@section CSS {
+	<link rel="stylesheet" href="~/Assets/css/Checkout/Checkout.min.css">
+	<style>
+		.block_progress .barFront {
+			width: 100% !important;
+		}
+	</style>
+}
+
+<div class="container-all">
+	<div class="row">
+		<div class="col col-12">
+			<div class="block block_progress">
+				<div class="chart">
+					<div class="barGroup">
+						<div class="barFront"></div>
+						<div class="barBack"></div>
+					</div>
+					<div class="numGroup">
+						<div class="num on">1</div>
+						<div class="num on">2</div>
+						<div class="num on">3</div>
+						<div class="num on">4</div>
+					</div>
+				</div>
+				<div class="text">
+					<div class="stage-name">選擇<br>日期</div>
+					<div class="stage-name">填寫<br>資料</div>
+					<div class="stage-name">付款<br>確認</div>
+					<div class="stage-name">預約<br>完成</div>
+				</div>
+			</div>
+		</div>
+		<div class="col col-12 col-md-5">
+			<div class="block block_items">
+				<div class="customer-info-box">
+					<div class="df customer-info set" id="service-date">
+						<div class="key">
+							<i class="icon fas fa-calendar-alt"></i>
+						</div>
+						<div class="value">
+							<div class="date">@Model.DateService.ToString("yyyy/MM/dd")</div>
+							<div class="time">@Model.DateService.ToString("HH:mm")</div>
+						</div>
+					</div>
+					<div class="df customer-info set" id="address">
+						<div class="key">
+							<i class="icon fas fa-thumbtack"></i>
+						</div>
+						<div class="value">@Model.Address</div>
+					</div>
+				</div>
+				@if (Model.IsPackage) {
+					<div id="favorite-name">@Model.Package.Name</div>
+					<div class="item-box">
+						@PackageProduct()
+					</div>
+				} else {
+					<div id="favorite-name">@Model.UserDefinedList[0].Name</div>
+					<div class="item-box">
+						@foreach (var item in Model.UserDefinedList) {
+							@UserDefinedItem(item)
+						}
+					</div>
+				}
+				<div class="coupon">
+					<span>折扣</span>
+					<span class="money">@Decimal.Round(Model.DiscountAmount)</span>
+				</div>
+				<div class="total">
+					<span class="key">總計</span>
+					<span class="money">@Decimal.Round(Model.FinalPrice)</span>
+				</div>
+			</div>
+		</div>
+		<div class="col col-12 col-md-7">
+			<main class="block block_main">
+				<div id="done" class="step done">
+					<div class="my-container">
+						<div class="pic">
+							<svg id="tick" viewBox="0 0 32 32">
+								<path d="M27,9 l-15,15 -7,-7"></path>
+							</svg>
+						</div>
+						<div class="text">
+							<div class="title">預約成功</div>
+							<p class="content">如需修改或取消訂單，請洽客服人員</p>
+						</div>
+						<div class="step-buttons">
+							<button class="button">回首頁</button>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+</div>
+
+@helper PackageProduct() {
+	int?[] roomTypes = { Model.Package.RoomType, Model.Package.RoomType2, Model.Package.RoomType3 };
+	int?[] squareFeetType = { Model.Package.Squarefeet, Model.Package.Squarefeet2, Model.Package.Squarefeet3 };
+	<div class="item">
+		@for (int i = 0; i < roomTypes.Length; i++) {
+			if (roomTypes[i] == -1) { break; }
+			<div class="place">
+				<span class="key">
+					<i class="icon fas fa-house-user"></i>
+				</span>
+				<span class="value">
+					@Model.RoomTypeList.First(x => x.Value == roomTypes[i]).Name
+				</span>
+				<span class="square-feet">
+					(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == squareFeetType[i]).Name.Split('+', ',')))
+				</span>
+			</div>
+		}
+		<div class="service-type">
+			<span class="key">
+				<i class="icon fas fa-user-friends"></i>
+			</span>
+			<span class="value">
+				@String.Join(" + ", Model.Package.ServiceItem.Split('+', ','))
+			</span>
+		</div>
+		<div class="hours">
+			<div class="key">
+				<i class="icon fas fa-clock"></i>
+			</div>
+			<div class="value">
+				<div class="num">@Model.Package.Hour</div>
+				<div class="unit">hr</div>
+				<div>x</div>
+				<div class="num">500</div>
+				<div class="unit">元/hr</div>
+				<div class="subtotal">@Decimal.Round(Model.Package.Price)</div>
+			</div>
+		</div>
+	</div>
+}
+
+@helper UserDefinedItem(UserDefinedProduct item) {
+	<div class="item">
+		<div class="place">
+			<span class="key">
+				<i class="icon fas fa-house-user"></i>
+			</span>
+			<span class="value">
+				@Model.RoomTypeList.First(x => x.Value == item.RoomType).Name
+			</span>
+			<span class="square-feet">
+				(@String.Join(" ~ ", Model.SquareFeetList.First(x => x.Value == item.Squarefeet).Name.Split('+', ',')))
+			</span>
+		</div>
+		<div class="service-type">
+			<span class="key">
+				<i class="icon fas fa-user-friends"></i>
+			</span>
+			<span class="value">
+				@String.Join(" + ", item.ServiceItems.Split('+', ','))
+			</span>
+		</div>
+		<div class="hours">
+			<div class="key">
+				<i class="icon fas fa-clock"></i>
+			</div>
+			<div class="value">
+				<div class="num">@item.Hour</div>
+				<div class="unit">hr</div>
+				<div>x</div>
+				<div class="num">500</div>
+				<div class="unit">元/hr</div>
+				<div class="subtotal">@Decimal.Round(item.Price)</div>
+			</div>
+		</div>
+	</div>
+}
+
+@section JS{
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
+	<script>
+		setTimeout(() => {
+			$('#done').fadeIn(300);
+		}, 700);
+		document.querySelector('#done .button').addEventListener('click', () => {
+			window.location = '/';
+		});
+	</script>
+}

@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+}
+body {
+  // overflow-y: scroll;
+}
+button {
+  background-color: transparent;
+}
+button:focus {
+  outline: none;
+}
+textarea {
+  resize: none;
+}
+img {
+  vertical-align: top;
+  max-width: 100%;
+}
+a {
+  text-decoration: none;
+}
+.toast-top-center .toast-message {
+  font-size: 16px;
+}
+[v-cloak] {
+  display: none;
+}

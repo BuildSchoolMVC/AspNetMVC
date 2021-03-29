@@ -1,0 +1,28 @@
+﻿@using System.Text;
+
+@if (Request.Cookies["user"] != null)
+{
+    <li class="nav-item py-2">
+        <a class="nav-link color-gray" href="@Url.Action("Center", "Member", routeValues: null)">
+            <i class="fas fa-user-friends ml-4 mr-2"></i>會員中心
+        </a>
+    </li>
+    <li class="nav-item py-2">
+        <a class="nav-link color-gray" href="/Account/Logout">
+            <i class="fas fa-sign-out-alt ml-4 mr-2"></i>登出
+        </a>
+    </li>
+}
+else
+{
+    <li class="nav-item py-2">
+        <a class="nav-link color-gray" href="@Url.Action("Login", "Account", routeValues: null)">
+            <i class="fas fa-user ml-4 mr-2"></i>註冊 / 登入
+        </a>
+    </li>
+}
+
+
+
+
+

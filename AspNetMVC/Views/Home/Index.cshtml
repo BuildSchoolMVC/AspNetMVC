@@ -1,31 +1,137 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IndexService
+@{
+    ViewBag.Title = "首頁";
 }
+@section CSS{
+    <link rel="stylesheet" href="~/Assets/css/home/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+          integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+          integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" />
+}
+<section class="section_carousel owl-carousel">
+    @foreach (var banner in Model.BannerData)
+    {
+        @Html.Partial("PartialView/_BannerPartial", banner)
+    }
+</section>
+<section class="section_all-service py-5">
+    <div class="container-xxl">
+        <div class="row">
+            <div class="service-title">
+                <h2><i class="fas fa-home color-skyblue pl-2 pr-1"></i>我們提供以下服務</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-xxl">
+        <div class="row">
+            <div class="service-tabs">
+                <div class="tabs-item active" data-id="hot">
+                    <h3>熱門<span class="mobile">服務</span></h3>
+                </div>
+                <div class="tabs-item" data-id="enterprise">
+                    <h3>企業<span class="mobile">服務</span></h3>
+                </div>
+                <div class="tabs-item" data-id="other">
+                    <h3>其他<span class="mobile">服務</span></h3>
+                </div>
+                <div class="tabs-item" data-id="comment">
+                    <h3>顧客<span class="mobile">評價</span></h3>
+                </div>
+            </div>
+            <div class="service-items">
+                @foreach (var service in Model.ServicesData)
+                {
+                    @Html.Partial("PartialView/_ServiceItemPartial", service)
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_statistic">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-3">
+                <div class="statistic_num">
+                    <p>我們為</p>
+                    <p class="num" data-value="67231" data-unit="戶">
+                    </p>
+                </div>
+                <div class="statictic_txt">
+                    <p>
+                        家庭服務
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <div class="statistic_num">
+                    <p>我們有</p>
+                    <p class="num" data-value="133231" data-unit="筆">
+                    </p>
+                </div>
+                <div class="statictic_txt">
+                    <p>評論回饋</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-3">
+                <div class="statistic_num">
+                    <p>我們在</p>
+                    <p class="num" data-value="426" data-unit="個">
+                    </p>
+                </div>
+                <div class="statictic_txt">
+                    <p>據點座落在全台各地</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_image">
+    <div class="container-fluid">
+        <div class="container-xxl">
+            <div class="row">
+                <div class="image-title">
+                    <h2><i class="fas fa-users color-skyblue pl-2 pr-1"></i>專業形象</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl p-0">
+            <div class="row">
+                @foreach (var card in Model.ImageCardData)
+                {
+                    @Html.Partial("PartialView/_ImageCardPartial", card)
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section_news">
+    <div class="container-fluid">
+        <div class="container-xxl">
+            <div class="row">
+                <div class="news-title">
+                    <h2><i class="fas fa-desktop color-skyblue pl-2 pr-1"></i>媒體報導</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl">
+            <div class="row">
+                @foreach (var card in Model.NewsCardData)
+                {
+                    @Html.Partial("PartialView/_NewsCardPartial", card)
+                }
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@section JS{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous">
+    </script>
+    <script src="~/Assets/js/home/index.js"></script>
+}

@@ -1,0 +1,418 @@
+﻿section[class$='Form'] {
+    background: var(--color-primary-solight);
+}
+
+p {
+    margin: 0;
+}
+.w-60{
+    width: 60%;
+    margin: 30px auto 0;
+}
+
+.toast-top-center .toast-message {
+    font-size: 20px;
+}
+.register-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 60px 0;
+    max-width: 1200px;
+    margin: auto
+}
+
+.register-modal .container-main {
+    padding: 30px;
+    width: 100%;
+    box-shadow: 1px 1px 5px #00000080;
+    background: #e8f0fe;
+    border-radius: 10px;
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border: .2em solid currentColor;
+    margin-right: 10px;
+    border-right-color: transparent;
+    transition: .4s ease-in;
+}
+.social-btn-grouping .spinner-border {
+    margin-right: 0;
+    width: 1rem!important;
+    height: 1rem!important;
+}
+
+@media screen and (min-width: 500px) {
+    .register-modal .container-main {
+        max-width: 500px
+    }
+}
+
+.register-modal .change-box {
+    display: flex;
+    margin-bottom: 5px
+}
+
+.register-modal .change-box .title {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    padding: 5px 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-primary);
+    background-color: #ffffff;
+    border: 1px solid var(--color-primary);
+    transition: color .2s, background-color .3s;
+    --brs: 6px
+}
+
+.register-modal .change-box .title-login {
+    border-radius: var(--brs) 0 0 var(--brs)
+}
+
+.register-modal .change-box .title-register {
+    border-radius: 0 var(--brs) var(--brs) 0
+}
+
+.register-modal .change-box .selected {
+    color: #ffffff;
+    background-color: var(--color-primary)
+}
+
+.register-modal .register-block {
+    position: relative
+}
+
+.register-modal .form .step1,
+.register-modal .form .step2 {
+    width: 100%;
+    flex-shrink: 0;
+    transition: .4s ease-in;
+    transform: translateX(50%);
+}
+
+.register-modal .form .step2 {
+    opacity: 0;
+}
+
+.register-modal .form .step1.pre,
+.register-modal .form .step2.pre {
+    transform: translateX(0%);
+}
+
+
+.register-modal .form {
+    display: flex;
+    justify-content: center;
+    overflow:hidden;
+}
+
+.register-modal .form .social-btn-grouping .spinner-border-wrap {
+    right: 0;
+    width: 20%;
+    background: transparent;
+    left : inherit;
+}
+
+.register-modal .form h2 {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.register-modal .form .social-btn-grouping {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content:center;
+}
+
+.register-modal .form .social-btn-grouping .spinner-border {
+    width:30px;
+    height: 30px;
+}
+
+.register-modal .form .social-btn-grouping button {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    line-height: 45px;
+    margin-bottom: 15px;
+    margin-right: 20px;
+    letter-spacing: 1px;
+    color: var(--light);
+    overflow: hidden;
+    width: 80%;
+    position: relative;
+    font-size: 12px;
+    text-align: left;
+    padding: 0 10px 0 40px;
+    box-shadow: 1px 1px 10px #adadad80;
+    transition: .2s ease-in-out;
+}
+
+
+.register-modal .form .social-btn-grouping button.disabled{
+    opacity:.7;
+}
+.register-modal .form .btn_website-login {
+    margin-top: 50px;
+    width: 80%;
+}
+
+.register-modal .form .social-btn-grouping #btnGoogleSignIn {
+    background: #CE4535;
+}
+
+.register-modal .form .social-btn-grouping #btnFacebookSignIn {
+    background: #1778F2;
+}
+.register-modal .form .social-btn-grouping #btnLineSignIn {
+    background: #1ACA4D;
+}
+.register-modal .form .social-btn-grouping #btnMicrosoftSignIn {
+    background: #9125e3;
+}
+
+
+
+.register-modal .form .social-btn-grouping #btnGoogleSignIn:hover {
+    background: #a04d44;
+}
+
+.register-modal .form .social-btn-grouping #btnFacebookSignIn:hover {
+    background: #1f5292;
+}
+.register-modal .form .social-btn-grouping #btnLineSignIn:hover {
+    background: #31ab54;
+}
+.register-modal .form .social-btn-grouping #btnMicrosoftSignIn:hover {
+    background: #6c14af;
+}
+
+
+
+
+.register-modal .form .social-btn-grouping img {
+    width: 30px;
+    background: var(--light);
+    object-fit: contain;
+    padding: 3px;
+    margin-right: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.register-modal .form .step1.next {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+.register-modal .form .step2.next {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+.register-modal .form .step2 .btn_submit{
+    padding-right: 10px;
+}
+
+.register-modal .form .btn-groups {
+    display: flex;
+}
+
+.register-modal .form .btn-groups .btn_pre {
+    margin-right: 5px;
+}
+
+.register-modal .form .form-group {
+    margin-bottom: 0
+}
+.register-modal .form .form-group .label-group {
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    pointer-events: none;
+    background: #e8f0fe;
+    transition: .25s ease-in-out;
+}
+.register-modal .form .form-group .label-group i {
+   display:none;
+}
+
+.register-modal .form .label {
+    color: var(--color-primary-dark);
+    font-size: 18px;
+    padding: 0 10px;
+    white-space: nowrap;
+    margin : 0;
+    transition: .2s ease;
+}
+.register-modal .form .label.label-warn {
+    color: var(--color-warn);
+    font-weight: 700
+}
+
+.register-modal .form .label.small {
+    font-size: 16px;
+}
+
+.register-modal .form i {
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: .4s ease-in;
+    font-size: 16px;
+}
+
+.register-modal .form i+span.small {
+    font-size: 14px;
+}
+
+.register-modal .form .input,
+.register-modal .form .button {
+    padding: 10px;
+    border-radius: 2px;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    display: inline-block;
+}
+
+.register-modal .form .button[disabled] {
+    opacity: .6;
+}
+
+.register-modal .form .text-region{
+    text-align:center;
+    margin: 10px 0;
+}
+.register-modal .form .text-region:after,
+.register-modal .form .text-region:before{
+    content:"";
+    width : 20%;
+    display: inline-block;
+    vertical-align:middle;
+    height:1px;
+    background: rgba(161, 146, 146, 0.50);
+    margin: 0 10px;
+}
+
+.register-modal .form .input {
+    width: 100%;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #e8f0fe;
+    margin: 20px 0 0;
+}
+
+.register-modal .form .input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15)
+}
+
+.register-modal .form .input:focus + .label-group, .register-modal .form .label-group.active {
+    top: 5px;
+    width: 70px;
+    overflow: hidden;
+    height: 25px;
+    background: #e8f0fe;
+}
+
+.register-modal .form .form-group .input:focus + .label-group i, .register-modal .form .label-group.active i {
+    display: block;
+    pointer-events: auto;
+}
+
+.register-modal .form .label-group i.i-warn {
+    color: var(--red)!important;
+}
+
+.register-modal .form .form-group .input:focus + .label-group .label, .register-modal .form .label-group.active .label {
+    font-size: 14px;
+}
+
+.register-modal .form .input.input-warn {
+    border-color: var(--color-warn);
+    color: var(--color-warn);
+}
+
+.register-modal .form .warn {
+    font-size: 14px;
+    max-height: 20px;
+    color: var(--color-warn);
+    border: none;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+
+.register-modal .form .button {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    background-color: var(--color-primary);
+    border: none;
+    color: #ffffff;
+    position:relative
+}
+.register-modal .form .btn_social-login {
+    background-color: var(--color-primary-dark);
+}
+
+.register-modal .form .button:hover {
+    filter: brightness(1.1)
+}
+
+.register-modal .form .button[disabled='disabled']:hover {
+    filter: brightness(1)
+}
+
+.register-modal .other {
+    margin-top: 20px;
+    display: flex
+}
+
+.register-modal .other .box {
+    margin-right: auto;
+    display: flex
+}
+
+.register-modal .other .box a {
+    display: block
+}
+.register-modal .spinner-border-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media screen and (min-width:768px) {
+    .register-modal {
+        padding: 80px 0;
+    }
+    .register-modal .form .social-btn-grouping button {
+        width: 40%;
+        font-size: 16px;
+    }
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn{
+        font-size: 14px;
+    }
+    .register-modal .form .social-btn-grouping button#btnFacebookSignIn .spinner-border-wrap{
+        width: 15%;
+    }
+}
