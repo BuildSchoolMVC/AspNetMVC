@@ -1,6 +1,6 @@
 ## uCleaner - 打掃服務 專案
 
-![前台首頁](https://i.imgur.com/6SxcaYA.png)
+![前台首頁](https://i.imgur.com/6SxcaYAl.png)
 
 
 使用ASP .NET MVC完成前台網站開發，提供完整的購物流程，包括基本商業流程：
